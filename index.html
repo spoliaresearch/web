@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>SPOLIA</title>
+  </head>
+  <body style="background-color: black;">
+    <h1 style="color: white; font-family: Helvetica; font-size: 64px; text-align: center; margin: auto; padding-top: 40vh">
+    <div class="container">
+  <div class="letters">
+    <div class="letter">S</div>
+    <div class="letter">P</div>
+    <div class="letter">O</div>
+    <div class="letter">L</div>
+    <div class="letter">I</div>
+    <div class="letter">A</div>
+  </div>
+</div></h1>
+
+  </body>
+
+  <script>
+    var app = app || {
+	
+	init: function(){
+		app.change_to("SPOLIA");
+		app.animate_input();
+	},
+	
+	i: 0,
+	
+	animate_input: function(){
+		$("#change-text").on("click", function(){
+			app.i = 0;
+			app.change_to($("#new-text").val());
+		});
+	},
+	
+	change_to: function(chars){
+		
+		//Settings
+		var char_cycles = 20; //how many nonsense letters it cycles through
+		var char_cycle_length = 30; //length of each cycle in milliseconds
+		
+		//Hide/show characters to present proper number
+		$(".letter").removeClass("is-hidden");
+		for (var z = chars.length; z < 7; z++){
+			$(".letter").eq(z).addClass("is-hidden");
+		}
+		
+		//Cycle through the appropriate number of letters,
+		//according to the settings above
+		if (app.i < char_cycles){
+			setTimeout(function(){
+					app.i++;
+					for (var x = 0; x < chars.length; x++){
+						$(".letter").eq(x).text(app.all_characters[Math.floor((Math.random()*36))]);
+					}
+					app.change_to(chars);
+			}, char_cycle_length);
+		}
+		
+		//After cycling, assign the chosen characters
+		else {
+			chars = chars.toUpperCase();
+			for (var y = 0; y < chars.length; y++){
+				$(".letter").eq(y).text(chars.substring(y,y+1));
+			}
+		}
+			
+	},
+	
+	all_characters: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','1','2','3','4','5','6','7','8','9','0']
+	
+}
+
+$(document).ready(function(){
+	app.init();
+});
+  </script>
+</html>

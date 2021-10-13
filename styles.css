@@ -1,0 +1,39 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:700);
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 50px auto;
+  text-align: center;
+}
+
+.letters {
+  display: inline-block;
+}
+.letters::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.letter {
+  float: left;
+  width: 90px;
+  font-family: "Helvetica";
+  font-weight: 700;
+  font-size: 100px;
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.4s;
+  overflow: hidden;
+}
+.letter.is-hidden {
+  opacity: 1;
+  width: 0;
+  visibility: hidden;
+}
+
+.inputs {
+  text-align: center;
+}
