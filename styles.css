@@ -58,6 +58,12 @@
   animation:  fadeInFromNone 5s ease-in;
 }
 
+@media only screen and (max-width: 600px) {
+  .description {
+    font-size: 4.5rem;
+  }
+}
+
 
 @keyframes fadeInFromNone {
     0% {
