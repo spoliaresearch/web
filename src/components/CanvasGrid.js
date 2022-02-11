@@ -39,10 +39,10 @@ const CanvasGrid = () => {
   
   const [stars, setStars] = React.useState(INITIAL_STATE);
   const [mouseDown, setMouseDown] = React.useState(false);
-  const [screenWidth, setScreenWidth] = useState(
+  const [screenWidth, setScreenWidth] = React.useState(
     typeof window !== "undefined" ? window.innerWidth : 1280
   );
-  const [screenHeight, setScreenHeight] = useState(
+  const [screenHeight, setScreenHeight] = React.useState(
     typeof window !== "undefined" ? window.innerheight : 1080
   );
   const handleDragStart = (e) => {
