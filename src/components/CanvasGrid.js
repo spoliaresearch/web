@@ -8,16 +8,13 @@ import "./CanvasGrid.css";
 
 
 function generateShapes() {
-
-  if (typeof window == "undefined") {
-    return [];
+  if ( typeof window == "undefined" ) {
+    return;
   }
-
     let array = [];
     let index = -1;
       for (var j = 0; j < window.innerWidth ; j=j+40){
        for (var i = 0; i < window.innerHeight; i = i+40){
-           console.log(i)
            index +=1
             array.push({
     index: index.toString(),
@@ -39,12 +36,7 @@ const CanvasGrid = () => {
   
   const [stars, setStars] = React.useState(INITIAL_STATE);
   const [mouseDown, setMouseDown] = React.useState(false);
-  const [screenWidth, setScreenWidth] = React.useState(
-    typeof window !== "undefined" ? window.innerWidth : 1280
-  );
-  const [screenHeight, setScreenHeight] = React.useState(
-    typeof window !== "undefined" ? window.innerheight : 1080
-  );
+
   const handleDragStart = (e) => {
       if (!mouseDown)  return;
     const index = e.target.id();
@@ -78,7 +70,8 @@ const CanvasGrid = () => {
 
   return (
       <div className="canvas-grid">
-    <Stage width={screenWidth} height={screenHeight}>
+        {typeof window !== "undefined" && 
+    <Stage width={window.innerWidth} height={window.innerHeight}>
       <Layer>
         {stars.map((star) => (
           <Rect
@@ -97,6 +90,7 @@ const CanvasGrid = () => {
         ))}
       </Layer>
     </Stage>
+}
     </div>
   );
 };
