@@ -1,0 +1,28 @@
+@font-face {
+  font-family: "ITCGaramond";
+  src: url("../../fonts/itcgaramondstd-ltcond.otf");
+}
+.text {
+    mix-blend-mode: difference;
+    color: white;
+    position: absolute;
+    font-family: "ITCGaramond";
+    margin: 0 auto;
+    top: 100;
+    z-index: 5;
+    top: 300px;
+    font-size: 3vw;
+        pointer-events: none;
+}
+.text-header{
+     mix-blend-mode: difference;
+    color: white;
+    position: absolute;
+    font-family: "ITCGaramond";
+    margin: 0 auto;
+    top: 0;
+    z-index: 5;
+    top: 100px;
+    font-size: 10vw;
+        pointer-events: none;
+}

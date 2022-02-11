@@ -4,10 +4,11 @@ module.exports = {
     siteUrl: `https://www.yourdomain.tld`
   },
   plugins: [{
+    
     resolve: 'gatsby-source-contentful',
     options: {
       "accessToken": "SDHu4BPrJxVxmec0b53YueaYo-MbrsmVGEeQia1Zw2Q",
-      "spaceId": "6ylPZaL7DmZAYCbak3CWEk"
+      "spaceId": "5fgxk9k5jtko"
     }
   }, "gatsby-plugin-styled-components", "gatsby-plugin-image", "gatsby-plugin-react-helmet", "gatsby-plugin-sitemap", {
     resolve: 'gatsby-plugin-manifest',

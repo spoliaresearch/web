@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "babel-plugin-styled-components": "^2.0.2",
+    "canvas": "^2.9.0",
     "gatsby": "^4.6.1",
     "gatsby-plugin-image": "^2.6.0",
     "gatsby-plugin-manifest": "^4.6.0",
@@ -26,9 +27,11 @@
     "gatsby-source-contentful": "^7.4.0",
     "gatsby-source-filesystem": "^4.6.0",
     "gatsby-transformer-sharp": "^4.6.0",
+    "konva": "^8.3.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
+    "react-konva": "^17.0.2-5",
     "styled-components": "^5.3.3"
   }
 }
