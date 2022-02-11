@@ -5,12 +5,14 @@ import { Rect, Layer, Stage } from 'react-konva';
 import { StyleSheetManager } from 'styled-components';
 import "./CanvasGrid.css";
 
-const isBrowser = typeof window !== "undefined"
+
 
 function generateShapes() {
- if (!isBrowser) {
-    return;
-}
+
+  if (typeof window == "undefined") {
+    return [];
+  }
+
     let array = [];
     let index = -1;
       for (var j = 0; j < window.innerWidth ; j=j+40){
@@ -31,10 +33,18 @@ function generateShapes() {
 
 const INITIAL_STATE = generateShapes();
 
+
 const CanvasGrid = () => {
+  
+  
   const [stars, setStars] = React.useState(INITIAL_STATE);
   const [mouseDown, setMouseDown] = React.useState(false);
-  
+  const [screenWidth, setScreenWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1280
+  );
+  const [screenHeight, setScreenHeight] = useState(
+    typeof window !== "undefined" ? window.innerheight : 1080
+  );
   const handleDragStart = (e) => {
       if (!mouseDown)  return;
     const index = e.target.id();
@@ -68,7 +78,7 @@ const CanvasGrid = () => {
 
   return (
       <div className="canvas-grid">
-    <Stage width={window.innerWidth} height={window.innerHeight}>
+    <Stage width={screenWidth} height={screenHeight}>
       <Layer>
         {stars.map((star) => (
           <Rect
