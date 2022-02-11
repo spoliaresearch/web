@@ -4,10 +4,15 @@ import { render } from 'react-dom';
 import { Rect, Layer, Stage } from 'react-konva';
 import { StyleSheetManager } from 'styled-components';
 import "./CanvasGrid.css";
+
+const isBrowser = typeof window !== "undefined"
+
 function generateShapes() {
+ if (!isBrowser) {
+    return;
+}
     let array = [];
     let index = -1;
-    console.log(window.innerWidth);
       for (var j = 0; j < window.innerWidth ; j=j+40){
        for (var i = 0; i < window.innerHeight; i = i+40){
            console.log(i)
