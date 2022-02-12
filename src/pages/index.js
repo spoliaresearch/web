@@ -132,18 +132,21 @@ const links = [
 
 // markup
 const IndexPage = () => {
+    const [clicked, setClicked] = React.useState(false);
   return (
     <main style={pageStyles}>
       <title>Home Page</title>
      
-      <CanvasGrid></CanvasGrid>
+      <CanvasGrid clicked={clicked}></CanvasGrid>
        <div className="text-header">
 SPOLIA
       </div>
       <div className="text">
-Spolia is a community-driven design research lab building creative tools to aid in a more humane and sustainable web.
+Spolia is a community-driven design research lab building tools to make a more creative and sustainable web.
         
       </div>
+
+      <button onClick={() => setClicked(!clicked)} className="button"> {!clicked ? "draw" : "stop drawing"} </button>
      
     
     </main>

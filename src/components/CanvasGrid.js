@@ -31,7 +31,7 @@ function generateShapes() {
 const INITIAL_STATE = generateShapes();
 
 
-const CanvasGrid = () => {
+const CanvasGrid = (props) => {
   
   
   const [stars, setStars] = React.useState(INITIAL_STATE);
@@ -70,7 +70,8 @@ const CanvasGrid = () => {
 
   return (
       <div className="canvas-grid">
-        {typeof window !== "undefined" && 
+        {typeof window !== "undefined" && props.clicked && 
+
     <Stage width={window.innerWidth} height={window.innerHeight}>
       <Layer>
         {stars.map((star) => (
