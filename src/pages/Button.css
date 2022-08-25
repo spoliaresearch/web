@@ -1,37 +1,77 @@
 @font-face {
-  font-family: "ITCGaramond";
-  src: url("../../fonts/itcgaramondstd-ltcond.otf");
+  font-family: "Arizona Variable";
+  src:
+       url("../../fonts/ABCArizonaPlusVariable-Trial.woff2") format("woff2-variations"),
+       url("../../fonts/ABCArizonaPlusVariable-Trial.woff") format("woff-variations"),
+       url("../../fonts/ABCArizonaPlusVariable-Trial.ttf") format("truetype-variations");
 }
+
+html, body, div, p, h1,h2,h3,h4 {
+  font-family: "Arizona Variable";
+}
+
+
+
 .text {
     mix-blend-mode: difference;
     color: white;
     position: relative;
-    font-family: "ITCGaramond";
+      font-family: "Arizona Variable";
+    	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+    font-variation-settings: "wght" 300, "ital" 0, "SRFF" 55;
     margin: 0 auto;
     z-index: 5;
-    font-size: 3vw;
-        pointer-events: none;
+    font-size: 22px;
+ 
+letter-spacing: -.17px;
+    transition: all 1.3s ease;
+
+  animation-timing-function: ease-in-out;
+
+       
 }
 
-.text-header{
-     mix-blend-mode: difference;
-    color: white;
-    position: relative;
-    font-family: "ITCGaramond";
-    margin: 0 auto;
-    z-index: 5;
-    font-size: 10vw;
-        pointer-events: none;
-}
 
-button {
-  background-color: black;
-  color: white;
-  padding: 2px 4px;
-  border-radius: 1px;
-  z-index:5;
-  position:absolute;
-  right: 100px;
-  top: 100px;
+.draw {
+  border-bottom: 1px solid #fff;
   cursor: pointer;
+  pointer-events: all;
+    line-height: 1.1;
+    transition: all 0.6s ease;
 }
+
+.draw:hover {
+   
+     font-variation-settings: "wght" 500, "ital" 0, "SRFF" 70; 
+}
+
+a, a:hover, a:focus, a:active {
+      text-decoration: none;
+      color: inherit;
+ }
+
+ a  {
+  border-bottom: 1px solid #fff;
+  display: inline-block;
+      box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+  line-height: 1.1;
+  transition: all 0.6s ease;
+   
+  
+ }
+
+a:hover {
+    
+     font-variation-settings: "wght" 500, "ital" 0, "SRFF" 70; 
+}
+
+ .text:hover {
+   font-variation-settings: "wght" 200, "ital" 0, "SRFF" 0; 
+ 
+        letter-spacing: 0px;
+
+} 
+
+

@@ -13,8 +13,8 @@ function generateShapes() {
   }
     let array = [];
     let index = -1;
-      for (var j = 0; j < window.innerWidth ; j=j+40){
-       for (var i = 0; i < window.innerHeight; i = i+40){
+      for (var j = 0; j < window.innerWidth ; j=j+25){
+       for (var i = 0; i < window.innerHeight; i = i+25){
            index +=1
             array.push({
     index: index.toString(),
@@ -48,8 +48,8 @@ const CanvasGrid = (props) => {
                 return item;
             }
             else {
-        
                  return {
+                 
     ...item, isDragging: true 
     }
             }
@@ -80,8 +80,10 @@ const CanvasGrid = (props) => {
             id={star.index}
             x={star.x}
             y={star.y}
-            width={40}
-            height={40}
+            width={25}
+            height={25}
+            stroke={'#DEE0ED'}
+            strokeWidth={.15}
             fill={star.isDragging ? 'black' : "white"}
             onMouseEnter={handleDragStart}
             onMouseDown={() => (setMouseDown(true))}
