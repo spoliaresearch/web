@@ -23,10 +23,10 @@ const IndexPage = () => {
       <div className="text" style={ {  pointerEvents:clicked &&' none'}}>
         <h2>👋</h2>
 Spolia is a design-research lab building creative technologies. <br/>
-Often, we design products with startups and help in their implementation.  <br/>
+We design products with startups and help in their implementation.  <br/>
 Sometimes, we build cool things ourselves too.  <br/>
  <br/>
-Our mindful time-management app, <a href='https://usehone.com' target="_blank"><span>Hone</span></a>, should be released officially soon. <br/>
+Our mindful time-management app, <a href='https://apps.apple.com/us/app/hone-one-thing-at-a-time/id1624789090?mt=12' target="_blank"><span>Hone</span></a>, is now in public release on the Mac App Store. <br/>
 
 If you want to chat about working with us, or want to join our design collaborative,  <br/>
 contact us at <a href="mailto:hello@spolialab.com">hello@spolialab.com</a>. <br/> <br/>
