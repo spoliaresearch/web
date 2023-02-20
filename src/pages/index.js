@@ -17,7 +17,7 @@ const IndexPage = () => {
     const [clicked, setClicked] = React.useState(false);
   return (
     <main style={pageStyles}>
-      <title>Home Page</title>
+      <title>Spolia Lab</title>
      
       <CanvasGrid clicked={clicked}></CanvasGrid>
       <div className="text" style={ {  pointerEvents:clicked &&' none'}}>
@@ -33,6 +33,10 @@ contact us at <a href="mailto:hello@spolialab.com">hello@spolialab.com</a>. <br/
 
 If you just want something fun to do on this {new Date().toLocaleString('en-us', {  weekday: 'long' })},  <br/>
 you’re welcome to <span  onClick={() => setClicked(!clicked)} className="draw"> {!clicked ? "draw" : "stop drawing"}</span>  over this website.
+
+<span className="btLeft"> ⛘</span>
+<span className="btRight"> Spolia <br/> Lab</span>
+
       </div>
 
 

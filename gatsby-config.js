@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-      title: `Spolia`,
-    siteUrl: `https://www.yourdomain.tld`
+      title: `Spolia -- Design Research Lab`,
+    siteUrl: `https://www.spolialab.com`
   },
   plugins: [{
     
