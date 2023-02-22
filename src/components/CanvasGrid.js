@@ -85,9 +85,9 @@ const CanvasGrid = (props) => {
             stroke={'#DEE0ED'}
             strokeWidth={.15}
             fill={star.isDragging ? 'black' : "white"}
-            onMouseEnter={handleDragStart}
-            onMouseDown={() => (setMouseDown(true))}
-            onMouseUp={() => (setMouseDown(false))}
+            onPointerEnter={handleDragStart}
+            onPointerDown={() => (setMouseDown(true))}
+            onPointerUp={() => (setMouseDown(false))}
 
           />
         ))}

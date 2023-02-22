@@ -30,10 +30,10 @@ Our mindful time-management app, <a href='https://apps.apple.com/us/app/hone-one
 
 If you want to chat about working with us, or want to join our design collaborative,  <br/>
 contact us at <a href="mailto:hello@spolialab.com">hello@spolialab.com</a>. <br/> <br/>
-
+<span className="noMobile">
 If you just want something fun to do on this {new Date().toLocaleString('en-us', {  weekday: 'long' })},  <br/>
 you’re welcome to <span  onClick={() => setClicked(!clicked)} className="draw"> {!clicked ? "draw" : "stop drawing"}</span>  over this website.
-
+</span>
 <span className="btLeft"> ⛘</span>
 <span className="btRight"> Spolia <br/> Lab</span>
 

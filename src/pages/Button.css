@@ -10,7 +10,16 @@ html, body, div, p, h1,h2,h3,h4 {
   font-family: "Arizona Variable";
 }
 
+@media screen and (max-width:640px) {
+  .text {
+    font-size: 16px;
+    margin: 0;
+  }
 
+  main {
+    padding: 1rem !important;
+  }
+}
 
 .text {
     mix-blend-mode: difference;
@@ -29,6 +38,8 @@ letter-spacing: -.17px;
 
        
 }
+
+
 
 .btRight {
   position:fixed;
