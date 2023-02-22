@@ -15,13 +15,15 @@ const pageStyles = {
 // markup
 const IndexPage = () => {
     const [clicked, setClicked] = React.useState(false);
+      const mousePosition = useMousePosition();
   return (
     <main style={pageStyles}>
       <title>Spolia Lab</title>
      
       <CanvasGrid clicked={clicked}></CanvasGrid>
+              <h1 style={{margin: '0 auto', paddingLeft:'10rem',fontVariationSettings: `'wght' ${mousePosition.x / 2}, 'SRFF' ${mousePosition.y /5}, 'ital' 0` }}> SPOLIA </h1>
       <div className="text" style={ {  pointerEvents:clicked &&' none'}}>
-        <h2>👋</h2>
+
 Spolia is a design-research lab building creative technologies. <br/>
 We design products with startups and help in their implementation.  <br/>
 Sometimes, we build cool things ourselves too.  <br/>
@@ -46,4 +48,22 @@ you’re welcome to <span  onClick={() => setClicked(!clicked)} className="draw"
   )
 }
 
+const useMousePosition = () => {
+  const [
+    mousePosition,
+    setMousePosition
+  ] = React.useState({ x: null, y: null });
+  React.useEffect(() => {
+    const updateMousePosition = ev => {
+      setMousePosition({ x: ev.clientX, y: ev.clientY });
+    };
+    window.addEventListener('mousemove', updateMousePosition);
+    return () => {
+      window.removeEventListener('mousemove', updateMousePosition);
+    };
+  }, []);
+  return mousePosition;
+};
+
 export default IndexPage
+

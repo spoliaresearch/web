@@ -11,6 +11,11 @@ html, body, div, p, h1,h2,h3,h4 {
 }
 
 
+h1 {
+  font-size: 24rem;
+  letter-spacing: 1rem;
+    font-kerning: none;
+}
 
 .text {
     mix-blend-mode: difference;
