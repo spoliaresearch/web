@@ -38,6 +38,7 @@ const CanvasGrid = (props) => {
   const [mouseDown, setMouseDown] = React.useState(false);
 
   const handleDragStart = (e) => {
+    console.log(stars)
       if (!mouseDown)  return;
     const index = e.target.id();
 

@@ -5,3 +5,22 @@
     touch-action: none
 
 }
+
+.play {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    background-color: black;
+    border-radius: 3px;
+    z-index: 100;
+    padding: 7px 6px 3px 8px;
+    border: none;
+    color: white;
+
+   
+}
+.play  svg {
+        height: 24px;
+        width: 24px;
+        border-radius: 10px;
+    }

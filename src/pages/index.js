@@ -1,6 +1,8 @@
 import * as React from "react"
 import CanvasGrid from "../components/CanvasGrid"
 import './Button.css';
+import HeaderAnim from "../components/HeaderAnim"
+
 const pageStyles = {
   color: "#232129",
   padding: 96,
@@ -14,12 +16,19 @@ const pageStyles = {
 
 // markup
 const IndexPage = () => {
-    const [clicked, setClicked] = React.useState(false);
+      const [clicked, setClicked] = React.useState(false);
+  const [drawing, setDrawing] = React.useState(false);
+  const toggleDrawing = () => {
+  ;
+  };
   return (
+    <>
+          <HeaderAnim  clicked={clicked}/>
     <main style={pageStyles}>
+    
       <title>Spolia Lab</title>
-     
-      <CanvasGrid clicked={clicked}></CanvasGrid>
+
+      {/* <CanvasGrid clicked={clicked} ></CanvasGrid> */}
       <div className="text" style={ {  pointerEvents:clicked &&' none'}}>
         <h2>👋</h2>
 Spolia is a design-research lab building creative technologies. <br/>
@@ -33,6 +42,7 @@ contact us at <a href="mailto:hello@spolialab.com">hello@spolialab.com</a>. <br/
 <span className="noMobile">
 If you just want something fun to do on this {new Date().toLocaleString('en-us', {  weekday: 'long' })},  <br/>
 you’re welcome to <span  onClick={() => setClicked(!clicked)} className="draw"> {!clicked ? "draw" : "stop drawing"}</span>  over this website.
+  
 </span>
 <span className="btLeft"> ⛘</span>
 <span className="btRight"> Spolia <br/> Lab</span>
@@ -43,6 +53,7 @@ you’re welcome to <span  onClick={() => setClicked(!clicked)} className="draw"
      
     
     </main>
+    </>
   )
 }
 
