@@ -1,5 +1,4 @@
 import * as React from "react"
-import CanvasGrid from "../components/CanvasGrid"
 import './Button.css';
 import HeaderAnim from "../components/HeaderAnim"
 
