@@ -1,9 +1,75 @@
 import React, { useEffect, useState } from 'react';
 import { Stage, Layer, Rect } from 'react-konva';
 import "./CanvasGrid.css";
-const gridSizeX = Math.floor(window.innerWidth / 25);
-const gridSizeY = Math.floor(window.innerHeight / 25);
-const squareSize = 25;
+
+import outputGrid1 from '../../output1.json';
+import outputGrid2 from '../../output2.json';
+import outputGrid3 from '../../output3.json';
+import outputGrid4 from '../../output4.json';
+import outputGrid5 from '../../output5.json';
+import outputGrid6 from '../../output6.json';
+import outputGrid7 from '../../output7.json';
+import outputGrid8 from '../../output8.json';
+import outputGrid9 from '../../output9.json';
+import outputGrid10 from '../../output10.json';
+import outputGrid11 from '../../output11.json';
+import outputGrid12 from '../../output12.json';
+import outputGrid13 from '../../output13.json';
+import outputGrid14 from '../../output14.json';
+import outputGrid15 from '../../output15.json';
+import outputGrid16 from '../../output16.json';
+import outputGrid17 from '../../output17.json';
+import outputGrid18 from '../../output18.json';
+import outputGrid19 from '../../output19.json';
+import outputGrid20 from '../../output20.json';
+import outputGrid21 from '../../output21.json';
+import outputGrid22 from '../../output22.json';
+import outputGrid23 from '../../output23.json';
+import outputGrid24 from '../../output24.json';
+import outputGrid25 from '../../output25.json';
+import outputGrid26 from '../../output26.json';
+import outputGrid27 from '../../output27.json';
+import outputGrid28 from '../../output28.json';
+import outputGrid29 from '../../output29.json';
+import outputGrid30 from '../../output30.json';
+
+const grids = [
+  outputGrid1,
+  outputGrid2,
+  outputGrid3,
+  outputGrid4,
+  outputGrid5,
+  outputGrid6,
+  outputGrid7,
+  outputGrid8,
+  outputGrid9,
+  outputGrid10,
+  outputGrid11,
+  outputGrid12,
+  outputGrid13,
+  outputGrid14,
+  outputGrid15,
+  outputGrid16,
+  outputGrid17,
+  outputGrid18,
+  outputGrid19,
+  outputGrid20,
+  outputGrid21,
+  outputGrid22,
+  outputGrid23,
+  outputGrid24,
+  outputGrid25,
+  outputGrid26,
+  outputGrid27,
+  outputGrid28,
+  outputGrid29,
+  outputGrid30,
+];
+
+
+const gridSizeX = Math.floor(window.innerWidth / 15);
+const gridSizeY = Math.floor(window.innerHeight / 15);
+const squareSize = 15;
 
 const Boid = () => {
   const position = {
@@ -39,11 +105,42 @@ const INITIAL_STATE = generateShapes();
 
 const CombinedSketch = (props) => {
   const [boids, setBoids] = useState(Array.from({ length: 50 }, () => new Boid()));
-  const [grid, setGrid] = useState(
-    Array.from({ length: gridSizeX }, () =>
-      Array.from({ length: gridSizeY }, () => ({ color: 'white' }))
-    )
+
+
+
+
+
+const initializeGrid = () => {
+  // Pick a random grid from the array of grids
+  const randomGridIndex = Math.floor(Math.random() * grids.length);
+  const outputGrid = grids[randomGridIndex];
+
+  const offsetX = Math.floor((gridSizeX - outputGrid[0].length) / 2);
+  const offsetY = Math.floor((gridSizeY - outputGrid.length) / 2);
+
+  const newGrid = Array.from({ length: gridSizeX }, () =>
+    Array.from({ length: gridSizeY }, () => ({ color: 'white' }))
   );
+
+  for (let y = 0; y < outputGrid.length; y++) {
+    for (let x = 0; x < outputGrid[0].length; x++) {
+      newGrid[x + offsetX][y + offsetY] = outputGrid[y][x];
+    }
+  }
+
+  return newGrid;
+};
+
+//   const [grid, setGrid] = useState(
+//     Array.from({ length: gridSizeX }, () =>
+//       Array.from({ length: gridSizeY }, () => ({ color: 'white' }))
+//     )
+//   ); 
+//empty
+
+const [grid, setGrid] = useState(initializeGrid());
+
+
   const [stars, setStars] = useState(INITIAL_STATE);
   const [mouseDown, setMouseDown] = useState(false);
   const [drawing, setDrawing] = useState(true);
@@ -69,7 +166,7 @@ const CombinedSketch = (props) => {
             }
           }
 
-          if (closestBoidDist < 15) {
+          if (closestBoidDist < 10) {
             newGrid[x][y].color = 'black';
           } else {
             newGrid[x][y].color = 'white';
@@ -85,8 +182,8 @@ const CombinedSketch = (props) => {
       setBoids((prevBoids) =>
         prevBoids.map((boid) => {
           const cohesionRadius = 500;
-          const separationRadius = 800;
-          const alignmentRadius = 250;
+          const separationRadius = 50;
+          const alignmentRadius = 50;
           const maxSpeed = 1;
 
           let sumPositionCohesion = { x: 0, y: 0 };
@@ -254,24 +351,18 @@ const toggleDrawing = () => {
       <Stage  className="canvas-grid" width={gridSizeX * squareSize} height={gridSizeY * squareSize}>
         <Layer>
           {grid.map((column, x) =>
-            column.map((cell, y) => (
-           <Rect
-  key={`cell-${x}-${y}`}
-  x={x * squareSize}
-  y={(gridSizeY - y - 1) * squareSize} // updated calculation
-  width={squareSize}
-  height={squareSize}
-  fill={cell.color}
-  stroke={'#DEE0ED'}
-  strokeWidth={0.25}
-  onPointerEnter={drawing ? handleDragStart : null}
-  onPointerDown={() => (drawing ? setMouseDown(true) : null)}
-  onPointerUp={() => (drawing ? setMouseDown(false) : null)}
-/>
-
-
-            ))
-          )}
+  column.map((cell, y) => (
+    <MemoizedCell
+      x={x}
+      y={y}
+      gridSizeY={gridSizeY}
+      squareSize={squareSize}
+      cell={cell}
+      handleDragStart={handleDragStart}
+      drawing={drawing}
+    />
+  ))
+)}
         </Layer>
       </Stage></>
 }
@@ -280,3 +371,20 @@ const toggleDrawing = () => {
 };
 
 export default CombinedSketch;
+
+
+
+const MemoizedCell = React.memo(({ x, y, gridSizeY, squareSize, cell, handleDragStart, drawing }) => (
+  <Rect
+    key={`cell-${x}-${y}`}
+    x={x * squareSize}
+    y={(gridSizeY - y - 1) * squareSize} // updated calculation
+    width={squareSize}
+    height={squareSize}
+    fill={cell.color}
+    stroke={'#DEE0ED'}
+    strokeWidth={0.1}
+    onPointerEnter={drawing ? handleDragStart : null}
+  />
+));
+
