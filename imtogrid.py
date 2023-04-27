@@ -19,9 +19,9 @@ def image_to_grid(filename, square_size, grid_size_x, grid_size_y, threshold=160
     return grid
 
 def main():
-    square_size = 15
-    grid_size_x = 50
-    grid_size_y = 50
+    square_size = 13.333333333333334
+    grid_size_x = 80
+    grid_size_y = 80
 
     num_images = 30
     image_filenames = [f"./images/{i}.jpg" for i in range(1, num_images + 1)]

@@ -2,7 +2,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    touch-action: none
+    touch-action: none;
+    background-color:black;
 
 }
 
@@ -24,3 +25,21 @@
         width: 24px;
         border-radius: 10px;
     }
+
+
+
+    .stage-container {
+  transition: background-color 2s;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+}
+
+.stage-container.visible {
+  background-color: black !important;
+}
+
+.stage-container.hidden {
+  background-color: white;
+}

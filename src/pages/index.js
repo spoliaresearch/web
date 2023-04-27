@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useEffect, useState } from 'react';
 import './Button.css';
 import HeaderAnim from "../components/HeaderAnim"
 
@@ -15,20 +15,30 @@ const pageStyles = {
 
 // markup
 const IndexPage = () => {
-      const [clicked, setClicked] = React.useState(false);
+      const [isGridActive, setGridActive] = React.useState(true);
   const [drawing, setDrawing] = React.useState(false);
+  const [gridState, setGridState] = useState(true);
+
+  const handleGridStateChange = (newState) => {
+    setGridState(newState);
+  };
+
+   const handleGridActiveChange = (newState) => {
+    setGridActive(newState);
+  };
   const toggleDrawing = () => {
   ;
   };
   return (
     <>
-          <HeaderAnim  clicked={clicked}/>
+          <HeaderAnim   loading={gridState} setLoading={handleGridStateChange}  setClicked={handleGridActiveChange} clicked={isGridActive}/>
     <main style={pageStyles}>
-    
+
       <title>Spolia Lab</title>
 
       {/* <CanvasGrid clicked={clicked} ></CanvasGrid> */}
-      <div className="text" style={ {  pointerEvents:clicked &&' none'}}>
+          {!isGridActive && <>
+      <div className="text" style={ {  pointerEvents:isGridActive &&' none'}}>
         <h2>👋</h2>
 Spolia is a design-research lab building creative technologies. <br/>
 We design products with startups and help in their implementation.  <br/>
@@ -40,14 +50,15 @@ If you want to chat about working with us, or want to join our design collaborat
 contact us at <a href="mailto:hello@spolialab.com">hello@spolialab.com</a>. <br/> <br/>
 <span className="noMobile">
 If you just want something fun to do on this {new Date().toLocaleString('en-us', {  weekday: 'long' })},  <br/>
-you’re welcome to <span  onClick={() => setClicked(!clicked)} className="draw"> {!clicked ? "draw" : "stop drawing"}</span>  over this website.
+you’re welcome to <span  onClick={() => setGridActive(!isGridActive)} className="draw"> {!isGridActive ? "draw" : "stop drawing"}</span>  over this website.
   
 </span>
+
 <span className="btLeft"> ⛘</span>
 <span className="btRight"> Spolia <br/> Lab</span>
 
       </div>
-
+</>}
 
      
     

@@ -10,6 +10,12 @@ html, body, div, p, h1,h2,h3,h4 {
   font-family: "Arizona Variable";
 }
 
+.image {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
 @media screen and (max-width:640px) {
   .text {
     font-size: 16px;

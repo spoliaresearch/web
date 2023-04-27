@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Stage, Layer, Rect } from 'react-konva';
+import Konva from 'konva';
 import "./CanvasGrid.css";
 
 import outputGrid1 from '../../output1.json';
@@ -67,9 +68,9 @@ const grids = [
 ];
 
 
-const gridSizeX = Math.floor(window.innerWidth / 15);
-const gridSizeY = Math.floor(window.innerHeight / 15);
-const squareSize = 15;
+const gridSizeX = Math.floor(window.innerWidth / 13.333);
+const gridSizeY = Math.floor(window.innerHeight / 13.333);
+const squareSize = 13.333;
 
 const Boid = () => {
   const position = {
@@ -104,7 +105,33 @@ const generateShapes = () => {
 const INITIAL_STATE = generateShapes();
 
 const CombinedSketch = (props) => {
-  const [boids, setBoids] = useState(Array.from({ length: 50 }, () => new Boid()));
+  const initializeBoidsFromGrid = (grid) => {
+  const newBoids = [];
+  grid.forEach((column, x) => {
+    column.forEach((cell, y) => {
+      if (cell.color === 'white') {
+        newBoids.push({
+          x: x * squareSize + squareSize / 2,
+          y: y * squareSize + squareSize / 2,
+          vx: 0,
+          vy: 0,
+        });
+      }
+    });
+  });
+  return newBoids;
+};
+
+const layerRef = useRef();
+
+const [boids, setBoids] = useState([]);
+
+// useEffect(() => {
+//   setBoids(initializeBoidsFromGrid(grid));
+// }, [grid]);
+
+
+  const [animating, setAnimating] = useState(false);
 
 
 
@@ -119,7 +146,7 @@ const initializeGrid = () => {
   const offsetY = Math.floor((gridSizeY - outputGrid.length) / 2);
 
   const newGrid = Array.from({ length: gridSizeX }, () =>
-    Array.from({ length: gridSizeY }, () => ({ color: 'white' }))
+    Array.from({ length: gridSizeY }, () => ({ color: 'black' }))
   );
 
   for (let y = 0; y < outputGrid.length; y++) {
@@ -145,6 +172,33 @@ const [grid, setGrid] = useState(initializeGrid());
   const [mouseDown, setMouseDown] = useState(false);
   const [drawing, setDrawing] = useState(true);
 
+  const handleClick = () => {
+    const layer = layerRef.current;
+    const rects = layer.getChildren();
+    let maxTimeout = 0;
+
+    rects.forEach((rect, index) => {
+      if (rect.getAttr('fill') === 'white') {
+        const timeout = 300 + index * Math.random() / 50;
+        maxTimeout = Math.max(maxTimeout, timeout);
+
+        setTimeout(() => {
+          const animation = new Konva.Animation((frame) => {
+            rect.setAttr('fill', 'black');
+          }, layer);
+          animation.start();
+        }, timeout);
+      }
+    });
+
+    setTimeout(() => {
+      props.setClicked(false);
+      console.log('boom')
+    }, maxTimeout);
+  };
+
+
+
 
    useEffect(() => {
     if (drawing) return;
@@ -166,10 +220,10 @@ const [grid, setGrid] = useState(initializeGrid());
             }
           }
 
-          if (closestBoidDist < 10) {
-            newGrid[x][y].color = 'black';
-          } else {
+          if (closestBoidDist < 11.5) {
             newGrid[x][y].color = 'white';
+          } else {
+            newGrid[x][y].color = 'black';
           }
         }
       }
@@ -181,10 +235,10 @@ const [grid, setGrid] = useState(initializeGrid());
     const interval = setInterval(() => {
       setBoids((prevBoids) =>
         prevBoids.map((boid) => {
-          const cohesionRadius = 500;
+          const cohesionRadius = 50;
           const separationRadius = 50;
           const alignmentRadius = 50;
-          const maxSpeed = 1;
+          const maxSpeed = 5;
 
           let sumPositionCohesion = { x: 0, y: 0 };
           let sumPositionSeparation = { x: 0, y: 0 };
@@ -295,10 +349,12 @@ const [grid, setGrid] = useState(initializeGrid());
       updateGrid();
     }, 75);
 
+
     return () => {
       clearInterval(interval);
     };
   }, [boids, grid, drawing]);
+
 
 const handleDragStart = (e) => {
   if (!mouseDown) return;
@@ -319,7 +375,7 @@ const handleDragStart = (e) => {
 
 
 const toggleDrawing = () => {
-  if (drawing) {
+  // if (drawing) {
     const newBoids = [];
     grid.forEach((column, x) => {
       column.forEach((cell, y) => {
@@ -334,22 +390,22 @@ const toggleDrawing = () => {
       });
     });
     setBoids(newBoids);
-  }
-  setDrawing(!drawing);
+  // }
+  // setDrawing(!drawing);
 };
 
 
 
   return (
   
-    <div>
+    <div className={`stage-container ${props.clicked ? 'visible' : 'hidden'}`}>
            {props.clicked && <>
       <button  class='play' onClick={toggleDrawing}>{drawing ? <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
   <polygon points="5 0, 25 15, 5 30" fill="#fff" /> Play
 </svg>
  : 'Draw'}</button>
-      <Stage  className="canvas-grid" width={gridSizeX * squareSize} height={gridSizeY * squareSize}>
-        <Layer>
+      <Stage  className="canvas-grid"  width={gridSizeX * squareSize} height={gridSizeY * squareSize}>
+        <Layer ref={layerRef} >
           {grid.map((column, x) =>
   column.map((cell, y) => (
     <MemoizedCell
@@ -360,6 +416,7 @@ const toggleDrawing = () => {
       cell={cell}
       handleDragStart={handleDragStart}
       drawing={drawing}
+      handleClick={handleClick}
     />
   ))
 )}
@@ -374,7 +431,7 @@ export default CombinedSketch;
 
 
 
-const MemoizedCell = React.memo(({ x, y, gridSizeY, squareSize, cell, handleDragStart, drawing }) => (
+const MemoizedCell = React.memo(({ x, y, gridSizeY, squareSize, cell, handleDragStart, drawing, handleClick }) => (
   <Rect
     key={`cell-${x}-${y}`}
     x={x * squareSize}
@@ -382,9 +439,10 @@ const MemoizedCell = React.memo(({ x, y, gridSizeY, squareSize, cell, handleDrag
     width={squareSize}
     height={squareSize}
     fill={cell.color}
-    stroke={'#DEE0ED'}
-    strokeWidth={0.1}
+    stroke={'#000'}
+    strokeWidth={0.25}
     onPointerEnter={drawing ? handleDragStart : null}
+    onClick={handleClick}
   />
 ));
 
