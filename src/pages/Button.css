@@ -8,6 +8,20 @@
 
 html, body, div, p, h1,h2,h3,h4 {
   font-family: "Arizona Variable";
+
+}
+
+
+
+.stretched-text {
+  -webkit-transform: scaleY(1.15); /* Chrome, Safari, and Opera */
+  -ms-transform: scaleY(1.15);     /* Internet Explorer 9 */
+  -moz-transform: scaleY(1.15);    /* Firefox */
+  -o-transform: scaleY(1.15);      /* Opera (older versions) */
+  transform: scaleY(1.15);         /* Standard syntax */
+  font-size: 2.55rem;
+  letter-spacing: -2px;
+      font-variation-settings: "wght" 350, "ital" 0, "SRFF" 50;
 }
 
 .image {

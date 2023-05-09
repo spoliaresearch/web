@@ -5,9 +5,11 @@ import HeaderAnim from "../components/HeaderAnim"
 const pageStyles = {
   color: "#232129",
   padding: 96,
+  zIndex: 10,
   maxWidth: '100vw',
   height: '100vh',
   backgroundColor: "white",
+  paddingTop: '100vh',
   fontFamily: "-apple-system, Roboto, sans-serif, serif",
 }
 
@@ -37,9 +39,9 @@ const IndexPage = () => {
       <title>Spolia Lab</title>
 
       {/* <CanvasGrid clicked={clicked} ></CanvasGrid> */}
-          {!isGridActive && <>
+          { <>
       <div className="text" style={ {  pointerEvents:isGridActive &&' none'}}>
-        <h2>👋</h2>
+        <h2 >👋</h2>
 Spolia is a design-research lab building creative technologies. <br/>
 We design products with startups and help in their implementation.  <br/>
 Sometimes, we build cool things ourselves too.  <br/>

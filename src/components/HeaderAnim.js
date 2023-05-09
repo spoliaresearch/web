@@ -68,11 +68,7 @@ const grids = [
 ];
 
 
-const gridSizeX = Math.floor(window.innerWidth / 13.333);
-const gridSizeY = Math.floor(window.innerHeight / 13.333);
-const squareSize = 13.333;
-
-const Boid = () => {
+const Boid = (gridSizeX,gridSizeY,squareSize) => {
   const position = {
     x: Math.random() * gridSizeX * squareSize,
     y: Math.random() * gridSizeY * squareSize,
@@ -83,7 +79,7 @@ const Boid = () => {
   return position;
 };
 
-const generateShapes = () => {
+const generateShapes = (gridSizeX,gridSizeY,squareSize) => {
   let array = [];
   let index = -1;
   for (var i = 0; i < gridSizeY; i++) {
@@ -137,7 +133,7 @@ const [boids, setBoids] = useState([]);
 
 
 
-const initializeGrid = () => {
+const initializeGrid = (gridSizeX,gridSizeY) => {
   // Pick a random grid from the array of grids
   const randomGridIndex = Math.floor(Math.random() * grids.length);
   const outputGrid = grids[randomGridIndex];
@@ -165,7 +161,25 @@ const initializeGrid = () => {
 //   ); 
 //empty
 
-const [grid, setGrid] = useState(initializeGrid());
+
+const [gridSizeX, setGridSizeX] = useState(0);
+const [gridSizeY, setGridSizeY] = useState(0);
+const [grid, setGrid] = useState([]);
+const squareSize = 10;
+
+
+useEffect(() => {
+  if (typeof window !== 'undefined') {
+   const computedGridSizeX = Math.floor(window.innerWidth / 10);
+    const computedGridSizeY = Math.floor(window.innerHeight / 10);
+
+    setGridSizeX(computedGridSizeX);
+    setGridSizeY(computedGridSizeY);
+    setGrid(initializeGrid(computedGridSizeX, computedGridSizeY));
+  }
+  
+}, []);
+
 
 
   const [stars, setStars] = useState(INITIAL_STATE);
@@ -173,27 +187,60 @@ const [grid, setGrid] = useState(initializeGrid());
   const [drawing, setDrawing] = useState(true);
 
   const handleClick = () => {
-    const layer = layerRef.current;
-    const rects = layer.getChildren();
-    let maxTimeout = 0;
+     const layer = layerRef.current;
+  const rects = layer.getChildren();
+  let maxTimeout = 0;
 
-    rects.forEach((rect, index) => {
-      if (rect.getAttr('fill') === 'white') {
-        const timeout = 300 + index * Math.random() / 50;
-        maxTimeout = Math.max(maxTimeout, timeout);
+  rects.forEach((rect, index) => {
+    if (rect.getAttr('fill') === 'white') {
+      const timeout = 100 - index * Math.random() / (1 + (index / 300));
+      maxTimeout = Math.max(maxTimeout, timeout);
 
-        setTimeout(() => {
-          const animation = new Konva.Animation((frame) => {
-            rect.setAttr('fill', 'black');
-          }, layer);
-          animation.start();
-        }, timeout);
-      }
-    });
+      setTimeout(() => {
+        const animation = new Konva.Animation((frame) => {
+          const x = Math.floor(rect.x() / squareSize);
+          const y = Math.floor(rect.y() / squareSize);
+          const neighbors = [
+            [x - 1, y - 1],
+            [x, y - 1],
+            [x + 1, y - 1],
+            [x - 1, y],
+            [x + 1, y],
+            [x - 1, y + 1],
+            [x, y + 1],
+            [x + 1, y + 1],
+          ];
+
+          let aliveNeighbors = 0;
+
+          neighbors.forEach(([nx, ny]) => {
+            if (nx >= 0 && nx < gridSizeX && ny >= 0 && ny < gridSizeY) {
+              const neighborRect = layer.getIntersection({
+                x: nx * squareSize + squareSize / 2,
+                y: ny * squareSize + squareSize / 2,
+              });
+
+              if (neighborRect && neighborRect.getAttr('fill') === 'white') {
+                aliveNeighbors++;
+              }
+            }
+          });
+
+          if (aliveNeighbors === 5 || (aliveNeighbors === 4 && rect.getAttr('fill') === 'white')) {
+            rect.setAttr('fill', 'blue');
+          } else {
+            rect.setAttr('fill', 'red');
+          }
+        }, layer);
+        animation.start();
+      }, timeout);
+    }
+  });
+
 
     setTimeout(() => {
       props.setClicked(false);
-      console.log('boom')
+
     }, maxTimeout);
   };
 
