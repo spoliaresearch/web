@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './Button.css';
-import HeaderAnim from "../components/HeaderAnim"
-
+import HeaderAnim from "../components/HeaderAnim";
+import Layout from "../components/Layout";
 const pageStyles = {
   color: "#232129",
-  padding: 96,
+  padding: 0,
   zIndex: 10,
   maxWidth: '100vw',
   height: '100vh',
   backgroundColor: "white",
-  paddingTop: '100vh',
   fontFamily: "-apple-system, Roboto, sans-serif, serif",
 }
 
@@ -32,16 +31,20 @@ const IndexPage = () => {
   ;
   };
   return (
-    <>
-          <HeaderAnim   loading={gridState} setLoading={handleGridStateChange}  setClicked={handleGridActiveChange} clicked={isGridActive}/>
+    <Layout>
+ <title>Spolia Lab</title>
     <main style={pageStyles}>
+      <div style={{display:'grid', gridTemplateColumns:'1fr 1fr'}}>
+                        <HeaderAnim   loading={gridState} setLoading={handleGridStateChange}  setClicked={handleGridActiveChange} clicked={isGridActive}/>
+<h2 className='text'>Spolia is an indie design research lab.<br/>
+We build mindful & creative technology inspired by the past.</h2>
+     
 
-      <title>Spolia Lab</title>
-
+</div>
       {/* <CanvasGrid clicked={clicked} ></CanvasGrid> */}
           { <>
       <div className="text" style={ {  pointerEvents:isGridActive &&' none'}}>
-        <h2 >👋</h2>
+        
 Spolia is a design-research lab building creative technologies. <br/>
 We design products with startups and help in their implementation.  <br/>
 Sometimes, we build cool things ourselves too.  <br/>
@@ -65,7 +68,7 @@ you’re welcome to <span  onClick={() => setGridActive(!isGridActive)} classNam
      
     
     </main>
-    </>
+    </Layout>
   )
 }
 

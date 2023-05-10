@@ -1,9 +1,10 @@
 .canvas-grid {
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: relative;
     touch-action: none;
     background-color:black;
+    margin: auto;
+
+
 
 }
 
@@ -30,10 +31,8 @@
 
     .stage-container {
   transition: background-color 2s;
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
+  margin: 1rem 0;
+
 }
 
 .stage-container.visible {

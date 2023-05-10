@@ -13,6 +13,7 @@ html, body, div, p, h1,h2,h3,h4 {
 
 
 
+
 .stretched-text {
   -webkit-transform: scaleY(1.15); /* Chrome, Safari, and Opera */
   -ms-transform: scaleY(1.15);     /* Internet Explorer 9 */
@@ -56,8 +57,18 @@ letter-spacing: -.17px;
 
   animation-timing-function: ease-in-out;
 
+
+  
        
 }
+
+h2.text  {
+  font-size: 1.66rem;
+   font-variation-settings: "wght" 200, "ital" 0, "SRFF" 50;
+   line-height: 1.15;
+   margin-left: 1rem;
+}
+
 
 
 

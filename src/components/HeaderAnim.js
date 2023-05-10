@@ -34,6 +34,7 @@ import outputGrid28 from '../../output28.json';
 import outputGrid29 from '../../output29.json';
 import outputGrid30 from '../../output30.json';
 
+
 const grids = [
   outputGrid1,
   outputGrid2,
@@ -99,13 +100,14 @@ const generateShapes = (gridSizeX,gridSizeY,squareSize) => {
 
 
 const INITIAL_STATE = generateShapes();
-
+const mainColor = "white";
+const secondaryColor = "black";
 const CombinedSketch = (props) => {
   const initializeBoidsFromGrid = (grid) => {
   const newBoids = [];
   grid.forEach((column, x) => {
     column.forEach((cell, y) => {
-      if (cell.color === 'white') {
+      if (cell.color === mainColor) {
         newBoids.push({
           x: x * squareSize + squareSize / 2,
           y: y * squareSize + squareSize / 2,
@@ -138,12 +140,14 @@ const initializeGrid = (gridSizeX,gridSizeY) => {
   const randomGridIndex = Math.floor(Math.random() * grids.length);
   const outputGrid = grids[randomGridIndex];
 
-  const offsetX = Math.floor((gridSizeX - outputGrid[0].length) / 2);
-  const offsetY = Math.floor((gridSizeY - outputGrid.length) / 2);
+  const offsetX = Math.floor(1);
+  const offsetY = Math.floor(1);
 
   const newGrid = Array.from({ length: gridSizeX }, () =>
-    Array.from({ length: gridSizeY }, () => ({ color: 'black' }))
+    Array.from({ length: gridSizeY }, () => ({ color: secondaryColor }))
   );
+
+
 
   for (let y = 0; y < outputGrid.length; y++) {
     for (let x = 0; x < outputGrid[0].length; x++) {
@@ -156,7 +160,7 @@ const initializeGrid = (gridSizeX,gridSizeY) => {
 
 //   const [grid, setGrid] = useState(
 //     Array.from({ length: gridSizeX }, () =>
-//       Array.from({ length: gridSizeY }, () => ({ color: 'white' }))
+//       Array.from({ length: gridSizeY }, () => ({ color: mainColor }))
 //     )
 //   ); 
 //empty
@@ -165,13 +169,15 @@ const initializeGrid = (gridSizeX,gridSizeY) => {
 const [gridSizeX, setGridSizeX] = useState(0);
 const [gridSizeY, setGridSizeY] = useState(0);
 const [grid, setGrid] = useState([]);
-const squareSize = 10;
+const squareSize = 9;
 
 
 useEffect(() => {
   if (typeof window !== 'undefined') {
-   const computedGridSizeX = Math.floor(window.innerWidth / 10);
-    const computedGridSizeY = Math.floor(window.innerHeight / 10);
+  //  const computedGridSizeX = Math.floor(window.innerWidth / 9 - 8);
+  //   const computedGridSizeY = Math.floor(window.innerHeight / 9 - 13);
+   const computedGridSizeX = 81;
+    const computedGridSizeY = 81;
 
     setGridSizeX(computedGridSizeX);
     setGridSizeY(computedGridSizeY);
@@ -192,7 +198,7 @@ useEffect(() => {
   let maxTimeout = 0;
 
   rects.forEach((rect, index) => {
-    if (rect.getAttr('fill') === 'white') {
+    if (rect.getAttr('fill') === mainColor) {
       const timeout = 100 - index * Math.random() / (1 + (index / 300));
       maxTimeout = Math.max(maxTimeout, timeout);
 
@@ -220,13 +226,13 @@ useEffect(() => {
                 y: ny * squareSize + squareSize / 2,
               });
 
-              if (neighborRect && neighborRect.getAttr('fill') === 'white') {
+              if (neighborRect && neighborRect.getAttr('fill') === mainColor) {
                 aliveNeighbors++;
               }
             }
           });
 
-          if (aliveNeighbors === 5 || (aliveNeighbors === 4 && rect.getAttr('fill') === 'white')) {
+          if (aliveNeighbors === 5 || (aliveNeighbors === 4 && rect.getAttr('fill') === mainColor)) {
             rect.setAttr('fill', 'blue');
           } else {
             rect.setAttr('fill', 'red');
@@ -268,9 +274,9 @@ useEffect(() => {
           }
 
           if (closestBoidDist < 11.5) {
-            newGrid[x][y].color = 'white';
+            newGrid[x][y].color = mainColor;
           } else {
-            newGrid[x][y].color = 'black';
+            newGrid[x][y].color = secondaryColor;
           }
         }
       }
@@ -412,7 +418,7 @@ const handleDragStart = (e) => {
   if (x < gridSizeX && y < gridSizeY) {
     setGrid((prevGrid) => {
       const newGrid = JSON.parse(JSON.stringify(prevGrid));
-      newGrid[x][y].color = 'black';
+      newGrid[x][y].color = secondaryColor;
       return newGrid;
     });
   }
@@ -426,7 +432,7 @@ const toggleDrawing = () => {
     const newBoids = [];
     grid.forEach((column, x) => {
       column.forEach((cell, y) => {
-        if (cell.color === 'black') {
+        if (cell.color === secondaryColor) {
           newBoids.push({
             x: x * squareSize + squareSize / 2,
             y: y * squareSize + squareSize / 2,
@@ -441,7 +447,7 @@ const toggleDrawing = () => {
   // setDrawing(!drawing);
 };
 
-
+ 
 
   return (
   
@@ -486,7 +492,7 @@ const MemoizedCell = React.memo(({ x, y, gridSizeY, squareSize, cell, handleDrag
     width={squareSize}
     height={squareSize}
     fill={cell.color}
-    stroke={'#000'}
+    stroke={secondaryColor}
     strokeWidth={0.25}
     onPointerEnter={drawing ? handleDragStart : null}
     onClick={handleClick}
