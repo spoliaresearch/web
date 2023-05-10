@@ -34,13 +34,11 @@ const IndexPage = () => {
     <Layout>
  <title>Spolia Lab</title>
     <main style={pageStyles}>
-      <div style={{display:'grid', gridTemplateColumns:'1fr 1fr'}}>
-                        <HeaderAnim   loading={gridState} setLoading={handleGridStateChange}  setClicked={handleGridActiveChange} clicked={isGridActive}/>
 <h2 className='text'>Spolia is an indie design research lab.<br/>
 We build mindful & creative technology inspired by the past.</h2>
      
+                <HeaderAnim   loading={gridState} setLoading={handleGridStateChange}  setClicked={handleGridActiveChange} clicked={isGridActive}/>
 
-</div>
       {/* <CanvasGrid clicked={clicked} ></CanvasGrid> */}
           { <>
       <div className="text" style={ {  pointerEvents:isGridActive &&' none'}}>

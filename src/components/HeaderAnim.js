@@ -140,14 +140,12 @@ const initializeGrid = (gridSizeX,gridSizeY) => {
   const randomGridIndex = Math.floor(Math.random() * grids.length);
   const outputGrid = grids[randomGridIndex];
 
-  const offsetX = Math.floor(1);
-  const offsetY = Math.floor(1);
+  const offsetX = Math.floor((gridSizeX - outputGrid[0].length) / 2);
+  const offsetY = Math.floor((gridSizeY - outputGrid.length) / 2);
 
   const newGrid = Array.from({ length: gridSizeX }, () =>
     Array.from({ length: gridSizeY }, () => ({ color: secondaryColor }))
   );
-
-
 
   for (let y = 0; y < outputGrid.length; y++) {
     for (let x = 0; x < outputGrid[0].length; x++) {
@@ -174,10 +172,8 @@ const squareSize = 9;
 
 useEffect(() => {
   if (typeof window !== 'undefined') {
-  //  const computedGridSizeX = Math.floor(window.innerWidth / 9 - 8);
-  //   const computedGridSizeY = Math.floor(window.innerHeight / 9 - 13);
-   const computedGridSizeX = 81;
-    const computedGridSizeY = 81;
+   const computedGridSizeX = Math.floor(window.innerWidth / 9 - 8);
+    const computedGridSizeY = Math.floor(window.innerHeight / 9 - 12);
 
     setGridSizeX(computedGridSizeX);
     setGridSizeY(computedGridSizeY);
