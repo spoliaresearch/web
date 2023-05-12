@@ -1,5 +1,5 @@
 .Footer {
-    border-top: 2px solid white;
+    border-top: 1px solid white;
     padding-top: 2rem;
 }
 .Footer .text {
@@ -8,3 +8,4 @@
     font-size: 2.25rem;
     line-height: 1.1;
 }
+

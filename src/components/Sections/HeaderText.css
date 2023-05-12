@@ -3,10 +3,14 @@
     padding: 0rem;
 }
 
-.HeaderTex hr {
+.HeaderText hr {
   margin-bottom: 0;
   padding-bottom: 0;
   line-height: 0;
+  height: 1px;
+  border:none;
+    color: #fff;  /* old IE */
+  background-color: #fff;  /* Modern Browsers */
 }
 
 .OneLiner {

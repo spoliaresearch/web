@@ -73,8 +73,8 @@ const IndexPage = () => {
           backgroundColor: 'black',
           zIndex: 2,
           fontSize: '1.75rem',
-          paddingBottom: '3rem',
-          paddingTop: '1.75rem',
+          paddingBottom: '3.5rem',
+          paddingTop: '2.25rem',
           marginTop:'95vh',
           position: isHeaderSticky ? 'sticky' : 'relative',
           top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
@@ -98,7 +98,7 @@ const IndexPage = () => {
             overflowY: 'auto',
             position: isHeaderSticky ? 'sticky' : 'relative',
             backgroundColor: 'black',
-            borderRight: '1.5px solid white',
+            borderRight: '1px solid white',
             top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef.current.offsetHeight : 'initial',
           }}
         />

@@ -24,14 +24,7 @@ const ProjectContent = React.forwardRef((props, ref) => {
   return (
     <div className="ProjectContent" ref={ref} style={props.style}>
         <div className="mainContent">
-           <div  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
-        {imageSource === 'dith' ? (
-          <StaticImage src="../../images/dith.JPG" alt="Dith" />
-        ) : (
-          <StaticImage src="../../images/undith.jpg" alt="Second Image" /> // Replace with the correct path and alt text
-        )}
-      </div>
-      <div>{hoverText}</div>
+      
     <p>Welcome to Spolia Lab, our dedicated space on the internet for design research and open collaboration. We are delighted to have you join us as we explore the fascinating intersections of innovation, technology, and sustainability.</p>
     <p>At Spolia Lab, we draw inspiration from the concept of architectural spolia, a practice of repurposing materials from older buildings for new constructions. This approach encourages lateral thinking and helps us reimagine the ways we engage with technology. To learn more about the connection between spolia and technology, we invite you to read our comprehensive post <a href="#link">here</a>.</p>
     <p>Our website is designed with user-friendliness in mind, making it easy for you to navigate and engage with our content. We share our projects, essays, thoughts, and other resources in a format similar to an email inbox. To access these resources, simply refer to the left side of the screen, where you will find a sortable, filterable, and searchable list of content.</p>
@@ -45,6 +38,14 @@ const ProjectContent = React.forwardRef((props, ref) => {
 
  <div className="context">
   <p>Spolia (Latin: 'spoils') is repurposed building stone for new construction or decorative sculpture reused in new monuments. </p>
+       <div  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
+        {imageSource === 'dith' ? (
+          <StaticImage src="../../images/dith.JPG" alt="Dith" />
+        ) : (
+          <StaticImage src="../../images/undith.jpg" alt="Second Image" /> // Replace with the correct path and alt text
+        )}
+      </div>
+      <div>{hoverText}</div>
  </div>
  </div>
   );
