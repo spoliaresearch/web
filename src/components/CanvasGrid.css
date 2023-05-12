@@ -30,8 +30,9 @@
 
 
     .stage-container {
-  transition: background-color 2s;
-  margin: 1rem 0;
+  transition: background-color .5s;
+  margin: 0;
+  margin-bottom: 1rem;
 
 }
 

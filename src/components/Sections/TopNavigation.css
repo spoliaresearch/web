@@ -1,0 +1,29 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+    /* border-top: 1px solid white; */
+}
+.nav span {
+  padding-left: .66rem;
+  padding-right: .33rem;
+
+}
+
+.nav span a {
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+.logo {
+  font-family: "Arizona Variable";
+    	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+    font-variation-settings: "wght" 350, "ital" 0, "SRFF" 50;
+       transition: all 1s ease;
+       letter-spacing:.25px
+}
+
+.logo:hover {
+     font-variation-settings: "wght" 600, "ital" 0, "SRFF" 00;
+     letter-spacing: -.25px;
+     cursor: pointer;
+}

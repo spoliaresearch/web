@@ -1,0 +1,497 @@
+import './Canvas.css';
+import React, { useEffect, useState, useRef } from 'react';
+import { Stage, Layer, Rect } from 'react-konva';
+import Konva from 'konva';
+// import "./CanvasGrid.css";
+
+import outputGrid1 from './grids/output1.json';
+import outputGrid2 from './grids/output2.json';
+import outputGrid3 from './grids/output3.json';
+import outputGrid4 from './grids/output4.json';
+import outputGrid5 from './grids/output5.json';
+import outputGrid6 from './grids/output6.json';
+import outputGrid7 from './grids/output7.json';
+import outputGrid8 from './grids/output8.json';
+import outputGrid9 from './grids/output9.json';
+import outputGrid10 from './grids/output10.json';
+import outputGrid11 from './grids/output11.json';
+import outputGrid12 from './grids/output12.json';
+import outputGrid13 from './grids/output13.json';
+import outputGrid14 from './grids/output14.json';
+import outputGrid15 from './grids/output15.json';
+import outputGrid16 from './grids/output16.json';
+import outputGrid17 from './grids/output17.json';
+import outputGrid18 from './grids/output18.json';
+import outputGrid19 from './grids/output19.json';
+import outputGrid20 from './grids/output20.json';
+import outputGrid21 from './grids/output21.json';
+import outputGrid22 from './grids/output22.json';
+import outputGrid23 from './grids/output23.json';
+import outputGrid24 from './grids/output24.json';
+import outputGrid25 from './grids/output25.json';
+import outputGrid26 from './grids/output26.json';
+import outputGrid27 from './grids/output27.json';
+import outputGrid28 from './grids/output28.json';
+import outputGrid29 from './grids/output29.json';
+import outputGrid30 from './grids/output30.json';
+
+
+const grids = [
+  outputGrid1,
+  outputGrid2,
+  outputGrid3,
+  outputGrid4,
+  outputGrid5,
+  outputGrid6,
+  outputGrid7,
+  outputGrid8,
+  outputGrid9,
+  outputGrid10,
+  outputGrid11,
+  outputGrid12,
+  outputGrid13,
+  outputGrid14,
+  outputGrid15,
+  outputGrid16,
+  outputGrid17,
+  outputGrid18,
+  outputGrid19,
+  outputGrid20,
+  outputGrid21,
+  outputGrid22,
+  outputGrid23,
+  outputGrid24,
+  outputGrid25,
+  outputGrid26,
+  outputGrid27,
+  outputGrid28,
+  outputGrid29,
+  outputGrid30,
+];
+
+
+const Boid = (gridSizeX,gridSizeY,squareSize) => {
+  const position = {
+    x: Math.random() * gridSizeX * squareSize,
+    y: Math.random() * gridSizeY * squareSize,
+    vx: 0,
+    vy: 0,
+  };
+
+  return position;
+};
+
+const generateShapes = (gridSizeX,gridSizeY,squareSize) => {
+  let array = [];
+  let index = -1;
+  for (var i = 0; i < gridSizeY; i++) {
+    for (var j = 0; j < gridSizeX; j++) {
+      index += 1;
+      array.push({
+        index: index.toString(),
+        x: j,
+        y: i,
+        rotation: 0,
+        isDragging: false,
+      });
+    }
+  }
+  return array;
+};
+
+
+const INITIAL_STATE = generateShapes();
+const mainColor = "black";
+const secondaryColor = "white";
+
+const Canvas = React.forwardRef((props, ref) => {
+  const initializeBoidsFromGrid = (grid) => {
+  const newBoids = [];
+  grid.forEach((column, x) => {
+    column.forEach((cell, y) => {
+      if (cell.color === mainColor) {
+        newBoids.push({
+          x: x * squareSize + squareSize / 2,
+          y: y * squareSize + squareSize / 2,
+          vx: 0,
+          vy: 0,
+        });
+      }
+    });
+  });
+  return newBoids;
+};
+
+const layerRef = useRef();
+
+const [boids, setBoids] = useState([]);
+
+// useEffect(() => {
+//   setBoids(initializeBoidsFromGrid(grid));
+// }, [grid]);
+
+
+  const [animating, setAnimating] = useState(false);
+
+
+
+
+
+const initializeGrid = (gridSizeX,gridSizeY) => {
+  // Pick a random grid from the array of grids
+  const randomGridIndex = Math.floor(Math.random() * grids.length);
+  const outputGrid = grids[randomGridIndex];
+
+  const offsetX = Math.floor((gridSizeX - outputGrid[0].length) / 2);
+  const offsetY = Math.floor((gridSizeY - outputGrid.length) / 2);
+
+  const newGrid = Array.from({ length: gridSizeX }, () =>
+    Array.from({ length: gridSizeY }, () => ({ color: secondaryColor }))
+  );
+
+  for (let y = 0; y < outputGrid.length; y++) {
+    for (let x = 0; x < outputGrid[0].length; x++) {
+      newGrid[x + offsetX][y + offsetY] = outputGrid[y][x];
+    }
+  }
+
+  return newGrid;
+};
+
+//   const [grid, setGrid] = useState(
+//     Array.from({ length: gridSizeX }, () =>
+//       Array.from({ length: gridSizeY }, () => ({ color: mainColor }))
+//     )
+//   ); 
+//empty
+
+
+const [gridSizeX, setGridSizeX] = useState(0);
+const [gridSizeY, setGridSizeY] = useState(0);
+const [grid, setGrid] = useState([]);
+const squareSize = 9;
+
+
+useEffect(() => {
+  if (typeof window !== 'undefined') {
+   const computedGridSizeX = Math.floor(window.innerWidth / 9 - 8);
+    const computedGridSizeY = Math.floor(window.innerHeight / 9 - 3);
+
+    setGridSizeX(computedGridSizeX);
+    setGridSizeY(computedGridSizeY);
+    setGrid(initializeGrid(computedGridSizeX, computedGridSizeY));
+  }
+  
+}, []);
+
+
+
+  const [stars, setStars] = useState(INITIAL_STATE);
+  const [mouseDown, setMouseDown] = useState(false);
+  const [drawing, setDrawing] = useState(true);
+
+  const handleClick = () => {
+     const layer = layerRef.current;
+  const rects = layer.getChildren();
+  let maxTimeout = 0;
+
+  rects.forEach((rect, index) => {
+    if (rect.getAttr('fill') === mainColor) {
+      const timeout = 100 - index * Math.random() / (1 + (index / 300));
+      maxTimeout = Math.max(maxTimeout, timeout);
+
+      setTimeout(() => {
+        const animation = new Konva.Animation((frame) => {
+          const x = Math.floor(rect.x() / squareSize);
+          const y = Math.floor(rect.y() / squareSize);
+          const neighbors = [
+            [x - 1, y - 1],
+            [x, y - 1],
+            [x + 1, y - 1],
+            [x - 1, y],
+            [x + 1, y],
+            [x - 1, y + 1],
+            [x, y + 1],
+            [x + 1, y + 1],
+          ];
+
+          let aliveNeighbors = 0;
+
+          neighbors.forEach(([nx, ny]) => {
+            if (nx >= 0 && nx < gridSizeX && ny >= 0 && ny < gridSizeY) {
+              const neighborRect = layer.getIntersection({
+                x: nx * squareSize + squareSize / 2,
+                y: ny * squareSize + squareSize / 2,
+              });
+
+              if (neighborRect && neighborRect.getAttr('fill') === mainColor) {
+                aliveNeighbors++;
+              }
+            }
+          });
+
+          if (aliveNeighbors === 5 || (aliveNeighbors === 4 && rect.getAttr('fill') === mainColor)) {
+            rect.setAttr('fill', 'black');
+          } else {
+            rect.setAttr('fill', 'white');
+          }
+        }, layer);
+        animation.start();
+      }, timeout);
+    }
+  });
+
+
+    setTimeout(() => {
+      // props.setClicked(false);
+
+    }, maxTimeout);
+  };
+
+
+
+
+   useEffect(() => {
+    if (drawing) return;
+    const updateGrid = () => {
+      const newGrid = JSON.parse(JSON.stringify(grid));
+      for (let x = 0; x < gridSizeX; x++) {
+        for (let y = 0; y < gridSizeY; y++) {
+          let closestBoidDist = Infinity;
+          let closestBoid = null;
+
+          for (const boid of boids) {
+            const dist = Math.hypot(
+              x * squareSize + squareSize / 2 - boid.x,
+              y * squareSize + squareSize / 2 - boid.y
+            );
+            if (dist < closestBoidDist) {
+              closestBoidDist = dist;
+              closestBoid = boid;
+            }
+          }
+
+          if (closestBoidDist < 11.5) {
+            newGrid[x][y].color = mainColor;
+          } else {
+            newGrid[x][y].color = secondaryColor;
+          }
+        }
+      }
+      setGrid(newGrid);
+    };
+
+    
+
+    const interval = setInterval(() => {
+      setBoids((prevBoids) =>
+        prevBoids.map((boid) => {
+          const cohesionRadius = 50;
+          const separationRadius = 50;
+          const alignmentRadius = 50;
+          const maxSpeed = 5;
+
+          let sumPositionCohesion = { x: 0, y: 0 };
+          let sumPositionSeparation = { x: 0, y: 0 };
+          let sumVelocityAlignment = { x: 0, y: 0 };
+          let neighborCountCohesion = 0;
+          let neighborCountSeparation = 0;
+          let neighborCountAlignment = 0;
+
+          for (const otherBoid of prevBoids) {
+            if (boid === otherBoid) {
+              continue;
+            }
+
+            const dist = Math.hypot(boid.x - otherBoid.x, boid.y - otherBoid.y);
+
+            if (dist < cohesionRadius) {
+              sumPositionCohesion.x += otherBoid.x;
+              sumPositionCohesion.y += otherBoid.y;
+              neighborCountCohesion++;
+            }
+            
+
+            if (dist < separationRadius) {
+              const separationVector = {
+                x: boid.x - otherBoid.x,
+                y: boid.y - otherBoid.y,
+              };
+              const separationVectorLength = Math.hypot(separationVector.x, separationVector.y);
+              separationVector.x /= separationVectorLength;
+              separationVector.y /= separationVectorLength;
+              sumPositionSeparation.x += separationVector.x;
+              sumPositionSeparation.y += separationVector.y;
+              neighborCountSeparation++;
+            }
+                        if (dist < alignmentRadius) {
+              sumVelocityAlignment.x += otherBoid.vx;
+              sumVelocityAlignment.y += otherBoid.vy;
+              neighborCountAlignment++;
+            }
+          }
+
+
+          let cohesionVector = { x: 0, y: 0 };
+          let separationVector = { x: 0, y: 0 };
+          let alignmentVector = { x: 0, y: 0 };
+
+          // calculate cohesion vector
+          if (neighborCountCohesion > 0) {
+            cohesionVector = {
+              x: sumPositionCohesion.x / neighborCountCohesion - boid.x,
+              y: sumPositionCohesion.y / neighborCountCohesion - boid.y,
+            };
+          }
+
+          // calculate alignment vector
+          if (neighborCountAlignment > 0) {
+            alignmentVector = {
+              x: sumVelocityAlignment.x / neighborCountAlignment,
+              y: sumVelocityAlignment.y / neighborCountAlignment,
+            };
+          }
+
+          // calculate separation vector
+          if (neighborCountSeparation > 0) {
+            separationVector = {
+              x: sumPositionSeparation.x / neighborCountSeparation,
+              y: sumPositionSeparation.y / neighborCountSeparation,
+            };
+          }
+
+          // add the three vectors together
+          let combinedVector = {
+            x: cohesionVector.x + alignmentVector.x + separationVector.x,
+            y: cohesionVector.y + alignmentVector.y + separationVector.y,
+          };
+
+          // limit the speed
+          let speedLimit = maxSpeed;
+          let combinedVectorLength = Math.hypot(combinedVector.x, combinedVector.y);
+          if (combinedVectorLength > speedLimit) {
+            combinedVector.x *= speedLimit / combinedVectorLength;
+            combinedVector.y *= speedLimit / combinedVectorLength;
+          }
+
+          // update position and velocity
+          boid.vx += combinedVector.x * 0.2;
+          boid.vy += combinedVector.y * 0.2;
+          boid.x += boid.vx;
+          boid.y += boid.vy;
+
+          // wrap around screen edges
+          if (boid.x > gridSizeX * squareSize) {
+            boid.x = 0;
+          }
+          if (boid.x < 0) {
+            boid.x = gridSizeX * squareSize;
+          }
+          if (boid.y > gridSizeY * squareSize) {
+            boid.y = 0;
+          }
+          if (boid.y < 0) {
+            boid.y = gridSizeY * squareSize;
+          }
+
+          return boid;
+        })
+      );
+      updateGrid();
+    }, 75);
+
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [boids, grid, drawing]);
+
+
+const handleDragStart = (e) => {
+  if (!mouseDown) return;
+  const pointerPos = e.target.getStage().getPointerPosition();
+  const x = Math.floor(pointerPos.x / squareSize);
+  const y = gridSizeY - 1 - Math.floor(pointerPos.y / squareSize);
+
+  if (x < gridSizeX && y < gridSizeY) {
+    setGrid((prevGrid) => {
+      const newGrid = JSON.parse(JSON.stringify(prevGrid));
+      newGrid[x][y].color = secondaryColor;
+      return newGrid;
+    });
+  }
+};
+
+
+
+
+const toggleDrawing = () => {
+  // if (drawing) {
+    const newBoids = [];
+    grid.forEach((column, x) => {
+      column.forEach((cell, y) => {
+        if (cell.color === secondaryColor) {
+          newBoids.push({
+            x: x * squareSize + squareSize / 2,
+            y: y * squareSize + squareSize / 2,
+            vx: 0,
+            vy: 0,
+          });
+        }
+      });
+    });
+    setBoids(newBoids);
+  // }
+  // setDrawing(!drawing);
+};
+
+ 
+
+  return (
+   <div ref={ref} style={props.style}>
+    <div className={`stage-container visible`}>
+           { <>
+   
+      <Stage  className="canvas-grid"  width={gridSizeX * squareSize} height={gridSizeY * squareSize }>
+        <Layer ref={layerRef} >
+          {grid.map((column, x) =>
+  column.map((cell, y) => (
+    <MemoizedCell
+      x={x}
+      y={y}
+      gridSizeY={gridSizeY}
+      squareSize={squareSize}
+      cell={cell}
+      handleDragStart={handleDragStart}
+      drawing={drawing}
+      handleClick={handleClick}
+    />
+  ))
+)}
+        </Layer>
+      </Stage></>
+}
+    </div>
+    </div>
+
+)});
+
+export default Canvas;
+
+
+
+const MemoizedCell = React.memo(({ x, y, gridSizeY, squareSize, cell, handleDragStart, drawing, handleClick }) => (
+  <Rect
+    key={`cell-${x}-${y}`}
+    x={x * squareSize}
+    y={(gridSizeY - y - 1) * squareSize} // updated calculation
+    width={squareSize}
+    height={squareSize}
+    fill={cell.color}
+    stroke={secondaryColor}
+    strokeWidth={0.25}
+    onPointerEnter={drawing ? handleDragStart : null}
+    onClick={handleClick}
+  />
+));
+

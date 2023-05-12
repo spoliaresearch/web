@@ -1,0 +1,46 @@
+.HeaderText {
+    font-size: 1.75rem;
+    padding: 0rem;
+}
+
+.HeaderTex hr {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  line-height: 0;
+}
+
+.OneLiner {
+  padding-bottom: 3rem;
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
+
+.SidebarHeader {
+    font-size: 1rem;
+    padding: 0rem;
+}
+
+.SidebarHeader .items {
+   display: inline;
+   padding-right: 1rem;
+}
+
+.ProjectHeader {
+    font-size: 1rem;
+    padding: 0rem;
+}
+
+.HeaderGrid {
+    display: flex;
+}
+
+
+.HeaderGrid > :first-child {
+  width: 24rem;
+}
+
+.HeaderGrid > :nth-child(2) {
+  flex-grow: 1;
+}
+
+

@@ -12,7 +12,7 @@ def image_to_grid(filename, square_size, grid_size_x, grid_size_y, threshold=160
         row = []
         for x in range(grid_size_x):
             pixel = im.getpixel((x, y))
-            cell_color = 'black' if pixel < threshold else 'white'
+            cell_color = 'white' if pixel < threshold else 'black'
             row.append({'color': cell_color})
         grid.append(row)
 

@@ -1,73 +1,128 @@
-import React, { useEffect, useState } from 'react';
-import './Button.css';
-import HeaderAnim from "../components/HeaderAnim";
-import Layout from "../components/Layout";
-const pageStyles = {
-  color: "#232129",
-  padding: 0,
-  zIndex: 10,
-  maxWidth: '100vw',
-  height: '100vh',
-  backgroundColor: "white",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-}
+import './index.css';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import TopNavigation from '../components/Sections/TopNavigation';
+import Canvas from '../components/Sections/Canvas';
+import HeaderText from '../components/Sections/HeaderText';
+import Sidebar from '../components/Sections/Sidebar';
+import ProjectContent from '../components/Sections/ProjectContent';
+import Footer from '../components/Sections/Footer';
 
+import { FontSettingsContext, FontSettingsProvider } from '../contexts/FontSettingsContext';
+import FontSettingsSlider from '../components/FontSettingsSlider';
 
-
-// markup
 const IndexPage = () => {
-      const [isGridActive, setGridActive] = React.useState(true);
-  const [drawing, setDrawing] = React.useState(false);
-  const [gridState, setGridState] = useState(true);
 
-  const handleGridStateChange = (newState) => {
-    setGridState(newState);
+   const { SRFF, fontSize  } = useContext(FontSettingsContext);
+    const rootStyle = {
+    fontVariationSettings: `"wght" 300, "ital" 0, "SRFF" ${SRFF}`,
+    fontSize: fontSize
   };
 
-   const handleGridActiveChange = (newState) => {
-    setGridActive(newState);
-  };
-  const toggleDrawing = () => {
-  ;
-  };
+  const topNavRef = useRef(null);
+  const canvasRef = useRef(null);
+  const headerRef = useRef(null);
+  const sidebarRef = useRef(null);
+  const projectContentRef = useRef(null);
+  const footerRef = useRef(null);
+
+  const [isHeaderSticky, setIsHeaderSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const headerTop = headerRef.current.getBoundingClientRect().top - 10;
+      setIsHeaderSticky(headerTop <= topNavRef.current.offsetHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <Layout>
- <title>Spolia Lab</title>
-    <main style={pageStyles}>
-<h2 className='text'>Spolia is an indie design research lab.<br/>
-We build mindful & creative technology inspired by the past.</h2>
-     
-                <HeaderAnim   loading={gridState} setLoading={handleGridStateChange}  setClicked={handleGridActiveChange} clicked={isGridActive}/>
-
-      {/* <CanvasGrid clicked={clicked} ></CanvasGrid> */}
-          { <>
-      <div className="text" style={ {  pointerEvents:isGridActive &&' none'}}>
-        
-Spolia is a design-research lab building creative technologies. <br/>
-We design products with startups and help in their implementation.  <br/>
-Sometimes, we build cool things ourselves too.  <br/>
- <br/>
-Our mindful time-management app, <a href='https://apps.apple.com/us/app/hone-one-thing-at-a-time/id1624789090?mt=12' target="_blank"><span>Hone</span></a>, is now in public release on the Mac App Store. <br/>
-
-If you want to chat about working with us, or want to join our design collaborative,  <br/>
-contact us at <a href="mailto:hello@spolialab.com">hello@spolialab.com</a>. <br/> <br/>
-<span className="noMobile">
-If you just want something fun to do on this {new Date().toLocaleString('en-us', {  weekday: 'long' })},  <br/>
-you’re welcome to <span  onClick={() => setGridActive(!isGridActive)} className="draw"> {!isGridActive ? "draw" : "stop drawing"}</span>  over this website.
-  
-</span>
-
-<span className="btLeft"> ⛘</span>
-<span className="btRight"> Spolia <br/> Lab</span>
-
+    <div className="container" style={{ ...rootStyle, position: 'relative', minHeight: '100vh', backgroundColor: 'black', padding: '0 .5rem' }}>
+      <TopNavigation
+        ref={topNavRef}
+        style={{
+          position: 'sticky',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '40px',
+          backgroundColor: 'black',
+          zIndex: 3,
+        }}
+      />
+      <Canvas
+        ref={canvasRef}
+        style={{
+          position: 'absolute',
+          top: '2rem',
+          left: '.5rem',
+          right: '.5rem',
+          width: 'calc(100% - 1rem)',
+          height: 'calc(100% - 3rem)',
+          bottom: 0,
+          zIndex: 0,
+          backgroundColor: 'white'
+        }}
+      />
+          <div  style={{
+          height: '75px',
+          backgroundColor: 'black',
+          zIndex: 2,
+          fontSize: '1.75rem',
+          paddingBottom: '3rem',
+          paddingTop: '1.75rem',
+          marginTop:'95vh',
+          position: isHeaderSticky ? 'sticky' : 'relative',
+          top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
+        }} className="OneLiner">Spolia is a community-driven design research lab <br/> building tools to make a more creative and sustainable web.</div>
+      <HeaderText
+        ref={headerRef}
+        style={{
+          height: '32px',
+          backgroundColor: 'black',
+          zIndex: 200,
+          position: isHeaderSticky ? 'sticky' : 'relative',
+          top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
+        }}
+      />
+      <div className="main-content" style={{ position: 'relative', zIndex: 2 }}>
+        <Sidebar
+          ref={sidebarRef}
+          style={{
+            height: '92vh',
+            width: '21.5rem',
+            overflowY: 'auto',
+            position: isHeaderSticky ? 'sticky' : 'relative',
+            backgroundColor: 'black',
+            borderRight: '1.5px solid white',
+            top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef.current.offsetHeight : 'initial',
+          }}
+        />
+        <ProjectContent
+          ref={projectContentRef}
+          style={{ height: 'auto', width: 'calc(100vw - 21.5rem)',
+          position: isHeaderSticky ? 'sticky' : 'relative',
+           backgroundColor: 'black',
+            overflowY: 'auto',
+            zIndex: 0,
+                      top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef.current.offsetHeight : 'initial', 
+                      }}
+        />
       </div>
-</>}
+      <Footer ref={footerRef} style={{ height: '200px', backgroundColor: 'black', zIndex: 2, position:'relative' }} />
+    </div>
+  );
+};
 
-     
-    
-    </main>
-    </Layout>
-  )
-}
 
-export default IndexPage
+const WrappedIndexPage = () => (
+  <FontSettingsProvider>
+    <IndexPage />
+  </FontSettingsProvider>
+);
+
+export default WrappedIndexPage;

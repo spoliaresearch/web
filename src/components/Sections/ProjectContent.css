@@ -1,0 +1,24 @@
+.ProjectContent {
+    padding-top: 5rem;
+    padding-left: 3rem;
+    font-size: 1em;
+    line-height: 1.5;
+    padding-bottom: 5rem;
+    display: flex;
+
+}
+
+.ProjectContent p {
+    padding-bottom: 1rem;
+}
+.ProjectContent .mainContent {
+    padding-right: 1.5rem;
+   width: calc(100% - 250px);
+   max-width: 69em;
+}
+
+.ProjectContent .context {
+    max-width: 250px;
+    font-size: .75em;
+     
+}
