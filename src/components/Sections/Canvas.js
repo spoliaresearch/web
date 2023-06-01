@@ -101,8 +101,8 @@ const generateShapes = (gridSizeX,gridSizeY,squareSize) => {
 
 
 const INITIAL_STATE = generateShapes();
-const mainColor = "black";
-const secondaryColor = "white";
+const mainColor = "white";
+const secondaryColor = "black";
 
 const Canvas = React.forwardRef((props, ref) => {
   const initializeBoidsFromGrid = (grid) => {
@@ -174,7 +174,7 @@ const squareSize = 9;
 
 useEffect(() => {
   if (typeof window !== 'undefined') {
-   const computedGridSizeX = Math.floor(window.innerWidth / 9 - 8);
+   const computedGridSizeX = Math.floor(window.innerWidth / 9 - 1.5);
     const computedGridSizeY = Math.floor(window.innerHeight / 9 - 3);
 
     setGridSizeX(computedGridSizeX);

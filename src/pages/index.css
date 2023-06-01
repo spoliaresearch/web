@@ -6,11 +6,23 @@
        url("../../fonts/ABCArizonaPlusVariable-Trial.ttf") format("truetype-variations");
 }
 
+/* index.css */
+:root {
+  --background-color: white;
+  --text-color: black;
+  --gray-color: #f5f5f5;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  /* Other styles... */
+}
+
+
 html, p, h1,h2,h3,h4 {
   font-family: "Arizona Variable", serif, sans-serif;
   margin: 0;
-     mix-blend-mode: difference;
-    color: white;
       font-family: "Arizona Variable";
     	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
       letter-spacing: -.17px;
@@ -18,9 +30,10 @@ html, p, h1,h2,h3,h4 {
 
 }
 
-img {
-  mix-blend-mode: difference !important;
+span, p, h1,h2,h3,h4{
+mix-blend-mode: difference !important;
 }
+
 
 
 * {

@@ -8,8 +8,10 @@
 }
 
 .example {
-    color: white;
+    color: black;
 }
+
+
 
 
 
@@ -17,7 +19,7 @@ input[type=range] {
   -webkit-appearance: none; /* Remove default appearance */
   width: 100%;
   height: 4px; /* Make the bar thinner */
-  background-color: rgb(70, 70, 70); /* Change the bar background color */
+  background-color: lightgray; /* Change the bar background color */
   outline: none;
   cursor: pointer;
 }
@@ -26,7 +28,7 @@ input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none; /* Remove default appearance */
   width: 12px;
   height: 12px;
-  background-color: white; /* Change the thumb color */
+  background-color: black; /* Change the thumb color */
   border: none;
   border-radius: 50%;
 }
@@ -34,7 +36,7 @@ input[type=range]::-webkit-slider-thumb {
 input[type=range]::-moz-range-thumb {
   width: 14px;
   height: 14px;
-  background-color: white; /* Change the thumb color */
+  background-color: black; /* Change the thumb color */
   border: none;
   border-radius: 50%;
 }
@@ -42,7 +44,7 @@ input[type=range]::-moz-range-thumb {
 input[type=range]::-moz-range-track {
   width: 100%;
   height: 4px; /* Make the bar thinner */
-  background-color: white; /* Change the bar background color */
+  background-color: black; /* Change the bar background color */
   outline: none;
   cursor: pointer;
 }
@@ -53,13 +55,18 @@ input[type=range]::-moz-range-track {
   margin-top: 1rem;
 }
 
+.font-settings-slider {
+  border: 1px solid gray;
+  padding: .33rem;
+  border-radius: 2px
+}
 
 .font-size-option {
   background-color: transparent;
   border: none;
   padding: 4px 8px;
   font-size: 14px;
-  color: white;
+  color: black;
   cursor: pointer;
   outline: none;
 }
@@ -69,5 +76,5 @@ input[type=range]::-moz-range-track {
 }
 
 .font-size-option.active {
-  background-color: rgb(28, 28, 28);
+  background-color: lightgray;
 }

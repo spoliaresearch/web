@@ -11,7 +11,7 @@ const FontSettingsToggle = () => {
 
   return (
     <div className="font-settings-toggle">
-      <div onClick={handleToggleClick}>Aa</div>
+      <div onClick={handleToggleClick}><span>Aa</span></div>
       {showSlider && (
         <div className="font-settings-popup">
           <FontSettingsSlider />

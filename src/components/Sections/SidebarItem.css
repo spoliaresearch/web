@@ -1,7 +1,7 @@
 .sidebar-item {
   padding: 1.275rem .75rem;
-  border-bottom: 1px solid white;
-  opacity: .4;
+  border-bottom: 1px solid var(--opposite-color);
+  color: var(--gray-color);
   transition: all 1s ease;
         
   /* Add other styles for the sidebar item */
@@ -15,17 +15,17 @@
 
 .sidebar-item:hover {
     cursor: pointer;
-      opacity: .74;
+      color: var(--text-color);
 }
 
 .sidebar-item:hover .title-date-container h3  {
-    opacity:1;
+   color: var(--text-color);
       font-variation-settings: "wght" 600, "ital" 0, "SRFF" 0;
 }
 
 .sidebar-item-active {
   /* Add styles for the active sidebar item, for example: */
-  opacity:1;
+ color: var(--text-color);
 }
 
 .title-date-container {

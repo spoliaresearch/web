@@ -8,10 +8,10 @@ const HeaderText = React.forwardRef((props, ref) => {
         <div className="HeaderGrid">
            
     <div className="SidebarHeader">   
-        <div className='items'>Sort</div> 
+        <div className='items'><span>Sort</span></div> 
          <FontSettingsToggle />
         <hr/></div>
-    <div className="ProjectHeader">   <div>Welcome to our corner of the internet</div>
+    <div className="ProjectHeader">   <div><span>Welcome to our corner of the internet</span></div>
         <hr/></div>
         </div>
         </div>

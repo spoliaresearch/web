@@ -10,7 +10,7 @@
   position: absolute;
   top: 0rem; /* Adjust this value to position the popup above the icon */
   left: 2rem;
-  background-color: black;
+  background-color: var(--background-color);
   border-radius: 3px;
   padding: 0.5rem;
   border: 1px solid white;

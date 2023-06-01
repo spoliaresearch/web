@@ -47,12 +47,13 @@ html, body, div, p, h1,h2,h3,h4 {
     color: white;
       font-family: "Arizona Variable";
     	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+      letter-spacing: -.17px;
     font-variation-settings: "wght" 300, "ital" 0, "SRFF" 50;
     margin: 0 auto;
     z-index: 5;
     font-size: 20px;
  
-letter-spacing: -.17px;
+
     transition: all 1.3s ease;
 
   animation-timing-function: ease-in-out;

@@ -6,18 +6,45 @@ import HeaderText from '../components/Sections/HeaderText';
 import Sidebar from '../components/Sections/Sidebar';
 import ProjectContent from '../components/Sections/ProjectContent';
 import Footer from '../components/Sections/Footer';
-
+import { ThemeContext } from '../contexts/ThemeContext';
 import { FontSettingsContext, FontSettingsProvider } from '../contexts/FontSettingsContext';
 import FontSettingsSlider from '../components/FontSettingsSlider';
 
 const IndexPage = () => {
 
+
+   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
+
+  
    const { SRFF, fontSize  } = useContext(FontSettingsContext);
     const rootStyle = {
     fontVariationSettings: `"wght" 300, "ital" 0, "SRFF" ${SRFF}`,
     fontSize: fontSize
   };
 
+  useEffect(() => {
+    const root = document.documentElement;
+
+    if (isDarkMode) {
+      root.style.setProperty('--background-color', 'black');
+      root.style.setProperty('--text-color', 'black');
+      root.style.setProperty('--gray-color', 'gray');
+        root.style.setProperty('--opposite-color', 'white');
+    } else {
+      root.style.setProperty('--background-color', 'white');
+      root.style.setProperty('--text-color', 'white');
+      root.style.setProperty('--gray-color', 'gray');
+         root.style.setProperty('--opposite-color', 'black');
+  
+    }
+  }, [isDarkMode]);
+
+  const handleToggle = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  const backgroundColor = isDarkMode ? 'black' : 'white';
+  const textColor = isDarkMode ? 'white' : 'black';
   const topNavRef = useRef(null);
   const canvasRef = useRef(null);
   const headerRef = useRef(null);
@@ -41,7 +68,7 @@ const IndexPage = () => {
   }, []);
 
   return (
-    <div className="container" style={{ ...rootStyle, position: 'relative', minHeight: '100vh', backgroundColor: 'black', padding: '0 .5rem' }}>
+    <div className="container" style={{ ...rootStyle, position: 'relative', minHeight: '100vh', padding: '0 .5rem' }}>
       <TopNavigation
         ref={topNavRef}
         style={{
@@ -50,7 +77,7 @@ const IndexPage = () => {
           left: 0,
           right: 0,
           height: '40px',
-          backgroundColor: 'black',
+          backgroundColor: backgroundColor,
           zIndex: 3,
         }}
       />
@@ -70,7 +97,7 @@ const IndexPage = () => {
       />
           <div  style={{
           height: '75px',
-          backgroundColor: 'black',
+          backgroundColor: backgroundColor,
           zIndex: 2,
           fontSize: '1.75rem',
           paddingBottom: '3.5rem',
@@ -78,12 +105,12 @@ const IndexPage = () => {
           marginTop:'95vh',
           position: isHeaderSticky ? 'sticky' : 'relative',
           top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
-        }} className="OneLiner">Spolia is a community-driven design research lab <br/> building tools to make a more creative and sustainable web.</div>
+        }} className="OneLiner"><h3>Spolia is a community-driven design research lab <br/> building tools to make a more creative and sustainable web.</h3></div>
       <HeaderText
         ref={headerRef}
         style={{
           height: '32px',
-          backgroundColor: 'black',
+          backgroundColor: backgroundColor,
           zIndex: 200,
           position: isHeaderSticky ? 'sticky' : 'relative',
           top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
@@ -97,8 +124,8 @@ const IndexPage = () => {
             width: '21.5rem',
             overflowY: 'auto',
             position: isHeaderSticky ? 'sticky' : 'relative',
-            backgroundColor: 'black',
-            borderRight: '1px solid white',
+            backgroundColor: backgroundColor,
+            borderRight: `1px solid ${textColor}`,
             top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef.current.offsetHeight : 'initial',
           }}
         />
@@ -106,14 +133,14 @@ const IndexPage = () => {
           ref={projectContentRef}
           style={{ height: 'auto', width: 'calc(100vw - 21.5rem)',
           position: isHeaderSticky ? 'sticky' : 'relative',
-           backgroundColor: 'black',
+           backgroundColor: backgroundColor,
             overflowY: 'auto',
             zIndex: 0,
                       top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef.current.offsetHeight : 'initial', 
                       }}
         />
       </div>
-      <Footer ref={footerRef} style={{ height: '200px', backgroundColor: 'black', zIndex: 2, position:'relative' }} />
+      <Footer ref={footerRef} style={{ height: '200px', backgroundColor: backgroundColor, zIndex: 2, position:'relative' }} />
     </div>
   );
 };

@@ -9,8 +9,8 @@
   line-height: 0;
   height: 1px;
   border:none;
-    color: #fff;  /* old IE */
-  background-color: #fff;  /* Modern Browsers */
+    color: black;  /* old IE */
+  background-color: black;  /* Modern Browsers */
 }
 
 .OneLiner {

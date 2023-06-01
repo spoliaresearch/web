@@ -8,6 +8,11 @@
 
 }
 
+.img {
+    padding: .5rem 0;
+    width: 100%;
+}
+
 .ProjectContent p {
     padding-bottom: 1rem;
 }

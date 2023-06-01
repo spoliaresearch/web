@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './ProjectContent.css';
-import { StaticImage } from 'gatsby-plugin-image';
+import DitheredImage from './DitheredImage';
+
 const ProjectContent = React.forwardRef((props, ref) => {
 
     const [imageSource, setImageSource] = useState('dith');
@@ -31,21 +32,14 @@ const ProjectContent = React.forwardRef((props, ref) => {
     <p>To stay updated on our latest work, we encourage you to sign up for our newsletter, which will deliver fresh insights directly to your inbox. We have also integrated accessibility settings within the top-left settings icon to ensure a comfortable reading experience for all users. If you prefer, you can add our content feed to your RSS reader using <a href="#rss">this link</a>.</p>
     <p>In line with our commitment to sustainability, we have chosen to dither images on our website to reduce page load times and minimize energy usage. To view an image in high resolution, simply click on it, and the hi-res version will load. Give it a try with the sample image below:</p>
     
-    
+    <DitheredImage/>
     <p>Moreover, our site is built as a static site to limit resource consumption by reducing the need for data transfers to and from servers.</p>
     <p>We are excited to welcome you to the Spolia Lab community as we delve deeper into design research and sustainable practices. Join us on this journey as we unlock the full potential of technological spolia and work together to create a brighter future.</p>
  </div>
 
  <div className="context">
   <p>Spolia (Latin: 'spoils') is repurposed building stone for new construction or decorative sculpture reused in new monuments. </p>
-       <div  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
-        {imageSource === 'dith' ? (
-          <StaticImage src="../../images/dith.JPG" alt="Dith" />
-        ) : (
-          <StaticImage src="../../images/undith.jpg" alt="Second Image" /> // Replace with the correct path and alt text
-        )}
-      </div>
-      <div>{hoverText}</div>
+       
  </div>
  </div>
   );

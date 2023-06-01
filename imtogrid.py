@@ -12,7 +12,7 @@ def image_to_grid(filename, square_size, grid_size_x, grid_size_y, threshold=160
         row = []
         for x in range(grid_size_x):
             pixel = im.getpixel((x, y))
-            cell_color = 'white' if pixel < threshold else 'black'
+            cell_color = 'black' if pixel < threshold else 'white'
             row.append({'color': cell_color})
         grid.append(row)
 
@@ -30,7 +30,7 @@ def main():
     for i, (image_filename, threshold) in enumerate(zip(image_filenames, thresholds)):
         grid = image_to_grid(image_filename, square_size, grid_size_x, grid_size_y, threshold)
 
-        output_json = f"output{i + 1}.json"
+        output_json = f"./src/components/Sections/grids/output{i + 1}.json"
         with open(output_json, "w") as outfile:
             json.dump(grid, outfile)
 
