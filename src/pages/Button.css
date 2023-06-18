@@ -1,13 +1,6 @@
-@font-face {
-  font-family: "Arizona Variable";
-  src:
-       url("../../fonts/ABCArizonaPlusVariable-Trial.woff2") format("woff2-variations"),
-       url("../../fonts/ABCArizonaPlusVariable-Trial.woff") format("woff-variations"),
-       url("../../fonts/ABCArizonaPlusVariable-Trial.ttf") format("truetype-variations");
-}
 
 html, body, div, p, h1,h2,h3,h4 {
-  font-family: "Arizona Variable";
+  font-family: "Times";
 }
 
 @media screen and (max-width:640px) {
@@ -24,9 +17,7 @@ html, body, div, p, h1,h2,h3,h4 {
 .text {
     mix-blend-mode: difference;
     color: white;
-      font-family: "Arizona Variable";
-    	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
-    font-variation-settings: "wght" 300, "ital" 0, "SRFF" 50;
+      font-family: "Times";
     margin: 0 auto;
     z-index: 5;
     font-size: 20px;
@@ -45,8 +36,6 @@ letter-spacing: -.17px;
   position:fixed;
   bottom: 2.6rem;
   right: 4.15rem;
- 	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
-    font-variation-settings: "wght" 420, "ital" 0, "SRFF" 10;
     letter-spacing: -.5px;
     line-height: 14.5px;
     font-size: 15px;
@@ -60,8 +49,6 @@ letter-spacing: -.17px;
   position:fixed;
   bottom: 3rem;
   right: 2rem;
- 	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
-    font-variation-settings: "wght" 420, "ital" 0, "SRFF" 10;
     letter-spacing: 0px;
     line-height: 18px;
     font-size: 40px;
@@ -74,12 +61,10 @@ letter-spacing: -.17px;
 
 
 .btRight:hover {
-  font-variation-settings: "wght" 200, "ital" 0, "SRFF" 30;
   letter-spacing: -.5px;
 }
 
 .btLeft:hover {
-  font-variation-settings: "wght" 380, "ital" 0, "SRFF" 0;
   letter-spacing: 1.5px;
   animation: rotate 2s linear 0s infinite normal forwards;
 
@@ -128,8 +113,6 @@ letter-spacing: -.17px;
 }
 
 .draw:hover {
-   
-     font-variation-settings: "wght" 500, "ital" 0, "SRFF" 70; 
 }
 
 a, a:hover, a:focus, a:active {
@@ -151,11 +134,9 @@ a, a:hover, a:focus, a:active {
 
 a:hover {
     
-     font-variation-settings: "wght" 500, "ital" 0, "SRFF" 70; 
 }
 
  .text:hover {
-   font-variation-settings: "wght" 220, "ital" 0, "SRFF" 0; 
  
         letter-spacing: 0px;
 
