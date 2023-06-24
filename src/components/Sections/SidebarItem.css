@@ -10,7 +10,7 @@
 
 .sidebar-item:hover .title-date-container h3 {
     transition: all 1s ease;
-        font-variation-settings: "wght" 400, "ital" 0, "SRFF" 75;
+        font-variation-settings: "wght" 400, "ital" 0, "SRFF" .75;
 }
 
 .sidebar-item:hover {

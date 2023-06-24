@@ -1,9 +1,9 @@
 @font-face {
   font-family: "Arizona Variable";
   src:
-       url("../../fonts/ABCArizonaPlusVariable-Trial.woff2") format("woff2-variations"),
-       url("../../fonts/ABCArizonaPlusVariable-Trial.woff") format("woff-variations"),
-       url("../../fonts/ABCArizonaPlusVariable-Trial.ttf") format("truetype-variations");
+       url("../../fonts/ABCArizonaPlusVariable.woff2") format("woff2-variations"),
+       url("../../fonts/ABCArizonaPlusVariable.woff") format("woff-variations"),
+       url("../../fonts/ABCArizonaPlusVariable.ttf") format("truetype-variations");
 }
 
 html, body, div, p, h1,h2,h3,h4 {
@@ -23,7 +23,7 @@ html, body, div, p, h1,h2,h3,h4 {
   transform: scaleY(1.15);         /* Standard syntax */
   font-size: 2.55rem;
   letter-spacing: -2px;
-      font-variation-settings: "wght" 350, "ital" 0, "SRFF" 50;
+      font-variation-settings: "wght" 350, "ital" 0, "SRFF" .50;
 }
 
 .image {
@@ -48,7 +48,7 @@ html, body, div, p, h1,h2,h3,h4 {
       font-family: "Arizona Variable";
     	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
       letter-spacing: -.17px;
-    font-variation-settings: "wght" 300, "ital" 0, "SRFF" 50;
+    font-variation-settings: "wght" 300, "ital" 0, "SRFF" .50;
     margin: 0 auto;
     z-index: 5;
     font-size: 20px;
@@ -65,7 +65,7 @@ html, body, div, p, h1,h2,h3,h4 {
 
 h2.text  {
   font-size: 1.66rem;
-   font-variation-settings: "wght" 200, "ital" 0, "SRFF" 50;
+   font-variation-settings: "wght" 200, "ital" 0, "SRFF" .50;
    line-height: 1.15;
    margin-left: 1rem;
 }
@@ -78,7 +78,7 @@ h2.text  {
   bottom: 2.6rem;
   right: 4.15rem;
  	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
-    font-variation-settings: "wght" 420, "ital" 0, "SRFF" 10;
+    font-variation-settings: "wght" 420, "ital" 0, "SRFF" .10;
     letter-spacing: -.5px;
     line-height: 14.5px;
     font-size: 15px;
@@ -93,7 +93,7 @@ h2.text  {
   bottom: 3rem;
   right: 2rem;
  	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
-    font-variation-settings: "wght" 420, "ital" 0, "SRFF" 10;
+    font-variation-settings: "wght" 420, "ital" 0, "SRFF" .10;
     letter-spacing: 0px;
     line-height: 18px;
     font-size: 40px;
@@ -106,7 +106,7 @@ h2.text  {
 
 
 .btRight:hover {
-  font-variation-settings: "wght" 200, "ital" 0, "SRFF" 30;
+  font-variation-settings: "wght" 200, "ital" 0, "SRFF" .30;
   letter-spacing: -.5px;
 }
 
@@ -161,7 +161,7 @@ h2.text  {
 
 .draw:hover {
    
-     font-variation-settings: "wght" 500, "ital" 0, "SRFF" 70; 
+     font-variation-settings: "wght" 500, "ital" 0, "SRFF" .70; 
 }
 
 a, a:hover, a:focus, a:active {
@@ -183,7 +183,7 @@ a, a:hover, a:focus, a:active {
 
 a:hover {
     cursor: pointer;
-     font-variation-settings: "wght" 500, "ital" 0, "SRFF" 70; 
+     font-variation-settings: "wght" 500, "ital" 0, "SRFF" .70; 
 }
 
  .text:hover {

@@ -1,9 +1,9 @@
 @font-face {
   font-family: "Arizona Variable";
   src:
-       url("../../fonts/ABCArizonaPlusVariable-Trial.woff2") format("woff2-variations"),
-       url("../../fonts/ABCArizonaPlusVariable-Trial.woff") format("woff-variations"),
-       url("../../fonts/ABCArizonaPlusVariable-Trial.ttf") format("truetype-variations");
+       url("../../fonts/ABCArizonaPlusVariable.woff2") format("woff2-variations"),
+       url("../../fonts/ABCArizonaPlusVariable.woff") format("woff-variations"),
+       url("../../fonts/ABCArizonaPlusVariable.ttf") format("truetype-variations");
 }
 
 /* index.css */

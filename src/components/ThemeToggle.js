@@ -9,7 +9,7 @@ const ModeToggle = () => {
   };
 
   return (
-    <div style={{display:'inline-block', paddingLeft: '20px'}} onClick={handleModeToggle}>
+    <div style={{display:'inline-block', paddingLeft: '20px', marginTop: '-3.5px'}} onClick={handleModeToggle}>
       {!isDarkMode ? (
    <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_1_3)">
