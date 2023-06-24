@@ -105,7 +105,7 @@ const IndexPage = () => {
           marginTop:'95vh',
           position: isHeaderSticky ? 'sticky' : 'relative',
           top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
-        }} className="OneLiner"><h3>Spolia is an academic design research lab <br/> building tools to make a more creative and sustainable web.</h3></div>
+        }} className="OneLiner"><h3>Spolia is an indie design research lab <br/> building tools to make a more creative and sustainable web.</h3></div>
       <HeaderText
         ref={headerRef}
         style={{
