@@ -20,6 +20,18 @@ module.exports = {
 
     },
   },
+  {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          "gatsby-remark-unwrap-images",
+          "gatsby-remark-images",
+          "gatsby-remark-gifs",
+          "gatsby-remark-prismjs",
+        ],
+      },
+    },
+ 
   
   "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
     resolve: 'gatsby-source-filesystem',

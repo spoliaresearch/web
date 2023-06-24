@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './ProjectContent.css';
 import DitheredImage from './DitheredImage';
 import { graphql, useStaticQuery } from 'gatsby';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
+import {MDXRenderer} from "gatsby-plugin-mdx"
 
 const ProjectContent = React.forwardRef((props, ref) => {
-    const data = useStaticQuery(graphql`
+  const data = useStaticQuery(graphql`
     query {
       googleDocs(id: { eq: "1uSJwMe4-U3TSu87ApzVJPh-EzZE-TaGS0aynYqW_Zhk" }) {
         comments {
@@ -19,9 +19,7 @@ const ProjectContent = React.forwardRef((props, ref) => {
     }
   `);
 
-    const documentData = data.googleDocs;
-  const { markdown, comments } = documentData;
-    const [imageSource, setImageSource] = useState('dith');
+  const [imageSource, setImageSource] = useState('dith');
   const [hoverText, setHoverText] = useState('');
 
   const handleMouseEnter = () => {
@@ -39,17 +37,23 @@ const ProjectContent = React.forwardRef((props, ref) => {
       setImageSource('dith');
     }
   };
- return (
+
+  // Retrieve the document data from the query result
+  const documentData = data.googleDocs;
+  const { markdown, comments } = documentData;
+
+  return (
     <div className="ProjectContent" ref={ref} style={props.style}>
       <div className="mainContent">
-           <MDXRenderer>{markdown}</MDXRenderer>
-        {/* Render other content sections */}
+        {/* <MDXRenderer>{markdown}</MDXRenderer> */}
+        {/* <MDXRenderer>{markdown}</MDXRenderer> */}
+        <p>{markdown}</p>
       </div>
 
     
 
       <div className="context">
-{comments.map(comment => (
+  {comments.map(comment => (
           <div key={comment.id}>
             <p>{comment.content}</p>
             {comment.replies.map(reply => (
