@@ -13,7 +13,7 @@ const HeaderText = React.forwardRef((props, ref) => {
          <FontSettingsToggle />
          <ThemeToggle/>
         <hr/></div>
-    <div className="ProjectHeader">   <div><span>Welcome to our corner of the internet</span></div>
+    <div className="ProjectHeader">   <div><span id="my-anchor">Welcome to our corner of the internet</span></div>
         <hr/></div>
         </div>
         </div>

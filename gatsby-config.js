@@ -12,28 +12,24 @@ module.exports = {
     }
   },
   {
-    resolve: require.resolve(`./gatsby-source-google-docs`),
+    resolve: require.resolve(`./gatsby-google-docs`),
     //https://drive.google.com/drive/u/0/folders/1sPtKXzxdb9TawV3YwP1ByZpiZvNyLviH
     options: {
       folder: "1sPtKXzxdb9TawV3YwP1ByZpiZvNyLviH",
-      createPages: false,
+      createPages: true,
 
     },
   },
-  {
-      resolve: `gatsby-plugin-mdx`,
+    {
+      resolve: "gatsby-transformer-remark",
       options: {
-        gatsbyRemarkPlugins: [
-          "gatsby-remark-unwrap-images",
+        plugins: [
           "gatsby-remark-images",
-          "gatsby-remark-gifs",
-          "gatsby-remark-prismjs",
         ],
       },
     },
- 
-  
-  "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
+  "gatsby-plugin-sharp", 
+  "gatsby-transformer-sharp", {
     resolve: 'gatsby-source-filesystem',
     options: {
       "name": "images",

@@ -30,7 +30,7 @@
     "gatsby-plugin-styled-components": "^5.6.0",
     "gatsby-remark-images": "^6.25.0",
     "gatsby-source-filesystem": "^4.6.0",
-    "gatsby-source-google-docs": "file:gatsby-source-google-docs",
+  "gatsby-source-google-docs": "^2.4.2",
     "gatsby-transformer-remark": "^5.25.1",
         "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",

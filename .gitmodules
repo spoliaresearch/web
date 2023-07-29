@@ -1,0 +1,3 @@
+[submodule "gatsby-google-docs"]
+	path = gatsby-google-docs
+	url = https://github.com/garrettvercoe/gatsby-source-google-docs.git
