@@ -2,6 +2,7 @@ import React from 'react';
 import './HeaderText.css';
 import FontSettingsToggle from '../FontSettingsToggle';
 import ThemeToggle from '../ThemeToggle';
+import { graphql } from 'gatsby'
 const HeaderText = React.forwardRef((props, ref) => {
   return <div className="HeaderText" ref={ref} style={props.style}>
 
