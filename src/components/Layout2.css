@@ -30,9 +30,10 @@ html, p, h1,h2,h3,h4 {
 
 }
 
-span, p, h1,h2,h3,h4{
+p:not(:has(img)),span:not(:has(img)), h1,h2,h3,h4{
 mix-blend-mode: difference !important;
 }
+
 
 
 

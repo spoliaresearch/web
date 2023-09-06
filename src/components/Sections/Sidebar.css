@@ -1,3 +1,7 @@
-li {
+.Sidebar li {
     margin: 3rem 0;
+}
+
+.Sidebar a {
+    display: block !important;
 }

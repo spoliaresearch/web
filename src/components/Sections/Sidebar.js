@@ -53,6 +53,9 @@ const Sidebar = React.forwardRef((props, ref) => {
           slug
           createdTime
           id
+          childMarkdownRemark {
+            excerpt
+          }
         }
       }
     }
@@ -61,7 +64,7 @@ const Sidebar = React.forwardRef((props, ref) => {
   const sidebarItemsData = data.allGoogleDocs.nodes.map(node => ({
     title: node.name,
     slug: node.slug,
-    textSnippet: '', // Add your logic to extract text snippet from the document if needed
+    textSnippet: node.childMarkdownRemark.excerpt, // Add your logic to extract text snippet from the document if needed
     date: node.createdTime,
     active: false, // You can add your own logic to determine the active item
   }));

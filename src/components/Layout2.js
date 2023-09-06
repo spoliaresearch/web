@@ -12,13 +12,12 @@ import FontSettingsSlider from './FontSettingsSlider';
 
 const Layout = ({ children }) => {
 
-
    const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
-
-  
+  const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
+  const notExcluded = !excludedPaths.includes(window?.location?.pathname);
    const { SRFF, fontSize  } = useContext(FontSettingsContext);
     const rootStyle = {
-    fontVariationSettings: `"wght" 300, "ital" 0, "SRFF" ${SRFF}`,
+    fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${SRFF}`,
     fontSize: fontSize
   };
 
@@ -56,7 +55,7 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const headerTop = headerRef.current.getBoundingClientRect().top - 10;
+      const headerTop = headerRef?.current?.getBoundingClientRect().top - 10;
       setIsHeaderSticky(headerTop <= topNavRef.current.offsetHeight);
     };
 
@@ -81,7 +80,7 @@ const Layout = ({ children }) => {
           zIndex: 3,
         }}
       />
-      <Canvas
+      {notExcluded &&  <><Canvas
         ref={canvasRef}
         style={{
           position: 'absolute',
@@ -108,6 +107,7 @@ const Layout = ({ children }) => {
         }} className="OneLiner"><h3 id="my-anchor-2">Spolia is an indie design research lab <br/> building tools to make a more creative and sustainable web.</h3></div>
       <HeaderText
         ref={headerRef}
+        name={children?.props?.children?.props?.data?.page?.name}
         style={{
           height: '32px',
           backgroundColor: backgroundColor,
@@ -126,7 +126,7 @@ const Layout = ({ children }) => {
             position: isHeaderSticky ? 'sticky' : 'relative',
             backgroundColor: backgroundColor,
             borderRight: `1px solid ${textColor}`,
-            top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef.current.offsetHeight : 'initial',
+            top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : 'initial',
           }}
         />
         <div
@@ -136,10 +136,12 @@ const Layout = ({ children }) => {
            backgroundColor: backgroundColor,
             overflowY: 'auto',
             zIndex: 0,
-                      top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef.current.offsetHeight : 'initial', 
+                      top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : 'initial', 
                       }}
         >{children}</div>
-      </div>
+      </div></>}
+       {!notExcluded && <>{children}</>}
+
       <Footer ref={footerRef} style={{ height: '200px', backgroundColor: backgroundColor, zIndex: 2, position:'relative' }} />
     </div>
   );

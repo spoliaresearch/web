@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './ProjectContent.css';
 import DitheredImage from './DitheredImage';
 import { graphql, useStaticQuery } from 'gatsby';
 import {MDXRenderer} from "gatsby-plugin-mdx"

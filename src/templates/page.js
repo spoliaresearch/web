@@ -1,9 +1,8 @@
 import {Link, graphql} from "gatsby"
 import {GatsbyImage, getImage} from "gatsby-plugin-image"
 import React, {useEffect} from "react"
-
+import './page.css'
 const TemplatePage = ({
-    
   data: {
     page: {
       name,
@@ -23,18 +22,18 @@ const TemplatePage = ({
   
       {/* <h1>{name}</h1> */}
     
-      <span className="mainContent">
-          <p>{name}</p>
+      <div className="mainContent">
+  
   <div dangerouslySetInnerHTML={{__html: html}} />
 
-      </span>
+      </div>
 
       <div className="context">  {comments.map(comment => (
           <div key={comment.id}>
             <p>{comment.content}</p>
-            {comment.replies.map(reply => (
+            {/* {comment.replies.map(reply => (
               <p key={reply.id}>{reply.content}</p>
-            ))}
+            ))} */}
           </div>
         ))}</div>
           
@@ -54,7 +53,6 @@ export default TemplatePage
 export const pageQuery = graphql`
   query Page($path: String!) {
     page: googleDocs(slug: {eq: $path}) {
-      name
       cover {
         image {
           childImageSharp {
@@ -62,11 +60,9 @@ export const pageQuery = graphql`
           }
         }
       }
+      name
       comments {
         content
-          replies {
-             content
-            }
         }
       childMarkdownRemark {
         html

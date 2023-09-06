@@ -1,5 +1,5 @@
 .ProjectContent {
-    padding-top: 5rem;
+    padding-top: 2rem;
     padding-left: 3rem;
     font-size: 1em;
     line-height: 1.5;
@@ -18,13 +18,25 @@
 }
 .ProjectContent .mainContent {
     padding-right: 1.5rem;
-   width: calc(100% - 250px);
-   max-width: 69em;
+   width: calc(100% - 300px);
+   max-width: 65em;
 }
 
 .ProjectContent .context {
-    max-width: 250px;
-    font-size: .75em;
-    padding-right: 1em;
+    max-width: 300px;
+    font-size: .8em;
+    padding-right: 3em;
      
+}
+
+.ProjectContent .gatsby-resp-image-wrapper {
+    max-width: 1040px !important;
+
+}
+
+
+
+.title {
+    margin-bottom: 3rem;
+    font-variation-settings: "wght" 500, "ital" 0, "SRFF" 0 !important;
 }

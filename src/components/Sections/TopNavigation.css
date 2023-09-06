@@ -16,8 +16,9 @@
 
 .logo {
   font-family: "Arizona Variable";
+  font-size: 1.25rem;
     	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
-    font-variation-settings: "wght" 350, "ital" 0, "SRFF" 50;
+    font-variation-settings: "wght" 250, "ital" 0, "SRFF" 55;
        transition: all 1s ease;
        letter-spacing:.25px
 }
