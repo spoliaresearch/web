@@ -2,6 +2,7 @@ import './Layout2.css';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import TopNavigation from './Sections/TopNavigation';
 import Canvas from './Sections/Canvas';
+import {App} from './Sections/Canvas2';
 import HeaderText from './Sections/HeaderText';
 import Sidebar from './Sections/Sidebar';
 import ProjectContent from './Sections/ProjectContent';
@@ -80,7 +81,8 @@ const Layout = ({ children }) => {
           zIndex: 3,
         }}
       />
-      {notExcluded &&  <><Canvas
+      {notExcluded &&  <>
+      {/* <Canvas
         ref={canvasRef}
         style={{
           position: 'absolute',
@@ -93,7 +95,20 @@ const Layout = ({ children }) => {
           zIndex: 0,
           backgroundColor: 'white'
         }}
-      />
+      /> */}
+      <App
+      ref={canvasRef}
+        style={{
+          position: 'absolute',
+          top: '2rem',
+          left: '.5rem',
+          right: '.5rem',
+          width: 'calc(100% - 1rem)',
+          height: 'calc(100% - 3rem)',
+          bottom: 0,
+          zIndex: 0,
+          backgroundColor: 'white'}}/>
+
           <div  style={{
           height: '75px',
           backgroundColor: backgroundColor,
@@ -101,10 +116,11 @@ const Layout = ({ children }) => {
           fontSize: '1.75rem',
           paddingBottom: '3.5rem',
           paddingTop: '2.25rem',
-          marginTop:'95vh',
+          marginTop:'1vh',
           position: isHeaderSticky ? 'sticky' : 'relative',
           top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
-        }} className="OneLiner"><h3 id="my-anchor-2">Spolia is an indie design research lab <br/> building tools to make a more creative and sustainable web.</h3></div>
+        }} className="OneLiner">
+          <h3 id="my-anchor-2">Spolia is an indie design research lab <br/> building tools to make a more creative and sustainable web.</h3></div>
       <HeaderText
         ref={headerRef}
         name={children?.props?.children?.props?.data?.page?.name}
