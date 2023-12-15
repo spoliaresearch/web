@@ -1,22 +1,25 @@
 import json
 from PIL import Image
 
-def image_to_grid(filename, grid_size_x, grid_size_y, threshold=160):
+def image_to_grid(filename, square_size, grid_size_x, grid_size_y, threshold=160):
     im = Image.open(filename).convert("L")  # Convert to grayscale
     im = im.resize((grid_size_x, grid_size_y))  # Resize to match grid size
-    im = im.rotate(90)  # Rotate the image 180 degrees
+    im = im.rotate(180)  # Rotate the image 90 degrees to the right
 
-    white_cells = []  # List to store coordinates of white cells
+    grid = []
 
     for y in range(grid_size_y):
+        row = []
         for x in range(grid_size_x):
             pixel = im.getpixel((x, y))
-            if pixel >= threshold:
-                white_cells.append((x, y))  # Add coordinates if the cell is white
+            cell_color = 'black' if pixel < threshold else 'white'
+            row.append({'color': cell_color})
+        grid.append(row)
 
-    return white_cells
+    return grid
 
 def main():
+    square_size = 13.333333333333334
     grid_size_x = 80
     grid_size_y = 80
 
@@ -25,11 +28,11 @@ def main():
     thresholds = [155] * num_images  # Use the same threshold for all images
 
     for i, (image_filename, threshold) in enumerate(zip(image_filenames, thresholds)):
-        white_cells = image_to_grid(image_filename, grid_size_x, grid_size_y, threshold)
+        grid = image_to_grid(image_filename, square_size, grid_size_x, grid_size_y, threshold)
 
         output_json = f"./src/components/Sections/grids/output{i + 1}.json"
         with open(output_json, "w") as outfile:
-            json.dump(white_cells, outfile)
+            json.dump(grid, outfile)
 
 if __name__ == "__main__":
     main()

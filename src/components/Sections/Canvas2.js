@@ -2,6 +2,71 @@ import React from "react";
 import { ReactP5Wrapper } from "react-p5-wrapper";
 
 
+import outputGrid1 from './grids/output1.json';
+import outputGrid2 from './grids/output2.json';
+import outputGrid3 from './grids/output3.json';
+import outputGrid4 from './grids/output4.json';
+import outputGrid5 from './grids/output5.json';
+import outputGrid6 from './grids/output6.json';
+import outputGrid7 from './grids/output7.json';
+import outputGrid8 from './grids/output8.json';
+import outputGrid9 from './grids/output9.json';
+import outputGrid10 from './grids/output10.json';
+import outputGrid11 from './grids/output11.json';
+import outputGrid12 from './grids/output12.json';
+import outputGrid13 from './grids/output13.json';
+import outputGrid14 from './grids/output14.json';
+import outputGrid15 from './grids/output15.json';
+import outputGrid16 from './grids/output16.json';
+import outputGrid17 from './grids/output17.json';
+import outputGrid18 from './grids/output18.json';
+import outputGrid19 from './grids/output19.json';
+import outputGrid20 from './grids/output20.json';
+import outputGrid21 from './grids/output21.json';
+import outputGrid22 from './grids/output22.json';
+import outputGrid23 from './grids/output23.json';
+import outputGrid24 from './grids/output24.json';
+import outputGrid25 from './grids/output25.json';
+import outputGrid26 from './grids/output26.json';
+import outputGrid27 from './grids/output27.json';
+import outputGrid28 from './grids/output28.json';
+import outputGrid29 from './grids/output29.json';
+import outputGrid30 from './grids/output30.json';
+
+
+const grids = [
+  outputGrid1,
+  outputGrid2,
+  outputGrid3,
+  outputGrid4,
+  outputGrid5,
+  outputGrid6,
+  outputGrid7,
+  outputGrid8,
+  outputGrid9,
+  outputGrid10,
+  outputGrid11,
+  outputGrid12,
+  outputGrid13,
+  outputGrid14,
+  outputGrid15,
+  outputGrid16,
+  outputGrid17,
+  outputGrid18,
+  outputGrid19,
+  outputGrid20,
+  outputGrid21,
+  outputGrid22,
+  outputGrid23,
+  outputGrid24,
+  outputGrid25,
+  outputGrid26,
+  outputGrid27,
+  outputGrid28,
+  outputGrid29,
+  outputGrid30,
+];
+
 
 
 
@@ -216,7 +281,7 @@ import { ReactP5Wrapper } from "react-p5-wrapper";
 
 let cols;
   let rows;
-  let resolution = 10;
+  let resolution = 6.6666666666666;
   let grid;
   let actualState = [];
   let age = []
@@ -227,16 +292,15 @@ let cols;
    
 function sketch(p5) {
 
-
   p5.setup = () => {
-    p5.createCanvas(window.innerWidth, window.innerHeight);
+    p5.createCanvas(window.innerWidth -20, window.innerHeight);
     cols = p5.width / resolution;
     rows = p5.height / resolution;
      colorArray = [ // Define the color array
-        p5.color(0, 255, 100),  // 1: green
-             p5.color(255, 100, 0),   // 4: red
-               p5.color(255, 255, 0),// 3: yellow
-                 p5.color(0, 0, 255),  // 2: blue
+        p5.color(25),  // 1: green
+             p5.color(200, 115, 105),   // 4: red
+               p5.color(155, 255, 255),// 3: yellow
+                 p5.color(0, 100, 255),  // 2: blue
                 
         p5.color(255)       // 0: white
       
@@ -245,9 +309,47 @@ function sketch(p5) {
 
     ];
 
-        // Initialize actualState with some live cells
-    actualState.push([5, 10]); // Example: A live cell at (10, 5)
+      const randomGridIndex = Math.floor(Math.random() * grids.length);
+  const outputGrid = grids[randomGridIndex];
 
+        const canvasCenterX = p5.width / 2;
+        const canvasCenterY = p5.height / 2;
+
+        // Assuming grid size is known (example: 80x80)
+        const gridWidth = 80; // adjust based on your grid's width
+        const gridHeight = 80; // adjust based on your grid's height
+
+        // Calculate the center of the grid
+        const gridCenterX = gridWidth / 2;
+        const gridCenterY = gridHeight / 2 + 5;
+
+        // Calculate the offset
+        const offsetX = canvasCenterX - gridCenterX * resolution;
+        const offsetY = canvasCenterY - gridCenterY * resolution;
+
+
+// Add initial grid cells to the age grid with a value of -1
+    outputGrid.forEach(([y, ...xValues]) => {
+        xValues.forEach(x => {
+       let adjustedX = x + offsetX / resolution;
+        let adjustedY = y + offsetY / resolution;
+
+        age[`${adjustedX},${adjustedY}`] = -1; // -1 indicates an initial grid cell
+        });
+    });
+
+    age[`100,1`] = -1;
+    age[`100,2`] = -1;
+    age[`100,3`] = -1;
+    age[`100,4`] = -1;
+    age[`100,5`] = -1;
+    age[`100,6`] = -1;
+    age[`100,7`] = -1;
+    age[`101,7`] = -1;
+        age[`100,8`] = -1;
+    age[`99,7`] = -1;
+     age[`98,6`] = -1;
+      age[`102,6`] = -1;
   };
 
  function addCellAtMouse() {
@@ -260,16 +362,40 @@ function sketch(p5) {
         }
     }
 
-    p5.mousePressed = () => {
-        addCellAtMouse();
-    };
+    // p5.mousePressed = () => {
+    //      if (!sketchStarted) {
+    //   sketchStarted = true; // Set the flag to true when mouse is pressed
+    // }
+    //     addCellAtMouse();
+    // };
 
     p5.mouseDragged = () => {
         addCellAtMouse();
     };
+
+   p5.mousePressed = () => {
+    // Iterate through all cells in the age object
+    for (let cellKey in age) {
+        if (age[cellKey] === -1) {
+            // Split the cellKey to get x and y coordinates
+            let [x, y] = cellKey.split(',').map(Number);
+            // Add cell to the actualState
+            addCell(x, y, actualState);
+        }
+    }
+    colorArray[0] =  p5.color(0, 200, 100) 
+    // Optionally, add additional actions here if needed, like starting the sketch
+};
+
+
+
+      p5.mouseMoved = () => {
+        addCellAtMouse();
+    };
+
   p5.draw = () => {
-    p5.background(0);
-      p5.frameRate(10);
+    p5.background(25);
+      p5.frameRate(12);
     //  for (let i = 0; i < actualState.length; i++) {
     //   let y = actualState[i][0];
     //   for (let j = 1; j < actualState[i].length; j++) {
@@ -282,19 +408,29 @@ function sketch(p5) {
     //     p5.rect(gridX, gridY, resolution, resolution);
     //   }
     // }
+
      for (let cellKey in age) {
         let [x, y] = cellKey.split(',').map(Number);
         let gridX = x * resolution;
         let gridY = y * resolution;
         let cellAge = age[cellKey];
 let ageColorIndex = age[cellKey] !== undefined ? age[cellKey] : 1;
-        if (ageColorIndex > 4) {
-            ageColorIndex = 4;
 
+if (age[cellKey] === -1) {
+            // Initial grid cell, draw in white
+            p5.fill(255);
+            p5.stroke(25);
+        } else {
+            // Live cell
+            let cellAge = age[cellKey];
+            let ageColorIndex = cellAge > 4 ? 4 : cellAge;
+            p5.fill(colorArray[ageColorIndex]);
         }
-        p5.fill(colorArray[ageColorIndex]); // Alive cell color
+
+       
         p5.rect(gridX, gridY, resolution, resolution);
     }
+      
   
      var x, y, i, j, m, n, key, t1, t2, alive = 0, neighbours, deadNeighbours, allDeadNeighbours = {}, newState = [];
      let redrawList = [];
@@ -358,13 +494,17 @@ let ageColorIndex = age[cellKey] !== undefined ? age[cellKey] : 1;
       } else if (state === 2) { // Existing cell
         age[cellKey] = (age[cellKey] || 0) + 1; // Increment age
       } 
-      else  { // Cell is dead
-        age[cellKey] = 0; // Remove from age array
+      else   { // Cell is dead
+        delete age[cellKey]
       }
+    //   else  { // Cell is dead, keep trail
+        
+    //     age[cellKey] = 0;
+       
+    //   }
     });
-
         actualState = newState;
-        console.log(age)
+          
 
         return alive;
   };
