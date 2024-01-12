@@ -10,7 +10,7 @@ import Footer from './Sections/Footer';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { FontSettingsContext, FontSettingsProvider } from '../contexts/FontSettingsContext';
 import FontSettingsSlider from './FontSettingsSlider';
-
+import {Link} from "gatsby"
 const Layout = ({ children }) => {
 
    const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
@@ -27,12 +27,12 @@ const Layout = ({ children }) => {
 
     if (isDarkMode) {
       root.style.setProperty('--background-color', 'black');
-      root.style.setProperty('--text-color', 'black');
+      root.style.setProperty('--text-color', 'white');
       root.style.setProperty('--gray-color', 'gray');
         root.style.setProperty('--opposite-color', 'white');
     } else {
       root.style.setProperty('--background-color', 'white');
-      root.style.setProperty('--text-color', 'white');
+      root.style.setProperty('--text-color', 'black');
       root.style.setProperty('--gray-color', 'gray');
          root.style.setProperty('--opposite-color', 'black');
   
@@ -68,7 +68,7 @@ const Layout = ({ children }) => {
   }, []);
 
   return (
-    <div className="container" style={{ ...rootStyle, position: 'relative', minHeight: '100vh', padding: '0 .5rem' }}>
+    <div className="container" style={{ ...rootStyle, position: 'relative', minHeight: '100vh', padding: '0 .475rem' }}>
       <TopNavigation
         ref={topNavRef}
         style={{
@@ -96,20 +96,18 @@ const Layout = ({ children }) => {
           backgroundColor: 'white'
         }}
       /> */}
+         <h1 id="my-anchor-2"><div class='text-animate'>Spolia designs products for the <span>future</span> <br/> inspired by the <span>past</span>.</div></h1>
+           <div class="grid-container">
+  <div class="grid-item">Readability: Mixed Serif</div>
+  <div class="grid-item">11:06 CET</div>
+  <div class="grid-item">103 online</div>
+  <div class="grid-item">305 cell iterations</div>
+</div>
       <App
       ref={canvasRef}
-        style={{
-          position: 'absolute',
-          top: '2rem',
-          left: '.5rem',
-          right: '.5rem',
-          width: 'calc(100% - 1rem)',
-          height: 'calc(100% - 3rem)',
-          bottom: 0,
-          zIndex: 0,
-          backgroundColor: 'white'}}/>
+    />
 
-          <div  style={{
+          {/* <div  style={{
           height: '75px',
           backgroundColor: backgroundColor,
           zIndex: 2,
@@ -120,7 +118,17 @@ const Layout = ({ children }) => {
           position: isHeaderSticky ? 'sticky' : 'relative',
           top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
         }} className="OneLiner">
-          <h3 id="my-anchor-2">Spolia is an indie design research lab <br/> building tools to make a more creative and sustainable web.</h3></div>
+          */}
+ <div class="label">Our Approach</div>
+      <div className="text-header" >
+         
+       <p className='text-left'>We are a research-led design & technology studio building tools for a more creative and sustainable future. Our approach to designing for emerging technology is rooted in a human-centered philosophy, which begins with a thorough understanding of the past.<Link to="/information" className="link-primary">Learn more -></Link>
+</p>
+
+<div></div>
+
+</div>
+     
       <HeaderText
         ref={headerRef}
         name={children?.props?.children?.props?.data?.page?.name}
@@ -171,3 +179,4 @@ const WrappedLayout = ({ children }) => (
 );
 
 export default WrappedLayout;
+

@@ -43,8 +43,7 @@ html, body, div, p, h1,h2,h3,h4 {
 }
 
 .text {
-    mix-blend-mode: difference;
-    color: white;
+
       font-family: "Arizona Variable";
     	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
       letter-spacing: -.17px;
@@ -181,9 +180,9 @@ a, a:hover, a:focus, a:active {
   
  }
 
-a:hover {
+a:not(.logo):hover {
     cursor: pointer;
-     font-variation-settings: "wght" 500, "ital" 0, "SRFF" .70; 
+     font-variation-settings: "wght" 500, "ital" 0, "SRFF" .4; 
 }
 
  .text:hover {

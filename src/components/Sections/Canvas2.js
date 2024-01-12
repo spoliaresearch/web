@@ -71,21 +71,7 @@ const grids = [
 
 
 
-  function isAlive(x, y) {
-        var i, j;
-
-        for (i = 0; i < actualState.length; i++) {
-          if (actualState[i][0] === y) {
-            for (j = 1; j < actualState[i].length; j++) {
-              if (actualState[i][j] === x) {
-                return true;
-              }
-            }
-          }
-        }
-        return false;
-      }
-
+ 
       function addCell(x, y, state) {
         if (state.length === 0) {
           state.push([y, x]);
@@ -281,7 +267,7 @@ const grids = [
 
 let cols;
   let rows;
-  let resolution = 6.6666666666666;
+  let resolution = 7;
   let grid;
   let actualState = [];
   let age = []
@@ -293,16 +279,24 @@ let cols;
 function sketch(p5) {
 
   p5.setup = () => {
-    p5.createCanvas(window.innerWidth -20, window.innerHeight);
+    p5.createCanvas(window.innerWidth - 15, window.innerHeight - 100);
     cols = p5.width / resolution;
-    rows = p5.height / resolution;
+    rows = (p5.height) / resolution;
+      let r = p5.random(255); // r is a random number between 0 - 255
+ let g = p5.random(100,200); // g is a random number betwen 100 - 200
+  let b = p5.random(100); // b is a random number between 0 - 100
      colorArray = [ // Define the color array
-        p5.color(25),  // 1: green
-             p5.color(200, 115, 105),   // 4: red
+        p5.color(255),  // 1: green
+             p5.color(255),   // 4: red
+
                p5.color(155, 255, 255),// 3: yellow
-                 p5.color(0, 100, 255),  // 2: blue
+                 p5.color(50,100,250),       // 0: blue
+      
+                 p5.color(50, 185, 25),  // 2:green
+                  p5.color(255, 225, 225),  // 2:green
                 
-        p5.color(255)       // 0: white
+      
+        
       
       
       
@@ -321,7 +315,7 @@ function sketch(p5) {
 
         // Calculate the center of the grid
         const gridCenterX = gridWidth / 2;
-        const gridCenterY = gridHeight / 2 + 5;
+        const gridCenterY = gridHeight / 2;
 
         // Calculate the offset
         const offsetX = canvasCenterX - gridCenterX * resolution;
@@ -331,8 +325,8 @@ function sketch(p5) {
 // Add initial grid cells to the age grid with a value of -1
     outputGrid.forEach(([y, ...xValues]) => {
         xValues.forEach(x => {
-       let adjustedX = x + offsetX / resolution;
-        let adjustedY = y + offsetY / resolution;
+       let adjustedX = Math.round(x + offsetX / resolution);
+        let adjustedY = Math.round(y + offsetY / resolution);
 
         age[`${adjustedX},${adjustedY}`] = -1; // -1 indicates an initial grid cell
         });
@@ -359,6 +353,7 @@ function sketch(p5) {
 
             addCell(x, y, actualState);
             age[`${x},${y}`] = 1; // Set age for new cell
+          
         }
     }
 
@@ -373,19 +368,19 @@ function sketch(p5) {
         addCellAtMouse();
     };
 
-   p5.mousePressed = () => {
-    // Iterate through all cells in the age object
-    for (let cellKey in age) {
-        if (age[cellKey] === -1) {
-            // Split the cellKey to get x and y coordinates
-            let [x, y] = cellKey.split(',').map(Number);
-            // Add cell to the actualState
-            addCell(x, y, actualState);
-        }
-    }
-    colorArray[0] =  p5.color(0, 200, 100) 
-    // Optionally, add additional actions here if needed, like starting the sketch
-};
+//    p5.mousePressed = () => {
+//     // Iterate through all cells in the age object
+//     for (let cellKey in age) {
+//         if (age[cellKey] === -1) {
+//             // Split the cellKey to get x and y coordinates
+//             let [x, y] = cellKey.split(',').map(Number);
+//             // Add cell to the actualState
+//             addCell(x, y, actualState);
+//         }
+//     }
+//     colorArray[0] =  p5.color(0, 200, 100);
+//     // Optionally, add additional actions here if needed, like starting the sketch
+// };
 
 
 
@@ -394,8 +389,8 @@ function sketch(p5) {
     };
 
   p5.draw = () => {
-    p5.background(25);
-      p5.frameRate(12);
+    p5.background(0, 0, 0);
+      p5.frameRate(10);
     //  for (let i = 0; i < actualState.length; i++) {
     //   let y = actualState[i][0];
     //   for (let j = 1; j < actualState[i].length; j++) {
@@ -423,7 +418,8 @@ if (age[cellKey] === -1) {
         } else {
             // Live cell
             let cellAge = age[cellKey];
-            let ageColorIndex = cellAge > 4 ? 4 : cellAge;
+            // let ageColorIndex = cellAge > 4 ? 4 : cellAge;
+              let ageColorIndex = Math.min(Math.abs(cellAge), colorArray.length - 1);
             p5.fill(colorArray[ageColorIndex]);
         }
 
@@ -464,7 +460,10 @@ if (age[cellKey] === -1) {
 
             if (!(neighbours === 0 || neighbours === 1 || neighbours > 3)) {
               addCell(x, y, newState);
-              alive++;
+               if (age[`${x},${y}`] > 0) {
+          alive++; // Increment alive only if age is positive
+        }
+              // alive++;
               redrawList.push([x, y, 2]); // Keep alive
             } else {
               redrawList.push([x, y, 0]); // Kill cell
@@ -494,14 +493,15 @@ if (age[cellKey] === -1) {
       } else if (state === 2) { // Existing cell
         age[cellKey] = (age[cellKey] || 0) + 1; // Increment age
       } 
-      else   { // Cell is dead
-        delete age[cellKey]
-      }
-    //   else  { // Cell is dead, keep trail
-        
-    //     age[cellKey] = 0;
+      // else   { // Cell is dead
+      //   delete age[cellKey]
+      // }
+    
+        else {
+            age[cellKey] = -age[cellKey] - 2;
+        }
        
-    //   }
+      
     });
         actualState = newState;
           
@@ -511,5 +511,5 @@ if (age[cellKey] === -1) {
 }
 
 export function App() {
-  return <ReactP5Wrapper sketch={sketch} />;
+  return <><ReactP5Wrapper sketch={sketch} /></>;
 }

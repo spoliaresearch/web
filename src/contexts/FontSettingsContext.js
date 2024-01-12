@@ -4,7 +4,7 @@ const FontSettingsContext = createContext();
 
 const FontSettingsProvider = ({ children }) => {
   const [SRFF, setSRFF] = useState(.53);
-  const [fontSize, setFontSize] = useState('16px');
+  const [fontSize, setFontSize] = useState('18px');
 
   return (
     <FontSettingsContext.Provider value={{ SRFF, setSRFF, fontSize, setFontSize }}>

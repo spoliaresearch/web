@@ -24,7 +24,7 @@
 }
 
 .logo:hover {
-     font-variation-settings: "wght" 600, "ital" 0, "SRFF" 00;
+     font-variation-settings: "wght" 600, "ital" 0, "SRFF" 0;
      letter-spacing: -.25px;
      cursor: pointer;
 }

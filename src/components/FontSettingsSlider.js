@@ -12,10 +12,10 @@ const FontSettingsSlider = () => {
 
   const handleFontSizeChange = (event) => {
   const sizeMap = {
-    'small': '14px',
-    'medium': '16px',
-    'large': '18px',
-    'xlarge': '20px',
+    'small': '16px',
+    'medium': '18px',
+    'large': '20px',
+    'xlarge': '24px',
   };
   setFontSize(sizeMap[event.target.dataset.size]);
 };
