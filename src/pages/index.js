@@ -1,16 +1,11 @@
 import './Layout2.css';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import TopNavigation from '../components/Sections/TopNavigation';
-import Canvas from '../components/Sections/Canvas';
 import {App} from '../components/Sections/Canvas2';
-import HeaderText from '../components/Sections/HeaderText';
 import Sidebar from '../components/Sections/Sidebar';
-import ProjectContent from '../components/Sections/ProjectContent';
 import Footer from '../components/Sections/Footer';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { FontSettingsContext, FontSettingsProvider } from '../contexts/FontSettingsContext';
-import FontSettingsSlider from '../components/FontSettingsSlider';
-import PageViewCounter from '../components/PageViewCounter';
 
 const Layout = ({ children }) => {
 

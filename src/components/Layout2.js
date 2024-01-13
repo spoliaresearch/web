@@ -1,15 +1,12 @@
 import './Layout2.css';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import TopNavigation from './Sections/TopNavigation';
-import Canvas from './Sections/Canvas';
 import {App} from './Sections/Canvas2';
 import HeaderText from './Sections/HeaderText';
 import Sidebar from './Sections/Sidebar';
-import ProjectContent from './Sections/ProjectContent';
 import Footer from './Sections/Footer';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { FontSettingsContext, FontSettingsProvider } from '../contexts/FontSettingsContext';
-import FontSettingsSlider from './FontSettingsSlider';
 import {Link} from "gatsby"
 const Layout = ({ children }) => {
 
