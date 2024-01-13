@@ -46,6 +46,7 @@
 
 .HeaderGrid > :nth-child(2) {
   flex-grow: 1;
+  padding-top: 1.25rem;
 }
 
 

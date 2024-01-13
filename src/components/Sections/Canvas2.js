@@ -279,7 +279,7 @@ let cols;
 function sketch(p5) {
 
   p5.setup = () => {
-    p5.createCanvas(window.innerWidth - 15, window.innerHeight - 100);
+    p5.createCanvas(window.innerWidth - 270, window.innerHeight - 100);
     cols = p5.width / resolution;
     rows = (p5.height) / resolution;
  

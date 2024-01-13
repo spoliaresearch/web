@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Button.css';
 // import HeaderAnim from "../components/HeaderAnim";
-import Layout from "../components/Layout";
 const pageStyles = {
   color: "#232129",
   padding: 0,
@@ -31,7 +30,8 @@ const IndexPage = () => {
   ;
   };
   return (
-    <Layout>
+    <>
+    
  <title>Spolia Lab</title>
     <main style={pageStyles}>
 
@@ -66,7 +66,7 @@ you’re welcome to <span  onClick={() => setGridActive(!isGridActive)} classNam
      
     
     </main>
-    </Layout>
+</>
   )
 }
 

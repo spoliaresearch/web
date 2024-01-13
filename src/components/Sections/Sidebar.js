@@ -71,8 +71,16 @@ const Sidebar = React.forwardRef((props, ref) => {
 
   return (
     <div className="Sidebar" ref={ref} style={props.style}>
+       <Link key={0} to={'/information'}>
+          <SidebarItem
+            title={'Our Approach to Working'}
+            textSnippet={'Spolia.....'}
+            date={'2024'}
+            active={false}
+          />
+        </Link>
       {sidebarItemsData.map((itemData, index) => (
-        <Link key={index} to={itemData.slug}>
+        <Link key={index+1} to={itemData.slug}>
           <SidebarItem
             title={itemData.title}
             textSnippet={itemData.textSnippet}

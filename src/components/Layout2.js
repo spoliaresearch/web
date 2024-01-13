@@ -11,7 +11,7 @@ import {Link} from "gatsby"
 const Layout = ({ children }) => {
 
    const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
-  const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
+  const excludedPaths = ['/404']; // Add paths you want to exclude
   const notExcluded = !excludedPaths.includes(window?.location?.pathname);
    const { SRFF, fontSize  } = useContext(FontSettingsContext);
     const rootStyle = {
@@ -108,8 +108,8 @@ const Layout = ({ children }) => {
           top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
         }} className="OneLiner">
           */}
- 
-     
+          
+                            {/* <h1 id="my-anchor-2"><div class='text-animate'> Spolia is a research-led design & technology studio building tools for a more creative and sustainable future. </div></h1> */}
       <HeaderText
         ref={headerRef}
         name={children?.props?.children?.props?.data?.page?.name}
@@ -126,7 +126,7 @@ const Layout = ({ children }) => {
           ref={sidebarRef}
           style={{
             height: '92vh',
-            width: '21.5rem',
+            width: '16rem',
             overflowY: 'auto',
             position: isHeaderSticky ? 'sticky' : 'relative',
             backgroundColor: backgroundColor,
@@ -136,7 +136,7 @@ const Layout = ({ children }) => {
         />
         <div
           ref={projectContentRef}
-          style={{ height: 'auto', width: 'calc(100vw - 21.5rem)',
+          style={{ height: 'auto', width: 'calc(100vw - 16rem)',
           position: isHeaderSticky ? 'sticky' : 'relative',
            backgroundColor: backgroundColor,
             overflowY: 'auto',

@@ -53,33 +53,22 @@ const Layout = ({ children }) => {
 
   const [isHeaderSticky, setIsHeaderSticky] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const headerTop = headerRef?.current?.getBoundingClientRect().top - 10;
-      setIsHeaderSticky(headerTop <= topNavRef.current.offsetHeight);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const headerTop = headerRef?.current?.getBoundingClientRect().top - 10;
+  //     setIsHeaderSticky(headerTop <= topNavRef.current.offsetHeight);
+  //   };
 
-    window.addEventListener('scroll', handleScroll);
+  //   window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
 
   return (
     <div className="container" style={{ ...rootStyle, position: 'relative', minHeight: '100vh', padding: '0 .475rem' }}>
-      <TopNavigation
-        ref={topNavRef}
-        style={{
-          position: 'sticky',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '40px',
-          backgroundColor: backgroundColor,
-          zIndex: 3,
-        }}
-      />
+    
       {notExcluded &&  <>
       {/* <Canvas
         ref={canvasRef}
@@ -95,13 +84,10 @@ const Layout = ({ children }) => {
           backgroundColor: 'white'
         }}
       /> */}
-         <h1 id="my-anchor-2"><div class='text-animate'>Spolia designs products for the <span>future</span> <br/> inspired by the <span>past</span>.</div></h1>
-           <div class="grid-container">
-  <div class="grid-item">Readability: Mixed Serif</div>
-  <div class="grid-item">11:06 CET</div>
-  <div class="grid-item">103 online</div>
-  <div class="grid-item">305 cell iterations</div>
-</div>
+ 
+
+
+    
       <App
       ref={canvasRef}
     />
@@ -165,7 +151,6 @@ const Layout = ({ children }) => {
       </div></>}
        {!notExcluded && <>{children}</>}
 
-      <Footer ref={footerRef} style={{ height: '200px', backgroundColor: backgroundColor, zIndex: 2, position:'relative' }} />
     </div>
   );
 };
