@@ -282,13 +282,10 @@ function sketch(p5) {
     p5.createCanvas(window.innerWidth - 15, window.innerHeight - 100);
     cols = p5.width / resolution;
     rows = (p5.height) / resolution;
-      let r = p5.random(255); // r is a random number between 0 - 255
- let g = p5.random(100,200); // g is a random number betwen 100 - 200
-  let b = p5.random(100); // b is a random number between 0 - 100
+ 
      colorArray = [ // Define the color array
-        p5.color(255),  // 1: green
-             p5.color(255),   // 4: red
-
+        p5.color(255),  // 
+             p5.color(255),   // 
                p5.color(155, 255, 255),// 3: yellow
                  p5.color(50,100,250),       // 0: blue
       

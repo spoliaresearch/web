@@ -1,12 +1,12 @@
 import './Layout2.css';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import TopNavigation from './Sections/TopNavigation';
-import {App} from './Sections/Canvas2';
-import HeaderText from './Sections/HeaderText';
-import Sidebar from './Sections/Sidebar';
-import Footer from './Sections/Footer';
+import TopNavigation from '../components/Sections/TopNavigation';
+import {App} from '../components/Sections/Canvas2';
+import Sidebar from '../components/Sections/Sidebar';
+import Footer from '../components/Sections/Footer';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { FontSettingsContext, FontSettingsProvider } from '../contexts/FontSettingsContext';
+
 import {Link} from "gatsby"
 const Layout = ({ children }) => {
 
@@ -93,8 +93,6 @@ const Layout = ({ children }) => {
           backgroundColor: 'white'
         }}
       /> */}
-         <h6 id="my-anchor-2"><div class='text-animate'></div></h6>
-        
     
           {/* <div  style={{
           height: '75px',
@@ -108,9 +106,17 @@ const Layout = ({ children }) => {
           top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
         }} className="OneLiner">
           */}
- 
+ {/* <div class="label">Our Approach</div>
+      <div className="text-header" >
+         
+       <p className='text-left'>We are a research-led design & technology studio building tools for a more creative and sustainable future. Our approach to designing for emerging technology is rooted in a human-centered philosophy, which begins with a thorough understanding of the past.<Link to="/information" className="link-primary">Learn more -></Link>
+</p>
+
+<div></div> */}
+
+{/* </div> */}
      
-      <HeaderText
+      {/* <HeaderText
         ref={headerRef}
         name={children?.props?.children?.props?.data?.page?.name}
         style={{
@@ -120,7 +126,7 @@ const Layout = ({ children }) => {
           position: isHeaderSticky ? 'sticky' : 'relative',
           top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
         }}
-      />
+      /> */}
       <div className="main-content" style={{ position: 'relative', zIndex: 2 }}>
         <Sidebar
           ref={sidebarRef}
