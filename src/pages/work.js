@@ -4,15 +4,15 @@ import TopNavigation from '../components/Sections/TopNavigation';
 import {App} from '../components/Sections/Canvas2';
 import Sidebar from '../components/Sections/Sidebar';
 import Footer from '../components/Sections/Footer';
-import { ThemeContext } from '../contexts/ThemeContext';
+import { ThemeContext, ThemeProvider } from '../contexts/ThemeContext';
 import { FontSettingsContext, FontSettingsProvider } from '../contexts/FontSettingsContext';
 
 import {Link} from "gatsby"
-const Layout = ({ children }) => {
+const Work = () => {
 
-   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
-  const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
-  const notExcluded = !excludedPaths.includes(window?.location?.pathname);
+   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext) || { isDarkMode: false, setIsDarkMode: () => {} };
+//   const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
+  const notExcluded = true
    const { SRFF, fontSize  } = useContext(FontSettingsContext);
     const rootStyle = {
     fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${SRFF}`,
@@ -152,9 +152,8 @@ const Layout = ({ children }) => {
             zIndex: 0,
                       top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : 'initial', 
                       }}
-        >{children}</div>
+        >hi</div>
       </div></>}
-       {!notExcluded && <>{children}</>}
 
       <Footer ref={footerRef} style={{ height: '200px', backgroundColor: backgroundColor, zIndex: 2, position:'relative' }} />
     </div>
@@ -162,9 +161,9 @@ const Layout = ({ children }) => {
 };
 
 
-const WrappedLayout = ({ children }) => (
+const WrappedLayout = () => (
   <FontSettingsProvider>
-    <Layout>{children}</Layout>
+    <Work/>
   </FontSettingsProvider>
 );
 

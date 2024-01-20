@@ -7,31 +7,31 @@ const Footer = forwardRef((props, ref) => {
   const [OS, setOS] = useState('');
 
   // Inside your component
-useEffect(() => {
-  // Ensure this is placed outside the useEffect but inside your component
-  const updateDimensions = () => {
-    setDimensions({ width: window.innerWidth, height: window.innerHeight });
-  };
+// useEffect(() => {
+//   // Ensure this is placed outside the useEffect but inside your component
+//   const updateDimensions = () => {
+//     setDimensions({ width: window?.innerWidth, height: window?.innerHeight });
+//   };
 
-  if (typeof window !== 'undefined') {
-    // Browser Dimensions
-    window.addEventListener('resize', updateDimensions);
-    updateDimensions(); // Set initial dimensions
+//   if (typeof window !== 'undefined') {
+//     // Browser Dimensions
+//     window.addEventListener('resize', updateDimensions);
+//     updateDimensions(); // Set initial dimensions
 
-    // Operating System
-    setOS(window.navigator.platform);
-  }
+//     // Operating System
+//     setOS(window.navigator.platform);
+//   }
 
-  // Local Time
-  const timerID = setInterval(() => setTime(new Date()), 1000);
+//   // Local Time
+//   const timerID = setInterval(() => setTime(new Date()), 1000);
 
-  return () => {
-    if (typeof window !== 'undefined') {
-      window.removeEventListener('resize', updateDimensions);
-    }
-    clearInterval(timerID);
-  };
-}, []);
+//   return () => {
+//     if (typeof window !== 'undefined') {
+//       window.removeEventListener('resize', updateDimensions);
+//     }
+//     clearInterval(timerID);
+//   };
+// }, []);
 
   return (
     <footer className="Footer" ref={ref} style={props.style}>

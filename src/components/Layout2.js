@@ -11,8 +11,8 @@ import {Link} from "gatsby"
 const Layout = ({ children }) => {
 
    const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
-  const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
-  const notExcluded = !excludedPaths.includes(window?.location?.pathname);
+  // const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
+  const notExcluded = true
    const { SRFF, fontSize  } = useContext(FontSettingsContext);
     const rootStyle = {
     fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${SRFF}`,

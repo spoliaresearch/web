@@ -1,8 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-import { ReactP5Wrapper } from "react-p5-wrapper";
-
-
+import React, { useState, useEffect, Suspense } from 'react';
 import outputGrid1 from './grids/output1.json';
 import outputGrid2 from './grids/output2.json';
 import outputGrid3 from './grids/output3.json';
@@ -34,7 +30,7 @@ import outputGrid28 from './grids/output28.json';
 import outputGrid29 from './grids/output29.json';
 import outputGrid30 from './grids/output30.json';
 
-
+const ReactP5Wrapper = React.lazy(() => import('react-p5-wrapper').then(module => ({ default: module.ReactP5Wrapper })));
 const grids = [
   outputGrid1,
   outputGrid2,
@@ -519,16 +515,18 @@ if (age[cellKey] === -1) {
 }
 
 export function App() {
-  const [isBrowser, setIsBrowser] = useState(false);
+    const [isSSR, setIsSSR] = useState(false);
 
-  useEffect(() => {
-    // Check if the code is running in a browser
-    setIsBrowser(typeof window !== 'undefined');
-  }, []);
-
+    useEffect(() => {
+        setIsSSR(typeof window !== 'undefined');
+    }, []);
   return (
     <>
-      {isBrowser && <ReactP5Wrapper sketch={sketch} />}
+          {isSSR && (
+                <Suspense fallback={<div>Loading...</div>}>
+              <ReactP5Wrapper sketch={sketch} />
+                </Suspense>
+            )}
     </>
   );
 }
