@@ -6,25 +6,32 @@ const Footer = forwardRef((props, ref) => {
   const [time, setTime] = useState(new Date());
   const [OS, setOS] = useState('');
 
-  useEffect(() => {
-    // Browser Dimensions
-    const updateDimensions = () => {
-      setDimensions({ width: window.innerWidth, height: window.innerHeight });
-    };
-    window.addEventListener('resize', updateDimensions);
-    updateDimensions();
+  // Inside your component
+useEffect(() => {
+  // Ensure this is placed outside the useEffect but inside your component
+  const updateDimensions = () => {
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+  };
 
-    // Local Time
-    const timerID = setInterval(() => setTime(new Date()), 1000);
+  if (typeof window !== 'undefined') {
+    // Browser Dimensions
+    window.addEventListener('resize', updateDimensions);
+    updateDimensions(); // Set initial dimensions
 
     // Operating System
     setOS(window.navigator.platform);
+  }
 
-    return () => {
+  // Local Time
+  const timerID = setInterval(() => setTime(new Date()), 1000);
+
+  return () => {
+    if (typeof window !== 'undefined') {
       window.removeEventListener('resize', updateDimensions);
-      clearInterval(timerID);
-    };
-  }, []);
+    }
+    clearInterval(timerID);
+  };
+}, []);
 
   return (
     <footer className="Footer" ref={ref} style={props.style}>

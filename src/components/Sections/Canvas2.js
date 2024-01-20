@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+
 import { ReactP5Wrapper } from "react-p5-wrapper";
 
 
@@ -279,7 +280,17 @@ let cols;
 function sketch(p5) {
 
   p5.setup = () => {
-    p5.createCanvas(window.innerWidth - 15, window.innerHeight - 100);
+    let canvasWidth, canvasHeight;
+if (typeof window !== 'undefined') {
+    canvasWidth = window.innerWidth - 15;
+    canvasHeight = window.innerHeight - 100;
+} else {
+    // Define default sizes or use a responsive approach
+    canvasWidth = 800; // Example default width
+    canvasHeight = 600; // Example default height
+}
+
+    p5.createCanvas(canvasWidth, canvasHeight);
     cols = p5.width / resolution;
     rows = (p5.height) / resolution;
  
@@ -508,5 +519,16 @@ if (age[cellKey] === -1) {
 }
 
 export function App() {
-  return <><ReactP5Wrapper sketch={sketch} /></>;
+  const [isBrowser, setIsBrowser] = useState(false);
+
+  useEffect(() => {
+    // Check if the code is running in a browser
+    setIsBrowser(typeof window !== 'undefined');
+  }, []);
+
+  return (
+    <>
+      {isBrowser && <ReactP5Wrapper sketch={sketch} />}
+    </>
+  );
 }

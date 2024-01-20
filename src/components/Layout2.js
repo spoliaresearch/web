@@ -52,6 +52,8 @@ const Layout = ({ children }) => {
   const [isHeaderSticky, setIsHeaderSticky] = useState(false);
 
   useEffect(() => {
+  // Ensure this code runs only in the browser
+  if (typeof window !== 'undefined') {
     const handleScroll = () => {
       const headerTop = headerRef?.current?.getBoundingClientRect().top - 10;
       setIsHeaderSticky(headerTop <= topNavRef.current.offsetHeight);
@@ -59,10 +61,12 @@ const Layout = ({ children }) => {
 
     window.addEventListener('scroll', handleScroll);
 
+    // Cleanup function to remove the scroll event listener
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }
+}, []);
 
   return (
     <div className="container" style={{ ...rootStyle, position: 'relative', minHeight: '100vh', padding: '0 .475rem' }}>
