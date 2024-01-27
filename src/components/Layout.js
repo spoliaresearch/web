@@ -9,7 +9,9 @@ const Layout = ({ children }) => {
       <header className={layoutStyles.headerNav}>
         <Link to="/" className={layoutStyles.link}>Home</Link>
         <Link to="/about" className={layoutStyles.link}>About</Link>
-        <Link to="/contact" className={layoutStyles.link}>Contact</Link>
+        <Link to="/work" className={layoutStyles.link}>Work</Link>
+         <Link to="/information" className={layoutStyles.link}>Office</Link>
+          <Link to="/contact" className={layoutStyles.link}>Contact</Link>
       </header>
       <main className={layoutStyles.mainContent}>{children}</main>
       <footer className={layoutStyles.footer}>© {new Date().getFullYear()} Your Site Name</footer>

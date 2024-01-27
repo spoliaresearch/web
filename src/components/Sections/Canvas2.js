@@ -1,7 +1,4 @@
-import React from "react";
-import { ReactP5Wrapper } from "react-p5-wrapper";
-
-
+import React, { useState, useEffect, Suspense } from 'react';
 import outputGrid1 from './grids/output1.json';
 import outputGrid2 from './grids/output2.json';
 import outputGrid3 from './grids/output3.json';
@@ -33,7 +30,7 @@ import outputGrid28 from './grids/output28.json';
 import outputGrid29 from './grids/output29.json';
 import outputGrid30 from './grids/output30.json';
 
-
+const ReactP5Wrapper = React.lazy(() => import('react-p5-wrapper').then(module => ({ default: module.ReactP5Wrapper })));
 const grids = [
   outputGrid1,
   outputGrid2,
@@ -279,16 +276,23 @@ let cols;
 function sketch(p5) {
 
   p5.setup = () => {
-    p5.createCanvas(window.innerWidth - 15, window.innerHeight - 100);
+    let canvasWidth, canvasHeight;
+if (typeof window !== 'undefined') {
+    canvasWidth = window.innerWidth - 15;
+    canvasHeight = window.innerHeight - 100;
+} else {
+    // Define default sizes or use a responsive approach
+    canvasWidth = 800; // Example default width
+    canvasHeight = 600; // Example default height
+}
+
+    p5.createCanvas(canvasWidth, canvasHeight);
     cols = p5.width / resolution;
     rows = (p5.height) / resolution;
-      let r = p5.random(255); // r is a random number between 0 - 255
- let g = p5.random(100,200); // g is a random number betwen 100 - 200
-  let b = p5.random(100); // b is a random number between 0 - 100
+ 
      colorArray = [ // Define the color array
-        p5.color(255),  // 1: green
-             p5.color(255),   // 4: red
-
+        p5.color(255),  // 
+             p5.color(255),   // 
                p5.color(155, 255, 255),// 3: yellow
                  p5.color(50,100,250),       // 0: blue
       
@@ -511,5 +515,18 @@ if (age[cellKey] === -1) {
 }
 
 export function App() {
-  return <><ReactP5Wrapper sketch={sketch} /></>;
+    const [isSSR, setIsSSR] = useState(false);
+
+    useEffect(() => {
+        setIsSSR(typeof window !== 'undefined');
+    }, []);
+  return (
+    <>
+          {isSSR && (
+                <Suspense fallback={<div>Loading...</div>}>
+              <ReactP5Wrapper sketch={sketch} />
+                </Suspense>
+            )}
+    </>
+  );
 }

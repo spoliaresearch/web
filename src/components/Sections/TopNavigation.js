@@ -7,6 +7,9 @@ const TopNavigation = React.forwardRef((props, ref) => {
     <div className='nav'><Link to="/" className="logo"><span>SPOLIA</span></Link>
     <div><span>DESIGN & TECHNOLOGY</span></div>
     <div>
+        <Link to="/work" className="logo"><span>WORK</span></Link>
+         <Link to="/information" className="logo"><span>OFFICE</span></Link>
+        
     <span>  <a href="mailto:hello@spolialab.com">CONTACT</a></span>
     </div>
     </div></nav>;
