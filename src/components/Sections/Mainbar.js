@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import './Sidebar.css';
-import SidebarItem from './SidebarItem';
+import './Mainbar.css';
+import SidebarItem from './MainbarItem';
 import { useStaticQuery, graphql } from 'gatsby';
 
 const Sidebar = React.forwardRef((props, ref) => {
@@ -30,7 +30,7 @@ const Sidebar = React.forwardRef((props, ref) => {
   }));
 
   return (
-    <div className="Sidebar" ref={ref} style={props.style}>
+    <div className="Mainbar" ref={ref} style={props.style}>
       {sidebarItemsData.map((itemData, index) => (
         <Link key={index} to={itemData.slug}>
           <SidebarItem

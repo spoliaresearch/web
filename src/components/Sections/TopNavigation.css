@@ -28,3 +28,21 @@
      letter-spacing: -.25px;
      cursor: pointer;
 }
+.nav-middle{
+  position: absolute;
+  left: 41.25%;
+}
+.nav-link {
+  font-family: "Arizona Variable";
+  font-size: 1rem;
+    	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+    font-variation-settings: "wght" 300, "ital" 0, "SRFF" .45;
+       transition: all 1s ease;
+       letter-spacing:.25px
+}
+
+.nav-link:hover {
+     font-variation-settings: "wght" 600, "ital" 0, "SRFF" 0;
+     letter-spacing: 0;
+     cursor: pointer;
+}

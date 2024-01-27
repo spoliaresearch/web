@@ -5,12 +5,12 @@ const TopNavigation = React.forwardRef((props, ref) => {
   return <nav ref={ref}  style={props.style}>
     <hr/> 
     <div className='nav'><Link to="/" className="logo"><span>SPOLIA</span></Link>
-    <div><span>DESIGN & TECHNOLOGY</span></div>
+    <div className='nav-middle'><span>DESIGN & TECHNOLOGY</span></div>
     <div>
-        <Link to="/work" className="logo"><span>WORK</span></Link>
-         <Link to="/information" className="logo"><span>OFFICE</span></Link>
+        <Link to="/work" className="nav-link"><span>INDEX</span></Link>
+         <Link to="/information" className="nav-link"><span>OFFICE</span></Link>
         
-    <span>  <a href="mailto:hello@spolialab.com">CONTACT</a></span>
+    <span>  <a className='nav-link' href="mailto:hello@spolialab.com">CONTACT</a></span>
     </div>
     </div></nav>;
 });

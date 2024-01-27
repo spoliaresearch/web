@@ -6,6 +6,13 @@
        url("../../fonts/ABCArizonaPlusVariable.ttf") format("truetype-variations");
 }
 
+
+a {
+    color: inherit; /* Inherits the color from its parent */
+    text-decoration: none; /* Removes underline */
+    cursor: auto; /* Uses the default cursor instead of the pointer */
+}
+
 /* index.css */
 :root {
   --background-color: white;
@@ -48,15 +55,18 @@ body {
 .grid-item {
   text-align: center; /* Centers the text in each item */
   /* Add any additional styling you need here */
+  font-size: 14px;
 }
 
 h1 {
   line-height: 1;
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  padding: 1rem 1rem;
-  padding-top: 4rem;  
-  letter-spacing: -.2rem !important;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  padding: 3rem 1rem;
+  padding-top: 3rem;  
+  letter-spacing: -.1rem !important;
+  text-align: center;
+
 }
 
 html, p, h1,h2,h3,h4 {
@@ -140,10 +150,12 @@ font-size: 1.25rem;
 }
 
 .label {
-      padding-bottom: 1rem;
-      padding: 1rem;
-         border-top: 1px solid black;
-   
+     
+      padding: 2rem;
+       padding-bottom: 1rem;
+
+         text-align: center;
+    
 }
 
 
@@ -152,9 +164,10 @@ font-size: 1.25rem;
   
 flex-basis: 90%;
   width: 100%;
-  font-size: 2.25rem;
+  font-size: 2rem;
   letter-spacing: -.75px;
-  line-height: 1.2;
+  line-height: 1.25;
+  max-width: 75%;
   padding-bottom: 2rem;
 }
 

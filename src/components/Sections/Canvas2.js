@@ -279,7 +279,7 @@ function sketch(p5) {
     let canvasWidth, canvasHeight;
 if (typeof window !== 'undefined') {
     canvasWidth = window.innerWidth - 15;
-    canvasHeight = window.innerHeight - 100;
+    canvasHeight = window.innerHeight;
 } else {
     // Define default sizes or use a responsive approach
     canvasWidth = 800; // Example default width
@@ -335,19 +335,22 @@ if (typeof window !== 'undefined') {
         age[`${adjustedX},${adjustedY}`] = -1; // -1 indicates an initial grid cell
         });
     });
+//arrow
+    // age[`100,1`] = -1;
+    // age[`100,2`] = -1;
+    // age[`100,3`] = -1;
+    // age[`100,4`] = -1;
+    // age[`100,5`] = -1;
+    // age[`100,6`] = -1;
+    // age[`100,7`] = -1;
+    // age[`101,7`] = -1;
+    //     age[`100,8`] = -1;
+    // age[`99,7`] = -1;
+    //  age[`98,6`] = -1;
+    //   age[`102,6`] = -1;
 
-    age[`100,1`] = -1;
-    age[`100,2`] = -1;
-    age[`100,3`] = -1;
-    age[`100,4`] = -1;
-    age[`100,5`] = -1;
-    age[`100,6`] = -1;
-    age[`100,7`] = -1;
-    age[`101,7`] = -1;
-        age[`100,8`] = -1;
-    age[`99,7`] = -1;
-     age[`98,6`] = -1;
-      age[`102,6`] = -1;
+     
+ 
   };
 
  function addCellAtMouse() {

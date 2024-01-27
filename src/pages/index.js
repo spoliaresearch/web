@@ -6,9 +6,10 @@ import Sidebar from '../components/Sections/Sidebar';
 import Footer from '../components/Sections/Footer';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { FontSettingsContext, FontSettingsProvider } from '../contexts/FontSettingsContext';
-
+import FontSettingsToggle from '../components/FontSettingsToggle';
+import ThemeToggle from '../components/ThemeToggle';
 import {Link} from "gatsby"
-
+import Mainbar from '../components/Sections/Mainbar';
 
 const Home = () => {
    const { isDarkMode, setIsDarkMode } = useContext(ThemeContext) || { isDarkMode: false, setIsDarkMode: () => {}};
@@ -18,7 +19,38 @@ const Home = () => {
     const rootStyle = {
     fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${SRFF}`,
     fontSize: fontSize
+
+   
+
+   
   };
+
+    const [time, setTime] = useState('');
+    const [timeZone, setTimeZone] = useState('');
+
+      useEffect(() => {
+        // Function to get the time zone abbreviation
+        const getTimeZoneAbbreviation = () => {
+            const dateString = new Date().toString();
+            const abbrev = dateString.match(/\(([A-Za-z\s].*?)\)/)[1];
+            return abbrev.split(' ').map(word => word[0]).join('');
+        };
+
+        // Update time every minute
+        const interval = setInterval(() => {
+            const now = new Date();
+            setTime(now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })); // 24-hour format, hours and minutes only
+            setTimeZone(getTimeZoneAbbreviation());
+        }, 60000); // update every minute
+
+        // Set initial time immediately
+        const now = new Date();
+        setTime(now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }));
+        setTimeZone(getTimeZoneAbbreviation());
+
+        return () => clearInterval(interval);
+    }, []);
+
 
   useEffect(() => {
     const root = document.documentElement;
@@ -62,23 +94,26 @@ const Home = () => {
         }}
       />
       
-         <h1 id="my-anchor-2"><div class='text-animate'>Spolia designs products for the <span>future</span> <br/> inspired by the <span>past</span>.</div></h1>
+         <h1 id="my-anchor-2"><div>Spolia designs products for the  <span>future</span> <br/> inspired by the <span>past</span>.</div></h1>
            <div class="grid-container">
-  <div class="grid-item">Readability: Mixed Serif</div>
-  <div class="grid-item">11:06 CET</div>
+              <div class="grid-item"> <FontSettingsToggle /> Readability </div> 
+         <div class="grid-item"><ThemeToggle/> Turn lights {!isDarkMode ? 'off' : 'on'} </div>
+  <div class="grid-item">{time} {timeZone}</div>
   <div class="grid-item">103 online</div>
   <div class="grid-item">305 cell iterations</div>
 </div>
       <App
       ref={canvasRef}
     />
- <div class="label">Our Approach</div>
+ <div class="label" style={{borderTop: `1px solid ${textColor}`}}>APPROACH</div>
       <div className="text-header" >
          
        <p className='text-left'>We are a research-led design & technology studio building tools for a more creative and sustainable future. Our approach to designing for emerging technology is rooted in a human-centered philosophy, which begins with a thorough understanding of the past.<Link to="/information" className="link-primary">Learn more -></Link>
 </p>
 </div>
+ <div class="label" style={{borderTop: `1px solid ${textColor}`}}>WORK</div>
       <div className="main-content" style={{ position: 'relative', zIndex: 2 }}>
+        <Mainbar/>
       </div>
 
       <Footer ref={footerRef} style={{ height: '200px', backgroundColor: backgroundColor, zIndex: 2, position:'relative' }} />
