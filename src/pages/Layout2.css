@@ -44,7 +44,7 @@ body {
 
 
 .grid-container {
-  padding: 1rem 0;
+  padding: .75rem 0;
   margin: 0 0rem;
   display: flex;
   justify-content: space-between; /* This will space the items evenly */
@@ -55,7 +55,9 @@ body {
 .grid-item {
   text-align: center; /* Centers the text in each item */
   /* Add any additional styling you need here */
-  font-size: 14px;
+  font-size: 15px;
+  display: inline-flex;
+  align-content: center;
 }
 
 h1 {

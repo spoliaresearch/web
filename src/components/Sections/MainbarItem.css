@@ -23,7 +23,7 @@
 
 .mainbar-item:hover .title-date-container h3  {
    color: var(--text-color);
-      font-variation-settings: "wght" 600, "ital" 0, "SRFF" 0;
+  font-variation-settings: "wght" 600, "ital" 0, "SRFF" 0;
 }
 
 .mainbar-item-active {
@@ -51,7 +51,7 @@
   margin: 0;
   padding-bottom: .25rem;
   font-size: .9em;
-        font-variation-settings: "wght" 400, "ital" 0, "SRFF" 0;
+        font-weight: 400;
 }
 
 .mainbar-item .title-date-container span {

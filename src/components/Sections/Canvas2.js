@@ -279,7 +279,7 @@ function sketch(p5) {
     let canvasWidth, canvasHeight;
 if (typeof window !== 'undefined') {
     canvasWidth = window.innerWidth - 15;
-    canvasHeight = window.innerHeight;
+    canvasHeight = window.innerHeight + 150;
 } else {
     // Define default sizes or use a responsive approach
     canvasWidth = 800; // Example default width

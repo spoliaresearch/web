@@ -13,9 +13,9 @@ const HeaderText = React.forwardRef((props, ref) => {
         <div className='items'><span>Sort</span></div> 
          <FontSettingsToggle />
          <ThemeToggle/>
-        <hr/></div>
+        </div>
     <div className="ProjectHeader">   <div><span id="my-anchor">{props.name}</span></div>
-        <hr/></div>
+        </div>
         </div>
         </div>
         });

@@ -42,7 +42,7 @@ const PageViewCounter = () => {
   return (
     <div>
       {pageViewCount !== null ? (
-        <p>🟢 {pageViewCount}</p>
+        <p>{pageViewCount}th view</p>
       ) : (
         <p>Loading page views...</p>
       )}

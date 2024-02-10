@@ -1,6 +1,8 @@
 .font-settings-toggle {
   position: relative;
   display: inline-block;
+    padding-right: 6px;
+    font-size: 16px;
 }
 .font-settings-toggle:hover {
     cursor: pointer;
@@ -14,5 +16,6 @@
   border-radius: 3px;
   padding: 0.5rem;
   border: 1px solid white;
+
   box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
 }

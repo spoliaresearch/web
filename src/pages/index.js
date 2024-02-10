@@ -10,7 +10,7 @@ import FontSettingsToggle from '../components/FontSettingsToggle';
 import ThemeToggle from '../components/ThemeToggle';
 import {Link} from "gatsby"
 import Mainbar from '../components/Sections/Mainbar';
-
+import PageViewCounter from '../components/PageViewCounter';
 const Home = () => {
    const { isDarkMode, setIsDarkMode } = useContext(ThemeContext) || { isDarkMode: false, setIsDarkMode: () => {}};
   // const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
@@ -78,6 +78,10 @@ const Home = () => {
   const topNavRef = useRef(null);
   const canvasRef = useRef(null);
   const footerRef = useRef(null);
+   const [aliveCount, setAliveCount] = useState(0);
+       const handleAliveCountUpdate = (newCount) => {
+        setAliveCount(newCount);
+    };
   return (
     <>
     <div className="container" style={{ ...rootStyle, position: 'relative', minHeight: '100vh', padding: '0 .475rem' }}>
@@ -99,11 +103,12 @@ const Home = () => {
               <div class="grid-item"> <FontSettingsToggle /> Readability </div> 
          <div class="grid-item"><ThemeToggle/> Turn lights {!isDarkMode ? 'off' : 'on'} </div>
   <div class="grid-item">{time} {timeZone}</div>
-  <div class="grid-item">103 online</div>
-  <div class="grid-item">305 cell iterations</div>
+  <div class="grid-item"><PageViewCounter/></div>
+  <div class="grid-item"> {aliveCount} cells</div>
 </div>
       <App
       ref={canvasRef}
+      onAliveCountUpdate={handleAliveCountUpdate}
     />
  <div class="label" style={{borderTop: `1px solid ${textColor}`}}>APPROACH</div>
       <div className="text-header" >
