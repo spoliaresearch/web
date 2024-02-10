@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { ThemeContext } from '../contexts/ThemeContext';
 
 const ModeToggle = () => {
-  const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
+  const { isDarkMode, setIsDarkMode } = useContext(ThemeContext) || { isDarkMode: false, setIsDarkMode: () => {}};
 
   const handleModeToggle = () => {
     setIsDarkMode(!isDarkMode);

@@ -10,7 +10,7 @@ import { FontSettingsContext, FontSettingsProvider } from '../contexts/FontSetti
 import {Link} from "gatsby"
 const Layout = ({ children }) => {
 
-   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
+   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext) || { isDarkMode: false, setIsDarkMode: () => {}};
   // const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
   const notExcluded = true
    const { SRFF, fontSize  } = useContext(FontSettingsContext);
