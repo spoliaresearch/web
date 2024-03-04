@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'gatsby';
-import './FullScreenNav.css'; // Ensure you have the CSS for this component
-import SidebarItem from './SidebarItem'; // Reusing the SidebarItem component
-import { useStaticQuery, graphql } from 'gatsby';
+import React from "react";
+import { Link } from "gatsby";
+import "./FullScreenNav.css"; // Ensure you have the CSS for this component
+import SidebarItem from "./SidebarItem"; // Reusing the SidebarItem component
+import { useStaticQuery, graphql } from "gatsby";
 
 const FullScreenNav = () => {
-    const data = useStaticQuery(graphql`
+  const data = useStaticQuery(graphql`
     query {
       allGoogleDocs {
         nodes {
@@ -20,7 +20,7 @@ const FullScreenNav = () => {
       }
     }
   `);
-  const navItemsData = data.allGoogleDocs.nodes.map(node => ({
+  const navItemsData = data.allGoogleDocs.nodes.map((node) => ({
     // Mapping logic (same as in Sidebar)
   }));
 

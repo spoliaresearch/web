@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { useStaticQuery, graphql } from 'gatsby';
+import React, { useState } from "react";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { useStaticQuery, graphql } from "gatsby";
 
 const DitheredImage = () => {
-  const [imageSource, setImageSource] = useState('dith');
+  const [imageSource, setImageSource] = useState("dith");
   const data = useStaticQuery(graphql`
     query {
       dithered: file(relativePath: { eq: "dith.JPG" }) {
@@ -23,15 +23,15 @@ const DitheredImage = () => {
   const unditheredImage = getImage(data.undithered);
 
   const handleClick = () => {
-    setImageSource((prevState) => (prevState === 'dith' ? 'undith' : 'dith'));
+    setImageSource((prevState) => (prevState === "dith" ? "undith" : "dith"));
   };
 
   return (
     <div className="img" onClick={handleClick}>
-      {imageSource === 'dith' ? (
-        <GatsbyImage placeholder='none' image={ditheredImage} alt="Dithered" />
+      {imageSource === "dith" ? (
+        <GatsbyImage placeholder="none" image={ditheredImage} alt="Dithered" />
       ) : (
-        <GatsbyImage  image={unditheredImage} alt="Undithered" />
+        <GatsbyImage image={unditheredImage} alt="Undithered" />
       )}
     </div>
   );

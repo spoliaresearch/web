@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // Define fetchPageViewCount function
 const fetchPageViewCount = async () => {
-  const url = 'https://api.counter.plantree.me/pv/get';
-  const params = new URLSearchParams({ namespace: 'spolialab', key: 'index' });
+  const url = "https://api.counter.plantree.me/pv/get";
+  const params = new URLSearchParams({ namespace: "spolialab", key: "index" });
 
   try {
     const response = await fetch(`${url}?${params}`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-      }
+        Accept: "application/json",
+      },
     });
 
     if (!response.ok) {
@@ -30,7 +30,7 @@ const PageViewCounter = () => {
   useEffect(() => {
     const getPageViewCount = async () => {
       const data = await fetchPageViewCount();
-      console.log(data)
+      console.log(data);
       if (data) {
         setPageViewCount(data.data[0].value); // Assuming the response has a `count` property
       }
@@ -39,15 +39,7 @@ const PageViewCounter = () => {
     getPageViewCount();
   }, []);
 
-  return (
-    <div>
-      {pageViewCount !== null ? (
-        <p>{pageViewCount}th view</p>
-      ) : (
-        <p>Loading page views...</p>
-      )}
-    </div>
-  );
+  return <div>{pageViewCount !== null ? <p>{pageViewCount}th view</p> : <p>Loading page views...</p>}</div>;
 };
 
 export default PageViewCounter;

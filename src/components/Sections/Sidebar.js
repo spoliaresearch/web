@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'gatsby';
-import './Sidebar.css';
-import SidebarItem from './SidebarItem';
-import { useStaticQuery, graphql } from 'gatsby';
+import React from "react";
+import { Link } from "gatsby";
+import "./Sidebar.css";
+import SidebarItem from "./SidebarItem";
+import { useStaticQuery, graphql } from "gatsby";
 
 const Sidebar = React.forwardRef((props, ref) => {
   const data = useStaticQuery(graphql`
@@ -21,7 +21,7 @@ const Sidebar = React.forwardRef((props, ref) => {
     }
   `);
 
-  const sidebarItemsData = data.allGoogleDocs.nodes.map(node => ({
+  const sidebarItemsData = data.allGoogleDocs.nodes.map((node) => ({
     title: node.name,
     slug: node.slug,
     textSnippet: node.childMarkdownRemark.excerpt, // Add your logic to extract text snippet from the document if needed
@@ -29,23 +29,23 @@ const Sidebar = React.forwardRef((props, ref) => {
     active: false, // You can add your own logic to determine the active item
   }));
 
-   // Sort function
-  const sortItems = (items, field, order = 'asc') => {
+  // Sort function
+  const sortItems = (items, field, order = "asc") => {
     return items.sort((a, b) => {
-      if (field === 'date') {
+      if (field === "date") {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
-        return order === 'asc' ? dateA - dateB : dateB - dateA;
+        return order === "asc" ? dateA - dateB : dateB - dateA;
       }
       // Default to alphabetical sorting
-      return order === 'asc' ? a[field].localeCompare(b[field]) : b[field].localeCompare(a[field]);
+      return order === "asc" ? a[field].localeCompare(b[field]) : b[field].localeCompare(a[field]);
     });
   };
 
   // Example usage: sort by date in descending order
   // You can dynamically change the field and order based on user input or preferences
-  const sortedItems = sortItems(sidebarItemsData, 'date', 'desc');
-console.log(sortedItems)
+  const sortedItems = sortItems(sidebarItemsData, "date", "desc");
+  console.log(sortedItems);
   return (
     <div className="Sidebar" ref={ref} style={props.style}>
       {sortedItems.map((itemData, index) => (

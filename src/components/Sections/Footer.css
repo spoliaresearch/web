@@ -1,19 +1,16 @@
 .Footer {
-    border-top: 1px solid black;
-    padding-top: 1rem;
-
+  border-top: 1px solid black;
+  padding-top: 1rem;
 }
 .Footer .text {
-
-
-    font-size: 2.25rem;
-    line-height: 1.1;
+  font-size: 2.25rem;
+  line-height: 1.1;
 }
 
 .Footer .smalls {
-    bottom: .5rem;
-    position: absolute;
-    display: inline-flex;
-    width: 100%;
-    justify-content: space-between;
+  bottom: 0.5rem;
+  position: absolute;
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
 }

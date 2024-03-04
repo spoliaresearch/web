@@ -1,49 +1,47 @@
 .nav {
   display: flex;
   justify-content: space-between;
-    /* border-top: 1px solid white; */
+  /* border-top: 1px solid white; */
 }
 .nav span {
-  padding-left: .66rem;
-  padding-right: .33rem;
-
+  padding-left: 0.66rem;
+  padding-right: 0.33rem;
 }
 
 .nav span a {
-    text-decoration: none !important;
-    border-bottom: none !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
 .logo {
   font-family: "Arizona Variable";
   font-size: 1.25rem;
-    	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
-    font-variation-settings: "wght" 250, "ital" 0, "SRFF" 55;
-       transition: all 1s ease;
-       letter-spacing:.25px
+  font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+  font-variation-settings: "wght" 250, "ital" 0, "SRFF" 55;
+  transition: all 1s ease;
+  letter-spacing: 0.25px;
 }
 
 .logo:hover {
-     font-variation-settings: "wght" 600, "ital" 0, "SRFF" 0;
-     letter-spacing: -.25px;
-     cursor: pointer;
+  font-variation-settings: "wght" 600, "ital" 0, "SRFF" 0;
+  letter-spacing: -0.25px;
+  cursor: pointer;
 }
-.nav-middle{
+.nav-middle {
   position: relative;
- margin: 0 auto;
-
+  margin: 0 auto;
 }
 .nav-link {
   font-family: "Arizona Variable";
   font-size: 1rem;
-    	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
-    font-variation-settings: "wght" 300, "ital" 0, "SRFF" .45;
-       transition: all 1s ease;
-       letter-spacing:.25px
+  font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+  font-variation-settings: "wght" 300, "ital" 0, "SRFF" 0.45;
+  transition: all 1s ease;
+  letter-spacing: 0.25px;
 }
 
 .nav-link:hover {
-     font-variation-settings: "wght" 600, "ital" 0, "SRFF" 0;
-     letter-spacing: 0;
-     cursor: pointer;
+  font-variation-settings: "wght" 600, "ital" 0, "SRFF" 0;
+  letter-spacing: 0;
+  cursor: pointer;
 }

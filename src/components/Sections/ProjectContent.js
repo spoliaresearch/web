@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import DitheredImage from './DitheredImage';
-import { graphql, useStaticQuery } from 'gatsby';
-import {MDXRenderer} from "gatsby-plugin-mdx"
+import React, { useState } from "react";
+import DitheredImage from "./DitheredImage";
+import { graphql, useStaticQuery } from "gatsby";
+import { MDXRenderer } from "gatsby-plugin-mdx";
 
 const ProjectContent = React.forwardRef((props, ref) => {
   // const data = useStaticQuery(graphql`
@@ -18,7 +18,7 @@ const ProjectContent = React.forwardRef((props, ref) => {
   //   }
   // `);
 
-    const data = useStaticQuery(graphql`
+  const data = useStaticQuery(graphql`
     query {
       googleDocs(id: { eq: "1uSJwMe4-U3TSu87ApzVJPh-EzZE-TaGS0aynYqW_Zhk" }) {
         markdown
@@ -26,22 +26,22 @@ const ProjectContent = React.forwardRef((props, ref) => {
     }
   `);
 
-  const [imageSource, setImageSource] = useState('dith');
-  const [hoverText, setHoverText] = useState('');
+  const [imageSource, setImageSource] = useState("dith");
+  const [hoverText, setHoverText] = useState("");
 
   const handleMouseEnter = () => {
-    setHoverText('Image size: 200KB'); // Replace with the actual size
+    setHoverText("Image size: 200KB"); // Replace with the actual size
   };
 
   const handleMouseLeave = () => {
-    setHoverText('');
+    setHoverText("");
   };
 
   const handleClick = () => {
-    if (imageSource === 'dith') {
-      setImageSource('undith'); // Replace with the name of the second image
+    if (imageSource === "dith") {
+      setImageSource("undith"); // Replace with the name of the second image
     } else {
-      setImageSource('dith');
+      setImageSource("dith");
     }
   };
 
@@ -55,14 +55,12 @@ const ProjectContent = React.forwardRef((props, ref) => {
       <div className="mainContent">
         {/* <MDXRenderer>{markdown}</MDXRenderer> */}
         {/* <MDXRenderer>{markdown}</MDXRenderer> */}
-        {console.log(typeof(markdown))}
+        {console.log(typeof markdown)}
         <p>{markdown}</p>
       </div>
 
-    
-
       <div className="context">
-  {/* {comments.map(comment => (
+        {/* {comments.map(comment => (
           <div key={comment.id}>
             <p>{comment.content}</p>
             {comment.replies.map(reply => (

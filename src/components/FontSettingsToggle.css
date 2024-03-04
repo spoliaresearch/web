@@ -1,11 +1,11 @@
 .font-settings-toggle {
   position: relative;
   display: inline-block;
-    padding-right: 6px;
-    font-size: 16px;
+  padding-right: 6px;
+  font-size: 16px;
 }
 .font-settings-toggle:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .font-settings-popup {

@@ -1,13 +1,13 @@
 .Mainbar li {
-    margin: 3rem 0;
+  margin: 3rem 0;
 }
 
 .Mainbar a {
-    display: block !important;
+  display: block !important;
 }
 
 .Mainbar {
-    margin-left: 12.5%;
-    padding-bottom: 3rem;
-    width: 75%;
+  margin-left: 12.5%;
+  padding-bottom: 3rem;
+  width: 75%;
 }
