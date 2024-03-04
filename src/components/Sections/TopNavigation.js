@@ -9,7 +9,7 @@ const TopNavigation = React.forwardRef((props, ref) => {
     <div>
       {/* need more work first */}
         {/* <Link to="/work" className="nav-link"><span>INDEX</span></Link> */}
-         <Link to="/information" className="nav-link"><span>OFFICE</span></Link>
+         {/* <Link to="/information" className="nav-link"><span>OFFICE</span></Link> */}
         
     <span>  <a className='nav-link' href="mailto:hello@spolialab.com">CONTACT</a></span>
     </div>

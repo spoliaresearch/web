@@ -29,8 +29,9 @@
      cursor: pointer;
 }
 .nav-middle{
-  position: absolute;
-  left: 41.25%;
+  position: relative;
+ margin: 0 auto;
+
 }
 .nav-link {
   font-family: "Arizona Variable";

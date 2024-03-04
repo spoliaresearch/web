@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from './src/contexts/ThemeContext';
 import Layout from './src/components/Layout2';
 
-const excludedPaths = ['/','/work']; // Add paths you want to exclude (e.g., index page)
+const excludedPaths = ['/','/work', '/information']; // Add paths you want to exclude (e.g., index page)
 
 export const wrapRootElement = ({ element }) => {
   return <ThemeProvider>{element}</ThemeProvider>;
