@@ -25,6 +25,10 @@
     padding: 0rem;
     padding-bottom: .5rem;
       border-bottom: 1px solid var(--text-color);
+
+      * {
+        padding-left: .25rem;
+      }
 }
 
 .SidebarHeader .items {

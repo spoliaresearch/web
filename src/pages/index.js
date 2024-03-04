@@ -104,7 +104,7 @@ const Home = () => {
          <div class="grid-item"><ThemeToggle/> Turn lights {!isDarkMode ? 'off' : 'on'} </div>
   <div class="grid-item">{time} {timeZone}</div>
   <div class="grid-item"><PageViewCounter/></div>
-  <div class="grid-item"> {aliveCount} cells</div>
+  {/* <div class="grid-item"> {aliveCount} cells</div> */}
 </div>
       <App
       ref={canvasRef}

@@ -11,7 +11,7 @@ const Sidebar = React.forwardRef((props, ref) => {
         nodes {
           name
           slug
-          createdTime
+          date
           id
           childMarkdownRemark {
             excerpt
@@ -25,13 +25,30 @@ const Sidebar = React.forwardRef((props, ref) => {
     title: node.name,
     slug: node.slug,
     textSnippet: node.childMarkdownRemark.excerpt, // Add your logic to extract text snippet from the document if needed
-    date: node.createdTime,
+    date: node.date,
     active: false, // You can add your own logic to determine the active item
   }));
 
+   // Sort function
+  const sortItems = (items, field, order = 'asc') => {
+    return items.sort((a, b) => {
+      if (field === 'date') {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return order === 'asc' ? dateA - dateB : dateB - dateA;
+      }
+      // Default to alphabetical sorting
+      return order === 'asc' ? a[field].localeCompare(b[field]) : b[field].localeCompare(a[field]);
+    });
+  };
+
+  // Example usage: sort by date in descending order
+  // You can dynamically change the field and order based on user input or preferences
+  const sortedItems = sortItems(sidebarItemsData, 'date', 'desc');
+console.log(sortedItems)
   return (
     <div className="Sidebar" ref={ref} style={props.style}>
-      {sidebarItemsData.map((itemData, index) => (
+      {sortedItems.map((itemData, index) => (
         <Link key={index} to={itemData.slug}>
           <SidebarItem
             title={itemData.title}

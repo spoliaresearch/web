@@ -10,7 +10,7 @@ const HeaderText = React.forwardRef((props, ref) => {
         <div className="HeaderGrid">
            
     <div className="SidebarHeader">   
-        <div className='items'><span>Sort</span></div> 
+        {/* <div className='items'><span>Sort</span></div>  */}
          <FontSettingsToggle />
          <ThemeToggle/>
         </div>

@@ -39,7 +39,7 @@ const Footer = forwardRef((props, ref) => {
         Beep us. Reach us. <a>hello@spolialab.com</a>. Propose a design intervention, share a thought, or just say hi.
       </div>
       <div className='smalls'>
-        <span>Copyright © 2023 - All rights reserved.</span>
+        <span>Copyright © 2024 - All rights reserved.</span>
         <span> {dimensions.width}x{dimensions.height}</span>
         <span> {time.toLocaleTimeString()}</span>
         <span>{OS}</span>
