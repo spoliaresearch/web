@@ -1,11 +1,38 @@
-
-html, body, div, p, h1,h2,h3,h4 {
-  font-family: "Times";
+@font-face {
+  font-family: "Arizona Variable";
+  src:
+       url("../../fonts/ABCArizonaPlusVariable.woff2") format("woff2-variations"),
+       url("../../fonts/ABCArizonaPlusVariable.woff") format("woff-variations"),
+       url("../../fonts/ABCArizonaPlusVariable.ttf") format("truetype-variations");
 }
 
+html, body, div, p, h1,h2,h3,h4 {
+  font-family: "Arizona Variable";
+  margin: 0;
+}
+
+
+
+
+.stretched-text {
+  -webkit-transform: scaleY(1.15); /* Chrome, Safari, and Opera */
+  -ms-transform: scaleY(1.15);     /* Internet Explorer 9 */
+  -moz-transform: scaleY(1.15);    /* Firefox */
+  -o-transform: scaleY(1.15);      /* Opera (older versions) */
+  transform: scaleY(1.15);         /* Standard syntax */
+  font-size: 2.55rem;
+  letter-spacing: -2px;
+      font-variation-settings: "wght" 350, "ital" 0, "SRFF" .50;
+}
+
+.image {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
 @media screen and (max-width:640px) {
   .text {
-    font-size: 16px;
     margin: 0;
   }
 
@@ -15,20 +42,31 @@ html, body, div, p, h1,h2,h3,h4 {
 }
 
 .text {
-    mix-blend-mode: difference;
-    color: white;
-      font-family: "Times";
+      font-family: "Arizona Variable";
+    	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+      letter-spacing: -.17px;
+    font-variation-settings: "wght" 300, "ital" 0, "SRFF" .50;
     margin: 0 auto;
     z-index: 5;
     font-size: 20px;
  
-letter-spacing: -.17px;
+
     transition: all 1.3s ease;
 
   animation-timing-function: ease-in-out;
 
+
+  
        
 }
+
+h2.text  {
+  font-size: 1.66rem;
+   font-variation-settings: "wght" 200, "ital" 0, "SRFF" .50;
+   line-height: 1.15;
+   margin-left: 1rem;
+}
+
 
 
 
@@ -36,6 +74,8 @@ letter-spacing: -.17px;
   position:fixed;
   bottom: 2.6rem;
   right: 4.15rem;
+ 	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+    font-variation-settings: "wght" 420, "ital" 0, "SRFF" .10;
     letter-spacing: -.5px;
     line-height: 14.5px;
     font-size: 15px;
@@ -49,6 +89,8 @@ letter-spacing: -.17px;
   position:fixed;
   bottom: 3rem;
   right: 2rem;
+ 	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+    font-variation-settings: "wght" 420, "ital" 0, "SRFF" .10;
     letter-spacing: 0px;
     line-height: 18px;
     font-size: 40px;
@@ -61,6 +103,7 @@ letter-spacing: -.17px;
 
 
 .btRight:hover {
+  font-variation-settings: "wght" 200, "ital" 0, "SRFF" .30;
   letter-spacing: -.5px;
 }
 
@@ -113,6 +156,7 @@ letter-spacing: -.17px;
 }
 
 .draw:hover {
+     font-variation-settings: "wght" 500, "ital" 0, "SRFF" .70; 
 }
 
 a, a:hover, a:focus, a:active {
@@ -132,8 +176,9 @@ a, a:hover, a:focus, a:active {
   
  }
 
-a:hover {
-    
+a:not(.logo):hover {
+    cursor: pointer;
+     font-variation-settings: "wght" 500, "ital" 0, "SRFF" .4; 
 }
 
  .text:hover {

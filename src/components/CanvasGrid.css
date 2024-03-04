@@ -1,7 +1,45 @@
 .canvas-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    touch-action: none
+    position: relative;
+    touch-action: none;
+    background-color:black;
+    margin: auto;
 
+
+
+}
+
+.play {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    background-color: black;
+    border-radius: 3px;
+    z-index: 100;
+    padding: 7px 6px 3px 8px;
+    border: none;
+    color: white;
+
+   
+}
+.play  svg {
+        height: 24px;
+        width: 24px;
+        border-radius: 10px;
+    }
+
+
+
+    .stage-container {
+  transition: background-color .5s;
+  margin: 0;
+  margin-bottom: 1rem;
+
+}
+
+.stage-container.visible {
+  background-color: black !important;
+}
+
+.stage-container.hidden {
+  background-color: white;
 }
