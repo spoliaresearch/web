@@ -17,7 +17,8 @@ module.exports = {
       },
     },
     {
-      resolve: require.resolve(`./gatsby-google-docs`),
+      // resolve: require.resolve(`./gatsby-google-docs`),
+      resolve: "gatsby-source-google-docs",
       //https://drive.google.com/drive/u/0/folders/1sPtKXzxdb9TawV3YwP1ByZpiZvNyLviH
       options: {
         folder: "1sPtKXzxdb9TawV3YwP1ByZpiZvNyLviH",
@@ -31,7 +32,7 @@ module.exports = {
       },
     },
     "gatsby-plugin-sharp",
-    "gatsby-source-google-docs",
+    // "gatsby-source-google-docs",
     "gatsby-transformer-sharp",
     {
       resolve: "gatsby-source-filesystem",
