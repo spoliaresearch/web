@@ -1,6 +1,7 @@
 import { Link, graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React, { useEffect } from "react";
+import "../components/Layout2.css";
 import "./page.css";
 const TemplatePage = ({
   data: {
