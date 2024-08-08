@@ -1,6 +1,12 @@
-import React from "react"
+import React, {useRef} from "react"
+import {PixImg} from '../components/Sections/PixelImage';
+// import {App} from '../components/Sections/PixelLoad';
+import Image from '../../static/left.png'
+//  <img src={Image} alt="left" />
 
 const Information = () => {
+
+  const canvasRef = useRef(null);
   return (
     <div>
       <div class="label">Our Approach</div>
@@ -11,6 +17,16 @@ const Information = () => {
       </div>
 
       <div>Approach</div>
+
+      <PixImg
+      ref={canvasRef}
+      img={'/undith.jpg'}
+      />
+
+      <PixImg
+      ref={canvasRef}
+      img={'/left.png'}
+      />
 
       <div className="main-content" style={{ position: 'relative', zIndex: 2 }}>
       {/* <p className='text-left'>Spolia is a research-led design & technology studio building tools to make a more creative and sustainable future. Our approach to designing for emerging technology is rooted in a human-centered philosophy, which begins with a thorough understanding of the past.
@@ -66,7 +82,8 @@ const Information = () => {
 
       <div className="image-container">
       <img src="/left.png" alt="First Image" className="image1" />
-      <img src="/right.png" alt="Second Image" className="image2" />
+      <img src="/left.png" alt="Second Image" className="image1" />
+      <img src="/undith.jpg" alt="Second Image" className="image1" />
       </div>
       
     </div>
