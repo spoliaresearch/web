@@ -128,9 +128,9 @@ const Home = () => {
             We are a research-led design & technology studio building tools for a more creative and sustainable future.
             Our approach to designing for emerging technology is rooted in a human-centered philosophy, which begins
             with a thorough understanding of the past.
-            <Link to="/information" className="link-primary">
+            {/* <Link to="/information" className="link-primary">
               Learn more ->
-            </Link>
+            </Link> */}
           </p>
         </div>
         <div class="label" style={{ borderTop: `1px solid ${textColor}` }}>

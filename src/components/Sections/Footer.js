@@ -46,6 +46,17 @@ const Footer = forwardRef((props, ref) => {
         </span>
         <span> {time.toLocaleTimeString()}</span>
         <span>{OS}</span>
+        <span>
+          <a
+            href="https://www.instagram.com/spolialab"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Spolia Instagram"
+            className="nav-link"
+          >
+            @spolialab
+          </a>
+        </span>
       </div>
     </footer>
   );

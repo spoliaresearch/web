@@ -45,3 +45,19 @@
   letter-spacing: 0;
   cursor: pointer;
 }
+
+.contact-container {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Space between CONTACT and Instagram icon */
+}
+
+.instagram-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.instagram-link svg {
+  margin-top: -1px; /* Minor adjustment for vertical centering */
+}
