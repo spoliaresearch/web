@@ -22,9 +22,7 @@ const TemplatePage = ({
     <div class="ProjectContent">
       {/* <h1>{name}</h1> */}
 
-      <div className="mainContent">
-        <div dangerouslySetInnerHTML={{ __html: html }} />
-      </div>
+      <div className="mainContent">{/* <div dangerouslySetInnerHTML={{ __html: html }} /> */}</div>
 
       <div className="context">
         {" "}
