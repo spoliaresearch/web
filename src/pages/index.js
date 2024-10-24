@@ -84,7 +84,67 @@ const Home = () => {
       <div
         className="container"
         style={{ ...rootStyle, position: "relative", minHeight: "100vh", padding: "0 .475rem" }}
-      ></div>
+      >
+        <TopNavigation
+          ref={topNavRef}
+          style={{
+            position: "sticky",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "40px",
+            backgroundColor: backgroundColor,
+            zIndex: 3,
+          }}
+        />
+
+        <h1 id="my-anchor-2">
+          <div>
+            Spolia designs products for the <span>future</span> <br /> inspired by the <span>past</span>.
+          </div>
+        </h1>
+        <div class="grid-container">
+          <div class="grid-item">
+            {" "}
+            <FontSettingsToggle /> Readability{" "}
+          </div>
+          <div class="grid-item">
+            <ThemeToggle /> Turn lights {!isDarkMode ? "off" : "on"}{" "}
+          </div>
+          <div class="grid-item">
+            {time} {timeZone}
+          </div>
+          <div class="grid-item">
+            <PageViewCounter />
+          </div>
+          {/* <div class="grid-item"> {aliveCount} cells</div> */}
+        </div>
+        <App ref={canvasRef} onAliveCountUpdate={handleAliveCountUpdate} />
+        <div class="label" style={{ borderTop: `1px solid ${textColor}` }}>
+          APPROACH
+        </div>
+        <div className="text-header">
+          <p className="text-left">
+            We are a research-led design & technology studio building tools for a more creative and sustainable future.
+            Our approach to designing for emerging technology is rooted in a human-centered philosophy, which begins
+            with a thorough understanding of the past.
+            {/* <Link to="/information" className="link-primary">
+              Learn more ->
+            </Link> */}
+          </p>
+        </div>
+        <div class="label" style={{ borderTop: `1px solid ${textColor}` }}>
+          WORK
+        </div>
+        <div className="main-content" style={{ position: "relative", zIndex: 2 }}>
+          <Mainbar />
+        </div>
+
+        <Footer
+          ref={footerRef}
+          style={{ height: "200px", backgroundColor: backgroundColor, zIndex: 2, position: "relative" }}
+        />
+      </div>
     </>
   );
 };
