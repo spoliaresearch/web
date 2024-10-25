@@ -277,8 +277,12 @@ function sketch(p5) {
   p5.setup = () => {
     let canvasWidth, canvasHeight;
     if (typeof window !== "undefined") {
-      canvasWidth = window.innerWidth - 15;
-      canvasHeight = window.innerHeight + 150;
+      // canvasWidth = window.innerWidth;
+      let totalElementHeight = document.querySelector('.nav').offsetHeight + document.querySelector('.grid-container').offsetHeight + document.getElementById('my-anchor-2').offsetHeight
+      // canvasHeight = window.innerHeight - totalElementHeight - 50;
+      canvasHeight = document.documentElement.clientHeight - totalElementHeight;
+      // canvasWidth = p5.windowWidth; 
+      canvasWidth = document.documentElement.clientWidth - 20; 
     } else {
       // Define default sizes or use a responsive approach
       canvasWidth = 800; // Example default width
@@ -380,6 +384,12 @@ function sketch(p5) {
   p5.mouseMoved = () => {
     addCellAtMouse();
   };
+
+  p5.windowResized = () => {
+    let totalElementHeight = document.querySelector('.nav').offsetHeight + document.querySelector('.grid-container').offsetHeight + document.getElementById('my-anchor-2').offsetHeight
+    let canvasHeight = window.innerHeight - totalElementHeight;
+    p5.resizeCanvas(document.documentElement.clientWidth - 20, canvasHeight);
+  }
 
   p5.draw = () => {
     p5.background(0, 0, 0);

@@ -1,5 +1,6 @@
 import "./Layout2.css";
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { Helmet } from 'react-helmet';
 import TopNavigation from "../components/Sections/TopNavigation";
 import { App } from "../components/Sections/Canvas2";
 import Sidebar from "../components/Sections/Sidebar";
@@ -40,7 +41,7 @@ const Home = () => {
       const now = new Date();
       setTime(now.toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" })); // 24-hour format, hours and minutes only
       setTimeZone(getTimeZoneAbbreviation());
-    }, 60000); // update every minute
+    }, 10000); // update every minute
 
     // Set initial time immediately
     const now = new Date();
@@ -81,15 +82,21 @@ const Home = () => {
   };
   return (
     <>
+      <Helmet>
+        <title>SPOLIA</title>
+      </Helmet>
       <div
         className="container"
-        style={{ ...rootStyle, position: "relative", minHeight: "100vh", padding: "0 .475rem" }}
+        style={{ ...rootStyle, position: "relative", minHeight: "100vh", padding: "0 10px" }}
       >
+      <hr />
+
         <TopNavigation
           ref={topNavRef}
           style={{
             position: "sticky",
             top: 0,
+            paddingTop: 10,
             left: 0,
             right: 0,
             height: "40px",
@@ -100,7 +107,7 @@ const Home = () => {
 
         <h1 id="my-anchor-2">
           <div>
-            Spolia designs products for the <span>future</span> <br /> inspired by the <span>past</span>.
+            SPOLIA designs products for the <span>future</span> <br /> inspired by the <span>past</span>.
           </div>
         </h1>
         <div class="grid-container">
@@ -133,6 +140,23 @@ const Home = () => {
             </Link> */}
           </p>
         </div>
+        <div class="label" style={{ borderTop: `1px solid ${textColor}` }}>
+          ABOUT US
+        </div>
+        <div className="image-text-wrapper">
+          {/* <img src="../../static/left.png"></img> */}
+          <img src="undith.jpg"></img>
+          <body>
+            <p>SPOLIA was founded by Eric Duong (Switzerland) and Garrett Vercoe (United States) who met studying architecture at the University of Virginia.</p>
+            <p>We build mindful and creative technology</p>
+          </body>
+        </div>
+        {/* <div className="text-header">
+          <img src="../images/undith.jpg"></img>
+          <p>
+            SPOLIA was founded by Eric Duong (Switzerland) and Garrett Vercoe (United States) who met studying architecture at the University of Virginia.
+          </p>
+        </div> */}
         <div class="label" style={{ borderTop: `1px solid ${textColor}` }}>
           WORK
         </div>

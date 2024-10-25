@@ -36,7 +36,7 @@ const Footer = forwardRef((props, ref) => {
   return (
     <footer className="Footer" ref={ref} style={props.style}>
       <div className="text">
-        Beep us. Reach us. <a>hello@spolialab.com</a>. Propose a design intervention, share a thought, or just say hi.
+        Beep us. Reach us. <a href="mailto:hello@spolialab.com">hello@spolialab.com</a>. Propose a design intervention, share a thought, or just say hi.
       </div>
       <div className="smalls">
         <span>Copyright © 2024 - All rights reserved.</span>

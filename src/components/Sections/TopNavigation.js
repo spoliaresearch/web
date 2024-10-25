@@ -4,13 +4,13 @@ import "./TopNavigation.css";
 const TopNavigation = React.forwardRef((props, ref) => {
   return (
     <nav ref={ref} style={props.style}>
-      <hr />
+      {/* <hr /> */}
       <div className="nav">
-        <Link to="/" className="logo">
-          <span>SPOLIA</span>
+        <Link to="/">
+          <span className="logo">SPOLIA</span>
         </Link>
         <div className="nav-middle">
-          <span>DESIGN & TECHNOLOGY</span>
+          <span>DESIGN ∩ TECHNOLOGY</span>
         </div>
         <div>
           {/* need more work first */}
