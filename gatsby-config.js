@@ -2,7 +2,7 @@ require("dotenv").config();
 
 module.exports = {
   siteMetadata: {
-    title: `Spolia -- Design Research Lab`,
+    title: `SPOLIA`,
     siteUrl: `https://www.spolialab.com`,
   },
   plugins: [

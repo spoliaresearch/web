@@ -22,15 +22,15 @@ const Layout = ({ children }) => {
     const root = document.documentElement;
 
     if (isDarkMode) {
-      root.style.setProperty("--background-color", "black");
-      root.style.setProperty("--text-color", "white");
+      root.style.setProperty("--background-color", "#1C1917");
+      root.style.setProperty("--text-color", "#FFFCF6");
       root.style.setProperty("--gray-color", "gray");
-      root.style.setProperty("--opposite-color", "white");
+      root.style.setProperty("--opposite-color", "#FFFCF6");
     } else {
-      root.style.setProperty("--background-color", "white");
-      root.style.setProperty("--text-color", "black");
+      root.style.setProperty("--background-color", "#FFFCF6");
+      root.style.setProperty("--text-color", "#1C1917");
       root.style.setProperty("--gray-color", "gray");
-      root.style.setProperty("--opposite-color", "black");
+      root.style.setProperty("--opposite-color", "#1C1917");
     }
   }, [isDarkMode]);
 
@@ -38,8 +38,8 @@ const Layout = ({ children }) => {
     setIsDarkMode(!isDarkMode);
   };
 
-  const backgroundColor = isDarkMode ? "black" : "white";
-  const textColor = isDarkMode ? "white" : "black";
+  const backgroundColor = isDarkMode ? "#1C1917" : "#FFFCF6";
+  const textColor = isDarkMode ? "#FFFCF6" : "#1C1917";
   const topNavRef = useRef(null);
   const canvasRef = useRef(null);
   const headerRef = useRef(null);

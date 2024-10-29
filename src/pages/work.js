@@ -1,38 +1,36 @@
-import './Layout2.css';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import TopNavigation from '../components/Sections/TopNavigation';
-import {App} from '../components/Sections/Canvas2';
-import Sidebar from '../components/Sections/Sidebar';
-import Footer from '../components/Sections/Footer';
-import { ThemeContext, ThemeProvider } from '../contexts/ThemeContext';
-import { FontSettingsContext, FontSettingsProvider } from '../contexts/FontSettingsContext';
+import "./Layout2.css";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import TopNavigation from "../components/Sections/TopNavigation";
+import { App } from "../components/Sections/Canvas2";
+import Sidebar from "../components/Sections/Sidebar";
+import Footer from "../components/Sections/Footer";
+import { ThemeContext, ThemeProvider } from "../contexts/ThemeContext";
+import { FontSettingsContext, FontSettingsProvider } from "../contexts/FontSettingsContext";
 
-import {Link} from "gatsby"
+import { Link } from "gatsby";
 const Work = () => {
-
-   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext) || { isDarkMode: false, setIsDarkMode: () => {} };
-//   const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
-  const notExcluded = true
-   const { SRFF, fontSize  } = useContext(FontSettingsContext);
-    const rootStyle = {
+  const { isDarkMode, setIsDarkMode } = useContext(ThemeContext) || { isDarkMode: false, setIsDarkMode: () => {} };
+  //   const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
+  const notExcluded = true;
+  const { SRFF, fontSize } = useContext(FontSettingsContext);
+  const rootStyle = {
     fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${SRFF}`,
-    fontSize: fontSize
+    fontSize: fontSize,
   };
 
   useEffect(() => {
     const root = document.documentElement;
 
     if (isDarkMode) {
-      root.style.setProperty('--background-color', 'black');
-      root.style.setProperty('--text-color', 'white');
-      root.style.setProperty('--gray-color', 'gray');
-        root.style.setProperty('--opposite-color', 'white');
+      root.style.setProperty("--background-color", "black");
+      root.style.setProperty("--text-color", "white");
+      root.style.setProperty("--gray-color", "gray");
+      root.style.setProperty("--opposite-color", "white");
     } else {
-      root.style.setProperty('--background-color', 'white');
-      root.style.setProperty('--text-color', 'black');
-      root.style.setProperty('--gray-color', 'gray');
-         root.style.setProperty('--opposite-color', 'black');
-  
+      root.style.setProperty("--background-color", "white");
+      root.style.setProperty("--text-color", "black");
+      root.style.setProperty("--gray-color", "gray");
+      root.style.setProperty("--opposite-color", "black");
     }
   }, [isDarkMode]);
 
@@ -40,8 +38,8 @@ const Work = () => {
     setIsDarkMode(!isDarkMode);
   };
 
-  const backgroundColor = isDarkMode ? 'black' : 'white';
-  const textColor = isDarkMode ? 'white' : 'black';
+  const backgroundColor = isDarkMode ? "#1C1917" : "#FFFCF6";
+  const textColor = isDarkMode ? "#FFFCF6" : "#1C1917";
   const topNavRef = useRef(null);
   const canvasRef = useRef(null);
   const headerRef = useRef(null);
@@ -52,37 +50,38 @@ const Work = () => {
   const [isHeaderSticky, setIsHeaderSticky] = useState(false);
 
   useEffect(() => {
-  // Ensure this code runs only in the browser
-  if (typeof window !== 'undefined') {
-    const handleScroll = () => {
-      const headerTop = headerRef?.current?.getBoundingClientRect().top - 10;
-      setIsHeaderSticky(headerTop <= topNavRef.current.offsetHeight);
-    };
+    // Ensure this code runs only in the browser
+    if (typeof window !== "undefined") {
+      const handleScroll = () => {
+        const headerTop = headerRef?.current?.getBoundingClientRect().top - 10;
+        setIsHeaderSticky(headerTop <= topNavRef.current.offsetHeight);
+      };
 
-    window.addEventListener('scroll', handleScroll);
+      window.addEventListener("scroll", handleScroll);
 
-    // Cleanup function to remove the scroll event listener
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }
-}, []);
+      // Cleanup function to remove the scroll event listener
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, []);
   return (
-    <div className="container" style={{ ...rootStyle, position: 'relative', minHeight: '100vh', padding: '0 .475rem' }}>
+    <div className="container" style={{ ...rootStyle, position: "relative", minHeight: "100vh", padding: "0 .475rem" }}>
       <TopNavigation
         ref={topNavRef}
         style={{
-          position: 'sticky',
+          position: "sticky",
           top: 0,
           left: 0,
           right: 0,
-          height: '40px',
+          height: "40px",
           backgroundColor: backgroundColor,
           zIndex: 3,
         }}
       />
-      {notExcluded &&  <>
-      {/* <Canvas
+      {notExcluded && (
+        <>
+          {/* <Canvas
         ref={canvasRef}
         style={{
           position: 'absolute',
@@ -96,7 +95,7 @@ const Work = () => {
           backgroundColor: 'white'
         }}
       /> */}
-    
+
           {/* <div  style={{
           height: '75px',
           backgroundColor: backgroundColor,
@@ -109,7 +108,7 @@ const Work = () => {
           top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
         }} className="OneLiner">
           */}
- {/* <div class="label">Our Approach</div>
+          {/* <div class="label">Our Approach</div>
       <div className="text-header" >
          
        <p className='text-left'>We are a research-led design & technology studio building tools for a more creative and sustainable future. Our approach to designing for emerging technology is rooted in a human-centered philosophy, which begins with a thorough understanding of the past.<Link to="/information" className="link-primary">Learn more -></Link>
@@ -117,9 +116,9 @@ const Work = () => {
 
 <div></div> */}
 
-{/* </div> */}
-     
-      {/* <HeaderText
+          {/* </div> */}
+
+          {/* <HeaderText
         ref={headerRef}
         name={children?.props?.children?.props?.data?.page?.name}
         style={{
@@ -130,42 +129,49 @@ const Work = () => {
           top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
         }}
       /> */}
-      <div className="main-content" style={{ position: 'relative', zIndex: 2 }}>
-        <Sidebar
-          ref={sidebarRef}
-          style={{
-            height: '92vh',
-            width: '21.5rem',
-            overflowY: 'auto',
-            position: isHeaderSticky ? 'sticky' : 'relative',
-            backgroundColor: backgroundColor,
-            borderRight: `1px solid ${textColor}`,
-            top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : 'initial',
-          }}
-        />
-        <div
-          ref={projectContentRef}
-          style={{ height: 'auto', width: 'calc(100vw - 21.5rem)',
-          position: isHeaderSticky ? 'sticky' : 'relative',
-           backgroundColor: backgroundColor,
-            overflowY: 'auto',
-            zIndex: 0,
-                      top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : 'initial', 
-                      }}
-        >hi</div>
-      </div></>}
+          <div className="main-content" style={{ position: "relative", zIndex: 2 }}>
+            <Sidebar
+              ref={sidebarRef}
+              style={{
+                height: "92vh",
+                width: "21.5rem",
+                overflowY: "auto",
+                position: isHeaderSticky ? "sticky" : "relative",
+                backgroundColor: backgroundColor,
+                borderRight: `1px solid ${textColor}`,
+                top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : "initial",
+              }}
+            />
+            <div
+              ref={projectContentRef}
+              style={{
+                height: "auto",
+                width: "calc(100vw - 21.5rem)",
+                position: isHeaderSticky ? "sticky" : "relative",
+                backgroundColor: backgroundColor,
+                overflowY: "auto",
+                zIndex: 0,
+                top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : "initial",
+              }}
+            >
+              hi
+            </div>
+          </div>
+        </>
+      )}
 
-      <Footer ref={footerRef} style={{ height: '200px', backgroundColor: backgroundColor, zIndex: 2, position:'relative' }} />
+      <Footer
+        ref={footerRef}
+        style={{ height: "200px", backgroundColor: backgroundColor, zIndex: 2, position: "relative" }}
+      />
     </div>
   );
 };
 
-
 const WrappedLayout = () => (
   <FontSettingsProvider>
-    <Work/>
+    <Work />
   </FontSettingsProvider>
 );
 
 export default WrappedLayout;
-

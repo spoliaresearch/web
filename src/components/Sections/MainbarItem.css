@@ -30,7 +30,7 @@
 
 .mainbar-item .title-date-container {
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr; /* 3 columns of equal width */
+  grid-template-columns: 2fr 5fr 1fr; /* 3 columns of equal width */
   gap: 20px; /* Space between grid items */
 }
 
@@ -51,13 +51,17 @@
   padding-bottom: 0.25rem;
   font-size: 0.9em;
   font-weight: 400;
+  margin-left: 12.5vw;
 }
 
 .mainbar-item .title-date-container span {
-  margin: 0;
+  margin-right: 12.5vw;
   font-size: 0.875em;
   font-variation-settings: "wght" 300, "ital" 0, "SRFF" 00;
 }
 
 .mainbar-item .text-snippet {
+  text-align: left;
+  margin-left: 0;
+  padding: 0;
 }
