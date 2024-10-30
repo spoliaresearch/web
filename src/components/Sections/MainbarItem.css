@@ -4,8 +4,6 @@
   color: var(--gray-color);
   transition: all 1s ease;
   max-width: 100%;
-
-  /* Add other styles for the mainbar item */
 }
 
 .mainbar-item:hover .title-date-container h3 {
@@ -30,8 +28,8 @@
 
 .mainbar-item .title-date-container {
   display: grid;
-  grid-template-columns: 2fr 5fr 1fr; /* 3 columns of equal width */
-  gap: 20px; /* Space between grid items */
+  grid-template-columns: 2fr 5fr 1fr; /* 3 columns for desktop */
+  gap: 20px;
 }
 
 .mainbar-item .date {
@@ -64,4 +62,41 @@
   text-align: left;
   margin-left: 0;
   padding: 0;
+}
+
+@media (max-width: 768px) {
+  .mainbar-item {
+    padding: 1.5rem 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  .mainbar-item .title-date-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0 1rem;
+  }
+
+  .mainbar-item .title-date-container h3,
+  .mainbar-item .text-snippet,
+  .mainbar-item .title-date-container span {
+    margin: 0;
+    width: 100%;
+    text-align: left;
+  }
+
+  .mainbar-item .title-date-container h3 {
+    font-size: 1.1rem;
+    order: 1;
+  }
+
+  .mainbar-item .text-snippet {
+    order: 2;
+  }
+
+  .mainbar-item .title-date-container span {
+    order: 3;
+  }
 }

@@ -11,14 +11,10 @@ const FontSettingsToggle = () => {
 
   return (
     <div className="font-settings-toggle">
-      <div onClick={handleToggleClick}>
+      <div onClick={handleToggleClick} className="font-toggle-button">
         <span>Aa</span>
       </div>
-      {showSlider && (
-        <div className="font-settings-popup">
-          <FontSettingsSlider />
-        </div>
-      )}
+      {showSlider && <FontSettingsSlider onClose={() => setShowSlider(false)} />}
     </div>
   );
 };

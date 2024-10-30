@@ -61,3 +61,15 @@
 .instagram-link svg {
   margin-top: -1px; /* Minor adjustment for vertical centering */
 }
+
+/* Add this to your existing styles */
+@media (max-width: 768px) {
+  .nav-middle {
+    display: none;
+  }
+
+  .nav {
+    justify-content: space-between;
+    padding: 0 0.5rem;
+  }
+}

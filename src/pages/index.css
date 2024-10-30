@@ -1,9 +1,8 @@
 @font-face {
   font-family: "Arizona Variable";
-  src:
-       url("../../fonts/ABCArizonaPlusVariable.woff2") format("woff2-variations"),
-       url("../../fonts/ABCArizonaPlusVariable.woff") format("woff-variations"),
-       url("../../fonts/ABCArizonaPlusVariable.ttf") format("truetype-variations");
+  src: url("../../fonts/ABCArizonaPlusVariable.woff2") format("woff2-variations"),
+    url("../../fonts/ABCArizonaPlusVariable.woff") format("woff-variations"),
+    url("../../fonts/ABCArizonaPlusVariable.ttf") format("truetype-variations");
 }
 
 /* index.css */
@@ -19,28 +18,27 @@ body {
   /* Other styles... */
 }
 
-
-html, p, h1,h2,h3,h4 {
+html,
+p,
+h1,
+h2,
+h3,
+h4 {
   font-family: "Arizona Variable", serif, sans-serif;
   margin: 0;
-      font-family: "Arizona Variable";
-    	font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
-      letter-spacing: -.17px;
-    margin: 0 auto;
-
+  font-family: "Arizona Variable";
+  font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+  letter-spacing: -0.17px;
+  margin: 0 auto;
 }
 
 /* span, p, h1,h2,h3,h4{
 mix-blend-mode: difference !important;
 } */
 
-
-
 * {
   transition: font-variation-settings 0.3s ease;
 }
-
-
 
 body {
   margin: 0;

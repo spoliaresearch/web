@@ -11,3 +11,34 @@
   padding-bottom: 3rem;
   width: 100%;
 }
+
+@media (max-width: 768px) {
+  .Mainbar {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+
+  .SidebarItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--text-color);
+  }
+
+  .SidebarItem h2 {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+
+  .SidebarItem p {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .SidebarItem .date {
+    font-size: 0.875rem;
+    color: var(--gray-color);
+  }
+}

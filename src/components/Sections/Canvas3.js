@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, useContext } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import outputGrid1 from "./grids/output1.json";
 import outputGrid2 from "./grids/output2.json";
 import outputGrid3 from "./grids/output3.json";
@@ -29,7 +29,6 @@ import outputGrid27 from "./grids/output27.json";
 import outputGrid28 from "./grids/output28.json";
 import outputGrid29 from "./grids/output29.json";
 import outputGrid30 from "./grids/output30.json";
-import { InteractiveContext } from "../DisableInteractive";
 
 const ReactP5Wrapper = React.lazy(() =>
   import("react-p5-wrapper").then((module) => ({ default: module.ReactP5Wrapper }))
@@ -279,11 +278,10 @@ function sketch(p5) {
     let canvasWidth, canvasHeight;
     if (typeof window !== "undefined") {
       canvasWidth = window.innerWidth - 15;
-      canvasHeight = window.innerHeight - 20;
+      canvasHeight = window.innerHeight - 200;
     } else {
-      // Define default sizes or use a responsive approach
-      canvasWidth = 800; // Example default width
-      canvasHeight = 600; // Example default height
+      canvasWidth = 800;
+      canvasHeight = 600;
     }
 
     p5.createCanvas(canvasWidth, canvasHeight);
@@ -291,56 +289,16 @@ function sketch(p5) {
     rows = p5.height / resolution;
 
     colorArray = [
-      // Define the color array
-      p5.color(255), //
-      p5.color(255), //
-      p5.color(155, 255, 255), // 3: yellow
-      p5.color(50, 100, 250), // 0: blue
-
-      p5.color(50, 185, 25), // 2:green
-      p5.color(255, 225, 225), // 2:green
+      p5.color(255, 255, 255), // White
+      p5.color(255, 255, 255), // White
+      p5.color(155, 255, 255), // Light blue
+      p5.color(50, 100, 250), // Blue
+      p5.color(50, 185, 25), // Green
+      p5.color(255, 225, 225), // Light pink
     ];
 
-    const randomGridIndex = Math.floor(Math.random() * grids.length);
-    const outputGrid = grids[randomGridIndex];
-
-    const canvasCenterX = p5.width / 2;
-    const canvasCenterY = p5.height / 2;
-
-    // Assuming grid size is known (example: 80x80)
-    const gridWidth = 80; // adjust based on your grid's width
-    const gridHeight = 80; // adjust based on your grid's height
-
-    // Calculate the center of the grid
-    const gridCenterX = gridWidth / 2;
-    const gridCenterY = gridHeight / 2;
-
-    // Calculate the offset
-    const offsetX = canvasCenterX - gridCenterX * resolution;
-    const offsetY = canvasCenterY - gridCenterY * resolution;
-
-    // Add initial grid cells to the age grid with a value of -1
-    outputGrid.forEach(([y, ...xValues]) => {
-      xValues.forEach((x) => {
-        let adjustedX = Math.round(x + offsetX / resolution);
-        let adjustedY = Math.round(y + offsetY / resolution);
-
-        age[`${adjustedX},${adjustedY}`] = -1; // -1 indicates an initial grid cell
-      });
-    });
-    //arrow
-    // age[`100,1`] = -1;
-    // age[`100,2`] = -1;
-    // age[`100,3`] = -1;
-    // age[`100,4`] = -1;
-    // age[`100,5`] = -1;
-    // age[`100,6`] = -1;
-    // age[`100,7`] = -1;
-    // age[`101,7`] = -1;
-    //     age[`100,8`] = -1;
-    // age[`99,7`] = -1;
-    //  age[`98,6`] = -1;
-    //   age[`102,6`] = -1;
+    // Remove all grid initialization code
+    // The canvas will start empty
   };
 
   function addCellAtMouse() {
@@ -385,39 +343,22 @@ function sketch(p5) {
   p5.draw = () => {
     p5.background(0, 0, 0);
     p5.frameRate(10);
-    //  for (let i = 0; i < actualState.length; i++) {
-    //   let y = actualState[i][0];
-    //   for (let j = 1; j < actualState[i].length; j++) {
-    //     let x = actualState[i][j];
-    //     let gridX = x * resolution;
-    //     let gridY = y * resolution;
-    //     let cellKey = `${x},${y}`;
-    //     let ageColorIndex = age[cellKey] !== undefined ? age[cellKey] : 1;
-    //     p5.fill(255 - ageColorIndex,  255 + ageColorIndex, 255 - ageColorIndex ); // Alive cell color
-    //     p5.rect(gridX, gridY, resolution, resolution);
-    //   }
-    // }
 
     for (let cellKey in age) {
       let [x, y] = cellKey.split(",").map(Number);
       let gridX = x * resolution;
       let gridY = y * resolution;
       let cellAge = age[cellKey];
-      let ageColorIndex = age[cellKey] !== undefined ? age[cellKey] : 1;
 
-      if (age[cellKey] === -1) {
-        // Initial grid cell, draw in white
-        p5.fill(255);
-        p5.stroke(25);
+      if (cellAge < 0) {
+        // Dead cell - make it black (effectively invisible against black background)
+        delete age[cellKey]; // Remove dead cells from tracking
       } else {
-        // Live cell
-        let cellAge = age[cellKey];
-        // let ageColorIndex = cellAge > 4 ? 4 : cellAge;
-        let ageColorIndex = Math.min(Math.abs(cellAge), colorArray.length - 1);
-        p5.fill(colorArray[ageColorIndex]);
+        // Live cell - ensure we have a valid index
+        let ageColorIndex = Math.min(Math.floor(Math.abs(cellAge)), colorArray.length - 1);
+        p5.fill(colorArray[ageColorIndex] || p5.color(255)); // Provide fallback color if undefined
+        p5.rect(gridX, gridY, resolution, resolution);
       }
-
-      p5.rect(gridX, gridY, resolution, resolution);
     }
 
     var x,
@@ -505,13 +446,16 @@ function sketch(p5) {
 
       if (state === 1) {
         // New cell
-        age[cellKey] = 1;
-      } else if (state === 2 && age[cellKey] !== -1) {
-        // Only increment age for non-initial cells
-        age[cellKey] = (age[cellKey] || 0) + 1;
-      } else if (state === 0) {
-        // Completely remove dead cells
-        delete age[cellKey];
+        age[cellKey] = 1; // Initialize age
+      } else if (state === 2) {
+        // Existing cell
+        age[cellKey] = (age[cellKey] || 0) + 1; // Increment age
+      }
+      // else   { // Cell is dead
+      //   delete age[cellKey]
+      // }
+      else {
+        age[cellKey] = -age[cellKey] - 2;
       }
     });
     actualState = newState;
@@ -522,47 +466,15 @@ function sketch(p5) {
 
 export function App() {
   const [isSSR, setIsSSR] = useState(false);
-  const { isInteractive } = useContext(InteractiveContext);
-
-  // Create a modified sketch function that includes the interactive state
-  const sketchWithInteractive = (p5) => {
-    // First call the original sketch to get its setup
-    sketch(p5);
-
-    // Define addCellAtMouse within this scope
-    function addCellAtMouse() {
-      if (p5.mouseX >= 0 && p5.mouseX < p5.width && p5.mouseY >= 0 && p5.mouseY < p5.height) {
-        const x = Math.floor(p5.mouseX / resolution);
-        const y = Math.floor(p5.mouseY / resolution);
-
-        addCell(x, y, actualState);
-        age[`${x},${y}`] = 1; // Set age for new cell
-      }
-    }
-
-    // Override the mouse interaction functions
-    p5.mouseDragged = () => {
-      if (!isInteractive) return;
-      addCellAtMouse();
-    };
-
-    p5.mouseMoved = () => {
-      if (!isInteractive) return;
-      addCellAtMouse();
-    };
-  };
 
   useEffect(() => {
     setIsSSR(typeof window !== "undefined");
   }, []);
-
   return (
     <>
       {isSSR && (
-        <Suspense fallback={<div style={{ backgroundColor: "#000000" }}>Loading...</div>}>
-          <div style={{ backgroundColor: "#000000" }}>
-            <ReactP5Wrapper sketch={sketchWithInteractive} />
-          </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ReactP5Wrapper sketch={sketch} />
         </Suspense>
       )}
     </>

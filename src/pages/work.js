@@ -38,8 +38,8 @@ const Work = () => {
     setIsDarkMode(!isDarkMode);
   };
 
-  const backgroundColor = isDarkMode ? "#1C1917" : "#FFFCF6";
-  const textColor = isDarkMode ? "#FFFCF6" : "#1C1917";
+  const backgroundColor = isDarkMode ? "black" : "white";
+  const textColor = isDarkMode ? "white" : "black";
   const topNavRef = useRef(null);
   const canvasRef = useRef(null);
   const headerRef = useRef(null);

@@ -1,3 +1,14 @@
+.Sidebar {
+  display: none; /* Hidden by default on mobile */
+}
+
+/* Show sidebar on larger screens */
+@media (min-width: 768px) {
+  .Sidebar {
+    display: block;
+  }
+}
+
 .Sidebar li {
   margin: 3rem 0;
 }

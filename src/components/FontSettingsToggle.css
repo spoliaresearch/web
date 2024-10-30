@@ -4,18 +4,23 @@
   padding-right: 6px;
   font-size: 16px;
 }
+
 .font-settings-toggle:hover {
   cursor: pointer;
 }
 
-.font-settings-popup {
-  position: absolute;
-  top: 0rem; /* Adjust this value to position the popup above the icon */
-  left: 2rem;
-  background-color: var(--background-color);
-  border-radius: 3px;
-  padding: 0.5rem;
-  border: 1px solid white;
+.font-toggle-button {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
 
-  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+.font-toggle-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.font-toggle-button span {
+  font-size: 1.2rem;
+  font-weight: 500;
 }
