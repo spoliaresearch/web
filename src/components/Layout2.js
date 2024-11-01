@@ -71,6 +71,24 @@ const Layout = ({ children }) => {
   // Add state for interactive context
   const [isInteractive, setIsInteractive] = useState(true);
 
+  // Add state for window width
+  const [windowWidth, setWindowWidth] = useState(null);
+
+  // Add useEffect to handle window width
+  useEffect(() => {
+    // Only run in browser environment
+    if (typeof window !== "undefined") {
+      setWindowWidth(window.innerWidth);
+
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
   return (
     <InteractiveContext.Provider value={{ isInteractive, setIsInteractive }}>
       <div
@@ -150,7 +168,7 @@ const Layout = ({ children }) => {
                 ref={projectContentRef}
                 style={{
                   height: "auto",
-                  width: window.innerWidth <= 768 ? "100vw" : "calc(100vw - 21.5rem)",
+                  width: windowWidth ? (windowWidth <= 768 ? "100vw" : "calc(100vw - 21.5rem)") : "100%",
                   position: isHeaderSticky ? "sticky" : "relative",
                   backgroundColor: backgroundColor,
                   overflowY: "auto",
