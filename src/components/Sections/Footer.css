@@ -122,41 +122,95 @@
   }
 
   .footer-logo {
-    width: 25px !important;
-    height: 32px !important;
+    width: 40px !important;
+    height: 50px !important;
+    margin-bottom: 2rem;
+    margin-left: 0 !important;
+    align-self: flex-start;
   }
 
   .Footer .footer-content {
     padding: 1rem;
+    justify-content: flex-start !important;
   }
 
-  .contact-info {
-    text-align: left;
-    margin-top: 2rem;
+  .col-margin-left {
+    justify-content: flex-start !important;
+    margin-left: 0 !important;
   }
-
-  .contact-section {
-    margin-bottom: 1.5rem;
-  }
-
-  /* Reorder footer sections */
+  /* Single column layout */
   .footer-content .row {
     display: flex;
     flex-direction: column;
+    gap: 2rem;
   }
 
-  .footer-content .col-main {
+  .footer-content .row > div {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Reorder elements */
+  .top-row .col-margin-left {
     order: 1;
-    width: 100%;
+    text-align: left !important;
   }
 
-  .footer-content .col-margin-right {
+  .top-row .col-main {
     order: 2;
-    width: 100%;
   }
 
-  .footer-content .col-margin-left {
+  .top-row .col-margin-right {
     order: 3;
+    text-align: left !important;
+  }
+
+  .col-margin-right .contact-info {
+    text-align: left !important;
+    align-items: flex-start !important;
+  }
+  /* Bottom row adjustments */
+  .bottom-row {
+    margin-top: 2rem;
+  }
+
+  .system-info {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 2rem 0;
+  }
+
+  .social-links {
+    margin-top: 0;
+  }
+
+  /* Hide spacing columns on mobile */
+  .col-spacing-1,
+  .col-spacing-2,
+  .col-padding-left,
+  .col-padding-right {
+    display: none;
+  }
+
+  .Footer .smalls-container {
     width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+  }
+
+  .Footer .smalls {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .contact-info,
+  .system-info,
+  .social-links,
+  .col-margin-left span,
+  .Footer .text {
+    text-align: left;
   }
 }

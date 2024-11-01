@@ -1,7 +1,7 @@
 .sidebar-item {
   padding: 1.275rem 0.75rem;
   border-bottom: 1px solid var(--opposite-color);
-  color: var(--gray-color);
+  color: var(--text-color);
   transition: all 1s ease;
 
   /* Add other styles for the sidebar item */

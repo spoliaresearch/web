@@ -10,7 +10,121 @@ import FontSettingsToggle from "../components/FontSettingsToggle";
 import ThemeToggle from "../components/ThemeToggle";
 import { Link } from "gatsby";
 import Mainbar from "../components/Sections/Mainbar";
-import { InteractiveProvider, DisableInteractive } from "../components/DisableInteractive";
+import { InteractiveProvider, DisableInteractive, InteractiveContext } from "../components/DisableInteractive";
+import SvgLoader from "../components/SvgLoader";
+
+const DissolveImage = ({ name, fill, width, height }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const filterRef = useRef(null);
+  const requestRef = useRef();
+  const startTimeRef = useRef();
+  const currentScale = useRef(0);
+  const { isInteractive } = useContext(InteractiveContext);
+
+  useEffect(() => {
+    if (!filterRef.current) return;
+
+    const displacementMap = filterRef.current.querySelector("feDisplacementMap");
+    const maxScale = 500;
+
+    if (!isInteractive) {
+      displacementMap.setAttribute("scale", "0");
+      return;
+    }
+
+    if (!startTimeRef.current && !isHovered) {
+      displacementMap.setAttribute("scale", "0");
+      return;
+    }
+
+    const animate = (timestamp) => {
+      if (!startTimeRef.current) startTimeRef.current = timestamp;
+      const progress = (timestamp - startTimeRef.current) / 750;
+
+      if (isHovered) {
+        currentScale.current = Math.min(progress * maxScale, maxScale);
+      } else {
+        const reverseProgress = 1 - Math.min(progress, 1);
+        currentScale.current = maxScale * reverseProgress;
+      }
+
+      displacementMap.setAttribute("scale", currentScale.current);
+
+      if ((isHovered && currentScale.current < maxScale) || (!isHovered && currentScale.current > 0)) {
+        requestRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    startTimeRef.current = null;
+    requestRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(requestRef.current);
+    };
+  }, [isHovered, isInteractive]);
+
+  return (
+    <>
+      <svg style={{ position: "absolute", width: 0, height: 0 }}>
+        <defs>
+          <filter
+            id={`dissolve-filter-${name}`}
+            ref={filterRef}
+            x="-200%"
+            y="-200%"
+            width="400%"
+            height="400%"
+            colorInterpolationFilters="sRGB"
+          >
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.02"
+              numOctaves="1"
+              result="bigNoise"
+              seed={Math.floor(50)}
+            />
+            <feComponentTransfer in="bigNoise" result="bigNoiseAdjusted">
+              <feFuncR type="linear" slope="3" intercept="-1" />
+              <feFuncG type="linear" slope="3" intercept="-1" />
+            </feComponentTransfer>
+            <feTurbulence type="fractalNoise" baseFrequency="3" numOctaves=".1" result="fineNoise" />
+            <feMerge result="mergedNoise">
+              <feMergeNode in="bigNoiseAdjusted" />
+              <feMergeNode in="fineNoise" />
+            </feMerge>
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="mergedNoise"
+              scale="0"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+        </defs>
+      </svg>
+      <div
+        onMouseEnter={() => isInteractive && setIsHovered(true)}
+        onMouseLeave={() => isInteractive && setIsHovered(false)}
+        style={{ display: "inline-block" }}
+      >
+        <SvgLoader
+          name={name}
+          fill={fill}
+          width={width}
+          height={height}
+          style={{ filter: `url(#dissolve-filter-${name})` }}
+        />
+      </div>
+    </>
+  );
+};
+
+// Create a separate component for the canvas that will only mount once
+const CanvasWrapper = React.memo(
+  () => <App />,
+  () => true
+); // The second argument returns true to prevent any updates
+
 const Home = () => {
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext) || { isDarkMode: false, setIsDarkMode: () => {} };
   // const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
@@ -75,18 +189,50 @@ const Home = () => {
   const backgroundColor = isDarkMode ? "black" : "white";
   const textColor = isDarkMode ? "white" : "black";
   const topNavRef = useRef(null);
-  const canvasRef = useRef(null);
   const footerRef = useRef(null);
-  const [aliveCount, setAliveCount] = useState(0);
-  const handleAliveCountUpdate = (newCount) => {
-    setAliveCount(newCount);
-  };
+
   return (
     <>
       <div
         className="container"
         style={{ ...rootStyle, position: "relative", minHeight: "100vh", padding: "0 .475rem" }}
       >
+        <svg style={{ position: "absolute", width: 0, height: 0 }}>
+          <defs>
+            <filter
+              id="dissolve-filter"
+              x="-200%"
+              y="-200%"
+              width="500%"
+              height="500%"
+              colorInterpolationFilters="sRGB"
+            >
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.004"
+                numOctaves="1"
+                result="bigNoise"
+                seed={Math.floor(Math.random() * 100)}
+              />
+              <feComponentTransfer in="bigNoise" result="bigNoiseAdjusted">
+                <feFuncR type="linear" slope="3" intercept="-1" />
+                <feFuncG type="linear" slope="3" intercept="-1" />
+              </feComponentTransfer>
+              <feTurbulence type="fractalNoise" baseFrequency="1" numOctaves="1" result="fineNoise" />
+              <feMerge result="mergedNoise">
+                <feMergeNode in="bigNoiseAdjusted" />
+                <feMergeNode in="fineNoise" />
+              </feMerge>
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="mergedNoise"
+                scale="0"
+                xChannelSelector="R"
+                yChannelSelector="G"
+              />
+            </filter>
+          </defs>
+        </svg>
         <TopNavigation
           ref={topNavRef}
           style={{
@@ -99,16 +245,17 @@ const Home = () => {
             zIndex: 3,
           }}
         />
-
         <h1 id="my-anchor-2" style={{ fontSize: "3em" }}>
           <div style={{ marginBottom: "5rem" }}>
-            SPOLIA is a design and technology studio. <br /> We build tools for a more creative and sustainable future.{" "}
+            SPOLIA is a design and technology studio.{" "}
+            <span className="hide-on-mobile">
+              <br /> We build tools for a more creative and sustainable future.{" "}
+            </span>
           </div>
         </h1>
         <div class="grid-container">
-          <div class="grid-item">
-            {" "}
-            <FontSettingsToggle /> Readability{" "}
+          <div class="grid-item" style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <FontSettingsToggle /> Readability
           </div>
           <div class="grid-item">
             <ThemeToggle /> Turn lights {!isDarkMode ? "off" : "on"}{" "}
@@ -120,7 +267,7 @@ const Home = () => {
             <DisableInteractive />
           </div>
         </div>
-        <App ref={canvasRef} onAliveCountUpdate={handleAliveCountUpdate} />
+        <CanvasWrapper /> {/* Use the wrapper that never updates */}
         <div class="label">APPROACH</div>
         <div className="text-content-grid">
           <div className="row">
@@ -148,14 +295,7 @@ const Home = () => {
                   marginRight: "2px",
                 }}
               >
-                <svg width="23" height="13" viewBox="0 0 23 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M15.5528 0.547137C15.8549 0.244962 16.3449 0.244962 16.647 0.547138L22.0579 5.95802C22.3601 6.2602 22.3601 6.75012 22.0579 7.0523L16.647 12.4632C16.3449 12.7654 15.8549 12.7654 15.5528 12.4632V12.4632C15.2506 12.161 15.2506 11.6711 15.5528 11.3689L16.7367 10.1849C17.8091 9.11254 17.0496 7.27893 15.533 7.27893H0.773769C0.346428 7.27893 0 6.9325 0 6.50516V6.50516C0 6.07782 0.346428 5.73139 0.773769 5.73139H15.533C17.0496 5.73139 17.8091 3.89778 16.7367 2.8254L15.5528 1.64141C15.2506 1.33924 15.2506 0.849313 15.5528 0.547137V0.547137Z"
-                    fill="#005009"
-                  />
-                </svg>
+                <DissolveImage name="arrow-right" fill="#006400" width="23" height="13" />
               </span>
               emerging (and{" "}
               <span
@@ -165,32 +305,14 @@ const Home = () => {
                   marginRight: "2px",
                 }}
               >
-                <svg width="23" height="13" viewBox="0 0 23 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M7.15671 0.547137C6.85454 0.244962 6.36461 0.244962 6.06244 0.547138L0.651554 5.95802C0.349378 6.2602 0.349378 6.75012 0.651554 7.0523L6.06244 12.4632C6.36461 12.7654 6.85454 12.7654 7.15671 12.4632V12.4632C7.45889 12.161 7.45889 11.6711 7.15671 11.3689L5.97273 10.1849C4.90035 9.11254 5.65985 7.27893 7.17643 7.27893H21.9357C22.363 7.27893 22.7095 6.9325 22.7095 6.50516V6.50516C22.7095 6.07782 22.363 5.73139 21.9357 5.73139H7.17643C5.65985 5.73139 4.90035 3.89778 5.97273 2.8254L7.15671 1.64141C7.45889 1.33924 7.45889 0.849313 7.15671 0.547137V0.547137Z"
-                    fill="#005009"
-                  />
-                </svg>
+                <DissolveImage name="arrow-left" fill="#006400" width="23" height="13" />
               </span>
               historic) technology.
             </div>
             <div className="col-spacing-2"></div>
             <div className="col-margin-right">
-              <div style={{ position: "relative", display: "inline-block" }}>
-                <img
-                  src="dither_test.png"
-                  alt="Dither test"
-                  className="side-image"
-                  style={{
-                    WebkitFilter:
-                      "grayscale(100%) brightness(100%) sepia(100%) hue-rotate(50deg) saturate(1000%) contrast(1) brightness(1000)",
-                    filter:
-                      "grayscale(100%) brightness(100%) sepia(100%) hue-rotate(50deg) saturate(1000%) contrast(1) brightness(1000)",
-                    backgroundColor: "white",
-                  }}
-                />{" "}
+              <div>
+                <DissolveImage name="academiaindustry" fill="#006400" width="140" height="100" />
                 <span style={{ fontSize: ".9rem" }}>↱ Academia ↔ Industry</span>
               </div>
             </div>
@@ -212,34 +334,7 @@ const Home = () => {
                   marginRight: "2px",
                 }}
               >
-                <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="9.4719" cy="9.4719" r="8.76372" stroke="#005009" stroke-width="1.41636" />
-                  <path
-                    d="M13.4553 9.4719C13.4553 12.029 12.9796 14.3183 12.2331 15.9484C11.4653 17.625 10.5124 18.4127 9.64888 18.4127C8.78534 18.4127 7.83245 17.625 7.06464 15.9484C6.31815 14.3183 5.84241 12.029 5.84241 9.4719C5.84241 6.91476 6.31815 4.62549 7.06464 2.9954C7.83245 1.31875 8.78534 0.531134 9.64888 0.531134C10.5124 0.531134 11.4653 1.31875 12.2331 2.9954C12.9796 4.62549 13.4553 6.91476 13.4553 9.4719Z"
-                    stroke="#005009"
-                    stroke-width="1.06227"
-                  />
-                  <line
-                    x1="18.5898"
-                    y1="9.73426"
-                    x2="0.000135375"
-                    y2="9.73426"
-                    stroke="#005009"
-                    stroke-width="1.06227"
-                  />
-                  <path
-                    d="M3.18677 3.98438C5.45884 6.0499 11.2423 8.94163 16.1996 3.98438"
-                    stroke="#005009"
-                    stroke-width="1.06227"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M3.18677 15.8398C5.45884 13.7743 11.2423 10.8826 16.1996 15.8398"
-                    stroke="#005009"
-                    stroke-width="1.06227"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <DissolveImage name="globe" fill="#006400" width="19" height="19" />
               </span>{" "}
               planet.
             </div>
@@ -250,7 +345,12 @@ const Home = () => {
 
           <div className="row">
             <div className="col-padding-left"></div>
-            <div className="col-margin-left"></div>
+            <div className="col-margin-left">
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <DissolveImage name="founders" fill="#006400" width={100} height={100} />
+                <span style={{ fontSize: ".9rem" }}>↱ Garrett & Eric</span>
+              </div>
+            </div>
             <div className="col-spacing-1"></div>
             <div className="col-main">
               Founded by Garrett Vercoe and Eric Duong, our work is shaped by a shared background in architecture and
@@ -339,7 +439,6 @@ const Home = () => {
         <div className="main-content" style={{ position: "relative", zIndex: 2 }}>
           <Mainbar />
         </div>
-
         <Footer
           ref={footerRef}
           style={{ height: "200px", backgroundColor: backgroundColor, zIndex: 2, position: "relative" }}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, useContext } from "react";
+import React, { useState, useEffect, Suspense, useContext, useCallback } from "react";
 import outputGrid1 from "./grids/output1.json";
 import outputGrid2 from "./grids/output2.json";
 import outputGrid3 from "./grids/output3.json";
@@ -274,7 +274,21 @@ let middlePointer = 1;
 let bottomPointer = 1;
 let colorArray = [];
 
+const p5Instance = {
+  instance: null,
+  initialized: false,
+  sketch: null,
+};
+
+// Create a ref to store the interactive state outside React's lifecycle
+const globalState = {
+  isInteractive: true,
+};
+
 function sketch(p5) {
+  if (p5Instance.initialized) return;
+  p5Instance.initialized = true;
+
   p5.setup = () => {
     let canvasWidth, canvasHeight;
     if (typeof window !== "undefined") {
@@ -344,45 +358,55 @@ function sketch(p5) {
   };
 
   function addCellAtMouse() {
+    if (!globalState.isInteractive) return;
+
     if (p5.mouseX >= 0 && p5.mouseX < p5.width && p5.mouseY >= 0 && p5.mouseY < p5.height) {
       const x = Math.floor(p5.mouseX / resolution);
       const y = Math.floor(p5.mouseY / resolution);
-
       addCell(x, y, actualState);
-      age[`${x},${y}`] = 1; // Set age for new cell
+      age[`${x},${y}`] = 1;
     }
   }
 
-  // p5.mousePressed = () => {
-  //      if (!sketchStarted) {
-  //   sketchStarted = true; // Set the flag to true when mouse is pressed
-  // }
-  //     addCellAtMouse();
-  // };
-
   p5.mouseDragged = () => {
+    if (!globalState.isInteractive) return;
     addCellAtMouse();
   };
 
-  //    p5.mousePressed = () => {
-  //     // Iterate through all cells in the age object
-  //     for (let cellKey in age) {
-  //         if (age[cellKey] === -1) {
-  //             // Split the cellKey to get x and y coordinates
-  //             let [x, y] = cellKey.split(',').map(Number);
-  //             // Add cell to the actualState
-  //             addCell(x, y, actualState);
-  //         }
-  //     }
-  //     colorArray[0] =  p5.color(0, 200, 100);
-  //     // Optionally, add additional actions here if needed, like starting the sketch
-  // };
-
   p5.mouseMoved = () => {
+    if (!globalState.isInteractive) return;
     addCellAtMouse();
   };
 
   p5.draw = () => {
+    // Check global state for interactive flag
+    if (!globalState.isInteractive) {
+      // Still draw current state but skip updates
+      p5.background(0, 0, 0);
+      for (let cellKey in age) {
+        let [x, y] = cellKey.split(",").map(Number);
+        let gridX = x * resolution;
+        let gridY = y * resolution;
+        let cellAge = age[cellKey];
+        let ageColorIndex = age[cellKey] !== undefined ? age[cellKey] : 1;
+
+        if (age[cellKey] === -1) {
+          // Initial grid cell, draw in white
+          p5.fill(255);
+          p5.stroke(25);
+        } else {
+          // Live cell
+          let cellAge = age[cellKey];
+          // let ageColorIndex = cellAge > 4 ? 4 : cellAge;
+          let ageColorIndex = Math.min(Math.abs(cellAge), colorArray.length - 1);
+          p5.fill(colorArray[ageColorIndex]);
+        }
+
+        p5.rect(gridX, gridY, resolution, resolution);
+      }
+      return;
+    }
+
     p5.background(0, 0, 0);
     p5.frameRate(10);
     //  for (let i = 0; i < actualState.length; i++) {
@@ -520,51 +544,26 @@ function sketch(p5) {
   };
 }
 
-export function App() {
-  const [isSSR, setIsSSR] = useState(false);
+// Wrap the App component with React.memo
+export const App = React.memo(function App() {
   const { isInteractive } = useContext(InteractiveContext);
 
-  // Create a modified sketch function that includes the interactive state
-  const sketchWithInteractive = (p5) => {
-    // First call the original sketch to get its setup
-    sketch(p5);
-
-    // Define addCellAtMouse within this scope
-    function addCellAtMouse() {
-      if (p5.mouseX >= 0 && p5.mouseX < p5.width && p5.mouseY >= 0 && p5.mouseY < p5.height) {
-        const x = Math.floor(p5.mouseX / resolution);
-        const y = Math.floor(p5.mouseY / resolution);
-
-        addCell(x, y, actualState);
-        age[`${x},${y}`] = 1; // Set age for new cell
-      }
-    }
-
-    // Override the mouse interaction functions
-    p5.mouseDragged = () => {
-      if (!isInteractive) return;
-      addCellAtMouse();
-    };
-
-    p5.mouseMoved = () => {
-      if (!isInteractive) return;
-      addCellAtMouse();
-    };
-  };
-
+  // Update global state when context changes
   useEffect(() => {
-    setIsSSR(typeof window !== "undefined");
-  }, []);
+    globalState.isInteractive = isInteractive;
+  }, [isInteractive]);
+
+  const sketchWithInteractive = useCallback((p5) => {
+    if (!p5Instance.instance) {
+      p5Instance.instance = p5;
+      p5Instance.sketch = sketch(p5);
+    }
+    return p5Instance.instance;
+  }, []); // Dependencies empty to maintain stability
 
   return (
-    <>
-      {isSSR && (
-        <Suspense fallback={<div style={{ backgroundColor: "#000000" }}>Loading...</div>}>
-          <div style={{ backgroundColor: "#000000" }}>
-            <ReactP5Wrapper sketch={sketchWithInteractive} />
-          </div>
-        </Suspense>
-      )}
-    </>
+    <Suspense fallback={<div style={{ backgroundColor: "#000000" }}>Loading...</div>}>
+      <ReactP5Wrapper sketch={sketchWithInteractive} />
+    </Suspense>
   );
-}
+});

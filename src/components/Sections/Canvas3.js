@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useContext } from "react";
 import outputGrid1 from "./grids/output1.json";
 import outputGrid2 from "./grids/output2.json";
 import outputGrid3 from "./grids/output3.json";
@@ -29,6 +29,7 @@ import outputGrid27 from "./grids/output27.json";
 import outputGrid28 from "./grids/output28.json";
 import outputGrid29 from "./grids/output29.json";
 import outputGrid30 from "./grids/output30.json";
+import { InteractiveContext } from "../../contexts/InteractiveContext";
 
 const ReactP5Wrapper = React.lazy(() =>
   import("react-p5-wrapper").then((module) => ({ default: module.ReactP5Wrapper }))
@@ -273,6 +274,10 @@ let middlePointer = 1;
 let bottomPointer = 1;
 let colorArray = [];
 
+const globalState = {
+  isInteractive: true,
+};
+
 function sketch(p5) {
   p5.setup = () => {
     let canvasWidth, canvasHeight;
@@ -302,6 +307,8 @@ function sketch(p5) {
   };
 
   function addCellAtMouse() {
+    if (!globalState.isInteractive) return;
+
     if (p5.mouseX >= 0 && p5.mouseX < p5.width && p5.mouseY >= 0 && p5.mouseY < p5.height) {
       const x = Math.floor(p5.mouseX / resolution);
       const y = Math.floor(p5.mouseY / resolution);
@@ -311,56 +318,45 @@ function sketch(p5) {
     }
   }
 
-  // p5.mousePressed = () => {
-  //      if (!sketchStarted) {
-  //   sketchStarted = true; // Set the flag to true when mouse is pressed
-  // }
-  //     addCellAtMouse();
-  // };
-
   p5.mouseDragged = () => {
+    if (!globalState.isInteractive) return;
     addCellAtMouse();
   };
 
-  //    p5.mousePressed = () => {
-  //     // Iterate through all cells in the age object
-  //     for (let cellKey in age) {
-  //         if (age[cellKey] === -1) {
-  //             // Split the cellKey to get x and y coordinates
-  //             let [x, y] = cellKey.split(',').map(Number);
-  //             // Add cell to the actualState
-  //             addCell(x, y, actualState);
-  //         }
-  //     }
-  //     colorArray[0] =  p5.color(0, 200, 100);
-  //     // Optionally, add additional actions here if needed, like starting the sketch
-  // };
-
   p5.mouseMoved = () => {
+    if (!globalState.isInteractive) return;
     addCellAtMouse();
   };
 
   p5.draw = () => {
+    // Draw current state first
     p5.background(0, 0, 0);
     p5.frameRate(10);
 
+    // Draw all cells in their current state
     for (let cellKey in age) {
       let [x, y] = cellKey.split(",").map(Number);
       let gridX = x * resolution;
       let gridY = y * resolution;
-      let cellAge = age[cellKey];
 
-      if (cellAge < 0) {
-        // Dead cell - make it black (effectively invisible against black background)
-        delete age[cellKey]; // Remove dead cells from tracking
+      if (age[cellKey] === -1) {
+        // Initial grid cell
+        p5.fill(255);
+        p5.stroke(25);
       } else {
-        // Live cell - ensure we have a valid index
-        let ageColorIndex = Math.min(Math.floor(Math.abs(cellAge)), colorArray.length - 1);
-        p5.fill(colorArray[ageColorIndex] || p5.color(255)); // Provide fallback color if undefined
-        p5.rect(gridX, gridY, resolution, resolution);
+        // Live cell
+        let cellAge = age[cellKey];
+        let ageColorIndex = Math.min(Math.abs(cellAge), colorArray.length - 1);
+        p5.fill(colorArray[ageColorIndex]);
       }
+
+      p5.rect(gridX, gridY, resolution, resolution);
     }
 
+    // If not interactive, stop here - don't process any updates
+    if (!globalState.isInteractive) return;
+
+    // Rest of the game of life logic continues here...
     var x,
       y,
       i,
@@ -446,16 +442,13 @@ function sketch(p5) {
 
       if (state === 1) {
         // New cell
-        age[cellKey] = 1; // Initialize age
-      } else if (state === 2) {
-        // Existing cell
-        age[cellKey] = (age[cellKey] || 0) + 1; // Increment age
-      }
-      // else   { // Cell is dead
-      //   delete age[cellKey]
-      // }
-      else {
-        age[cellKey] = -age[cellKey] - 2;
+        age[cellKey] = 1;
+      } else if (state === 2 && age[cellKey] !== -1) {
+        // Only increment age for non-initial cells
+        age[cellKey] = (age[cellKey] || 0) + 1;
+      } else if (state === 0) {
+        // Completely remove dead cells
+        delete age[cellKey];
       }
     });
     actualState = newState;
@@ -466,10 +459,16 @@ function sketch(p5) {
 
 export function App() {
   const [isSSR, setIsSSR] = useState(false);
+  const { isInteractive = true } = useContext(InteractiveContext) || {};
+
+  useEffect(() => {
+    globalState.isInteractive = isInteractive;
+  }, [isInteractive]);
 
   useEffect(() => {
     setIsSSR(typeof window !== "undefined");
   }, []);
+
   return (
     <>
       {isSSR && (

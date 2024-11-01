@@ -8,6 +8,8 @@ import Footer from "./Sections/Footer";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { FontSettingsContext, FontSettingsProvider } from "../contexts/FontSettingsContext";
 import { Link } from "gatsby";
+import { InteractiveContext } from "../contexts/InteractiveContext";
+
 const Layout = ({ children }) => {
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext) || { isDarkMode: false, setIsDarkMode: () => {} };
   // const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
@@ -24,12 +26,12 @@ const Layout = ({ children }) => {
     if (isDarkMode) {
       root.style.setProperty("--background-color", "black");
       root.style.setProperty("--text-color", "white");
-      root.style.setProperty("--gray-color", "gray");
+      root.style.setProperty("--gray-color", "#ddd");
       root.style.setProperty("--opposite-color", "white");
     } else {
       root.style.setProperty("--background-color", "white");
       root.style.setProperty("--text-color", "black");
-      root.style.setProperty("--gray-color", "gray");
+      root.style.setProperty("--gray-color", "#ddd");
       root.style.setProperty("--opposite-color", "black");
     }
   }, [isDarkMode]);
@@ -66,23 +68,30 @@ const Layout = ({ children }) => {
     }
   }, []);
 
+  // Add state for interactive context
+  const [isInteractive, setIsInteractive] = useState(true);
+
   return (
-    <div className="container" style={{ ...rootStyle, position: "relative", minHeight: "100vh", padding: "0 .475rem" }}>
-      <TopNavigation
-        ref={topNavRef}
-        style={{
-          position: "sticky",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "40px",
-          backgroundColor: backgroundColor,
-          zIndex: 3,
-        }}
-      />
-      {notExcluded && (
-        <>
-          {/* <Canvas
+    <InteractiveContext.Provider value={{ isInteractive, setIsInteractive }}>
+      <div
+        className="container"
+        style={{ ...rootStyle, position: "relative", minHeight: "100vh", padding: "0 .475rem" }}
+      >
+        <TopNavigation
+          ref={topNavRef}
+          style={{
+            position: "sticky",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "40px",
+            backgroundColor: backgroundColor,
+            zIndex: 3,
+          }}
+        />
+        {notExcluded && (
+          <>
+            {/* <Canvas
         ref={canvasRef}
         style={{
           position: 'absolute',
@@ -96,11 +105,11 @@ const Layout = ({ children }) => {
           backgroundColor: 'white'
         }}
       /> */}
-          <h6 id="my-anchor-2">
-            <div class="text-animate"></div>
-          </h6>
+            <h6 id="my-anchor-2">
+              <div class="text-animate"></div>
+            </h6>
 
-          {/* <div  style={{
+            {/* <div  style={{
           height: '75px',
           backgroundColor: backgroundColor,
           zIndex: 2,
@@ -113,60 +122,61 @@ const Layout = ({ children }) => {
         }} className="OneLiner">
           */}
 
-          <HeaderText
-            ref={headerRef}
-            name={children?.props?.children?.props?.data?.page?.name}
-            style={{
-              height: "32px",
-              backgroundColor: backgroundColor,
-              zIndex: 200,
-              position: isHeaderSticky ? "sticky" : "relative",
-              top: isHeaderSticky ? topNavRef.current.offsetHeight : "initial",
-            }}
-          />
-          <div className="main-content" style={{ position: "relative", zIndex: 2 }}>
-            <Sidebar
-              ref={sidebarRef}
+            <HeaderText
+              ref={headerRef}
+              name={children?.props?.children?.props?.data?.page?.name}
               style={{
-                height: "92vh",
-                width: "21.5rem",
-                overflowY: "auto",
-                position: isHeaderSticky ? "sticky" : "relative",
+                height: "32px",
                 backgroundColor: backgroundColor,
-                borderRight: `1px solid ${textColor}`,
-                top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : "initial",
+                zIndex: 200,
+                position: isHeaderSticky ? "sticky" : "relative",
+                top: isHeaderSticky ? topNavRef.current.offsetHeight : "initial",
               }}
             />
-            <div
-              ref={projectContentRef}
-              style={{
-                height: "auto",
-                width: "calc(100vw - 21.5rem)",
-                position: isHeaderSticky ? "sticky" : "relative",
-                backgroundColor: backgroundColor,
-                overflowY: "auto",
-                zIndex: 0,
-                top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : "initial",
-              }}
-            >
-              {children}
+            <div className="main-content" style={{ position: "relative", zIndex: 2 }}>
+              <Sidebar
+                ref={sidebarRef}
+                style={{
+                  height: "92vh",
+                  width: "21.5rem",
+                  overflowY: "auto",
+                  position: isHeaderSticky ? "sticky" : "relative",
+                  backgroundColor: backgroundColor,
+                  borderRight: `1px solid ${textColor}`,
+                  top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : "initial",
+                }}
+              />
+              <div
+                ref={projectContentRef}
+                style={{
+                  height: "auto",
+                  width: window.innerWidth <= 768 ? "100vw" : "calc(100vw - 21.5rem)",
+                  position: isHeaderSticky ? "sticky" : "relative",
+                  backgroundColor: backgroundColor,
+                  overflowY: "auto",
+                  zIndex: 0,
+                  top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : "initial",
+                }}
+              >
+                {children}
+              </div>
             </div>
-          </div>
-        </>
-      )}
-      {!notExcluded && <>{children}</>}
+          </>
+        )}
+        {!notExcluded && <>{children}</>}
 
-      <Footer
-        ref={footerRef}
-        style={{
-          height: "200px",
-          backgroundColor: backgroundColor,
-          color: textColor,
-          zIndex: 2,
-          position: "relative",
-        }}
-      />
-    </div>
+        <Footer
+          ref={footerRef}
+          style={{
+            height: "200px",
+            backgroundColor: backgroundColor,
+            color: textColor,
+            zIndex: 2,
+            position: "relative",
+          }}
+        />
+      </div>
+    </InteractiveContext.Provider>
   );
 };
 

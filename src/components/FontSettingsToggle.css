@@ -1,8 +1,8 @@
 .font-settings-toggle {
-  position: relative;
-  display: inline-block;
-  padding-right: 6px;
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
 }
 
 .font-settings-toggle:hover {
@@ -10,10 +10,10 @@
 }
 
 .font-toggle-button {
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  height: 100%;
 }
 
 .font-toggle-button:hover {

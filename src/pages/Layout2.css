@@ -15,7 +15,7 @@ a {
 :root {
   --background-color: white;
   --text-color: black;
-  --gray-color: #f5f5f5;
+  --gray-color: #ddd;
 }
 
 .text-animate {
@@ -247,7 +247,10 @@ body {
 /* Responsive layout */
 @media (max-width: 768px) {
   .row {
-    grid-template-columns: 0.5fr 8fr 0.5fr; /* Simplified layout for mobile */
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    gap: 1.5rem;
   }
 
   .col-side-left,
@@ -365,5 +368,173 @@ body {
 
   .row .col-main {
     padding: 0;
+  }
+}
+
+/* Add these new styles */
+.row {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 0.5fr 8fr 0.5fr 2fr 0.5fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.col-margin-left {
+  display: flex;
+  justify-content: flex-end; /* Aligns content to the right */
+  align-items: flex-start; /* Aligns content to the top */
+}
+
+.col-margin-left > div {
+  width: fit-content;
+  margin-left: auto; /* Pushes content to the right */
+}
+
+.col-margin-left svg {
+  max-width: 225px; /* Changed from 180px to 225px (1.25x larger) */
+  height: auto;
+  display: block;
+}
+
+.col-margin-left span {
+  display: block;
+  text-align: right;
+  margin-top: 0.5rem;
+}
+
+/* Update mobile styles to maintain alignment */
+@media (max-width: 768px) {
+  .col-margin-left {
+    justify-content: center; /* Center align on mobile */
+  }
+
+  .col-margin-left > div {
+    margin-left: 0; /* Reset margin for mobile */
+  }
+}
+
+/* Add or update these styles */
+.col-margin-left > div {
+  width: fit-content;
+  margin-left: auto;
+  transform: scale(1); /* Changed from 1.25 to 1 */
+  transform-origin: right top; /* Scales from the top right corner */
+}
+
+/* Adjust spacing to account for larger scale */
+.col-margin-left {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-right: 12%; /* Add some padding to prevent overflow */
+}
+
+/* Update mobile styles */
+@media (max-width: 768px) {
+  .col-margin-left > div {
+    transform: scale(1);
+    transform-origin: center top;
+    margin: 0 auto;
+  }
+
+  .col-margin-left {
+    padding-right: 0;
+  }
+}
+
+/* Add these styles for both left and right margin SVGs */
+.col-margin-left > div,
+.col-margin-right > div {
+  width: fit-content;
+  margin-left: auto;
+  transform: scale(1);
+  transform-origin: right top;
+}
+
+/* Adjust spacing for both columns */
+.col-margin-left,
+.col-margin-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-right: 12%;
+}
+
+/* Update mobile styles for both */
+@media (max-width: 768px) {
+  .col-margin-left > div,
+  .col-margin-right > div {
+    transform: scale(1);
+    transform-origin: center top;
+    margin: 0 auto;
+  }
+
+  .col-margin-left,
+  .col-margin-right {
+    padding-right: 0;
+  }
+}
+
+.col-margin-right > div,
+.col-margin-left > div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Left aligns both SVG and span */
+}
+
+.col-margin-right span,
+.col-margin-left span {
+  display: block;
+  margin-top: 4px; /* Space between SVG and text */
+}
+
+@media screen and (max-width: 768px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .row {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+
+  .col-margin-left,
+  .col-margin-right {
+    width: 100%;
+    padding: 0;
+    justify-content: center; /* Center align content */
+    text-align: center; /* Center align text */
+  }
+
+  .col-margin-left > div,
+  .col-margin-right > div {
+    width: 100%;
+    margin: 0 auto; /* Center the div container */
+    transform: none;
+    align-items: center; /* Center the flex items */
+  }
+
+  /* Make SVGs and images centered with max-width */
+  .col-margin-left svg,
+  .col-margin-right svg,
+  .col-margin-left img,
+  .col-margin-right img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto; /* Center the images */
+    display: block; /* Helps with centering */
+  }
+
+  /* Center the text below SVGs/images */
+  .col-margin-left span,
+  .col-margin-right span {
+    text-align: center;
+    width: 100%;
   }
 }

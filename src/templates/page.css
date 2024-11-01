@@ -38,31 +38,37 @@ img {
 /* Add this media query for mobile responsiveness */
 @media (max-width: 768px) {
   .ProjectContent {
-    flex-direction: column; /* Stack content vertically on mobile */
-    padding-left: 1rem; /* Reduce left padding */
-    padding-right: 1rem; /* Add right padding */
+    flex-direction: column;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: calc(100% - 2rem);
+    margin: 0 auto;
+    box-sizing: border-box;
   }
 
   .ProjectContent .mainContent {
-    width: 100%; /* Full width on mobile */
-    padding-right: 0; /* Remove right padding */
+    width: 100%;
+    padding-right: 0;
+    max-width: none;
+    box-sizing: border-box;
   }
 
   .ProjectContent .context {
-    max-width: 100%; /* Full width for context section */
-    padding-right: 0; /* Remove right padding */
-    padding-top: 2rem; /* Add space between main content and context */
+    max-width: 100%;
+    padding-right: 0;
+    padding-top: 2rem;
   }
 
   img {
-    width: 100%; /* Full width on mobile */
-    height: auto; /* Maintain aspect ratio */
+    max-width: 100%;
+    width: 100%;
+    height: auto;
     padding: 0.5rem 0;
   }
 
   /* If you have specific image containers that need different handling */
   .gatsby-resp-image-wrapper {
-    margin-left: 0 !important; /* Remove any left margin */
-    margin-right: 0 !important; /* Remove any right margin */
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
