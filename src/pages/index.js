@@ -20,6 +20,15 @@ const DissolveImage = ({ name, fill, width, height }) => {
   const startTimeRef = useRef();
   const currentScale = useRef(0);
   const { isInteractive } = useContext(InteractiveContext);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   useEffect(() => {
     if (!filterRef.current) return;
@@ -139,36 +148,42 @@ const Home = () => {
 
   const [time, setTime] = useState("");
   const [timeZone, setTimeZone] = useState("");
+  const [isBrowser, setIsBrowser] = useState(false);
 
   useEffect(() => {
-    // Function to get the time zone abbreviation
+    setIsBrowser(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isBrowser) return;
+
     const getTimeZoneAbbreviation = () => {
       const dateString = new Date().toString();
-      const abbrev = dateString.match(/\(([A-Za-z\s].*?)\)/)[1];
+      const abbrev = dateString.match(/\(([A-Za-z\s].*?)\)/)?.[1] || "";
       return abbrev
         .split(" ")
         .map((word) => word[0])
         .join("");
     };
 
-    // Update time every minute
     const interval = setInterval(() => {
       const now = new Date();
-      setTime(now.toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" })); // 24-hour format, hours and minutes only
+      setTime(now.toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" }));
       setTimeZone(getTimeZoneAbbreviation());
-    }, 60000); // update every minute
+    }, 60000);
 
-    // Set initial time immediately
+    // Initial set
     const now = new Date();
     setTime(now.toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" }));
     setTimeZone(getTimeZoneAbbreviation());
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isBrowser]);
 
   useEffect(() => {
-    const root = document.documentElement;
+    if (!isBrowser) return;
 
+    const root = document.documentElement;
     if (isDarkMode) {
       root.style.setProperty("--background-color", "black");
       root.style.setProperty("--text-color", "white");
@@ -180,7 +195,11 @@ const Home = () => {
       root.style.setProperty("--gray-color", "gray");
       root.style.setProperty("--opposite-color", "black");
     }
-  }, [isDarkMode]);
+  }, [isDarkMode, isBrowser]);
+
+  if (!isBrowser) {
+    return null; // or a loading state
+  }
 
   const handleToggle = () => {
     setIsDarkMode(!isDarkMode);
