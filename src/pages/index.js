@@ -26,12 +26,8 @@ const DissolveImage = ({ name, fill, width, height }) => {
     setIsMounted(true);
   }, []);
 
-  if (!isMounted) {
-    return null;
-  }
-
   useEffect(() => {
-    if (!filterRef.current) return;
+    if (!isMounted || !filterRef.current) return;
 
     const displacementMap = filterRef.current.querySelector("feDisplacementMap");
     const maxScale = 500;
@@ -70,61 +66,26 @@ const DissolveImage = ({ name, fill, width, height }) => {
     return () => {
       cancelAnimationFrame(requestRef.current);
     };
-  }, [isHovered, isInteractive]);
+  }, [isHovered, isInteractive, isMounted]);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
-    <>
-      <svg style={{ position: "absolute", width: 0, height: 0 }}>
-        <defs>
-          <filter
-            id={`dissolve-filter-${name}`}
-            ref={filterRef}
-            x="-200%"
-            y="-200%"
-            width="400%"
-            height="400%"
-            colorInterpolationFilters="sRGB"
-          >
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.02"
-              numOctaves="1"
-              result="bigNoise"
-              seed={Math.floor(50)}
-            />
-            <feComponentTransfer in="bigNoise" result="bigNoiseAdjusted">
-              <feFuncR type="linear" slope="3" intercept="-1" />
-              <feFuncG type="linear" slope="3" intercept="-1" />
-            </feComponentTransfer>
-            <feTurbulence type="fractalNoise" baseFrequency="3" numOctaves=".1" result="fineNoise" />
-            <feMerge result="mergedNoise">
-              <feMergeNode in="bigNoiseAdjusted" />
-              <feMergeNode in="fineNoise" />
-            </feMerge>
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="mergedNoise"
-              scale="0"
-              xChannelSelector="R"
-              yChannelSelector="G"
-            />
-          </filter>
-        </defs>
-      </svg>
-      <div
-        onMouseEnter={() => isInteractive && setIsHovered(true)}
-        onMouseLeave={() => isInteractive && setIsHovered(false)}
-        style={{ display: "inline-block" }}
-      >
-        <SvgLoader
-          name={name}
-          fill={fill}
-          width={width}
-          height={height}
-          style={{ filter: `url(#dissolve-filter-${name})` }}
-        />
-      </div>
-    </>
+    <div
+      onMouseEnter={() => isInteractive && setIsHovered(true)}
+      onMouseLeave={() => isInteractive && setIsHovered(false)}
+      style={{ display: "inline-block" }}
+    >
+      <SvgLoader
+        name={name}
+        fill={fill}
+        width={width}
+        height={height}
+        style={{ filter: `url(#dissolve-filter-${name})` }}
+      />
+    </div>
   );
 };
 
@@ -136,19 +97,14 @@ const CanvasWrapper = React.memo(
 
 const Home = () => {
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext) || { isDarkMode: false, setIsDarkMode: () => {} };
-  // const excludedPaths = ['/information', '/404']; // Add paths you want to exclude
-  const notExcluded = true;
   const { SRFF, fontSize } = useContext(FontSettingsContext);
-  const baseSize = "14.4px"; // Set your base font size here
-
-  const rootStyle = {
-    fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${SRFF}`,
-    fontSize: `${fontSize}em`, // Changed to em units
-  };
-
   const [time, setTime] = useState("");
   const [timeZone, setTimeZone] = useState("");
   const [isBrowser, setIsBrowser] = useState(false);
+
+  // Move all hooks to the top level
+  const topNavRef = useRef(null);
+  const footerRef = useRef(null);
 
   useEffect(() => {
     setIsBrowser(true);
@@ -207,51 +163,19 @@ const Home = () => {
 
   const backgroundColor = isDarkMode ? "black" : "white";
   const textColor = isDarkMode ? "white" : "black";
-  const topNavRef = useRef(null);
-  const footerRef = useRef(null);
 
   return (
     <>
       <div
         className="container"
-        style={{ ...rootStyle, position: "relative", minHeight: "100vh", padding: "0 .475rem" }}
+        style={{
+          fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${SRFF}`,
+          fontSize: `${fontSize}em`,
+          position: "relative",
+          minHeight: "100vh",
+          padding: "0 .475rem",
+        }}
       >
-        <svg style={{ position: "absolute", width: 0, height: 0 }}>
-          <defs>
-            <filter
-              id="dissolve-filter"
-              x="-200%"
-              y="-200%"
-              width="500%"
-              height="500%"
-              colorInterpolationFilters="sRGB"
-            >
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.004"
-                numOctaves="1"
-                result="bigNoise"
-                seed={Math.floor(Math.random() * 100)}
-              />
-              <feComponentTransfer in="bigNoise" result="bigNoiseAdjusted">
-                <feFuncR type="linear" slope="3" intercept="-1" />
-                <feFuncG type="linear" slope="3" intercept="-1" />
-              </feComponentTransfer>
-              <feTurbulence type="fractalNoise" baseFrequency="1" numOctaves="1" result="fineNoise" />
-              <feMerge result="mergedNoise">
-                <feMergeNode in="bigNoiseAdjusted" />
-                <feMergeNode in="fineNoise" />
-              </feMerge>
-              <feDisplacementMap
-                in="SourceGraphic"
-                in2="mergedNoise"
-                scale="0"
-                xChannelSelector="R"
-                yChannelSelector="G"
-              />
-            </filter>
-          </defs>
-        </svg>
         <TopNavigation
           ref={topNavRef}
           style={{
@@ -260,7 +184,7 @@ const Home = () => {
             left: 0,
             right: 0,
             height: "40px",
-            backgroundColor: backgroundColor,
+            backgroundColor: isDarkMode ? "black" : "white",
             zIndex: 3,
           }}
         />
@@ -460,7 +384,7 @@ const Home = () => {
         </div>
         <Footer
           ref={footerRef}
-          style={{ height: "200px", backgroundColor: backgroundColor, zIndex: 2, position: "relative" }}
+          style={{ height: "200px", backgroundColor: isDarkMode ? "black" : "white", zIndex: 2, position: "relative" }}
         />
       </div>
     </>
