@@ -274,22 +274,39 @@ let middlePointer = 1;
 let bottomPointer = 1;
 let colorArray = [];
 
+const p5Instance = {
+  instance: null,
+  initialized: false,
+  sketch: null,
+};
+
 const globalState = {
   isInteractive: true,
+  canvasHeight: 0,
 };
 
 function sketch(p5) {
   p5.setup = () => {
-    let canvasWidth, canvasHeight;
+    let canvasWidth;
     if (typeof window !== "undefined") {
-      canvasWidth = window.innerWidth - 15;
-      canvasHeight = window.innerHeight - 200;
+      const isMobile = window.innerWidth <= 768;
+
+      // Set canvas height based on device type
+      globalState.canvasHeight = isMobile
+        ? (window.innerHeight - 20) / 2 // Half height on mobile
+        : window.innerHeight - 20; // Full height on desktop
+
+      // Adjust resolution based on device type
+      resolution = isMobile ? 5 : 7;
+
+      canvasWidth = document.documentElement.clientWidth - 15;
     } else {
       canvasWidth = 800;
-      canvasHeight = 600;
+      globalState.canvasHeight = 600;
+      resolution = 7;
     }
 
-    p5.createCanvas(canvasWidth, canvasHeight);
+    p5.createCanvas(canvasWidth, globalState.canvasHeight);
     cols = p5.width / resolution;
     rows = p5.height / resolution;
 
@@ -304,6 +321,38 @@ function sketch(p5) {
 
     // Remove all grid initialization code
     // The canvas will start empty
+  };
+
+  p5.windowResized = () => {
+    const oldWidth = p5.width;
+    const newWidth = document.documentElement.clientWidth - 20;
+    const isMobile = window.innerWidth <= 768;
+
+    // Update resolution based on device type
+    resolution = isMobile ? 5 : 7;
+
+    globalState.canvasHeight = isMobile ? (window.innerHeight - 20) / 2 : window.innerHeight - 20;
+
+    const deltaX = (newWidth - oldWidth) / (2 * resolution);
+
+    p5.resizeCanvas(newWidth, globalState.canvasHeight);
+    cols = p5.width / resolution;
+
+    // Update cell positions
+    const newAge = {};
+    Object.entries(age).forEach(([key, value]) => {
+      const [x, y] = key.split(",").map(Number);
+      const newX = Math.round(x + deltaX);
+      newAge[`${newX},${y}`] = value;
+    });
+    age = newAge;
+
+    // Update actualState array
+    for (let i = 0; i < actualState.length; i++) {
+      for (let j = 1; j < actualState[i].length; j++) {
+        actualState[i][j] = Math.round(actualState[i][j] + deltaX);
+      }
+    }
   };
 
   function addCellAtMouse() {

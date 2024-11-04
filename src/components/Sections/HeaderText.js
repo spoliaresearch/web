@@ -8,9 +8,8 @@ const HeaderText = React.forwardRef((props, ref) => {
     <div className="HeaderText" ref={ref} style={props.style}>
       <div className="HeaderGrid">
         <div className="SidebarHeader">
-          {/* <div className='items'><span>Sort</span></div>  */}
-          <FontSettingsToggle />
-          <ThemeToggle />
+          <FontSettingsToggle includeText={false} />
+          <ThemeToggle includeText={false} />
         </div>
         <div className="ProjectHeader">
           {" "}

@@ -53,7 +53,7 @@ const SVG_MAP = {
     ),
   },
   academiaindustry: {
-    viewBox: "0 0 800 576",
+    viewBox: "210 50 400 480",
     path: (fill) => (
       <path
         fillRule="evenodd"

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "gatsby-link";
 import "./TopNavigation.css";
+
 const TopNavigation = React.forwardRef((props, ref) => {
   return (
     <nav ref={ref} style={props.style}>
@@ -10,14 +11,23 @@ const TopNavigation = React.forwardRef((props, ref) => {
           <span>SPOLIA</span>
         </Link>
         <div className="nav-middle">
-          <span>DESIGN & TECHNOLOGY</span>
+          <span>
+            DESIGN{" "}
+            <span
+              style={{
+                border: "1px dashed currentColor",
+                padding: "0 0px !important",
+                marginRight: "1px",
+              }}
+            >
+              <span style={{ color: "#006400", padding: "0 2.5px", fontSize: "1.5em" }}>∩</span>
+            </span>{" "}
+            TECHNOLOGY
+          </span>
         </div>
-        <div>
-          {/* need more work first */}
-          {/* <Link to="/work" className="nav-link"><span>INDEX</span></Link> */}
-          {/* <Link to="/information" className="nav-link"><span>OFFICE</span></Link> */}
-
-          <span className="contact-container">
+        <div className="nav-right">
+          {/* Desktop-only contact container */}
+          <span className="contact-container desktop-only">
             <a className="nav-link" href="mailto:hello@spolialab.com">
               CONTACT
             </a>
@@ -46,6 +56,7 @@ const TopNavigation = React.forwardRef((props, ref) => {
               </svg>
             </a>
           </span>
+          {props.children}
         </div>
       </div>
     </nav>

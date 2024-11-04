@@ -69,8 +69,8 @@ const FontSettingsSlider = ({ onClose }) => {
             style={{
               fontSize: "4rem",
               fontFamily: "Arizona Variable",
-              fontVariationSettings: `"wght" 400, "ital" 0, "SRFF" ${tempSRFF}`,
-              transition: "all 0.3s ease-in-out",
+              fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
+              WebkitFontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
             }}
           >
             Aa
@@ -130,7 +130,7 @@ const FontSettingsSlider = ({ onClose }) => {
               fontSize: `calc(1rem * ${tempFontSize})`,
               fontFamily: "Arizona Variable",
               fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
-              transition: "all 0.3s ease-in-out",
+              WebkitFontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
               lineHeight: "1.5",
               margin: "1rem 0",
             }}

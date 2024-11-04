@@ -1,12 +1,30 @@
+nav {
+  padding-bottom: 0.33rem;
+}
+
 .nav {
   display: flex;
   justify-content: space-between;
-  /* border-top: 1px solid white; */
+  align-items: center;
+  padding: 0 4px;
 }
-.nav span {
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-middle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* .nav span {
   padding-left: 0.66rem;
   padding-right: 0.33rem;
-}
+} */
 
 .nav span a {
   text-decoration: none !important;
@@ -17,20 +35,17 @@
   font-family: "Arizona Variable";
   font-size: 1.25rem;
   font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
-  font-variation-settings: "wght" 250, "ital" 0, "SRFF" 55;
+  font-variation-settings: "wght" 280, "ital" 0, "SRFF" 0.75;
   transition: all 1s ease;
   letter-spacing: 0.25px;
 }
 
 .logo:hover {
   font-variation-settings: "wght" 600, "ital" 0, "SRFF" 0;
-  letter-spacing: -0.25px;
+  letter-spacing: -0.2px;
   cursor: pointer;
 }
-.nav-middle {
-  position: relative;
-  margin: 0 auto;
-}
+
 .nav-link {
   font-family: "Arizona Variable";
   font-size: 1rem;
@@ -49,7 +64,7 @@
 .contact-container {
   display: flex;
   align-items: center;
-  gap: 15px; /* Space between CONTACT and Instagram icon */
+  gap: 1rem;
 }
 
 .instagram-link {
@@ -71,5 +86,74 @@
   .nav {
     justify-content: space-between;
     padding: 0 0.5rem;
+  }
+
+  .nav-right {
+    position: relative; /* For mobile menu positioning */
+  }
+
+  .mobile-menu-container {
+    display: block;
+  }
+
+  .mobile-menu-panel {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background-color: var(--background-color);
+    border: 1px solid var(--text-color);
+    border-radius: 4px;
+    padding: 1rem;
+    min-width: 200px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Safari support */
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hamburger-button {
+    -webkit-appearance: none;
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    margin: -0.5rem;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    /* Safari support */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent body scroll when menu is open */
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: 0.5rem 0;
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  .contact-container.desktop-only {
+    display: none;
+  }
+}
+
+/* Safari-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  .mobile-menu-panel {
+    /* Smooth scrolling for iOS */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .hamburger-button {
+    /* Better touch handling for iOS */
+    padding: 0.75rem;
   }
 }

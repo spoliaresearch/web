@@ -283,6 +283,7 @@ const p5Instance = {
 // Create a ref to store the interactive state outside React's lifecycle
 const globalState = {
   isInteractive: true,
+  canvasHeight: 0,
 };
 
 function sketch(p5) {
@@ -290,17 +291,31 @@ function sketch(p5) {
   p5Instance.initialized = true;
 
   p5.setup = () => {
-    let canvasWidth, canvasHeight;
+    let canvasWidth;
     if (typeof window !== "undefined") {
-      canvasWidth = window.innerWidth - 15;
-      canvasHeight = window.innerHeight - 20;
+      const isMobile = window.innerWidth <= 768;
+
+      // Set canvas height based on device type
+      globalState.canvasHeight = isMobile
+        ? (window.innerHeight - 20) / 2 // Half height on mobile
+        : window.innerHeight - 20; // Full height on desktop
+
+      // Adjust resolution based on device type
+      resolution = isMobile ? 5 : 7; // Slightly smaller pixels on mobile
+
+      let totalElementHeight =
+        document.querySelector(".nav").offsetHeight +
+        document.querySelector(".grid-container").offsetHeight +
+        document.getElementById("my-anchor-2").offsetHeight;
+
+      canvasWidth = document.documentElement.clientWidth - 15;
     } else {
-      // Define default sizes or use a responsive approach
-      canvasWidth = 800; // Example default width
-      canvasHeight = 600; // Example default height
+      canvasWidth = 800;
+      globalState.canvasHeight = 600;
+      resolution = 7;
     }
 
-    p5.createCanvas(canvasWidth, canvasHeight);
+    p5.createCanvas(canvasWidth, globalState.canvasHeight);
     cols = p5.width / resolution;
     rows = p5.height / resolution;
 
@@ -321,40 +336,34 @@ function sketch(p5) {
     const canvasCenterX = p5.width / 2;
     const canvasCenterY = p5.height / 2;
 
-    // Assuming grid size is known (example: 80x80)
-    const gridWidth = 80; // adjust based on your grid's width
-    const gridHeight = 80; // adjust based on your grid's height
+    // Adjust grid scaling for mobile - now 75% of original size instead of 50%
+    const isMobile = window.innerWidth <= 768;
+    const gridWidth = isMobile ? 60 : 80; // 75% size on mobile (was 40)
+    const gridHeight = isMobile ? 60 : 80; // 75% size on mobile (was 40)
 
     // Calculate the center of the grid
     const gridCenterX = gridWidth / 2;
     const gridCenterY = gridHeight / 2;
 
-    // Calculate the offset
+    // Calculate the offset to center the grid
     const offsetX = canvasCenterX - gridCenterX * resolution;
     const offsetY = canvasCenterY - gridCenterY * resolution;
 
-    // Add initial grid cells to the age grid with a value of -1
+    // Add initial grid cells with adjusted scaling
     outputGrid.forEach(([y, ...xValues]) => {
       xValues.forEach((x) => {
         let adjustedX = Math.round(x + offsetX / resolution);
         let adjustedY = Math.round(y + offsetY / resolution);
 
-        age[`${adjustedX},${adjustedY}`] = -1; // -1 indicates an initial grid cell
+        // Scale coordinates for mobile - now using 0.75 instead of 0.5
+        if (isMobile) {
+          adjustedX = Math.round(x * 0.75 + offsetX / resolution);
+          adjustedY = Math.round(y * 0.75 + offsetY / resolution);
+        }
+
+        age[`${adjustedX},${adjustedY}`] = -1;
       });
     });
-    //arrow
-    // age[`100,1`] = -1;
-    // age[`100,2`] = -1;
-    // age[`100,3`] = -1;
-    // age[`100,4`] = -1;
-    // age[`100,5`] = -1;
-    // age[`100,6`] = -1;
-    // age[`100,7`] = -1;
-    // age[`101,7`] = -1;
-    //     age[`100,8`] = -1;
-    // age[`99,7`] = -1;
-    //  age[`98,6`] = -1;
-    //   age[`102,6`] = -1;
   };
 
   function addCellAtMouse() {
@@ -376,6 +385,42 @@ function sketch(p5) {
   p5.mouseMoved = () => {
     if (!globalState.isInteractive) return;
     addCellAtMouse();
+  };
+
+  p5.windowResized = () => {
+    const oldWidth = p5.width;
+    const newWidth = document.documentElement.clientWidth - 20;
+    const isMobile = window.innerWidth <= 768;
+
+    // Update resolution based on device type
+    resolution = isMobile ? 5 : 7;
+
+    globalState.canvasHeight = isMobile ? (window.innerHeight - 20) / 2 : window.innerHeight - 20;
+
+    const deltaX = (newWidth - oldWidth) / (2 * resolution);
+
+    p5.resizeCanvas(newWidth, globalState.canvasHeight);
+    cols = p5.width / resolution;
+
+    // Scale the grid when transitioning between mobile and desktop
+    const scaleFactor = isMobile ? 0.75 : 1; // Changed from 0.5 to 0.75
+
+    const newAge = {};
+    Object.entries(age).forEach(([key, value]) => {
+      const [x, y] = key.split(",").map(Number);
+      const newX = Math.round(x * scaleFactor + deltaX);
+      const newY = Math.round(y * scaleFactor);
+      newAge[`${newX},${newY}`] = value;
+    });
+    age = newAge;
+
+    // Update actualState array with scaling
+    for (let i = 0; i < actualState.length; i++) {
+      const y = Math.round(actualState[i][0] * scaleFactor);
+      for (let j = 1; j < actualState[i].length; j++) {
+        actualState[i][j] = Math.round(actualState[i][j] * scaleFactor + deltaX);
+      }
+    }
   };
 
   p5.draw = () => {
