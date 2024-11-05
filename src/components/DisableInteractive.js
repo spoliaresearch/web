@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import "./DisableInteractive.css";
 
 // Create a context for the interactive state
 export const InteractiveContext = createContext();
@@ -18,9 +19,15 @@ export function DisableInteractive() {
 
   return (
     <div className="grid-item">
-      <label>
-        <input type="checkbox" checked={!isInteractive} onChange={(e) => setIsInteractive(!e.target.checked)} /> Disable
-        Interactions
+      <label className="pixelated-checkbox-label">
+        <input
+          type="checkbox"
+          className="pixelated-checkbox"
+          checked={!isInteractive}
+          onChange={(e) => setIsInteractive(!e.target.checked)}
+        />
+        <span className="pixelated-checkbox-custom"></span>
+        Reduce Animation
       </label>
     </div>
   );

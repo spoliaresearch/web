@@ -60,14 +60,28 @@ const FontSettingsSlider = ({ onClose }) => {
     onClose();
   };
 
+  const getButtonStyle = () => ({
+    fontFamily: "Arizona Variable",
+    fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
+    WebkitFontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
+  });
+
   return (
-    <div className="font-settings-modal">
+    <div
+      className="font-settings-modal"
+      onClick={(e) => {
+        // Close modal when clicking outside
+        if (e.target.className === "font-settings-modal") {
+          onClose();
+        }
+      }}
+    >
       <div className="modal-content">
         <div className="preview-section">
           <div
             className="example"
             style={{
-              fontSize: "4rem",
+              fontSize: window.innerWidth <= 768 ? "3rem" : "5rem", // Responsive font size
               fontFamily: "Arizona Variable",
               fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
               WebkitFontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
@@ -100,8 +114,9 @@ const FontSettingsSlider = ({ onClose }) => {
               type="button"
               value="S"
               data-size="small"
-              className={tempFontSize === 0.75 ? "font-size-option active" : "font-size-option"}
+              className={tempFontSize === 0.78 ? "font-size-option active" : "font-size-option"}
               onClick={handleFontSizeChange}
+              style={getButtonStyle()}
             />
             <input
               type="button"
@@ -109,37 +124,46 @@ const FontSettingsSlider = ({ onClose }) => {
               data-size="medium"
               className={tempFontSize === 1 ? "font-size-option active" : "font-size-option"}
               onClick={handleFontSizeChange}
+              style={getButtonStyle()}
             />
             <input
               type="button"
               value="L"
               data-size="large"
-              className={tempFontSize === 1.25 ? "font-size-option active" : "font-size-option"}
+              className={tempFontSize === 1.22 ? "font-size-option active" : "font-size-option"}
               onClick={handleFontSizeChange}
+              style={getButtonStyle()}
             />
             <input
               type="button"
               value="XL"
               data-size="xlarge"
-              className={tempFontSize === 1.5 ? "font-size-option active" : "font-size-option"}
+              className={tempFontSize === 1.44 ? "font-size-option active" : "font-size-option"}
               onClick={handleFontSizeChange}
+              style={getButtonStyle()}
             />
           </div>
-          <p
-            style={{
-              fontSize: `calc(1rem * ${tempFontSize})`,
-              fontFamily: "Arizona Variable",
-              fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
-              WebkitFontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
-              lineHeight: "1.5",
-              margin: "1rem 0",
-            }}
-          >
-            {previewText}
-          </p>
+          <div className="preview-text-container">
+            <p
+              style={{
+                fontSize: `calc(1.25em * ${tempFontSize})`,
+                fontFamily: "Arizona Variable",
+                fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
+                WebkitFontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
+                lineHeight: "1.5",
+                margin: "0",
+              }}
+            >
+              {previewText}
+            </p>
+          </div>
           <div className="modal-actions">
-            <button onClick={handleCancel}>Cancel</button>
-            <button onClick={handleConfirm}>Apply Changes</button>
+            <button onClick={handleCancel}>
+              <span>Cancel</span>
+            </button>
+            <button onClick={handleConfirm}>
+              <span>Apply Changes</span>
+            </button>
           </div>
         </div>
       </div>

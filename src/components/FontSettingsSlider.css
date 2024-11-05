@@ -11,37 +11,37 @@
 }
 
 input[type="range"] {
-  -webkit-appearance: none; /* Remove default appearance */
+  -webkit-appearance: none;
   width: 100%;
-  height: 4px; /* Make the bar thinner */
-  background-color: lightgray; /* Change the bar background color */
+  height: 6px;
+  background-color: #d3d3d3;
   outline: none;
-  cursor: pointer;
+  image-rendering: pixelated;
+  cursor: default;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Remove default appearance */
-  width: 12px;
-  height: 12px;
-  background-color: black; /* Change the thumb color */
-  border: none;
-  border-radius: 50%;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #000;
+  border-radius: 0;
+  image-rendering: pixelated;
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  background-color: black; /* Change the thumb color */
-  border: none;
-  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  background-color: #000;
+  border-radius: 0;
+  image-rendering: pixelated;
 }
 
 input[type="range"]::-moz-range-track {
   width: 100%;
-  height: 4px; /* Make the bar thinner */
-  background-color: black; /* Change the bar background color */
+  height: 4px;
+  background-color: black;
   outline: none;
-  cursor: pointer;
 }
 
 .font-size-options {
@@ -54,25 +54,27 @@ input[type="range"]::-moz-range-track {
 .font-size-option {
   width: 48px;
   height: 48px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  background: none;
-  cursor: pointer;
+  border-radius: 0;
+  border: 1px solid #000;
+  background: #fff;
   font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.1s ease;
+  cursor: pointer;
 }
 
 .font-size-option.active {
-  background-color: #000;
-  color: white;
+  background-color: #000 !important;
+  color: #fff !important;
   border-color: #000;
+  box-shadow: none;
 }
 
-.font-size-option:hover:not(.active) {
-  background-color: #f5f5f5;
+.font-size-option.active:hover {
+  background-color: #000 !important;
+  color: #fff !important;
 }
 
 #srff-slider {
@@ -96,15 +98,19 @@ input[type="range"]::-moz-range-track {
 .modal-content {
   background-color: var(--background-color);
   padding: 24px;
+  width: 90%;
   max-width: 600px;
-  width: 100%;
-  border-radius: 8px;
+  min-height: auto;
+  max-height: 90vh;
+  border-radius: 0;
   border: 1px solid var(--text-color);
   overflow-y: auto;
+  margin: 20px;
 }
 
 .preview-section {
   margin-bottom: 24px;
+  text-align: center;
 }
 
 .modal-actions {
@@ -116,13 +122,67 @@ input[type="range"]::-moz-range-track {
 
 .modal-actions button {
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 0;
   border: 1px solid var(--text-color);
-  cursor: pointer;
   background-color: var(--background-color);
   color: var(--text-color);
+  font-family: "Arizona Variable";
+  transition: all 0.1s ease;
+  cursor: pointer;
+  font-variation-settings: "wght" 260, "ital" 0, "SRFF" 0.45;
+  letter-spacing: 0.25px;
+  font-size: 1em;
 }
 
 .modal-actions button:hover {
   opacity: 0.8;
+}
+
+.preview-text-container {
+  background-color: #f4f4f4;
+  border: 1px solid #000;
+  padding: 1rem 1.5rem;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  position: relative;
+}
+
+.preview-text-container::before {
+  content: "Sample";
+  position: absolute;
+  top: 8px;
+  left: 1.5rem;
+  font-size: 0.9em;
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 16px;
+    margin: 16px;
+  }
+
+  .font-size-option {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .preview-text-container {
+    padding: 1.5rem 1rem 1rem;
+    min-height: 100px;
+  }
+
+  .example {
+    font-size: 3rem !important;
+  }
+
+  .modal-actions button {
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+  }
 }

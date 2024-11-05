@@ -22,15 +22,21 @@ a {
 }
 
 .text-animate {
-  font-variation-settings: "wght" 260, "ital" 0, "SRFF" 0.6;
-}
-.text-animate:hover span {
-  transition: 1s ease-in-out;
-  font-variation-settings: "wght" 380, "ital" 0, "SRFF" 0;
-  letter-spacing: -3.5px;
+  font-family: "Arizona Variable";
+  font-size: 1rem;
+  font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+  font-variation-settings: "wght" 300, "ital" 0, "SRFF" 0.45;
+  transition: all 1s ease;
+  letter-spacing: 0.25px;
 }
 
-canvas:hover {
+.text-animate:hover {
+  font-variation-settings: "wght" 600, "ital" 0, "SRFF" 0;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+canvas {
   cursor: cell;
 }
 body {
@@ -141,6 +147,19 @@ body {
   font-variation-settings: "wght" 260, "ital" 0, "SRFF" 0;
 }
 
+button {
+  border: 1px solid black;
+  padding: 0.25rem 1rem;
+  border-radius: 5px;
+  margin-left: 0.5rem;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  font-weight: 260;
+}
+button:hover {
+  cursor: pointer;
+}
+
 .label {
   padding: 2rem;
   padding-bottom: 1rem;
@@ -230,7 +249,7 @@ body {
 }
 
 .col-main {
-  font-size: 1.75rem;
+  font-size: 1.6em;
   letter-spacing: -0.5px;
   line-height: 1.5;
 }
@@ -279,7 +298,7 @@ body {
 
   .col-main {
     order: 2; /* Places it second */
-    font-size: 1.35rem;
+    font-size: 1.35em;
     letter-spacing: -0.3px;
     width: 100%;
   }
@@ -335,7 +354,7 @@ body {
 
   .col-main {
     order: 2;
-    font-size: 1.35rem;
+    font-size: 1.35em;
     letter-spacing: -0.3px;
     width: 100%;
   }

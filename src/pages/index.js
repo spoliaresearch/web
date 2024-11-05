@@ -324,8 +324,8 @@ const Home = () => {
             <div className="col-margin-left"></div>
             <div className="col-spacing-1"></div>
             <div className="col-main">
-              SPOLIA <span className="pronounciation">[/ˈspoʊ.li.ə/]</span> takes a hybrid approach between a creative
-              studio and research lab to apply research on the{" "}
+              SPOLIA <span className="pronounciation">[/ˈspoʊ.li.ə/]</span> operates as a hybrid between a creative
+              studio and research lab to explore the{" "}
               <span
                 style={{
                   border: "1px dashed currentColor",
@@ -333,10 +333,10 @@ const Home = () => {
                   marginRight: "2px",
                 }}
               >
-                <DissolveImage name="arrow-left" fill="#006400" width="23" height="13" />
+                <span style={{ color: "#006400", padding: "0 2.5px", fontSize: "1.4em" }}>∩</span>
               </span>{" "}
-              fringes of design and computing. Working across physical and digital mediums, we build innovative use
-              cases for{" "}
+              intersections of design and computing with our everyday lives. We build products and experiences that
+              connects the physical and digital, the{" "}
               <span
                 style={{
                   border: "1px dashed currentColor",
@@ -346,7 +346,7 @@ const Home = () => {
               >
                 <DissolveImage name="arrow-right" fill="#006400" width="23" height="13" />
               </span>
-              emerging (and{" "}
+              past and{" "}
               <span
                 style={{
                   border: "1px dashed currentColor",
@@ -355,14 +355,24 @@ const Home = () => {
                 }}
               >
                 <DissolveImage name="arrow-left" fill="#006400" width="23" height="13" />
-              </span>
-              historic) technology.
+              </span>{" "}
+              future, and people with their{" "}
+              <span
+                style={{
+                  border: "1px dashed currentColor",
+                  padding: "0 4px",
+                  marginRight: "2px",
+                }}
+              >
+                <DissolveImage name="globe" fill="#006400" width="19" height="19" />
+              </span>{" "}
+              surroundings.
             </div>
             <div className="col-spacing-2"></div>
             <div className="col-margin-right">
               <div>
                 <DissolveImage name="academiaindustry" fill="#006400" width="180" height="120" />
-                <span style={{ fontSize: ".9rem" }}>↱ Academia ↔ Industry</span>
+                <span style={{ fontSize: ".9em" }}>↱ Academia ↔ Industry</span>
               </div>
             </div>
             <div className="col-padding-right"></div>
@@ -373,19 +383,10 @@ const Home = () => {
             <div className="col-margin-left"></div>
             <div className="col-spacing-1"></div>
             <div className="col-main" style={{ marginBottom: "2rem" }}>
-              In an era of complex crises compounded by rapid technological advancements, we work to reveal the
-              environmental, societal, and economic impacts of new technologies. Our mission is to make technology
-              approachable, sustainable, and a catalyst for everyday creativity — that benefits both people and the{" "}
-              <span
-                style={{
-                  border: "1px dashed currentColor",
-                  padding: "0 4px",
-                  marginRight: "2px",
-                }}
-              >
-                <DissolveImage name="globe" fill="#006400" width="19" height="19" />
-              </span>{" "}
-              planet.
+              In an era of complex crises and rapid technological advancements, we investigate how humans can adapt and
+              thrive amidst these transformational shifts. Our mission is to build for potential futures that are
+              inclusive, sustainable, and creative by reconsiding our collective and individual relationships with
+              technology.
             </div>
             <div className="col-spacing-2"></div>
             <div className="col-margin-right"></div>
@@ -397,7 +398,7 @@ const Home = () => {
             <div className="col-margin-left">
               <div style={{ position: "relative", display: "inline-block" }}>
                 <DissolveImage name="founders" fill="#006400" width={120} height={120} />
-                <span style={{ fontSize: ".9rem" }}>↱ Garrett & Eric</span>
+                <span style={{ fontSize: ".9em" }}>↱ Garrett & Eric</span>
               </div>
             </div>
             <div className="col-spacing-1"></div>
@@ -428,7 +429,7 @@ const Home = () => {
                 <td
                   colSpan="3"
                   style={{
-                    padding: "1rem",
+                    padding: "1em",
                     borderBottom: `1px solid ${textColor}`,
                     textAlign: "center",
                     fontSize: "1rem",
@@ -440,7 +441,7 @@ const Home = () => {
               <tr>
                 <td
                   style={{
-                    padding: "1.25rem",
+                    padding: "1.25em",
                     borderRight: `1px solid ${textColor}`,
                     width: "33.33%",
                     textAlign: "left",
@@ -448,8 +449,8 @@ const Home = () => {
                     WebkitFontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${SRFF}`,
                   }}
                 >
-                  <div style={{ fontSize: "1.25rem", marginBottom: "0.5rem" }}>Product Innovation</div>
-                  <div style={{ fontSize: "1rem" }}>
+                  <div style={{ fontSize: ".9em", marginBottom: "0.5rem" }}>Product Innovation</div>
+                  <div style={{ fontSize: ".66em" }}>
                     Digital and physical product design and development, especially in the realm of interactions, AI,
                     data, and spatial computing.
                   </div>
@@ -461,8 +462,8 @@ const Home = () => {
                     textAlign: "left",
                   }}
                 >
-                  <div style={{ fontSize: "1.25rem", marginBottom: "0.5rem" }}>Environments + Experiences</div>
-                  <div style={{ fontSize: "1rem" }}>
+                  <div style={{ fontSize: ".9em", marginBottom: "0.5rem" }}>Spaces + Experiences</div>
+                  <div style={{ fontSize: ".66em" }}>
                     Design and production of installations, exhibitions, and physical media.
                   </div>
                 </td>
@@ -474,8 +475,8 @@ const Home = () => {
                     textAlign: "left",
                   }}
                 >
-                  <div style={{ fontSize: "1.25rem", marginBottom: "0.5rem" }}>Research + Vision</div>
-                  <div style={{ fontSize: "1rem" }}>
+                  <div style={{ fontSize: ".9em", marginBottom: "0.5rem" }}>Research + Vision</div>
+                  <div style={{ fontSize: ".66em" }}>
                     Historical context, early prototyping,and speculative designs for the future.
                   </div>
                 </td>
