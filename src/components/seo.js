@@ -11,9 +11,7 @@ export function SEO({ title, description, image, pathname }) {
           defaultDescription: description
           siteUrl
           defaultImage: image
-          social: {
-            twitter
-          }
+          twitter
         }
       }
     }
@@ -50,7 +48,7 @@ export function SEO({ title, description, image, pathname }) {
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:image" content={seo.image} />
       <meta name="twitter:image:alt" content={seo.description} />
-      <meta name="twitter:creator" content={site.siteMetadata.social?.twitter || ""} />
+      <meta name="twitter:creator" content={site.siteMetadata.twitter || ""} />
 
       {/* Additional tags for better sharing */}
       <link rel="canonical" href={seo.url} />

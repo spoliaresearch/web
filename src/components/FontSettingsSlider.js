@@ -70,7 +70,6 @@ const FontSettingsSlider = ({ onClose }) => {
     <div
       className="font-settings-modal"
       onClick={(e) => {
-        // Close modal when clicking outside
         if (e.target.className === "font-settings-modal") {
           onClose();
         }
@@ -81,7 +80,7 @@ const FontSettingsSlider = ({ onClose }) => {
           <div
             className="example"
             style={{
-              fontSize: window.innerWidth <= 768 ? "3rem" : "5rem", // Responsive font size
+              fontSize: window.innerWidth <= 768 ? "3rem" : "5rem",
               fontFamily: "Arizona Variable",
               fontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
               WebkitFontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${tempSRFF}`,
