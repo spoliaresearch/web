@@ -3,6 +3,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import { Helmet } from "react-helmet";
 
 export function SEO({ title, description, image, pathname }) {
+  // 1. First, get the data
   const { site } = useStaticQuery(graphql`
     query {
       site {
@@ -14,6 +15,7 @@ export function SEO({ title, description, image, pathname }) {
     }
   `);
 
+  // 2. Then create the SEO object
   const seo = {
     title: "SPOLIA",
     description: "A design and technology studio building tools for a more creative and sustainable future.",
@@ -22,19 +24,22 @@ export function SEO({ title, description, image, pathname }) {
     url: "https://www.spolialab.com",
   };
 
+  // Try using defer={false} to ensure meta tags are added immediately
   return (
-    <Helmet>
+    <Helmet defer={false}>
+      {/* Force a base title */}
       <title>{seo.title}</title>
-      <meta name="description" content={seo.description} />
-      <meta name="image" content={seo.image} />
 
-      {/* OpenGraph / Facebook */}
+      {/* Force these meta tags to be strings */}
+      <meta name="description" content={String(seo.description)} />
+      <meta name="image" content={String(seo.image)} />
+
+      {/* OpenGraph tags */}
+      <meta property="og:title" content={String(seo.title)} />
+      <meta property="og:description" content={String(seo.description)} />
+      <meta property="og:image" content={String(seo.image)} />
+      <meta property="og:url" content={String(seo.url)} />
       <meta property="og:type" content="website" />
-      <meta property="og:title" content={seo.title} />
-      <meta property="og:description" content={seo.description} />
-      <meta property="og:image" content={seo.image} />
-      <meta property="og:url" content={seo.url} />
-      <meta property="og:site_name" content={seo.title} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
