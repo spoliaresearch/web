@@ -8,7 +8,10 @@ export function SEO({ title, description, image, pathname }) {
     query {
       site {
         siteMetadata {
+          title
+          description
           siteUrl
+          image
           twitter
         }
       }
@@ -17,11 +20,10 @@ export function SEO({ title, description, image, pathname }) {
 
   // 2. Then create the SEO object
   const seo = {
-    title: "SPOLIA",
-    description: "A design and technology studio building tools for a more creative and sustainable future.",
-    image:
-      "https://opengraph.b-cdn.net/production/images/a7999fbd-3fe9-4111-848c-8c1ea6624740.png?token=uczRetSSmDbF_vmZOocDPFBynm-L4AIhwYomY_TNfNA&height=630&width=1200&expires=33266842478",
-    url: "https://www.spolialab.com",
+    title: title || site.siteMetadata.title,
+    description: description || site.siteMetadata.description,
+    image: image || `${site.siteMetadata.siteUrl}${site.siteMetadata.image}`,
+    url: `${site.siteMetadata.siteUrl}${pathname || ""}`,
   };
 
   // Try using defer={false} to ensure meta tags are added immediately
