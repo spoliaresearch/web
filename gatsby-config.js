@@ -5,7 +5,7 @@ module.exports = {
     title: `SPOLIA`,
     description: `SPOLIA is a design and technology studio. We build tools for a more creative and sustainable future.`,
     siteUrl: `https://www.spolialab.com`,
-    image: `/images/spolia-og.jpg`,
+    image: `/images/spolia-og.png`,
   },
   plugins: [
     "gatsby-plugin-styled-components",
