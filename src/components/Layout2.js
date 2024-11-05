@@ -9,6 +9,7 @@ import { ThemeContext } from "../contexts/ThemeContext";
 import { FontSettingsContext, FontSettingsProvider } from "../contexts/FontSettingsContext";
 import { Link } from "gatsby";
 import { InteractiveContext } from "../contexts/InteractiveContext";
+import { SEO } from "./seo";
 
 const Layout = ({ children }) => {
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext) || { isDarkMode: false, setIsDarkMode: () => {} };
@@ -91,6 +92,7 @@ const Layout = ({ children }) => {
 
   return (
     <InteractiveContext.Provider value={{ isInteractive, setIsInteractive }}>
+      <SEO />
       <div
         className="container"
         style={{ ...rootStyle, position: "relative", minHeight: "100vh", padding: "0 .475rem" }}
