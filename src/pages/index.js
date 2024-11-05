@@ -234,7 +234,6 @@ const Home = () => {
 
   return (
     <>
-      <SEO />
       <div
         className="container"
         style={{
@@ -513,3 +512,5 @@ const WrappedLayout = () => (
 );
 
 export default WrappedLayout;
+
+export const Head = () => <SEO />;
