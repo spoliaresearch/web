@@ -301,7 +301,7 @@ function sketch(p5) {
         : window.innerHeight - 20; // Full height on desktop
 
       // Adjust resolution based on device type
-      resolution = isMobile ? 5 : 7; // Slightly smaller pixels on mobile
+      resolution = isMobile ? 4 : 7; // Smaller pixels on mobile
 
       let totalElementHeight =
         document.querySelector(".nav").offsetHeight +
@@ -336,31 +336,38 @@ function sketch(p5) {
     const canvasCenterX = p5.width / 2;
     const canvasCenterY = p5.height / 2;
 
-    // Adjust grid scaling for mobile - now 75% of original size instead of 50%
+    // Adjust grid scaling for mobile
     const isMobile = window.innerWidth <= 768;
-    const gridWidth = isMobile ? 60 : 80; // 75% size on mobile (was 40)
-    const gridHeight = isMobile ? 60 : 80; // 75% size on mobile (was 40)
+    const gridWidth = isMobile ? 60 : 80;
+    const gridHeight = isMobile ? 60 : 80;
 
-    // Calculate the center of the grid
-    const gridCenterX = gridWidth / 2;
-    const gridCenterY = gridHeight / 2;
+    // Find the bounds of the grid pattern
+    let minX = Infinity,
+      maxX = -Infinity;
+    let minY = Infinity,
+      maxY = -Infinity;
+    outputGrid.forEach(([y, ...xValues]) => {
+      minY = Math.min(minY, y);
+      maxY = Math.max(maxY, y);
+      xValues.forEach((x) => {
+        minX = Math.min(minX, x);
+        maxX = Math.max(maxX, x);
+      });
+    });
 
-    // Calculate the offset to center the grid
-    const offsetX = canvasCenterX - gridCenterX * resolution;
-    const offsetY = canvasCenterY - gridCenterY * resolution;
+    // Calculate actual pattern dimensions
+    const patternWidth = maxX - minX;
+    const patternHeight = maxY - minY;
 
-    // Add initial grid cells with adjusted scaling
+    // Calculate offsets to center the pattern
+    const offsetX = canvasCenterX - (patternWidth * resolution) / 2;
+    const offsetY = canvasCenterY - (patternHeight * resolution) / 2;
+
+    // Add initial grid cells with adjusted positioning
     outputGrid.forEach(([y, ...xValues]) => {
       xValues.forEach((x) => {
-        let adjustedX = Math.round(x + offsetX / resolution);
-        let adjustedY = Math.round(y + offsetY / resolution);
-
-        // Scale coordinates for mobile - now using 0.75 instead of 0.5
-        if (isMobile) {
-          adjustedX = Math.round(x * 0.75 + offsetX / resolution);
-          adjustedY = Math.round(y * 0.75 + offsetY / resolution);
-        }
-
+        let adjustedX = Math.round(x - minX + offsetX / resolution);
+        let adjustedY = Math.round(y - minY + offsetY / resolution);
         age[`${adjustedX},${adjustedY}`] = -1;
       });
     });
@@ -388,22 +395,21 @@ function sketch(p5) {
   };
 
   p5.windowResized = () => {
-    const oldWidth = p5.width;
-    const newWidth = document.documentElement.clientWidth - 20;
     const isMobile = window.innerWidth <= 768;
 
-    // Update resolution based on device type
-    resolution = isMobile ? 5 : 7;
+    // Skip resize handling on mobile
+    if (isMobile) return;
 
-    globalState.canvasHeight = isMobile ? (window.innerHeight - 20) / 2 : window.innerHeight - 20;
-
+    // Keep existing desktop resize logic
+    const oldWidth = p5.width;
+    const newWidth = document.documentElement.clientWidth - 20;
     const deltaX = (newWidth - oldWidth) / (2 * resolution);
 
     p5.resizeCanvas(newWidth, globalState.canvasHeight);
     cols = p5.width / resolution;
 
     // Scale the grid when transitioning between mobile and desktop
-    const scaleFactor = isMobile ? 0.75 : 1; // Changed from 0.5 to 0.75
+    const scaleFactor = isMobile ? 0.5 : 1;
 
     const newAge = {};
     Object.entries(age).forEach(([key, value]) => {

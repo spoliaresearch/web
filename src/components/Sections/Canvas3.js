@@ -228,16 +228,25 @@ function sketch(p5) {
     let canvasWidth;
     if (typeof window !== "undefined") {
       const isMobile = window.innerWidth <= 768;
+      const footerElement = document.querySelector(".Footer");
 
-      // Adjust canvas height calculation to prevent overflow
-      globalState.canvasHeight = isMobile
-        ? Math.min((window.innerHeight - 20) / 2, window.innerHeight - 100) // Add upper limit for mobile
-        : window.innerHeight - 20;
-
-      // Adjust resolution based on device type
+      globalState.canvasHeight = footerElement ? footerElement.offsetHeight : window.innerHeight - 20;
       resolution = isMobile ? 5 : 7;
-
       canvasWidth = document.documentElement.clientWidth - 15;
+
+      // Set up resize observer here instead of useEffect
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+          if (entry.target === footerElement) {
+            globalState.canvasHeight = entry.target.offsetHeight;
+            p5.resizeCanvas(document.documentElement.clientWidth - 20, entry.target.offsetHeight);
+          }
+        }
+      });
+
+      if (footerElement) {
+        resizeObserver.observe(footerElement);
+      }
     } else {
       canvasWidth = 800;
       globalState.canvasHeight = 600;
@@ -256,23 +265,16 @@ function sketch(p5) {
       p5.color(50, 185, 25), // Green
       p5.color(255, 225, 225), // Light pink
     ];
-
-    // Remove all grid initialization code
-    // The canvas will start empty
   };
 
   p5.windowResized = () => {
     const oldWidth = p5.width;
     const newWidth = document.documentElement.clientWidth - 20;
-    const isMobile = window.innerWidth <= 768;
+    const footerElement = document.querySelector(".Footer");
 
-    // Update resolution based on device type
-    resolution = isMobile ? 5 : 7;
-
-    globalState.canvasHeight = isMobile ? (window.innerHeight - 20) / 2 : window.innerHeight - 20;
+    globalState.canvasHeight = footerElement ? footerElement.offsetHeight : window.innerHeight - 20;
 
     const deltaX = (newWidth - oldWidth) / (2 * resolution);
-
     p5.resizeCanvas(newWidth, globalState.canvasHeight);
     cols = p5.width / resolution;
 

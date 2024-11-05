@@ -3,7 +3,9 @@ require("dotenv").config();
 module.exports = {
   siteMetadata: {
     title: `SPOLIA`,
+    description: `SPOLIA is a design and technology studio. We build tools for a more creative and sustainable future.`,
     siteUrl: `https://www.spolialab.com`,
+    image: `/images/spolia-og.jpg`,
   },
   plugins: [
     "gatsby-plugin-styled-components",

@@ -12,6 +12,7 @@ import { Link } from "gatsby";
 import Mainbar from "../components/Sections/Mainbar";
 import { InteractiveProvider, DisableInteractive, InteractiveContext } from "../components/DisableInteractive";
 import SvgLoader from "../components/SvgLoader";
+import { SEO } from "../components/seo";
 
 const DissolveImage = ({ name, fill, width, height }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -233,6 +234,7 @@ const Home = () => {
 
   return (
     <>
+      <SEO />
       <div
         className="container"
         style={{
