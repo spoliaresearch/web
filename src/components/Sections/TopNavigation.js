@@ -7,7 +7,7 @@ const TopNavigation = React.forwardRef((props, ref) => {
     <nav ref={ref} style={props.style}>
       <hr />
       <div className="nav">
-        <Link to="/" className="logo">
+        <Link to="/" className="logo link">
           <span>SPOLIA</span>
         </Link>
         <div className="nav-middle">

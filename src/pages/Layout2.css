@@ -8,10 +8,15 @@
   -webkit-font-variation-settings: "wght" 262, "ital" 0, "SRFF" 0.6;
 }
 
+a:not([class*="Link"]):not([class*="link"]) {
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
 a {
-  color: inherit; /* Inherits the color from its parent */
-  text-decoration: none; /* Removes underline */
-  cursor: auto; /* Uses the default cursor instead of the pointer */
+  color: inherit;
+  text-decoration: none;
+  cursor: auto;
 }
 
 /* index.css */
@@ -478,7 +483,6 @@ button:hover {
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
-  padding-right: 12%;
 }
 
 /* Update mobile styles for both */

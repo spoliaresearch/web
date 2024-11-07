@@ -48,7 +48,7 @@ const Sidebar = React.forwardRef((props, ref) => {
   return (
     <div className="Mainbar" ref={ref} style={props.style}>
       {sortedItems.map((itemData, index) => (
-        <Link key={index} to={itemData.slug}>
+        <Link key={index} to={itemData.slug} className="link">
           <SidebarItem
             title={itemData.title}
             textSnippet={itemData.textSnippet}

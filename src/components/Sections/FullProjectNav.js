@@ -28,7 +28,7 @@ const FullScreenNav = () => {
     <div className="FullScreenNav">
       {/* Render your full screen navigation items here */}
       {navItemsData.map((itemData, index) => (
-        <Link key={index} to={itemData.slug}>
+        <Link className="link" key={index} to={itemData.slug}>
           <SidebarItem
             title={itemData.title}
             textSnippet={itemData.textSnippet}

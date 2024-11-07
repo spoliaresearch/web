@@ -13,6 +13,7 @@ import Mainbar from "../components/Sections/Mainbar";
 import { InteractiveProvider, DisableInteractive, InteractiveContext } from "../components/DisableInteractive";
 import SvgLoader from "../components/SvgLoader";
 import { SEO } from "../components/seo";
+import Newsletter from "../components/Newsletter";
 
 const DissolveImage = ({ name, fill, width, height }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -494,6 +495,7 @@ const Home = () => {
         <div className="main-content" style={{ position: "relative", zIndex: 2 }}>
           <Mainbar />
         </div>
+        <Newsletter />
         <Footer
           ref={footerRef}
           style={{ height: "200px", backgroundColor: isDarkMode ? "black" : "white", zIndex: 2, position: "relative" }}
