@@ -46,7 +46,7 @@ const Footer = forwardRef((props, ref) => {
       ref={ref}
       style={{
         ...props.style,
-        color: "var(--background-color)",
+        color: "#fff",
         position: "relative",
       }}
     >

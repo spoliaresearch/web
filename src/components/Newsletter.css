@@ -1,8 +1,9 @@
 .newsletter-container {
   background-color: white;
   padding: 2rem;
-  border-top: 1px solid black;
-  margin-top: 4rem;
+  padding-top: 0;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .newsletter-content {

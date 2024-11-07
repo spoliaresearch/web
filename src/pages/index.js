@@ -495,7 +495,7 @@ const Home = () => {
         <div className="main-content" style={{ position: "relative", zIndex: 2 }}>
           <Mainbar />
         </div>
-        <Newsletter />
+        {!isDarkMode && <Newsletter />}
         <Footer
           ref={footerRef}
           style={{ height: "200px", backgroundColor: isDarkMode ? "black" : "white", zIndex: 2, position: "relative" }}

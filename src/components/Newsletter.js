@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Newsletter.css";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 const Newsletter = () => {
+  const { isDarkMode } = useContext(ThemeContext);
+
   return (
     <div className="newsletter-container">
       <div className="row">
@@ -50,11 +53,11 @@ const Newsletter = () => {
         </div>
         <div className="col-spacing-2"></div>
         <div className="col-margin-right">
-          <p className="small-text">
-            If you would like to support our research further, consider{" "}
+          <p className="small-text" style={{ marginTop: "3rem" }}>
+            If you would like to support our research efforts further, consider{" "}
             <a href="https://www.patreon.com/spolialab" target="_blank" rel="noopener noreferrer">
               {" "}
-              becoming a member on Patreon.
+              becoming a patron on Patreon.
             </a>
           </p>
         </div>

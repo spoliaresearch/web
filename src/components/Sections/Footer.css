@@ -1,8 +1,7 @@
 .Footer {
-  border-top: 1px solid var(--background-color);
   padding-top: 1rem;
   background-color: var(--text-color);
-  color: var(--background-color);
+  color: #fff;
   position: relative;
   min-height: calc(100vh - 225px);
   display: flex;
@@ -91,7 +90,7 @@
 }
 
 .Footer a {
-  color: var(--background-color);
+  color: #fff;
   text-decoration: none;
 }
 
@@ -103,7 +102,7 @@
 .footer-logo {
   position: relative;
   z-index: 2;
-  color: var(--background-color);
+  color: #fff;
 }
 
 .col-margin-left span {
