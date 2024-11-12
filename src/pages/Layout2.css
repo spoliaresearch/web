@@ -268,7 +268,7 @@ button:hover {
 @media (max-width: 768px) {
   .row {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     padding: 0 1rem;
     gap: 1.5rem;
   }
@@ -290,7 +290,7 @@ button:hover {
 
   .row {
     display: flex;
-    flex-direction: column;
+    flex-direction: colum-reverse;
     padding: 0 1rem;
     gap: 1.5rem;
   }
@@ -523,7 +523,7 @@ button:hover {
 @media (max-width: 768px) {
   .row {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     padding: 0 1rem;
     gap: 1.5rem;
   }

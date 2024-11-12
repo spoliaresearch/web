@@ -352,7 +352,7 @@ const Home = () => {
             <div className="col-padding-left"></div>
             <div className="col-margin-left"></div>
             <div className="col-spacing-1"></div>
-            <div className="col-main">
+            <div className="col-main" style={{ marginBottom: "1rem" }}>
               SPOLIA <span className="pronounciation">[/ˈspoʊ.li.ə/]</span> is a creative studio and research lab
               exploring how design and computing shape our everyday lives. We build products and experiences that
               connect the physical and digital, blend the{" "}
@@ -391,7 +391,7 @@ const Home = () => {
             <div className="col-padding-left"></div>
             <div className="col-margin-left"></div>
             <div className="col-spacing-1"></div>
-            <div className="col-main" style={{ marginBottom: "2rem" }}>
+            <div className="col-main" style={{ marginBottom: "1rem" }}>
               In a time defined by rapid technological change and complex crises, we aim to repurpose emerging
               technologies as tools for solving these challenges rather than contributing to them. Our mission is to
               make technology a steward for resilient{" "}
