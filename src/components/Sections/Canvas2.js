@@ -638,7 +638,17 @@ export const App = React.memo(function App() {
   }, []);
 
   return (
-    <Suspense fallback={<div style={{ backgroundColor: "#000000" }}>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: "#000000",
+          }}
+        />
+      }
+    >
       <ReactP5Wrapper sketch={sketchWithInteractive} />
     </Suspense>
   );

@@ -135,7 +135,22 @@ const DissolveImage = ({ name, fill, width, height }) => {
 
 // Create a separate component for the canvas that will only mount once
 const CanvasWrapper = React.memo(
-  () => <App />,
+  () => (
+    <div
+      style={{
+        width: "100%",
+        height:
+          typeof window !== "undefined"
+            ? window.innerWidth <= 768
+              ? `${(window.innerHeight - 20) / 2}px` // Mobile height
+              : `${window.innerHeight - 20}px` // Desktop height
+            : "600px", // SSR fallback
+        backgroundColor: "black",
+      }}
+    >
+      <App />
+    </div>
+  ),
   () => true
 ); // The second argument returns true to prevent any updates
 

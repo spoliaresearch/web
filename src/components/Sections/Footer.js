@@ -48,6 +48,7 @@ const Footer = forwardRef((props, ref) => {
         ...props.style,
         color: "#fff",
         position: "relative",
+        backgroundColor: "#000000",
       }}
     >
       <div className="canvas-container">
