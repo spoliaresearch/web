@@ -13,6 +13,7 @@ const Sidebar = React.forwardRef((props, ref) => {
           slug
           date
           id
+          subtitle
           childMarkdownRemark {
             excerpt
           }
@@ -24,9 +25,9 @@ const Sidebar = React.forwardRef((props, ref) => {
   const sidebarItemsData = data.allGoogleDocs.nodes.map((node) => ({
     title: node.name,
     slug: node.slug,
-    textSnippet: node.childMarkdownRemark.excerpt, // Add your logic to extract text snippet from the document if needed
+    subtitle: node.subtitle,
     date: node.date,
-    active: false, // You can add your own logic to determine the active item
+    active: false,
   }));
 
   const sortItems = (items, field, order = "asc") => {
@@ -51,7 +52,7 @@ const Sidebar = React.forwardRef((props, ref) => {
         <Link key={index} to={itemData.slug} className="link">
           <SidebarItem
             title={itemData.title}
-            textSnippet={itemData.textSnippet}
+            subtitle={itemData.subtitle}
             date={itemData.date}
             active={itemData.active}
           />

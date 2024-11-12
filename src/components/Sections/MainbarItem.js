@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./MainbarItem.css";
 
-const SidebarItem = React.forwardRef(({ title, textSnippet, date, active }, ref) => {
+const SidebarItem = React.forwardRef(({ title, subtitle, date, active }, ref) => {
   const [isActive, setIsActive] = useState(active);
 
   function formatDate(originalDateString) {
@@ -18,7 +18,7 @@ const SidebarItem = React.forwardRef(({ title, textSnippet, date, active }, ref)
     <div ref={ref} className={`mainbar-item ${activeClassName}`}>
       <div className="title-date-container">
         <h3 className="title">{title}</h3>
-        <p className="text-snippet">{textSnippet.slice(0, -3) + "..."}</p>
+        <p className="text-snippet">{subtitle}</p>
         <span className="date">{formatDate(date)}</span>
       </div>
     </div>

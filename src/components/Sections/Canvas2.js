@@ -6,7 +6,6 @@ import outputGrid4 from "./grids/output4.json";
 import outputGrid5 from "./grids/output5.json";
 import outputGrid6 from "./grids/output6.json";
 import outputGrid7 from "./grids/output7.json";
-import outputGrid8 from "./grids/output8.json";
 import outputGrid9 from "./grids/output9.json";
 import outputGrid10 from "./grids/output10.json";
 import outputGrid11 from "./grids/output11.json";
@@ -14,17 +13,13 @@ import outputGrid12 from "./grids/output12.json";
 import outputGrid13 from "./grids/output13.json";
 import outputGrid14 from "./grids/output14.json";
 import outputGrid15 from "./grids/output15.json";
-import outputGrid16 from "./grids/output16.json";
 import outputGrid17 from "./grids/output17.json";
 import outputGrid18 from "./grids/output18.json";
 import outputGrid19 from "./grids/output19.json";
 import outputGrid20 from "./grids/output20.json";
-import outputGrid21 from "./grids/output21.json";
 import outputGrid22 from "./grids/output22.json";
-import outputGrid23 from "./grids/output23.json";
 import outputGrid24 from "./grids/output24.json";
 import outputGrid25 from "./grids/output25.json";
-import outputGrid26 from "./grids/output26.json";
 import outputGrid27 from "./grids/output27.json";
 import outputGrid28 from "./grids/output28.json";
 import outputGrid29 from "./grids/output29.json";
@@ -42,7 +37,6 @@ const grids = [
   outputGrid5,
   outputGrid6,
   outputGrid7,
-  outputGrid8,
   outputGrid9,
   outputGrid10,
   outputGrid11,
@@ -50,17 +44,13 @@ const grids = [
   outputGrid13,
   outputGrid14,
   outputGrid15,
-  outputGrid16,
   outputGrid17,
   outputGrid18,
   outputGrid19,
   outputGrid20,
-  outputGrid21,
   outputGrid22,
-  outputGrid23,
   outputGrid24,
   outputGrid25,
-  outputGrid26,
   outputGrid27,
   outputGrid28,
   outputGrid29,
