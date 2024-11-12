@@ -152,7 +152,7 @@ const Footer = forwardRef((props, ref) => {
               <a href="https://instagram.com/spolialab" target="_blank" rel="noopener noreferrer">
                 Instagram
               </a>
-              <a href="https://instagram.com/spolialab" target="_blank" rel="noopener noreferrer">
+              <a href="https://linkedin.com/company/spolialab" target="_blank" rel="noopener noreferrer">
                 LinkedIn
               </a>
             </div>

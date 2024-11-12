@@ -55,7 +55,7 @@ const Newsletter = () => {
         <div className="col-margin-right">
           <p className="small-text" style={{ marginTop: "3rem" }}>
             If you would like to support our research efforts further, consider{" "}
-            <a href="https://www.patreon.com/spolialab" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.patreon.com/c/Spolia" target="_blank" rel="noopener noreferrer">
               {" "}
               becoming a patron on Patreon.
             </a>

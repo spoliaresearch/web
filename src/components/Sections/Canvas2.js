@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, useContext, useCallback } from "react";
+import React, { useState, useEffect, Suspense, useContext, useCallback, useRef } from "react";
 import outputGrid1 from "./grids/output1.json";
 import outputGrid2 from "./grids/output2.json";
 import outputGrid3 from "./grids/output3.json";
@@ -595,22 +595,57 @@ function sketch(p5) {
   };
 }
 
+// First, let's create a cleanup function for P5 state
+function cleanupP5State() {
+  // Reset all global state
+  actualState = [];
+  age = [];
+  topPointer = 1;
+  middlePointer = 1;
+  bottomPointer = 1;
+  colorArray = [];
+
+  // Reset P5 instance state
+  if (p5Instance.instance) {
+    p5Instance.instance.remove();
+    p5Instance.initialized = false;
+    p5Instance.instance = null;
+    p5Instance.sketch = null;
+  }
+}
+
 // Wrap the App component with React.memo
 export const App = React.memo(function App() {
   const { isInteractive } = useContext(InteractiveContext);
+  // Track if this is the first mount
+  const isFirstMount = useRef(true);
 
-  // Update global state when context changes
   useEffect(() => {
     globalState.isInteractive = isInteractive;
   }, [isInteractive]);
 
+  useEffect(() => {
+    // Only clean up when component unmounts
+    return () => {
+      cleanupP5State();
+      isFirstMount.current = true;
+    };
+  }, []);
+
   const sketchWithInteractive = useCallback((p5) => {
     if (!p5Instance.instance) {
+      // Only set initial grid on first mount
+      if (isFirstMount.current) {
+        const randomGridIndex = Math.floor(Math.random() * grids.length);
+        p5Instance.currentGrid = grids[randomGridIndex];
+        isFirstMount.current = false;
+      }
+
       p5Instance.instance = p5;
       p5Instance.sketch = sketch(p5);
     }
     return p5Instance.instance;
-  }, []); // Dependencies empty to maintain stability
+  }, []);
 
   return (
     <Suspense fallback={<div style={{ backgroundColor: "#000000" }}>Loading...</div>}>

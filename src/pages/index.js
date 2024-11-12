@@ -151,6 +151,18 @@ const Home = () => {
   const topNavRef = useRef(null);
   const footerRef = useRef(null);
 
+  // Add mount tracking
+  const [shouldRenderCanvas, setShouldRenderCanvas] = useState(false);
+
+  useEffect(() => {
+    // Delay canvas mounting to ensure clean state
+    setShouldRenderCanvas(true);
+
+    return () => {
+      setShouldRenderCanvas(false);
+    };
+  }, []); // Only run on mount/unmount
+
   useEffect(() => {
     setIsBrowser(true);
   }, []);
@@ -318,7 +330,7 @@ const Home = () => {
             <DisableInteractive />
           </div>
         </div>
-        <CanvasWrapper /> {/* Use the wrapper that never updates */}
+        {shouldRenderCanvas && <CanvasWrapper />}
         <div className="label">APPROACH</div>
         <div className="text-content-grid">
           <div className="row">
@@ -326,8 +338,9 @@ const Home = () => {
             <div className="col-margin-left"></div>
             <div className="col-spacing-1"></div>
             <div className="col-main">
-              SPOLIA <span className="pronounciation">[/ˈspoʊ.li.ə/]</span> operates as a hybrid between a creative
-              studio and research lab to explore the{" "}
+              SPOLIA <span className="pronounciation">[/ˈspoʊ.li.ə/]</span> is a creative studio and research lab
+              exploring how design and computing shape our everyday lives. We build products and experiences that
+              connect the physical and digital, blend the{" "}
               <span
                 style={{
                   border: "1px dashed currentColor",
@@ -335,18 +348,7 @@ const Home = () => {
                   marginRight: "2px",
                 }}
               >
-                <span style={{ color: "#006400", padding: "0 2.5px", fontSize: "1.4em" }}>∩</span>
-              </span>{" "}
-              intersections of design and computing with our everyday lives. We build products and experiences that
-              connects the physical and digital, the{" "}
-              <span
-                style={{
-                  border: "1px dashed currentColor",
-                  padding: "0 4px",
-                  marginRight: "2px",
-                }}
-              >
-                <DissolveImage name="arrow-right" fill="#006400" width="23" height="13" />
+                <DissolveImage name="arrow-left" fill="#006400" width="23" height="13" />
               </span>
               past and{" "}
               <span
@@ -356,19 +358,9 @@ const Home = () => {
                   marginRight: "2px",
                 }}
               >
-                <DissolveImage name="arrow-left" fill="#006400" width="23" height="13" />
+                <DissolveImage name="arrow-right" fill="#006400" width="23" height="13" />
               </span>{" "}
-              future, and people with their{" "}
-              <span
-                style={{
-                  border: "1px dashed currentColor",
-                  padding: "0 4px",
-                  marginRight: "2px",
-                }}
-              >
-                <DissolveImage name="globe" fill="#006400" width="19" height="19" />
-              </span>{" "}
-              surroundings.
+              future, and bring people closer to their surroundings.
             </div>
             <div className="col-spacing-2"></div>
             <div className="col-margin-right">
@@ -385,10 +377,29 @@ const Home = () => {
             <div className="col-margin-left"></div>
             <div className="col-spacing-1"></div>
             <div className="col-main" style={{ marginBottom: "2rem" }}>
-              In an era of complex crises and rapid technological advancements, we investigate how humans can adapt and
-              thrive amidst these transformational shifts. Our mission is to build for potential futures that are
-              inclusive, sustainable, and creative by reconsiding our collective and individual relationships with
-              technology.
+              In a time defined by rapid technological change and complex crises, we aim to repurpose emerging
+              technologies as tools for solving these challenges rather than contributing to them. Our mission is to
+              make technology a steward for resilient{" "}
+              <span
+                style={{
+                  border: "1px dashed currentColor",
+                  padding: "0 4px",
+                  marginRight: "2px",
+                }}
+              >
+                <DissolveImage name="system" fill="#006400" width="19" height="19" />
+              </span>{" "}
+              systems, an open space for creativity, and a catalyst for positive change that benefits people and the{" "}
+              <span
+                style={{
+                  border: "1px dashed currentColor",
+                  padding: "0 4px",
+                  marginRight: "2px",
+                }}
+              >
+                <DissolveImage name="globe" fill="#006400" width="19" height="19" />
+              </span>{" "}
+              planet.
             </div>
             <div className="col-spacing-2"></div>
             <div className="col-margin-right"></div>
@@ -431,7 +442,7 @@ const Home = () => {
                 <td
                   colSpan="3"
                   style={{
-                    padding: "1em",
+                    padding: ".5em",
                     borderBottom: `1px solid ${textColor}`,
                     textAlign: "center",
                     fontSize: "1rem",
@@ -443,7 +454,7 @@ const Home = () => {
               <tr>
                 <td
                   style={{
-                    padding: "1.25em",
+                    padding: "1em .5em",
                     borderRight: `1px solid ${textColor}`,
                     width: "33.33%",
                     textAlign: "left",
@@ -451,10 +462,9 @@ const Home = () => {
                     WebkitFontVariationSettings: `"wght" 262, "ital" 0, "SRFF" ${SRFF}`,
                   }}
                 >
-                  <div style={{ fontSize: ".9em", marginBottom: "0.5rem" }}>Product Innovation</div>
-                  <div style={{ fontSize: ".66em" }}>
-                    Digital and physical product design and development, especially in the realm of interactions, AI,
-                    data, and spatial computing.
+                  <div style={{ fontSize: ".8em", marginBottom: "0.5rem" }}>Product Innovation</div>
+                  <div style={{ fontSize: ".6em" }}>
+                    Design, development, and deployment of products – both digital and physical.
                   </div>
                 </td>
                 <td
@@ -464,9 +474,9 @@ const Home = () => {
                     textAlign: "left",
                   }}
                 >
-                  <div style={{ fontSize: ".9em", marginBottom: "0.5rem" }}>Spaces + Experiences</div>
-                  <div style={{ fontSize: ".66em" }}>
-                    Design and production of installations, exhibitions, and physical media.
+                  <div style={{ fontSize: ".8em", marginBottom: "0.5rem" }}>Spaces + Experiences</div>
+                  <div style={{ fontSize: ".6em" }}>
+                    Conceptualization and production of installations, exhibitions, and artifacts.
                   </div>
                 </td>
                 <td
@@ -477,9 +487,9 @@ const Home = () => {
                     textAlign: "left",
                   }}
                 >
-                  <div style={{ fontSize: ".9em", marginBottom: "0.5rem" }}>Research + Vision</div>
-                  <div style={{ fontSize: ".66em" }}>
-                    Historical context, early prototyping,and speculative designs for the future.
+                  <div style={{ fontSize: ".8em", marginBottom: "0.5rem" }}>Research + Vision</div>
+                  <div style={{ fontSize: ".6em" }}>
+                    Speculative design, 0 to 1 prototyping, and future vision planning.
                   </div>
                 </td>
               </tr>

@@ -622,3 +622,68 @@ td {
     display: none !important;
   }
 }
+
+/* Capabilities table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--text-color);
+  margin-bottom: 4rem;
+}
+
+table td {
+  padding: 1.25em;
+  border-right: 1px solid var(--text-color);
+  width: 33.33%;
+  text-align: left;
+}
+
+table td:last-child {
+  border-right: none;
+}
+
+table td > div:first-child {
+  font-size: 1.2em;
+  margin-bottom: 0.5rem;
+}
+
+/* New styles for keywords */
+.keywords {
+  list-style-type: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.keyword {
+  font-size: 0.8em;
+  color: var(--text-color);
+  padding: 0.2rem 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 0.1rem;
+  display: inline-block;
+}
+
+/* Mobile styles for capabilities table */
+@media (max-width: 768px) {
+  table tr {
+    display: flex;
+    flex-direction: column;
+  }
+
+  table td {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--text-color) !important;
+  }
+
+  table td:last-child {
+    border-bottom: none !important;
+  }
+
+  .keywords {
+    justify-content: center;
+  }
+}
