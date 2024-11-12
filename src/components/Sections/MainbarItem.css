@@ -28,7 +28,7 @@
 
 .mainbar-item .title-date-container {
   display: grid;
-  grid-template-columns: 1.9fr 5fr 1.9fr; /* 3 columns for desktop */
+  grid-template-columns: 2fr 5fr 1.9fr; /* 3 columns for desktop */
   gap: 20px;
 }
 
