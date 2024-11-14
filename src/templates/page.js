@@ -1,6 +1,6 @@
 import { Link, graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import React, { useEffect } from "react";
+import React from "react";
 import "../components/Layout2.css";
 import "./page.css";
 const TemplatePage = ({
@@ -13,11 +13,6 @@ const TemplatePage = ({
     },
   },
 }) => {
-  useEffect(() => {
-    const element = document.getElementById("my-anchor-2");
-    element.scrollIntoView({ behavior: "instant" });
-  }, []);
-
   return (
     <div class="ProjectContent">
       {/* <h1>{name}</h1> */}
