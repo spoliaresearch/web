@@ -28,8 +28,9 @@ const Newsletter = () => {
                     padding: "0.5rem 0",
                     fontSize: ".65em",
                     letterSpacing: "0.01em",
-                    width: "100%",
+                    width: "100.25%",
                     borderBottom: "1px solid #000",
+                    margin: "0 -1px",
                   }}
                 >
                   NEWSLETTER

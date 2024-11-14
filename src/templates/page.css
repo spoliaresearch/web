@@ -39,9 +39,10 @@ img {
 @media (max-width: 768px) {
   .ProjectContent {
     flex-direction: column;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    width: calc(100% - 2rem);
+    /* padding-left: 1rem;
+    padding-right: 1rem; */
+    padding-left: 0;
+    width: calc(100% - 1rem);
     margin: 0 auto;
     box-sizing: border-box;
   }

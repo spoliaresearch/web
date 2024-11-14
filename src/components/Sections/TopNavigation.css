@@ -1,5 +1,9 @@
 nav {
   padding-bottom: 0.33rem;
+  position: sticky;
+  top: 0;
+  background-color: var(--background-color);
+  z-index: 1000;
 }
 
 .nav {
@@ -12,7 +16,7 @@ nav {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  /* gap: 1rem; */
 }
 
 .nav-middle {
@@ -88,61 +92,70 @@ nav {
     padding: 0 0.5rem;
   }
 
-  .nav-right {
-    position: relative; /* For mobile menu positioning */
-  }
-
-  .mobile-menu-container {
-    display: block;
-  }
-
-  .mobile-menu-panel {
-    position: absolute;
-    top: calc(100% + 0.5rem);
-    right: 0;
-    background-color: var(--background-color);
-    border: 1px solid var(--text-color);
-    border-radius: 4px;
-    padding: 1rem;
-    min-width: 200px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    /* Safari support */
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
+  .contact-container {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 0.75rem;
   }
 
-  .hamburger-button {
+  .settings-button {
     -webkit-appearance: none;
     appearance: none;
     background: none;
-    border: none;
-    padding: 0.5rem;
-    margin: -0.5rem;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    padding: 0.25rem;
     color: var(--text-color);
-    font-size: 1.5rem;
     cursor: pointer;
-    /* Safari support */
-    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
   }
 
-  /* Prevent body scroll when menu is open */
-  body.menu-open {
-    overflow: hidden;
+  /* Settings panel styles */
+  .settings-panel {
+    background-color: black;
+    color: white;
+    padding: 0rem 1rem;
+    margin: -1rem -1rem;
+    width: 100%;
   }
 
-  .mobile-nav-link {
-    display: block;
-    padding: 0.5rem 0;
-    text-decoration: none;
-    color: var(--text-color);
+  .settings-content {
+    max-width: 600px;
+    margin: 0 auto;
   }
 
-  .contact-container.desktop-only {
+  .settings-content .grid-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .instagram-link {
     display: none;
   }
+
+  /* Ensure text and icons are white in the panel */
+  .settings-panel button,
+  .settings-panel svg,
+  .settings-panel span {
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    .settings-content .grid-container {
+      gap: 1rem;
+    }
+  }
+}
+
+/* Remove unused mobile menu styles */
+.mobile-menu-container,
+.mobile-menu-panel,
+.hamburger-button,
+.mobile-nav-link {
+  display: none;
 }
 
 /* Safari-specific fixes */
@@ -155,5 +168,26 @@ nav {
   .hamburger-button {
     /* Better touch handling for iOS */
     padding: 0.75rem;
+  }
+}
+
+/* Hide settings button on desktop */
+.settings-button {
+  display: none;
+}
+
+/* Show settings button only on mobile */
+@media (max-width: 768px) {
+  .settings-button {
+    display: flex;
+    -webkit-appearance: none;
+    appearance: none;
+    background: none;
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding: 0.25rem;
+    color: var(--text-color);
+    cursor: pointer;
+    align-items: center;
   }
 }

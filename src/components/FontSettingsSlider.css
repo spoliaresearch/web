@@ -163,34 +163,27 @@ input[type="range"]::-moz-range-track {
 @media (max-width: 768px) {
   .font-settings-modal .modal-content {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    max-width: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: auto;
+    max-height: 100vh;
     margin: 0;
     border-radius: 0;
-    padding: 2rem 1rem;
-  }
-
-  .font-settings-modal .preview-section {
-    margin-bottom: 2rem;
-  }
-
-  .font-settings-modal .preview-text-container {
-    margin-top: 2rem;
+    padding: 1.5rem 1rem;
+    overflow-y: auto;
   }
 
   .font-settings-modal .modal-actions {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1rem;
-    background: var(--background-color);
-    border-top: 1px solid var(--text-color);
+    position: static;
+    margin-top: 1.5rem;
+    padding: 0;
+    border-top: none;
+  }
+
+  .preview-text-container {
+    margin-bottom: 0;
   }
 
   .font-size-option {

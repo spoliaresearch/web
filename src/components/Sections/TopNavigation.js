@@ -1,10 +1,32 @@
 import React from "react";
 import Link from "gatsby-link";
 import "./TopNavigation.css";
+import FontSettingsToggle from "../FontSettingsToggle";
+import ThemeToggle from "../ThemeToggle";
+import { DisableInteractive } from "../DisableInteractive";
 
 const TopNavigation = React.forwardRef((props, ref) => {
+  const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
+
   return (
     <nav ref={ref} style={props.style}>
+      {isSettingsOpen && (
+        <div className="settings-panel">
+          <div className="settings-content">
+            <div className="grid-container">
+              <div className="grid-item">
+                <FontSettingsToggle includeText={true} darkMode={true} />
+              </div>
+              <div className="grid-item">
+                <ThemeToggle includeText={true} darkMode={true} />
+              </div>
+              <div className="grid-item">
+                <DisableInteractive darkMode={true} />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <hr />
       <div className="nav">
         <Link to="/" className="logo link">
@@ -26,11 +48,23 @@ const TopNavigation = React.forwardRef((props, ref) => {
           </span>
         </div>
         <div className="nav-right">
-          {/* Desktop-only contact container */}
-          <span className="contact-container desktop-only">
+          <span className="contact-container">
+            <Link to="/symlink" className="nav-link">
+              WORK
+            </Link>
             <a className="nav-link" href="mailto:hello@spolialab.com">
               CONTACT
             </a>
+            {/* <button className="settings-button" onClick={() => setIsSettingsOpen(!isSettingsOpen)}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 3.5L2 3.5" stroke="currentColor"></path>
+                <path d="M11 5L11 2" stroke="currentColor"></path>
+                <path d="M14 7.5L2 7.5" stroke="currentColor"></path>
+                <path d="M5 9L5 6" stroke="currentColor"></path>
+                <path d="M14 11.5L2 11.5" stroke="currentColor"></path>
+                <path d="M11 13L11 10" stroke="currentColor"></path>
+              </svg>
+            </button> */}
             <a
               href="https://www.instagram.com/spolialab"
               target="_blank"
