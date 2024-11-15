@@ -270,7 +270,7 @@ button:hover {
     display: flex;
     flex-direction: column-reverse;
     padding: 0 1rem;
-    gap: 1.5rem;
+    gap: 0.5rem;
   }
 
   .col-side-left,
@@ -525,7 +525,12 @@ button:hover {
     display: flex;
     flex-direction: column-reverse;
     padding: 0 1rem;
-    gap: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .col-main {
+    padding-bottom: 0;
+    margin-bottom: 0 !important;
   }
 
   .col-margin-left,

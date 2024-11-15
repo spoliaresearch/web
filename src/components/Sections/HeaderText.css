@@ -46,6 +46,8 @@
   align-items: center;
   height: 2rem;
   margin-bottom: -1px;
+  justify-content: flex-end;
+  padding-right: 0.75rem;
 }
 
 .HeaderGrid {

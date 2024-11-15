@@ -6,7 +6,7 @@ const FontSettingsSlider = ({ onClose }) => {
   const { SRFF, setSRFF } = useContext(FontSettingsContext);
   const { fontSize, setFontSize } = useContext(FontSettingsContext);
   const [tempSRFF, setTempSRFF] = React.useState(SRFF);
-  const [tempFontSize, setTempFontSize] = React.useState(fontSize);
+  const [tempFontSize, setTempFontSize] = React.useState(1);
 
   const natureTexts = [
     "Flowers can have UV patterns visible only to bees.",
