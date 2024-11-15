@@ -98,6 +98,7 @@ input[type="range"]::-moz-range-track {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  overscroll-behavior: none;
 }
 
 .modal-content {
@@ -110,6 +111,7 @@ input[type="range"]::-moz-range-track {
   border-radius: 0;
   border: 1px solid var(--text-color);
   overflow-y: auto;
+  overscroll-behavior: contain;
   margin: 20px;
 }
 
@@ -178,6 +180,7 @@ input[type="range"]::-moz-range-track {
     border-radius: 0;
     padding: 1.5rem 1rem;
     overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .font-settings-modal .modal-actions {
