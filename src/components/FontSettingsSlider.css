@@ -63,6 +63,7 @@ input[type="range"]::-moz-range-track {
   justify-content: center;
   transition: all 0.1s ease;
   cursor: pointer;
+  color: #000 !important;
 }
 
 .font-size-option.active {
@@ -75,6 +76,10 @@ input[type="range"]::-moz-range-track {
 .font-size-option.active:hover {
   background-color: #000 !important;
   color: #fff !important;
+}
+
+.font-size-option:not(.active) {
+  color: #000 !important;
 }
 
 #srff-slider {
