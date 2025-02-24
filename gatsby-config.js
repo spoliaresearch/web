@@ -75,5 +75,13 @@ module.exports = {
       },
       __key: "images",
     },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "glossary",
+        path: `${__dirname}/src/content/glossary`,
+      },
+    },
+    "gatsby-transformer-remark",
   ],
 };

@@ -10,6 +10,7 @@ import { FontSettingsContext, FontSettingsProvider } from "../contexts/FontSetti
 import { Link } from "gatsby";
 import { InteractiveContext } from "../contexts/InteractiveContext";
 import { SEO } from "./seo";
+import { Location } from "@reach/router";
 
 const Layout = ({ children }) => {
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext) || { isDarkMode: false, setIsDarkMode: () => {} };
@@ -90,113 +91,101 @@ const Layout = ({ children }) => {
     }
   }, []);
 
+  // Function to check if current path is a glossary page
+  const isGlossaryPage = (pathname) => {
+    return pathname.includes("/glossary");
+  };
+
   return (
-    <InteractiveContext.Provider value={{ isInteractive, setIsInteractive }}>
-      <SEO />
-      <div
-        className="container"
-        style={{ ...rootStyle, position: "relative", minHeight: "100vh", padding: "0 .475rem" }}
-      >
-        <TopNavigation
-          ref={topNavRef}
-          style={{
-            position: "sticky",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "40px",
-            backgroundColor: backgroundColor,
-            zIndex: 3,
-          }}
-        />
-        {notExcluded && (
-          <>
-            {/* <Canvas
-        ref={canvasRef}
-        style={{
-          position: 'absolute',
-          top: '2rem',
-          left: '.5rem',
-          right: '.5rem',
-          width: 'calc(100% - 1rem)',
-          height: 'calc(100% - 3rem)',
-          bottom: 0,
-          zIndex: 0,
-          backgroundColor: 'white'
-        }}
-      /> */}
-            <h6 id="my-anchor-2">
-              <div class="text-animate"></div>
-            </h6>
-
-            {/* <div  style={{
-          height: '75px',
-          backgroundColor: backgroundColor,
-          zIndex: 2,
-          fontSize: '1.75rem',
-          paddingBottom: '3.5rem',
-          paddingTop: '2.25rem',
-          marginTop:'1vh',
-          position: isHeaderSticky ? 'sticky' : 'relative',
-          top: isHeaderSticky ? topNavRef.current.offsetHeight : 'initial',
-        }} className="OneLiner">
-          */}
-
-            <HeaderText
-              ref={headerRef}
-              name={children?.props?.children?.props?.data?.page?.name}
+    <Location>
+      {({ location }) => (
+        <InteractiveContext.Provider value={{ isInteractive, setIsInteractive }}>
+          <SEO />
+          <div
+            className="container"
+            style={{ ...rootStyle, position: "relative", minHeight: "100vh", padding: "0 .475rem" }}
+          >
+            <TopNavigation
+              ref={topNavRef}
               style={{
-                height: "32px",
+                position: "sticky",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: "40px",
                 backgroundColor: backgroundColor,
-                zIndex: 200,
-                position: isHeaderSticky ? "sticky" : "relative",
-                top: isHeaderSticky ? topNavRef.current.offsetHeight : "initial",
+                zIndex: 3,
               }}
             />
-            <div className="main-content" style={{ position: "relative", zIndex: 2 }}>
-              <Sidebar
-                ref={sidebarRef}
-                style={{
-                  height: "92vh",
-                  width: "21.5rem",
-                  overflowY: "auto",
-                  position: isHeaderSticky ? "sticky" : "relative",
-                  backgroundColor: backgroundColor,
-                  borderRight: `1px solid ${textColor}`,
-                  top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : "initial",
-                }}
-              />
-              <div
-                ref={projectContentRef}
-                style={{
-                  height: "auto",
-                  width: windowWidth ? (windowWidth <= 768 ? "100vw" : "calc(100vw - 21.5rem)") : "100%",
-                  position: isHeaderSticky ? "sticky" : "relative",
-                  backgroundColor: backgroundColor,
-                  overflowY: "auto",
-                  zIndex: 0,
-                  top: isHeaderSticky ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight : "initial",
-                }}
-              >
-                {children}
-              </div>
-            </div>
-          </>
-        )}
-        {!notExcluded && <>{children}</>}
+            {notExcluded && (
+              <>
+                <h6 id="my-anchor-2">
+                  <div class="text-animate"></div>
+                </h6>
 
-        <Footer
-          ref={footerRef}
-          style={{
-            height: "200px",
-            backgroundColor: backgroundColor,
-            color: textColor,
-            zIndex: 2,
-            position: "relative",
-          }}
-        />
-      </div>
-    </InteractiveContext.Provider>
+                <HeaderText
+                  ref={headerRef}
+                  name={children?.props?.children?.props?.data?.page?.name}
+                  style={{
+                    height: "32px",
+                    backgroundColor: backgroundColor,
+                    zIndex: 200,
+                    position: isHeaderSticky ? "sticky" : "relative",
+                    top: isHeaderSticky ? topNavRef.current.offsetHeight : "initial",
+                  }}
+                />
+                <div className="main-content" style={{ position: "relative", zIndex: 2 }}>
+                  {!isGlossaryPage(location.pathname) && (
+                    <Sidebar
+                      ref={sidebarRef}
+                      style={{
+                        height: "92vh",
+                        width: "21.5rem",
+                        overflowY: "auto",
+                        position: isHeaderSticky ? "sticky" : "relative",
+                        backgroundColor: backgroundColor,
+                        borderRight: `1px solid ${textColor}`,
+                        top: isHeaderSticky
+                          ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight
+                          : "initial",
+                      }}
+                    />
+                  )}
+                  <div
+                    ref={projectContentRef}
+                    style={{
+                      height: "auto",
+                      width: windowWidth ? (windowWidth <= 768 ? "100vw" : "calc(100vw - 21.5rem)") : "100%",
+                      position: isHeaderSticky ? "sticky" : "relative",
+                      backgroundColor: backgroundColor,
+                      overflowY: "auto",
+                      zIndex: 0,
+                      top: isHeaderSticky
+                        ? topNavRef.current.offsetHeight + headerRef?.current?.offsetHeight
+                        : "initial",
+                    }}
+                  >
+                    {children}
+                  </div>
+                </div>
+              </>
+            )}
+            {!notExcluded && <>{children}</>}
+
+            <Footer
+              ref={footerRef}
+              style={{
+                height: "200px",
+                backgroundColor: backgroundColor,
+                color: textColor,
+                zIndex: 2,
+                position: "relative",
+              }}
+            />
+          </div>
+        </InteractiveContext.Provider>
+      )}
+    </Location>
   );
 };
 

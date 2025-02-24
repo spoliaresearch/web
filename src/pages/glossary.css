@@ -1,0 +1,207 @@
+.glossary-container {
+  width: 100%;
+  padding: 2rem 1rem 5rem;
+  margin: 0;
+  position: relative;
+}
+
+.glossary-header {
+  max-width: 100%;
+  padding: 0 1rem;
+  margin-bottom: 1.5rem;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.glossary-term div {
+  font-size: 18px;
+  line-height: 1.4;
+  font-variation-settings: "wght" 340, "ital" 0, "SRFF" 0.5 !important;
+}
+
+.glossary-term h3,
+h2 {
+  text-transform: uppercase;
+  font-size: 1.1em;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-family: "Arizona Variable";
+  letter-spacing: 0px !important;
+  font-variation-settings: "wght" 340, "ital" 0, "SRFF" 0.5 !important;
+}
+
+.glossary-term h3 {
+  text-transform: none !important;
+}
+
+.glossary-title {
+  margin: 0;
+  font-family: "Arizona Variable";
+  padding: 0;
+  font-size: 2rem;
+  letter-spacing: -0.75px !important;
+  display: inline;
+}
+
+.glossary-inline-description {
+  color: #000;
+  font-size: 2rem;
+  font-weight: normal;
+  display: inline;
+}
+
+.terms-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.term-container {
+  width: 100%;
+  margin: 0rem 0;
+}
+
+.term-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.term-title {
+  font-size: 1rem;
+  text-align: left;
+}
+
+.term-divider {
+  border: none;
+  border-top: 1.25px solid black;
+  margin: 0.5rem 0 1rem 0;
+  width: 100%;
+}
+
+/* Target the main glossary term container */
+.glossary-term {
+  line-height: 1.6;
+  margin-left: 0 !important;
+  padding: 1rem !important;
+}
+
+/* Style the term title and part of speech */
+.glossary-term h1 {
+  font-size: 2rem;
+  text-align: left;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 0px !important;
+  font-variation-settings: "wght" 340, "ital" 0, "SRFF" 0.5 !important;
+}
+
+.glossary-term em {
+  font-style: italic;
+  color: #666;
+  font-size: 10em;
+  font-weight: normal;
+  margin-left: 0.5rem;
+}
+
+/* Style the numbered definitions */
+.glossary-term ol,
+.glossary-term ul {
+  padding-left: 2rem;
+  margin: 0 0 1rem 0;
+  list-style-type: decimal; /* This gives us plain numbers */
+}
+
+.glossary-term ol > li,
+.glossary-term ul > li {
+  padding: 0rem 0;
+  margin-bottom: 0rem;
+}
+
+/* Remove the ::before pseudo-elements that were adding dashes */
+.glossary-term ol > li::before,
+.glossary-term ul > li::before {
+  display: none;
+}
+
+/* Style the sub-definitions */
+.glossary-term ol > li > ul,
+.glossary-term ul > li > ul {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1rem;
+  list-style-type: disc;
+}
+
+.glossary-term ol > li > ul > li,
+.glossary-term ul > li > ul > li {
+  padding: 0.25rem 0;
+  margin-bottom: 0.25rem;
+  font-size: 1em;
+  color: #444;
+}
+
+/* Style the examples section */
+.glossary-term h3 {
+  margin: 2rem 0 1rem 0;
+  font-size: 1.2rem;
+}
+
+.letter-group {
+  margin: 0rem 0; /* Increased margin for better spacing */
+}
+
+.letter-heading {
+  font-size: 2rem; /* Much bigger letter */
+  font-weight: normal;
+  margin: 1rem 0 1rem 0rem;
+  line-height: 1; /* Tighter line height for big letters */
+  opacity: 1; /* Subtle appearance */
+}
+
+/* Adjust spacing for terms under letters */
+.letter-group .term-container:first-of-type {
+  margin-top: 0rem; /* More space after the letter */
+}
+
+/* Add responsive styles for glossary term page */
+.glossary-term-container {
+  flex-direction: column;
+}
+
+/* Add media query for larger screens */
+@media (min-width: 768px) {
+  .glossary-container {
+    padding: 5rem 2rem 10rem;
+  }
+
+  .glossary-header {
+    padding: 0 2rem;
+  }
+
+  .glossary-term div {
+    font-size: 23px;
+  }
+
+  .terms-list {
+    width: 50%;
+    padding: 0 2rem;
+  }
+
+  .glossary-term-container {
+    flex-direction: row;
+  }
+
+  .glossary-term {
+    margin-left: 200px !important;
+    padding: 2rem !important;
+  }
+
+  .glossary-title,
+  .glossary-inline-description {
+    font-size: 3rem;
+  }
+
+  .glossary-term h1 {
+    font-size: 2.5rem;
+  }
+}

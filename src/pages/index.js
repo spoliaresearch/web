@@ -323,6 +323,7 @@ const Home = () => {
             style={{
               marginBottom: "4rem",
               fontSize: "clamp(0.75em, 4vw, 1em)", // This makes the text responsive
+              letterSpacing: "-0.025em",
             }}
           >
             SPOLIA is a design and technology studio.{" "}
