@@ -1,8 +1,8 @@
 .glossary-container {
   width: 100%;
-  padding: 2rem 1rem 5rem;
   margin: 0;
   position: relative;
+  margin: 3rem 0 10rem 0;
 }
 
 .glossary-header {
@@ -58,18 +58,31 @@ h2 {
 }
 
 .term-container {
-  width: 100%;
-  margin: 0rem 0;
+  width: 100vw;
+  margin: 0rem -2rem;
+  transition: background-color 0.5s ease, letter-spacing 0.6s ease, font-variation-settings 0.1s ease-out;
+  font-variation-settings: "wght" 340, "ital" 0, "SRFF" 0.5;
+}
+
+.term-container:hover {
+  background-color: rgb(240, 238, 232);
+  cursor: pointer;
 }
 
 .term-link {
   text-decoration: none;
   color: inherit;
+  display: block;
+  cursor: pointer;
 }
 
 .term-title {
+  margin: 0.75rem 0;
   font-size: 1rem;
+  margin-left: 2rem;
+  text-decoration: none;
   text-align: left;
+  border-bottom: none;
 }
 
 .term-divider {
@@ -88,7 +101,7 @@ h2 {
 
 /* Style the term title and part of speech */
 .glossary-term h1 {
-  font-size: 2rem;
+  font-size: 1rem;
   text-align: left;
   width: 100%;
   text-transform: uppercase;
@@ -146,21 +159,12 @@ h2 {
   font-size: 1.2rem;
 }
 
-.letter-group {
-  margin: 0rem 0; /* Increased margin for better spacing */
-}
-
 .letter-heading {
   font-size: 2rem; /* Much bigger letter */
   font-weight: normal;
   margin: 1rem 0 1rem 0rem;
   line-height: 1; /* Tighter line height for big letters */
   opacity: 1; /* Subtle appearance */
-}
-
-/* Adjust spacing for terms under letters */
-.letter-group .term-container:first-of-type {
-  margin-top: 0rem; /* More space after the letter */
 }
 
 /* Add responsive styles for glossary term page */
@@ -171,11 +175,10 @@ h2 {
 /* Add media query for larger screens */
 @media (min-width: 768px) {
   .glossary-container {
-    padding: 5rem 2rem 10rem;
   }
 
   .glossary-header {
-    padding: 0 2rem;
+    padding: 0 1rem;
   }
 
   .glossary-term div {
@@ -183,8 +186,8 @@ h2 {
   }
 
   .terms-list {
-    width: 50%;
-    padding: 0 2rem;
+    width: 100%;
+    padding: 0 1rem;
   }
 
   .glossary-term-container {

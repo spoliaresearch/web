@@ -1,7 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
 import { SEO } from "../components/seo";
-import Layout2 from "../components/Layout2";
 import GlossarySidebar from "../components/GlossarySidebar/GlossarySidebar";
 import "../pages/glossary.css";
 import "./glossaryTerm.css";
@@ -17,7 +16,7 @@ const GlossaryTerm = ({ data }) => {
         description={frontmatter.seoDescription}
         pathname={`/glossary/${frontmatter.slug}`}
       />
-      <div className="glossary-term-container" style={{ display: "flex" }}>
+      <div className="glossary-term-container">
         <GlossarySidebar currentSlug={frontmatter.slug} />
         <article
           className="glossary-term"
@@ -25,7 +24,6 @@ const GlossaryTerm = ({ data }) => {
             margin: "0 auto",
             padding: "2rem",
             flex: 1,
-            marginLeft: "200px", // Match sidebar width
           }}
         >
           <script type="application/ld+json">{JSON.stringify(frontmatter.schema)}</script>

@@ -150,7 +150,7 @@ const Footer = forwardRef((props, ref) => {
           <div className="col-spacing-2"></div>
           <div className="col-margin-right">
             <div className="social-links">
-              <a href="/glossary">Lexicon</a>
+              <a href="/glossary">Glossary</a>
               <a href="https://instagram.com/spolialab" target="_blank" rel="noopener noreferrer">
                 Instagram
               </a>

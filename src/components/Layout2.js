@@ -155,7 +155,7 @@ const Layout = ({ children }) => {
                     ref={projectContentRef}
                     style={{
                       height: "auto",
-                      width: windowWidth ? (windowWidth <= 768 ? "100vw" : "calc(100vw - 21.5rem)") : "100%",
+                      width: windowWidth ? (windowWidth <= 768 ? "100vw" : "100%") : "100%",
                       position: isHeaderSticky ? "sticky" : "relative",
                       backgroundColor: backgroundColor,
                       overflowY: "auto",

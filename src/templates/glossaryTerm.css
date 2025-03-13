@@ -1,3 +1,23 @@
+.glossary-term-container {
+  display: flex;
+  position: relative;
+  margin-top: 0px;
+  padding: 0rem;
+  margin-left: 7.5rem;
+}
+
+.glossary-term {
+  width: 100%;
+  padding: 0 2rem;
+}
+
+@media (min-width: 768px) {
+  .glossary-term {
+    margin-left: 18.5rem;
+    width: calc(100% - 18.5rem);
+  }
+}
+
 .glossary-term-container h1 {
   font-size: 3em !important;
 }
@@ -5,6 +25,7 @@
 .glossary-term-content {
   font-size: 16.8px !important;
 }
+
 .glossary-term {
   font-size: 10px !important;
 }

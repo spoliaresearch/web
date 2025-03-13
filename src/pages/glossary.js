@@ -17,18 +17,8 @@ const GlossaryPage = ({ data }) => {
 
   const terms = data.allMarkdownRemark.nodes.sort((a, b) => a.frontmatter.term.localeCompare(b.frontmatter.term));
 
-  // Group terms by first letter
-  const groupedTerms = terms.reduce((acc, term) => {
-    const firstLetter = term.frontmatter.term.charAt(0).toUpperCase();
-    if (!acc[firstLetter]) {
-      acc[firstLetter] = [];
-    }
-    acc[firstLetter].push(term);
-    return acc;
-  }, {});
-
   return (
-    <div style={{ width: "100vw" }}>
+    <div>
       <SEO
         title="Glossary | Terms and Concepts"
         description="Explore our comprehensive glossary of key terms and concepts in design, technology, and sustainability."
@@ -36,19 +26,15 @@ const GlossaryPage = ({ data }) => {
       />
       <div className="glossary-container">
         <div className="glossary-header">
-          <h1 className="glossary-title">LEXICON </h1>
+          <h1 className="glossary-title">Glossary </h1>
         </div>
         <div className="terms-list">
-          {Object.entries(groupedTerms).map(([letter, letterTerms]) => (
-            <div key={letter} className="letter-group">
-              {letterTerms.map((node) => (
-                <div key={node.frontmatter.slug} className="term-container">
-                  <Link to={`/glossary/${node.frontmatter.slug}`} className="term-link">
-                    <div className="term-title nav-link">{node.frontmatter.term.toUpperCase()}</div>
-                  </Link>
-                  <hr className="term-divider" />
-                </div>
-              ))}
+          {terms.map((node) => (
+            <div key={node.frontmatter.slug} className="term-container ">
+              <Link to={`/glossary/${node.frontmatter.slug}`} className="term-link">
+                <div className="term-title ">{node.frontmatter.term}</div>
+              </Link>
+              {/* <hr className="term-divider" /> */}
             </div>
           ))}
         </div>

@@ -1,15 +1,16 @@
 .GlossarySidebar {
-  width: 21.5rem;
-  max-height: 92vh;
+  width: 18.5rem;
+  height: calc(100vh - 72px); /* Viewport height minus header */
   position: fixed;
   left: 0;
   top: 72px;
-  padding: 2.5rem 0rem;
+  padding: 2.5rem 1rem;
   border-right: 1px solid var(--opposite-color);
-  display: none;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   background-color: var(--background-color);
+  z-index: 100; /* Ensure sidebar stays above content */
+  display: none;
 }
 
 /* Show sidebar on larger screens */
