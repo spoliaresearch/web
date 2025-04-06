@@ -1,4 +1,4 @@
-Run this with node 16. 18 breaks. 
+Run this with node 18 now
 
 `npm install`
 
