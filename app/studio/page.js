@@ -76,10 +76,11 @@ function StudioContent() {
           <Grid>
             <GridItem span={12}>
               <div className={studioStyles.videoSection}>
-                <video autoPlay muted loop>
+                {/* <video autoPlay muted loop>
                   <source src="/FOR_PRODUCTION/video/SPOLIA explainer.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
-                </video>
+                </video> */}
+                <Video src="/SPOLIA explainer" autoPlay muted loop style={{ width: "100%", height: "100%" }} />
               </div>
             </GridItem>
           </Grid>
