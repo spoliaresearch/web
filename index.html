@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      @font-face {
+        font-family: "ABC Arizona";
+        src: url("fonts/ABCArizonaPlusVariable.woff2") format("woff2-variations"),
+          url("fonts/ABCArizonaPlusVariable.woff") format("woff-variations");
+        font-variation-settings: "wght" 400, "ital" 0, "SRFF" 0;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "ABC Arizona", sans-serif;
+        color: #28282a;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        background: #fafcff;
+        min-height: 100vh;
+        position: relative;
+        /* Premium text rendering optimizations */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        font-variant-ligatures: common-ligatures discretionary-ligatures;
+        font-kerning: normal;
+        text-size-adjust: 100%;
+      }
+
+      /* Paper-like noise texture - white noise layer */
+      body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.9;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='20'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='discrete' tableValues='0.98 0.95 0.92 0.89 0.86 0.83 0.80 0.77 0.74 0.71 0.68'/%3E%3CfeFuncG type='discrete' tableValues='1.0 0.98 0.95 0.93 0.90 0.88 0.85 0.83 0.80 0.78 0.75'/%3E%3CfeFuncB type='discrete' tableValues='1.0 0.98 0.96 0.94 0.92 0.90 0.88 0.86 0.84 0.82 0.80'/%3E%3CfeFuncA type='discrete' tableValues='0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='16' height='16' fill='%23000000' filter='url(%23noise)'/%3E%3C/svg%3E");
+        background-size: 160px 160px;
+        background-repeat: repeat;
+        pointer-events: none;
+      }
+
+      .essay-container {
+        margin-top:12rem;
+      }
+
+      /* Paper-like base layer - gray/blue paper texture */
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.3;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='17'%3E%3Cfilter id='paper'%3E%3CfeTurbulence baseFrequency='2.8' seed='120'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='discrete' tableValues='0.08 0.18 0.10 0.16 0.12 0.14 0.09 0.19 0.11 0.17 0.07 0.20 0.13 0.15 0.06 0.21'/%3E%3CfeFuncG type='discrete' tableValues='0.09 0.19 0.11 0.17 0.13 0.15 0.10 0.20 0.12 0.18 0.08 0.21 0.14 0.16 0.07 0.22'/%3E%3CfeFuncB type='discrete' tableValues='0.11 0.23 0.13 0.21 0.15 0.19 0.12 0.24 0.14 0.22 0.10 0.25 0.16 0.20 0.09 0.26'/%3E%3CfeFuncA type='discrete' tableValues='0 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='800' height='600' fill='%23000000' filter='url(%23paper)'/%3E%3C/svg%3E");
+        background-size: 17px 17px;
+        background-repeat: repeat;
+        pointer-events: none;
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+        padding: 2rem 2rem;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 4rem;
+        margin-bottom: 2rem;
+        margin: 0 auto;
+        text-align: center;
+        background: linear-gradient(135deg, #373d38, #3a403b, #3d423f, #2d332d);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: #1e201e;
+        /* Enhanced newsprint text effect with gradient colors */
+
+        letter-spacing: -0.04em;
+        /* Premium heading optimizations */
+        font-optical-sizing: auto;
+        font-synthesis: none;
+        -webkit-font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "ss01" 1, "ss02" 1;
+        font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "ss01" 1, "ss02" 1;
+        font-variant-ligatures: common-ligatures discretionary-ligatures;
+        font-kerning: normal;
+        text-wrap: balance;
+        font-variation-settings: "wght" 376, "ital" 0, "SRFF" 0.425;
+        hanging-punctuation: first last;
+      }
+
+      h3 {
+        font-size: 2.1rem;
+        font-variation-settings: "wght" 400, "ital" 0, "SRFF" 0.28;
+        line-height: 1.2;
+        margin: 0rem;
+        letter-spacing: -0.03em;
+      }
+
+      p {
+        font-size: 20px;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #292b29, #292d2a, #242625, #232623);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        max-width: 700px;
+        margin-left: 60%;
+        /* text-align: justify; */
+        /* Combining gradient with shadows for deeper color effect */
+        letter-spacing: -0.0125em;
+        /* Premium paragraph optimizations */
+        line-height: 1.42;
+        font-optical-sizing: auto;
+        font-synthesis: none;
+        -webkit-font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0;
+        font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0;
+        font-variant-ligatures: common-ligatures discretionary-ligatures;
+
+        font-kerning: normal;
+        text-wrap: pretty;
+        hyphenate-character: "‐";
+        hyphenate-limit-chars: 6 3 3;
+        hyphenate-limit-lines: 2;
+        hyphenate-limit-last: always;
+        hyphenate-limit-zone: 8%;
+
+        font-variation-settings: "wght" 400, "ital" 0, "SRFF" 0.1;
+        hyphens: auto;
+        word-spacing: 0.01em;
+        hanging-punctuation: first last;
+      }
+
+      /* Print-like page shadow */
+      .content::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        z-index: -1;
+        background: rgba(0, 0, 0, 0.02);
+        border-radius: 2px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      }
+
+      /* Digital badge style */
+      .digital-badge {
+        position: relative;
+        right: 20px;
+        width: 80px;
+        height: 24px;
+        border-radius: 80px;
+        padding: 0px 12px 0 12px;
+        font-family: "ABC Arizona", monospace;
+        font-size: 15px;
+        line-height: 0.8;
+        font-weight: bold;
+        font-variation-settings: "wght" 400, "ital" 0, "SRFF" 0.53;
+        color: #000000;
+        letter-spacing: -0.04em;
+        z-index: 10;
+      }
+      .digital-badge span {
+        font-variation-settings: "wght" 500, "ital" 0, "SRFF" 0.01;
+        font-size: 13px;
+        letter-spacing: 0em;
+      }
+
+      /* Canvas container for positioning */
+      .canvas-container {
+        position: relative;
+        margin: 2rem 0rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <hr />
+      <h1>MATERIAL INTELLIGENCE</h1>
+      <div class="canvas-container">
+        <div class="digital-badge">Essay <span>001</span></div>
+        <canvas
+          id="pixelated-image"
+          alt="Material Intelligence"
+          style="display: block; max-width: 100%; height: auto; border-radius: 10px"
+        ></canvas>
+      </div>
+      <h3>As we face larger concerns from our neighbors, now is the time to ask the needs of the many.</h3>
+      <div class="essay-container">
+      <p>
+        In the contemporary landscape of luxury, we find ourselves at a peculiar intersection where traditional
+        craftsmanship meets technological innovation. The very definition of what constitutes luxury has evolved from
+        mere material abundance to a more nuanced understanding of exclusivity, authenticity, and emotional resonance.
+        This transformation reflects not only changes in consumer behavior but also a fundamental shift in how we
+        perceive value in an increasingly digital world.
+      </p>
+
+      <p>
+        The artisanal heritage that once defined luxury goods now exists in tension with the demands of modern
+        production. Where once a single craftsperson might dedicate months to perfecting a single piece, today's luxury
+        brands must balance this dedication to quality with the realities of global markets and consumer expectations.
+        Yet it is precisely this tension that creates the most compelling narratives in contemporary luxury.
+      </p>
+
+      <p>
+        Consider the evolution of fashion houses that have weathered decades of change while maintaining their essential
+        character. These institutions understand that luxury is not merely about price point or scarcity, but about
+        creating objects that carry cultural significance and emotional weight. The most successful luxury brands today
+        are those that can articulate a clear vision of what they stand for, beyond the mere accumulation of material
+        goods.
+      </p>
+
+      <p>
+        The digital revolution has fundamentally altered the luxury landscape, creating new forms of exclusivity and
+        access. Social media platforms have democratized the visibility of luxury goods while simultaneously creating
+        new hierarchies of influence and access. The traditional gatekeepers of luxury—the department store buyers, the
+        fashion editors, the cultural arbiters—now share their influence with a new generation of digital natives who
+        understand luxury through a different lens.
+      </p>
+
+      <p>
+        This shift has profound implications for how luxury brands communicate their values and connect with consumers.
+        The language of luxury has become more inclusive while maintaining its aspirational quality. Brands must now
+        speak to diverse audiences without diluting their core identity, a balance that requires both sensitivity and
+        strategic thinking.
+      </p>
+
+      <p>
+        The concept of sustainability has also entered the luxury conversation in ways that would have been unimaginable
+        a generation ago. Today's luxury consumer is increasingly conscious of the environmental and social impact of
+        their purchases. This awareness has created opportunities for brands to demonstrate their commitment to
+        responsible practices while maintaining their premium positioning.
+      </p>
+
+      <p>
+        Furthermore, the rise of experiential luxury has challenged traditional notions of ownership and possession.
+        Consumers now seek experiences that provide personal transformation and cultural enrichment. This trend has led
+        luxury brands to expand beyond physical products into services, events, and immersive experiences that create
+        lasting memories and emotional connections.
+      </p>
+
+      <p>
+        The psychology of luxury consumption reveals deeper truths about human nature and social dynamics. Luxury goods
+        often serve as symbols of achievement, taste, and cultural affiliation. They provide a means of self-expression
+        and social signaling that transcends their functional utility. Understanding these psychological drivers is
+        crucial for brands seeking to create meaningful connections with their audience.
+      </p>
+
+      <p>
+        As we look toward the future, the luxury industry faces both unprecedented challenges and remarkable
+        opportunities. The next generation of luxury consumers will likely demand even greater transparency,
+        authenticity, and social responsibility from the brands they support. Those brands that can successfully
+        navigate this evolving landscape while staying true to their core values will be the ones that define luxury for
+        the next century.
+      </p>
+
+      <p>
+        The intersection of tradition and innovation, of craftsmanship and technology, of exclusivity and accessibility,
+        will continue to shape the luxury landscape. In this context, the most successful luxury brands will be those
+        that can honor their heritage while embracing change, creating products and experiences that resonate with
+        contemporary values while maintaining their timeless appeal.
+      </p>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("pixelated-image");
+      const ctx = canvas.getContext("2d");
+
+      // Load the image
+      const image = new Image();
+      let percent = 0;
+      let isLoaded = false;
+
+      function drawImage() {
+        if (!isLoaded) return;
+
+        const rect = canvas.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+
+        // Set canvas size
+        canvas.width = width * window.devicePixelRatio;
+        canvas.height = height * window.devicePixelRatio;
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+
+        // Pixelate by disabling the smoothing
+        ctx.webkitImageSmoothingEnabled = false;
+        ctx.mozImageSmoothingEnabled = false;
+        ctx.msImageSmoothingEnabled = false;
+        ctx.imageSmoothingEnabled = false;
+
+        // Exponential ease-in
+        if (percent < 1) {
+          percent += percent * 0.1 + 0.003; // Exponential growth with small base
+        }
+
+        let scaledWidth = width * percent;
+        let scaledHeight = height * percent;
+
+        if (percent >= 1) {
+          ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+          ctx.drawImage(image, 0, 0, width, height);
+        } else {
+          ctx.drawImage(image, 0, 0, scaledWidth, scaledHeight);
+          ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+          if (canvas.width !== 0 && canvas.height !== 0) {
+            ctx.drawImage(canvas, 0, 0, scaledWidth, scaledHeight, 0, 0, width, height);
+          }
+        }
+      }
+
+      function animate() {
+        drawImage();
+        window.requestAnimationFrame(animate);
+      }
+
+      // Start the effect when image loads
+      image.onload = function () {
+        isLoaded = true;
+
+        // Set initial canvas size to full width like original image
+        const aspectRatio = image.naturalHeight / image.naturalWidth;
+        const containerWidth = canvas.parentElement.clientWidth;
+        const calculatedHeight = containerWidth * aspectRatio;
+
+        canvas.style.width = `100%`;
+        canvas.style.zIndex = `100`;
+        canvas.style.height = `${calculatedHeight}px`;
+        canvas.style.position = `relative`;
+        // Start the animation
+        animate();
+      };
+
+      // Start loading the image
+      image.src = "image.webp";
+    </script>
+  </body>
+</html>
