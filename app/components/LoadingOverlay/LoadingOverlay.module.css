@@ -1,0 +1,42 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 19999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gray {
+  background-color: #d9d9d9;
+}
+
+.square {
+  background-color: #d9d9d9;
+}
+
+.svgAnimation {
+  width: 200px;
+  height: auto;
+  animation: svgAppear 0.4s ease-out forwards;
+}
+
+.fade {
+  background-color: #d9d9d9;
+  opacity: 0;
+}
+
+@keyframes svgAppear {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}

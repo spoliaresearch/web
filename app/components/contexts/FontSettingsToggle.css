@@ -1,0 +1,26 @@
+.font-settings-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+}
+
+.font-settings-toggle:hover {
+  cursor: pointer;
+}
+
+.font-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  height: 100%;
+}
+
+.font-toggle-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.font-toggle-button span {
+  font-size: 1.2rem;
+  font-weight: 500;
+}

@@ -1,0 +1,29 @@
+/* Single column glossary list styles */
+
+.terms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 20px;
+}
+
+.term-item {
+  padding: 12px 12px;
+  transition: background-color 0.4s ease;
+}
+
+.term-item:hover {
+  background-color: #c1c1c1;
+}
+
+.term-item a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.term-item h3 {
+  margin: 0;
+  color: black;
+  line-height: 1.3;
+}

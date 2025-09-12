@@ -1,0 +1,175 @@
+@font-face {
+  font-family: "ABC Arizona";
+  src: url("../../../fonts/ABCArizonaPlusVariable.woff2") format("woff2-variations"),
+    url("../../../fonts/ABCArizonaPlusVariable.woff") format("woff2-variations");
+  font-variation-settings: "wght" 400, "ital" 0, "SRFF" 0;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "ABC Arizona", sans-serif;
+  color: #28282a;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  background: #fafcff;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-variant-ligatures: common-ligatures discretionary-ligatures;
+  font-kerning: normal;
+  text-size-adjust: 100%;
+}
+
+/* Paper-like noise texture - white noise layer */
+.container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  opacity: 0.6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='10'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='discrete' tableValues='0.98 0.95 0.92 0.89 0.86 0.83 0.80 0.77 0.74 0.71 0.68'/%3E%3CfeFuncG type='discrete' tableValues='1.0 0.98 0.95 0.93 0.90 0.88 0.85 0.83 0.80 0.78 0.75'/%3E%3CfeFuncB type='discrete' tableValues='1.0 0.98 0.96 0.94 0.92 0.90 0.88 0.86 0.84 0.82 0.80'/%3E%3CfeFuncA type='discrete' tableValues='0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='16' height='16' fill='%23000000' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+/* Paper-like base layer - gray/blue paper texture */
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  opacity: 0.3;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='17'%3E%3Cfilter id='paper'%3E%3CfeTurbulence baseFrequency='2.8' seed='120'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='discrete' tableValues='0.08 0.18 0.10 0.16 0.12 0.14 0.09 0.19 0.11 0.17 0.07 0.20 0.13 0.15 0.06 0.21'/%3E%3CfeFuncG type='discrete' tableValues='0.09 0.19 0.11 0.17 0.13 0.15 0.10 0.20 0.12 0.18 0.08 0.21 0.14 0.16 0.07 0.22'/%3E%3CfeFuncB type='discrete' tableValues='0.11 0.23 0.13 0.21 0.15 0.19 0.12 0.24 0.14 0.22 0.10 0.25 0.16 0.20 0.09 0.26'/%3E%3CfeFuncA type='discrete' tableValues='0 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='800' height='600' fill='%23000000' filter='url(%23paper)'/%3E%3C/svg%3E");
+  background-size: 17px 17px;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+
+/* Print-like page shadow */
+.content::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  margin: 0 auto;
+  text-align: center;
+  background: linear-gradient(135deg, #373d38, #3a403b, #3d423f, #2d332d);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: #1e201e;
+  letter-spacing: -0.04em;
+  font-optical-sizing: auto;
+  font-synthesis: none;
+  -webkit-font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "ss01" 1, "ss02" 1;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "ss01" 1, "ss02" 1;
+  font-variant-ligatures: common-ligatures discretionary-ligatures;
+  font-kerning: normal;
+  text-wrap: balance;
+  font-variation-settings: "wght" 376, "ital" 0, "SRFF" 0.425;
+  hanging-punctuation: first last;
+}
+
+.subtitle {
+  font-size: 2.1rem;
+  font-variation-settings: "wght" 400, "ital" 0, "SRFF" 0.28;
+  line-height: 1.2;
+  margin: 0rem;
+  letter-spacing: -0.03em;
+}
+
+.essayContainer {
+  margin-top: 12rem;
+}
+
+.paragraph {
+  font-size: 20px;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #292b29, #292d2a, #242625, #232623);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  max-width: 700px;
+  margin-left: 60%;
+  letter-spacing: -0.0125em;
+  line-height: 1.42;
+  font-optical-sizing: auto;
+  font-synthesis: none;
+  -webkit-font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0;
+  font-variant-ligatures: common-ligatures discretionary-ligatures;
+  font-kerning: normal;
+  text-wrap: pretty;
+  hyphenate-character: "‐";
+  hyphenate-limit-chars: 6 3 3;
+  hyphenate-limit-lines: 2;
+  hyphenate-limit-last: always;
+  hyphenate-limit-zone: 8%;
+  font-variation-settings: "wght" 400, "ital" 0, "SRFF" 0.1;
+  hyphens: auto;
+  word-spacing: 0.01em;
+  hanging-punctuation: first last;
+}
+
+.canvasContainer {
+  position: relative;
+  margin: 2rem 0rem;
+}
+
+.digitalBadge {
+  position: relative;
+  right: 20px;
+  width: 80px;
+  height: 24px;
+  border-radius: 80px;
+  padding: 0px 12px 0 12px;
+  font-family: "ABC Arizona", monospace;
+  font-size: 15px;
+  line-height: 0.8;
+  font-weight: bold;
+  font-variation-settings: "wght" 400, "ital" 0, "SRFF" 0.53;
+  color: #000000;
+  letter-spacing: -0.04em;
+  z-index: 10;
+}
+
+.digitalBadge span {
+  font-variation-settings: "wght" 500, "ital" 0, "SRFF" 0.01;
+  font-size: 13px;
+  letter-spacing: 0em;
+}
+
+.pixelatedCanvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  position: relative;
+  z-index: 100;
+}

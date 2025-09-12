@@ -1,0 +1,43 @@
+.closeButton {
+  /* position: fixed;
+  top: 5px;
+  left: 15px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%; */
+  /* background-color: rgba(128, 128, 128, 0.8); */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  /* backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px); */
+  text-decoration: none;
+  z-index: 200000;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+/* .closeButton:hover {
+  background-color: rgba(128, 128, 128, 0.9);
+  transform: scale(1.05);
+}
+
+.closeButton:active {
+  transform: scale(0.95);
+} */
+
+.icon {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mix-blend-mode: multiply;
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}

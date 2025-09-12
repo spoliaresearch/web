@@ -1,0 +1,12 @@
+.tooltip {
+  position: fixed;
+  background: none;
+  color: white;
+  padding: 0;
+  font-size: 20px;
+  font-variation-settings: "wght" 360, "ital" 0, "SRFF" 0.15;
+  pointer-events: none;
+  z-index: 10000;
+  white-space: nowrap;
+  mix-blend-mode: exclusion;
+}
