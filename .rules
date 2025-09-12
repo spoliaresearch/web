@@ -1,0 +1,43 @@
+# SPOLIA Web Development Rules
+
+## CRITICAL: File Management Rules
+
+- NEVER delete files without explicit user permission
+- ALWAYS ask before deleting any files, even if they seem redundant
+- When restructuring code, prefer creating new files over deleting existing ones
+- If files need to be removed, clearly explain why and get user confirmation first
+
+## Code Development Rules
+
+- Always preserve existing functionality when making changes
+- Test changes thoroughly before considering them complete
+- Maintain consistent code style and structure
+- Document any breaking changes or major modifications
+
+## User Communication Rules
+
+- Explain what you're doing before making significant changes
+- Ask for clarification when requirements are unclear
+- Provide clear summaries of what has been implemented
+- Always confirm understanding of user requirements before proceeding
+
+## File Structure Rules
+
+- Respect the existing project structure
+- When creating new features, follow established patterns
+- Maintain separation of concerns (components, pages, styles)
+- Keep related files organized in appropriate directories
+
+## Error Handling Rules
+
+- Fix errors immediately when they occur
+- Provide clear error messages and solutions
+- Don't leave the project in a broken state
+- Test fixes to ensure they work properly
+
+## Version Control Rules
+
+- Make atomic commits with clear messages
+- Don't mix unrelated changes in single commits
+- Preserve git history when possible
+- Document any major architectural changes

@@ -1,0 +1,11 @@
+node_modules
+
+# Ignore media folders
+OLD_LOCAL/
+FOR_PRODUCTION/
+
+# Ignore reference folder
+reference/
+
+# Ignore Next.js build output
+.next/
