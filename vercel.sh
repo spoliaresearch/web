@@ -7,3 +7,4 @@ else
   echo "Building for preview branch"
   npm run build
 fi
+
