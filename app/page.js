@@ -173,6 +173,7 @@ export default function HomePage() {
             </Grid>
             {/* <Line /> */}
             <Divider size="m" />
+            {/* Research section temporarily hidden
             <Grid style={{ marginBottom: "2rem" }}>
               <GridItem start={0} span={12}>
                 <div className="fs-s">Research</div>
@@ -196,7 +197,7 @@ export default function HomePage() {
               </GridItem>
               <GridItem start={1} span={6}></GridItem>
             </Grid>
-            {/* <Line /> */}
+            */}
             <Divider size="m" />
 
             <Grid style={{ marginBottom: "2rem" }}>
@@ -205,7 +206,7 @@ export default function HomePage() {
               </GridItem>
             </Grid>
 
-            <Line style={{ marginBottom: "0rem" }} />
+            {/* <Line style={{ marginBottom: "0rem" }} /> */}
             <WorkPreviews3 />
             <Divider size="m" />
           </GridContainer>

@@ -151,5 +151,5 @@
 
 .stickyGrid.headerVisible {
   border-top: 0.75px solid #000;
-  top: 52.75px; /* When header is visible */
+  top: 52.5px; /* When header is visible */
 }

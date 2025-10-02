@@ -14,10 +14,27 @@ export default function DynamicImage({
   unregisterMesh,
   onMeshReady,
   onImageClick,
+  selectedImageIndex,
+  isCameraPanning,
 }) {
   const meshRef = useRef();
   const [isHovered, setIsHovered] = useState(false);
   const [baseScale, setBaseScale] = useState(1.0); // Start with initial scale, will be updated to 3.0 after scattered animation
+  const [currentZ, setCurrentZ] = useState(position.z); // Track current z-position for smooth animation
+  const [isAnimatingToFront, setIsAnimatingToFront] = useState(false); // Track if animating to front
+  const isSelected = selectedImageIndex === index;
+
+  // Update currentZ when position changes (e.g., during scattered animation)
+  useEffect(() => {
+    setCurrentZ(position.z);
+  }, [position.z]);
+
+  // Reset animation state when selection changes
+  useEffect(() => {
+    if (!isSelected) {
+      setIsAnimatingToFront(false);
+    }
+  }, [isSelected]);
 
   // Load image with lazy loading
   const { currentTexture, isHighResLoaded, isTransitioning, isFullyLoaded } = useLazyImageLoader(imagePath, meshRef);
@@ -39,7 +56,7 @@ export default function DynamicImage({
   // Register mesh for cursor offset updates and notify parent when ready
   useEffect(() => {
     if (meshRef.current) {
-      registerMesh(meshRef, position);
+      registerMesh(meshRef, position, index);
 
       // Notify parent component that this mesh is ready for animation
       if (onMeshReady) {
@@ -49,27 +66,17 @@ export default function DynamicImage({
       // Cleanup function
       return () => unregisterMesh(meshRef);
     }
-  }, [registerMesh, unregisterMesh, onMeshReady]); // ✅ Removed position dependency
+  }, [registerMesh, unregisterMesh, onMeshReady, index]); // Added index dependency
 
   // Set material opacity based on final z-position (depth) for layering effect - applied immediately when texture loads
   useEffect(() => {
     if (meshRef.current && meshRef.current.material && currentTexture) {
       const material = meshRef.current.material;
 
-      // Set opacity based on final z-position to create depth layering from the start
-      // Background layer (z = -2): 85% opacity
-      // Middle layer (z = 0): 95% opacity
-      // Foreground layer (z = 2): 100% opacity
-      let opacity;
-      if (finalZPosition <= -2) {
-        opacity = 0.85; // Background - slight transparency
-      } else if (finalZPosition <= 0) {
-        opacity = 0.95; // Middle - minimal transparency
-      } else {
-        opacity = 1.0; // Foreground - fully opaque
-      }
+      // Set all images to 100% opacity
+      const opacity = 1.0; // All images fully opaque
 
-      material.transparent = opacity < 1.0;
+      material.transparent = false;
       material.opacity = opacity;
       material.needsUpdate = true;
     }
@@ -78,48 +85,106 @@ export default function DynamicImage({
   // Handle hover scale changes - only when base scale is 3.0 (after animations complete)
   useEffect(() => {
     if (!meshRef.current || baseScale < 3.0) return; // Don't interfere with initial animations
+    if (isCameraPanning) return; // Don't apply hover effects during camera panning
 
-    const targetScale = isHovered ? baseScale * 1.25 : baseScale;
+    // If selected, maintain hovered scale; otherwise use normal hover logic
+    const targetScale = isSelected ? baseScale * 1.25 : isHovered ? baseScale * 1.25 : baseScale;
     const currentScale = meshRef.current.scale.x;
 
     if (Math.abs(currentScale - targetScale) > 0.01) {
-      // Simple spring animation
+      // Smooth interpolation with guaranteed completion
+      const startScale = currentScale;
+      const startTime = Date.now();
+      const duration = 200; // 200ms duration for smooth but quick animation
+
       const animate = () => {
         if (!meshRef.current) return;
 
-        const current = meshRef.current.scale.x;
-        const diff = targetScale - current;
-        const newScale = current + diff * 0.15; // Smooth interpolation
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
 
+        // Easing function (ease-out cubic)
+        const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+        const easedProgress = easeOutCubic(progress);
+
+        const newScale = startScale + (targetScale - startScale) * easedProgress;
         meshRef.current.scale.setScalar(newScale);
 
-        if (Math.abs(diff) > 0.01) {
+        if (progress < 1) {
           requestAnimationFrame(animate);
         }
       };
       animate();
     }
-  }, [isHovered, baseScale]);
+  }, [isHovered, baseScale, isSelected, isCameraPanning]);
+
+  // Handle z-position changes when animating to front or when selection changes
+  useEffect(() => {
+    if (!meshRef.current || baseScale < 3.0) return; // Don't interfere with initial animations
+
+    const targetZ = isAnimatingToFront || isSelected ? position.z + 5 : position.z;
+    const startZ = currentZ;
+    const startTime = Date.now();
+    const duration = 700; // 0.7 seconds
+
+    if (Math.abs(currentZ - targetZ) > 0.01) {
+      // Time-based animation for z-position (0.7 seconds)
+      const animate = () => {
+        if (!meshRef.current) return;
+
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Easing function (ease-out cubic)
+        const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+        const easedProgress = easeOutCubic(progress);
+
+        const newZ = startZ + (targetZ - startZ) * easedProgress;
+
+        setCurrentZ(newZ);
+        meshRef.current.position.z = newZ;
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      animate();
+    }
+  }, [isAnimatingToFront, isSelected, position.z, baseScale, currentZ]);
 
   // Handle hover events and cursor changes
   const handlePointerEnter = () => {
-    setIsHovered(true);
+    if (!isSelected && !isCameraPanning) {
+      // Only update hover state if not selected and not panning
+      setIsHovered(true);
+    }
     // Change cursor to pointer when hovering over images that can zoom (after animations complete)
-    if (baseScale >= 3.0) {
+    if (baseScale >= 3.0 && !isCameraPanning) {
       document.body.style.cursor = "pointer";
     }
   };
 
   const handlePointerLeave = () => {
-    setIsHovered(false);
+    if (!isSelected && !isCameraPanning) {
+      // Only update hover state if not selected and not panning
+      setIsHovered(false);
+    }
     // Reset cursor
-    document.body.style.cursor = "default";
+    if (!isCameraPanning) {
+      document.body.style.cursor = "default";
+    }
   };
 
   // Handle click events
   const handleClick = () => {
     // Only handle clicks after animations complete and when image can zoom
     if (baseScale >= 3.0 && onImageClick) {
+      // Start z-position animation immediately on click
+      setIsAnimatingToFront(true);
+
+      // Calculate the current scale (base scale + hover effect)
+      const currentScale = isHovered ? baseScale * 1.25 : baseScale;
+
       onImageClick({
         imagePath,
         index,
@@ -127,6 +192,13 @@ export default function DynamicImage({
         description: `This is a description for image ${
           index + 1
         }. Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
+        position: {
+          x: position.x,
+          y: position.y,
+          z: position.z,
+        },
+        scale: currentScale,
+        baseScale: baseScale,
       });
     }
   };

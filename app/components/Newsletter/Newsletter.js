@@ -10,11 +10,14 @@ const Newsletter = () => {
   return (
     <div className="newsletter-container">
       <Grid>
-        <GridItem start={0} span={6}>
+        <GridItem start={3} span={8}>
           {" "}
-          Subscribe to receive early access to our research exploring emerging futures.
+          <div className="fs-smm h-text c">
+            {" "}
+            Subscribe to receive early access to our projects and research exploring emerging futures.
+          </div>
         </GridItem>
-        <GridItem start={6} span={7}>
+        <GridItem start={3} span={8}>
           {" "}
           <div className="subscribe-form">
             <div
@@ -22,12 +25,13 @@ const Newsletter = () => {
                 textAlign: "center",
                 marginBottom: "0rem",
                 padding: "0.5rem 0",
-                fontSize: ".65em",
+
                 letterSpacing: "0.01em",
                 width: "100.25%",
                 borderBottom: "1px solid #000",
                 margin: "0 -1px",
               }}
+              className="fs-xs h-text c"
             >
               NEWSLETTER
             </div>
@@ -89,7 +93,7 @@ const Newsletter = () => {
           </div>
         </div>
         <div className="col-spacing-2"></div>
-        <div className="col-margin-right">
+        {/* <div className="col-margin-right">
           <p className="small-text" style={{ marginTop: "3rem" }}>
             If you would like to support our research efforts further, consider{" "}
             <a href="https://www.patreon.com/c/Spolia" target="_blank" rel="noopener noreferrer">
@@ -97,7 +101,7 @@ const Newsletter = () => {
               becoming a patron on Patreon.
             </a>
           </p>
-        </div>
+        </div> */}
         <div className="col-padding-right"></div>
       </div>
     </div>

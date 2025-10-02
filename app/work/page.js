@@ -36,7 +36,7 @@ export default function WorkPage() {
             </GridItem>
           </Grid>
           {/* Projects Table Header */}
-          <Grid style={{ borderBottom: "1px solid #000", marginTop: "2rem" }}>
+          <Grid style={{ marginTop: "2rem" }}>
             <GridItem start={1} span={1} style={{ padding: "1rem 0", fontWeight: "bold" }}>
               Index
             </GridItem>

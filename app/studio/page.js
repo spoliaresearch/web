@@ -374,8 +374,8 @@ function StudioContent() {
                 Social
               </div>
               <div style={{ marginTop: "0rem" }} className="fs-sm h-text">
-                <a href="mailto:hello@spolialab.com">Instagram</a> <br />
-                <a href="mailto:hello@spolialab.com">LinkedIn</a> <br />
+                <a href="instagram.com/spolialab">Instagram</a> <br />
+                <a href="linkedin.com/company/spolialab">LinkedIn</a> <br />
                 <a href="mailto:hello@spolialab.com">Newsletter</a>
               </div>
             </GridItem>

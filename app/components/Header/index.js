@@ -70,11 +70,13 @@ export default function Header() {
             </Link>{" "}
           </GridItem>
 
+          {/* Research link temporarily hidden
           <GridItem start={12} span={1} startMobile={10} spanMobile={1}>
             <Link href="/research">
               <span className="fs-xs">RESEARCH</span>
             </Link>
           </GridItem>
+          */}
         </Grid>
       </GridContainer>
 

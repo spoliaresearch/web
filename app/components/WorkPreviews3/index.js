@@ -24,12 +24,13 @@ const workItems = [
     id: 2,
     title: "BEACONS",
     slug: "beacons",
-    description: "An interactive installation pulling data from deep-sea habitats at risk",
+    description: "Signals from the Deep Sea",
     longDescription:
-      "An immersive data visualization experience that connects visitors to real-time environmental data from endangered deep-sea ecosystems, creating awareness through interactive light and sound installations.",
+      "An immersive installation of sculptural beacons that transform deep-sea environmental data into sound and light, creating an embodied connection to Earth's largest and most unexplored ecosystem.",
     year: "2025",
-    image: "/three_images/DSC02213-2.jpg",
-    client: "Self initiated",
+    // Use two specific images for the Beacons preview - using optimized versions
+    images: ["/FOR_PRODUCTION/photo/Spolia_Beam_DEMO2025_3.jpg", "/FOR_PRODUCTION/photo/Spolia_Beam_DEMO2025_2.jpg"],
+    client: "New Museum",
     category: "Experience",
     categoryNumber: 2,
     citation: "1.2.1",
@@ -42,7 +43,7 @@ const workItems = [
     longDescription:
       "A platform that bridges digital and ecological systems, using machine learning to analyze environmental patterns and provide actionable insights for sustainable urban development and conservation efforts.",
     year: "2023",
-    image: "/three_images/DSCF1215.jpg",
+    images: ["/FOR_PRODUCTION/symlink_1.jpg", "/FOR_PRODUCTION/symlink_3.jpg"],
     client: "SPACE10",
     category: "Experience",
     categoryNumber: 2,
@@ -94,7 +95,7 @@ export default function WorkPreviews({ showAll = false }) {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${showAll ? styles.containerShowAll : ""}`}>
       {workItems.map((item, index) => (
         <div key={item.id} className={styles.projectContainer}>
           <div className={`${styles.accordionItem} ${index === activeIndex || showAll ? styles.active : ""}`}>
@@ -111,12 +112,12 @@ export default function WorkPreviews({ showAll = false }) {
                       <span className="fs-sm">{item.title}</span>
                     </h3>
                   </GridItem>
-                  <GridItem start={5} span={5} dropMobile={true}>
+                  <GridItem start={5} span={4} dropMobile={true}>
                     <p className={styles.title}>
                       <span className="fs-sm">{item.description}</span>
                     </p>
                   </GridItem>
-                  <GridItem start={10} span={1} dropMobile={true}>
+                  <GridItem start={9} span={2} dropMobile={true}>
                     <span className="fs-sm">{item.client}</span>
                   </GridItem>
                   <GridItem start={11} span={1} dropMobile={true}>
@@ -154,12 +155,38 @@ export default function WorkPreviews({ showAll = false }) {
                 <GridItem start={2} span={3}>
                   <p className={` fs-sm t-r ${styles.longDescription}`}>{item.longDescription}</p>
                   <br />
-                  <button className={`${styles.exploreButton} fs-sm`} onClick={(e) => handleExploreClick(e, item.slug)}>
-                    Explore
-                  </button>
+                  {!showAll && (
+                    <button
+                      className={`${styles.exploreButton} fs-sm`}
+                      onClick={(e) => handleExploreClick(e, item.slug)}
+                    >
+                      Explore
+                    </button>
+                  )}
                 </GridItem>
                 <GridItem start={5} span={5}>
-                  <img src={item.image} alt={item.title} className={styles.image} />
+                  {Array.isArray(item.images) ? (
+                    <div
+                      style={{ display: "flex", gap: "8px", alignItems: "flex-start", justifyContent: "flex-start" }}
+                    >
+                      {item.images.map((src, i) => (
+                        <img
+                          key={i}
+                          src={src}
+                          alt={`${item.title} ${i + 1}`}
+                          className={styles.image}
+                          style={{
+                            height: "325px",
+                            width: "auto",
+                            objectFit: "contain",
+                            flex: "0 0 auto",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <img src={item.image} alt={item.title} className={styles.image} />
+                  )}
                 </GridItem>
               </Grid>
               <Divider size="xs" />

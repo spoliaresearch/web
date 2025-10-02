@@ -2,21 +2,22 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import * as THREE from "three";
 
 // Cursor-based offset function for all images
-export const useCursorOffset = (maxOffset = 0.16, isEnabled = true) => {
+export const useCursorOffset = (maxOffset = 0.16, isEnabled = true, selectedImageIndex = null) => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0.5, y: 0.5 }); // Normalized 0-1
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
   const meshRefs = useRef(new Set());
 
-  const handleMouseMove = useCallback(
+  // Global mouse move handler - tracks cursor position anywhere on the page
+  const handleGlobalMouseMove = useCallback(
     (event) => {
       // If parallax is disabled, don't process mouse movement
       if (!isEnabled) {
         return;
       }
 
-      const rect = event.currentTarget.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width;
-      const y = 1 - (event.clientY - rect.top) / rect.height; // Flip Y coordinate
+      // Calculate normalized cursor position relative to viewport
+      const x = event.clientX / window.innerWidth;
+      const y = 1 - event.clientY / window.innerHeight; // Flip Y coordinate
 
       setCursorPosition({ x, y });
     },
@@ -29,8 +30,8 @@ export const useCursorOffset = (maxOffset = 0.16, isEnabled = true) => {
   }, []);
 
   // Register a mesh for cursor offset updates
-  const registerMesh = useCallback((meshRef, basePosition) => {
-    meshRefs.current.add({ ref: meshRef, basePosition });
+  const registerMesh = useCallback((meshRef, basePosition, imageIndex = null) => {
+    meshRefs.current.add({ ref: meshRef, basePosition, imageIndex });
   }, []);
 
   // Unregister a mesh
@@ -89,13 +90,32 @@ export const useCursorOffset = (maxOffset = 0.16, isEnabled = true) => {
       return;
     }
 
-    meshRefs.current.forEach(({ ref, basePosition }) => {
+    meshRefs.current.forEach(({ ref, basePosition, imageIndex }) => {
       if (ref.current) {
         const offsetPosition = calculateOffset(basePosition);
-        ref.current.position.set(offsetPosition.x, offsetPosition.y, offsetPosition.z);
+
+        // For selected images, don't apply any parallax movement - keep original position
+        if (selectedImageIndex !== null && imageIndex === selectedImageIndex) {
+          // Keep the original base position - no parallax effect
+          ref.current.position.set(basePosition.x, basePosition.y, ref.current.position.z);
+        } else {
+          // For non-selected images, update all positions including z
+          ref.current.position.set(offsetPosition.x, offsetPosition.y, offsetPosition.z);
+        }
       }
     });
-  }, [calculateOffset, isEnabled]);
+  }, [calculateOffset, isEnabled, selectedImageIndex]);
+
+  // Set up global mouse move listener
+  useEffect(() => {
+    if (isEnabled) {
+      window.addEventListener("mousemove", handleGlobalMouseMove, { passive: true });
+
+      return () => {
+        window.removeEventListener("mousemove", handleGlobalMouseMove);
+      };
+    }
+  }, [isEnabled, handleGlobalMouseMove]);
 
   // Update positions when cursor moves or when isEnabled changes
   useEffect(() => {
@@ -107,11 +127,12 @@ export const useCursorOffset = (maxOffset = 0.16, isEnabled = true) => {
 
   return {
     calculateOffset,
-    handleMouseMove,
+    handleMouseMove: handleGlobalMouseMove, // Keep the same name for compatibility
     handleCanvasResize,
     registerMesh,
     unregisterMesh,
     isEnabled, // Expose the current enabled state
+    cursorPosition, // Expose cursor position for text positioning
   };
 };
 
@@ -182,7 +203,7 @@ export const useLazyImageLoader = (imagePath, meshRef) => {
         loadedTexture.magFilter = THREE.LinearFilter;
         loadedTexture.minFilter = THREE.LinearMipmapLinearFilter;
         loadedTexture.generateMipmaps = true;
-        loadedTexture.encoding = THREE.sRGBEncoding; // Proper color space
+        loadedTexture.colorSpace = THREE.SRGBColorSpace; // Proper color space
 
         // Get the actual image dimensions
         const image = loadedTexture.image;
@@ -221,7 +242,7 @@ export const useLazyImageLoader = (imagePath, meshRef) => {
             highResLoadedTexture.magFilter = THREE.LinearFilter;
             highResLoadedTexture.minFilter = THREE.LinearMipmapLinearFilter;
             highResLoadedTexture.generateMipmaps = true;
-            highResLoadedTexture.encoding = THREE.sRGBEncoding; // Proper color space
+            highResLoadedTexture.colorSpace = THREE.SRGBColorSpace; // Proper color space
 
             // Get the actual image dimensions
             const highResImage = highResLoadedTexture.image;
@@ -350,6 +371,84 @@ export const calculateScatteredLayout = (totalImages, bounds = { x: [-10, 10], y
 
     return { x, y, z };
   });
+};
+
+// Camera reset utility function
+export const animateCameraToStart = (camera, startPosition, duration = 1000, onComplete) => {
+  const startTime = Date.now();
+  const currentPosition = camera.position.clone();
+
+  // Easing function for smooth animation (ease-out cubic)
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+  const animate = () => {
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easedProgress = easeOutCubic(progress);
+
+    // Interpolate camera position back to start
+    const currentX = currentPosition.x + (startPosition.x - currentPosition.x) * easedProgress;
+    const currentY = currentPosition.y + (startPosition.y - currentPosition.y) * easedProgress;
+    const currentZ = currentPosition.z + (startPosition.z - currentPosition.z) * easedProgress;
+
+    camera.position.set(currentX, currentY, currentZ);
+
+    // Continue animation or complete
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      // Ensure final position is exact
+      camera.position.copy(startPosition);
+
+      if (onComplete) {
+        onComplete();
+      }
+    }
+  };
+
+  // Start the animation
+  animate();
+};
+
+// Camera panning utility function
+export const animateCameraToTarget = (camera, targetPosition, targetDistance, duration = 1000, onComplete) => {
+  const startTime = Date.now();
+  const startPosition = camera.position.clone();
+  const startDistance = camera.position.distanceTo(new THREE.Vector3(0, 0, 0));
+
+  // Calculate target camera position - only move X and Y, keep Z at original distance
+  const targetCameraPosition = new THREE.Vector3(targetPosition.x, targetPosition.y, startPosition.z);
+
+  // Easing function for smooth animation (ease-out cubic)
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+  const animate = () => {
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easedProgress = easeOutCubic(progress);
+
+    // Interpolate camera position - only X and Y
+    const currentX = startPosition.x + (targetCameraPosition.x - startPosition.x) * easedProgress;
+    const currentY = startPosition.y + (targetCameraPosition.y - startPosition.y) * easedProgress;
+
+    camera.position.set(currentX, currentY, startPosition.z); // Keep Z constant
+    // Don't use lookAt - keep camera looking straight ahead
+
+    // Continue animation or complete
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      // Ensure final position is exact
+      camera.position.set(targetCameraPosition.x, targetCameraPosition.y, startPosition.z);
+
+      if (onComplete) {
+        onComplete();
+      }
+    }
+  };
+
+  // Start the animation
+  animate();
 };
 
 // Smooth animation function using Three.js built-in animation

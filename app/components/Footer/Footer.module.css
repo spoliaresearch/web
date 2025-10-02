@@ -10,6 +10,16 @@
   overflow: hidden;
 }
 
+.blurOverlay {
+  backdrop-filter: blur(0px);
+  transition: backdrop-filter 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.blurActive {
+  backdrop-filter: blur(8px);
+}
+
 .topSection {
   margin-bottom: 4rem;
 }
@@ -56,25 +66,31 @@
 }
 
 .contactSection {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  /* display: flex;
+  flex-direction: column; */
+  /* gap: 0.75rem; */
 }
 
 .contactTitle {
   margin-top: 1rem;
+  margin-bottom: 0rem;
 }
 
 .contactLink {
   color: #ffffff;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-  font-size: 1rem;
+  text-decoration: none;
 }
 
 .contactLink:hover {
   text-decoration: none;
+}
+
+.contactLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
 }
 
 .contactDetails {
@@ -102,8 +118,9 @@
 
 /* Bottom section */
 .copyright {
-  font-size: 1rem;
+  /* font-size: 1rem; */
   line-height: 1.4;
+  margin-bottom: 0rem;
   color: #ffffff !important;
 }
 
@@ -122,8 +139,9 @@
 .navigation a {
   color: #ffffff;
   text-decoration: none;
-  font-size: 1rem;
+  /* font-size: 1rem; */
   line-height: 1.4;
+  margin-bottom: 0;
 }
 
 .navigation a:hover {
@@ -152,6 +170,7 @@
 @media (max-width: 768px) {
   .footer {
     padding: 1rem 0;
+    min-height: 80vh; /* Ensure footer has adequate height on mobile */
   }
 
   .topSection {
@@ -160,6 +179,10 @@
 
   .bottomSection {
     margin-top: 2rem;
+    position: relative; /* Override absolute positioning on mobile */
+    left: 0;
+    right: 0;
+    /* width: 100%; */
   }
 
   .logo {
@@ -189,5 +212,18 @@
 
   .copyright {
     margin-top: 1rem;
+    margin-bottom: 0rem;
+  }
+
+  /* Ensure proper spacing between grid items on mobile */
+  .footer .grid {
+    gap: 1rem;
+  }
+
+  /* Make sure contact info has proper spacing */
+  .contactInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 }

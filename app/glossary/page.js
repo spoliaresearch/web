@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { GridContainer, Grid, GridItem } from "../components/Grid";
 import Link from "next/link";
 import { getAllGlossaryTerms } from "../../lib/glossary-data";
@@ -72,6 +73,7 @@ export default function GlossaryPage() {
           </GridItem>
         </Grid>
       </GridContainer>
+      <Footer />
     </>
   );
 }

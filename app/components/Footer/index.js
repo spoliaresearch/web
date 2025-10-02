@@ -15,6 +15,7 @@ export default function Footer() {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [time, setTime] = useState(null);
   const [OS, setOS] = useState("");
+  const [isBlurred, setIsBlurred] = useState(false);
 
   useEffect(() => {
     // Update dimensions
@@ -55,6 +56,10 @@ export default function Footer() {
       <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 0 }}>
         <Canvas3 />
       </div>
+      <div
+        className={`${styles.blurOverlay} ${isBlurred ? styles.blurActive : ""}`}
+        style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 0.5 }}
+      />
       <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 1 }}>
         <Divider size="xs" />
         <GridContainer>
@@ -132,7 +137,12 @@ export default function Footer() {
             <GridItem start={3} span={6}>
               <div className={"fs-m h-text"}>
                 As a studio for creative R&D, we want to help you invent things for a world we want to live in.{" "}
-                <a href="mailto:hello@spolialab.com" className={styles.link}>
+                <a
+                  href="mailto:hello@spolialab.com"
+                  className={styles.link}
+                  onMouseEnter={() => setIsBlurred(true)}
+                  onMouseLeave={() => setIsBlurred(false)}
+                >
                   Reach out to us
                 </a>{" "}
                 to help make that happen, or just to say hi.
@@ -142,20 +152,55 @@ export default function Footer() {
             <GridItem start={11} span={2}>
               <div className={styles.contactInfo}>
                 <div className={styles.contactSection}>
-                  <h3 className={"fs-xs b-h-text"}>INQUIRIES</h3>
-                  <a href="mailto:hello@spolialab.com" className={`${styles.contactLink} fs-s b-text`}>
+                  <div className={`fs-s b-h-text ${styles.tableHeader}`} style={{ paddingBottom: ".1rem" }}>
+                    Inquiries
+                  </div>
+                  <a
+                    href="mailto:hello@spolialab.com"
+                    className={`fs-s h-text ${styles.contactLink}`}
+                    onMouseEnter={() => setIsBlurred(true)}
+                    onMouseLeave={() => setIsBlurred(false)}
+                  >
                     hello@spolialab.com
                   </a>
-                </div>
-
-                <div className={`${styles.contactSection} `}>
-                  <h3 className={`${styles.contactTitle} fs-xs b-h-text`}>CONTACT</h3>
-                  <div className={styles.contactDetails}>
-                    <p className={`${styles.contactDetails} fs-s b-text`}>SPOLIA LLC</p>
-                    <p className={`${styles.contactDetails} fs-s b-text`}>250 Hudson St S.702</p>
-                    <p>New York, NY 10013</p>
+                  <Divider size="xxs" />
+                  <div className={`fs-s b-h-text ${styles.tableHeader}`} style={{ paddingBottom: ".1rem" }}>
+                    Careers
+                  </div>
+                  <div style={{ marginTop: "0rem" }}>
+                    <a
+                      className={`fs-s h-text ${styles.contactLink}`}
+                      href="mailto:hello@spolialab.com"
+                      onMouseEnter={() => setIsBlurred(true)}
+                      onMouseLeave={() => setIsBlurred(false)}
+                    >
+                      apply@spolialab.com
+                    </a>
+                  </div>
+                  <Divider size="xxs" />
+                  <div className={`fs-s b-h-text ${styles.tableHeader}`} style={{ paddingBottom: ".1rem" }}>
+                    Media
+                  </div>
+                  <div style={{ marginTop: "0rem" }} className={`fs-s h-text ${styles.contactLink}`}>
+                    <a
+                      className={`fs-s h-text ${styles.contactLink}`}
+                      href="mailto:hello@spolialab.com"
+                      onMouseEnter={() => setIsBlurred(true)}
+                      onMouseLeave={() => setIsBlurred(false)}
+                    >
+                      press@spolialab.com
+                    </a>
                   </div>
                 </div>
+
+                {/* <div className={`${styles.contactSection} `}>
+                  <h3 className={`${styles.contactTitle} fs-s h-text`}>CONTACT</h3>
+                  <div className={styles.contactDetails}>
+                    <p className={`${styles.contactDetails} fs-s h-text`}>SPOLIA LLC</p>
+                    <p className={`${styles.contactDetails} fs-s h-text`}>250 Hudson St S.702</p>
+                    <p>New York, NY 10013</p>
+                  </div>
+                </div> */}
               </div>
             </GridItem>
             {/* Contact info */}
@@ -166,7 +211,7 @@ export default function Footer() {
             <Grid>
               {/* Copyright */}
               <GridItem start={1} span={2} style={{ alignSelf: "end" }}>
-                <div className={styles.copyright}>
+                <div className={`${styles.copyright} fs-s h-text`}>
                   <span>2025 SPOLIA LLC</span>
                   <br />
                   <span>All rights reserved.</span>
@@ -181,7 +226,7 @@ export default function Footer() {
                   </span>
                 </div>
               </GridItem>
-              <GridItem start={5} span={1} style={{ alignSelf: "end" }}>
+              <GridItem start={5} span={1} style={{ alignSelf: "end" }} startMobile={0} spanMobile={12}>
                 <div className={styles.systemInfo}>
                   <span>{time?.toLocaleTimeString()}</span>
                 </div>
@@ -192,35 +237,97 @@ export default function Footer() {
                 </div>
               </GridItem>
 
-              <GridItem start={9} span={1}>
+              <GridItem start={10} span={1} startMobile={1} spanMobile={3}>
                 <div className={styles.navigation}>
-                  <a href="/work">Work</a>
-                  <a href="/research">Research</a>
-                  <a href="/studio">Studio</a>
-                  <a href="/glossary">Glossary</a>
+                  <a
+                    href="/work"
+                    className="fs-s h-text"
+                    onMouseEnter={() => setIsBlurred(true)}
+                    onMouseLeave={() => setIsBlurred(false)}
+                  >
+                    Work
+                  </a>
+                  <a
+                    href="/research"
+                    className="fs-s h-text"
+                    onMouseEnter={() => setIsBlurred(true)}
+                    onMouseLeave={() => setIsBlurred(false)}
+                  >
+                    Research
+                  </a>
+                  <a
+                    href="/studio"
+                    className="fs-s h-text"
+                    onMouseEnter={() => setIsBlurred(true)}
+                    onMouseLeave={() => setIsBlurred(false)}
+                  >
+                    Studio
+                  </a>
+                  <a
+                    href="/glossary"
+                    className="fs-s h-text"
+                    onMouseEnter={() => setIsBlurred(true)}
+                    onMouseLeave={() => setIsBlurred(false)}
+                  >
+                    Glossary
+                  </a>
                 </div>
               </GridItem>
-              <GridItem start={10} span={1}>
+              <GridItem start={11} span={2} style={{ alignSelf: "end" }} startMobile={4} spanMobile={4}>
                 <div className={styles.navigation}>
-                  <a href="https://instagram.com/spolialab" target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="fs-s h-text"
+                    href="https://instagram.com/spolialab"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={() => setIsBlurred(true)}
+                    onMouseLeave={() => setIsBlurred(false)}
+                  >
                     Instagram
                   </a>
-                  <a href="https://linkedin.com/company/spolialab" target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="fs-s h-text"
+                    href="https://linkedin.com/company/spolialab"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={() => setIsBlurred(true)}
+                    onMouseLeave={() => setIsBlurred(false)}
+                  >
                     LinkedIn
                   </a>
-                  <a href="/newsletter">Newsletter</a>
-                  <a href="https://patreon.com/spolialab" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="/newsletter"
+                    className="fs-s h-text"
+                    onMouseEnter={() => setIsBlurred(true)}
+                    onMouseLeave={() => setIsBlurred(false)}
+                  >
+                    Newsletter
+                  </a>
+                  <a
+                    className="fs-s h-text"
+                    href="https://patreon.com/spolialab"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={() => setIsBlurred(true)}
+                    onMouseLeave={() => setIsBlurred(false)}
+                  >
                     Patreon
                   </a>
                 </div>
               </GridItem>
-              <GridItem start={11} span={2} style={{ alignSelf: "end" }}>
+              {/* <GridItem start={11} span={2} style={{ alignSelf: "end" }} startMobile={9} spanMobile={4}>
                 <div className={styles.navigation}>
-                  <a href="/imprint">Imprint</a>
-                  <a href="/privacy">Privacy Policy</a>
-                  <a href="/terms">Terms of Service</a>
+                  <a className="fs-s h-text" href="/imprint">
+                    Imprint
+                  </a>
+                  <a className="fs-s h-text" href="/privacy">
+                    Privacy Policy
+                  </a>
+                  <a className="fs-s h-text" href="/terms">
+                    Terms of Service
+                  </a>
                 </div>
-              </GridItem>
+              </GridItem> */}
             </Grid>
           </div>
         </GridContainer>

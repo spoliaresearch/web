@@ -226,6 +226,28 @@ img {
   padding: 4rem 0;
 }
 
+.img-w {
+  background-color: white;
+  border-radius: 6px;
+  padding: 4rem 0;
+}
+
+.img-caption {
+  font-variation-settings: "ital" 0, "wght" 400, "SRFF" calc(0.18 * var(--seriffyness));
+  color: #535252;
+  margin-top: 0.65rem;
+  text-align: left;
+  line-height: 1.35;
+  padding-right: 3.5rem;
+  font-size: calc(var(--font-size) * 0.75);
+  letter-spacing: calc(var(--letter-spacing) * 0.75);
+}
+.img-w {
+  background-color: #ffffff;
+  border-radius: 6px;
+  padding: 4rem 0;
+}
+
 .fs-s {
   font-size: calc(var(--font-size) * 1);
   letter-spacing: calc(var(--letter-spacing) * 1);
@@ -397,6 +419,15 @@ img {
   font-variation-settings: "ital" 0, "wght" 400, "SRFF" calc(0.18 * var(--seriffyness));
   color: #535252;
   margin-top: 0.45rem;
+}
+
+.cap-long {
+  font-variation-settings: "ital" 0, "wght" 400, "SRFF" calc(0.18 * var(--seriffyness));
+  color: #535252;
+  margin-top: 0.65rem;
+  text-align: left;
+  line-height: 1.35;
+  padding-right: 3.5rem;
 }
 
 /* View Transitions */

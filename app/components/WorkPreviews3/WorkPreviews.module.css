@@ -3,6 +3,15 @@
   width: 100%;
 }
 
+/* Top divider line to match between-item dividers */
+.container::before {
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: black;
+  width: 100%;
+}
+
 .accordionItem {
   position: relative;
   z-index: 2;
@@ -11,6 +20,10 @@
 .projectContainer {
   margin-bottom: 0;
   position: relative;
+}
+
+.containerShowAll .projectContainer .divider {
+  margin-top: 4rem;
 }
 
 .divider {
@@ -62,10 +75,9 @@
   color: inherit;
 }
 
-/* When hovering over bottom row, make explore button red */
-.bottomRow:hover .exploreButton {
+/* When hovering over bottom row, make explore button bold */
+.exploreButton {
   font-variation-settings: "wght" 550, "ital" 0, "SRFF" 0.23;
-  border-bottom: 1px solid black;
 }
 
 /* ELEMENT STYLES */
@@ -117,11 +129,11 @@
   border: none;
   cursor: pointer;
   color: inherit;
-  transition: color 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .exploreButton:hover {
-  color: red;
+  opacity: 0.7;
 }
 
 .image {

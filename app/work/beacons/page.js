@@ -49,23 +49,23 @@ export default function BeaconsPage() {
               <Divider size="m" />
               <div className={`${styles.stickyGrid} ${isHeaderVisible ? styles.headerVisible : ""}`}>
                 <Grid>
-                  <GridItem span={2} start={0}>
+                  <GridItem span={2} start={0} spanMobile={1}>
                     <Close />
                   </GridItem>
-                  <GridItem span={2} start={3}>
+                  <GridItem span={2} start={3} dropMobile={true}>
                     <span className="fs-xxs t-text lh-0 meta"> INDEX </span>
                     <span className="fs-xs h-text meta">1.2.2</span>
                   </GridItem>
 
-                  <GridItem span={2} start={5}>
+                  <GridItem span={2} start={5} dropMobile={true}>
                     <span className="fs-xxs t-text lh-0 meta"> TYPE </span>
                     <span className="fs-xs h-text meta">Experience</span>
                   </GridItem>
-                  <GridItem span={2} start={8}>
+                  <GridItem span={2} start={8} startMobile={3} spanMobile={4}>
                     <span className="fs-xxs t-text lh-0 meta"> NAME</span>
                     <span className="fs-xs h-text meta"> BEACONS</span>
                   </GridItem>
-                  <GridItem span={2} start={10}>
+                  <GridItem span={2} start={10} startMobile={9} spanMobile={3}>
                     <span className="fs-xxs t-text lh-0 meta"> YEAR</span>
                     <span className="fs-xs h-text meta"> 2025</span>
                   </GridItem>
@@ -113,7 +113,7 @@ export default function BeaconsPage() {
               {/* <Line /> */}
               <Divider size="xxs" />
               <Grid>
-                <GridItem span={2} start={1}>
+                <GridItem span={2} start={1} spanMobile={6}>
                   <p className="fs-xs b-h-text lh-0 meta ">Exhibition</p>
                   <p className="fs-xs h-text meta">
                     <a href="https://www.newmuseum.org/" target="_blank" rel="noopener noreferrer">
@@ -130,7 +130,7 @@ export default function BeaconsPage() {
 
                   <p className="fs-xs h-text meta ">Jun 02—Jun 27, 2025</p>
                 </GridItem>
-                <GridItem span={3} start={3}>
+                <GridItem span={3} start={3} startMobile={7} spanMobile={6}>
                   <p className="fs-xs b-h-text lh-0 meta ">Team</p>
                   <p className="fs-xs  h-text meta">
                     <a href="https://beamstudio.earth/" target="_blank" rel="noopener noreferrer">
@@ -171,7 +171,7 @@ export default function BeaconsPage() {
                     <span className="fs-xxs  h-text meta up">Gallery</span>
                   </p>
                 </GridItem>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r bl">
                     In 2025, SPOLIA and BEAM started a collaboration drawn together by a mutual interest in the deep-sea
                     and the current geopolitical focus in its exploitation for critical minerals.
@@ -224,19 +224,19 @@ export default function BeaconsPage() {
                 {/* <GridItem span={4} start={0}>
                 <p className="fs-s h-text  p t-r bl">Overview</p>
               </GridItem> */}
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r ">
                     Five sculptural beacons representing climate, geology, biota, and human impact pulse with light and
                     low-frequency sound based on 11,000 years of deep-sea environmental change.
                   </p>
                 </GridItem>
               </Grid>
-              <Divider size="s" />
+              {/* <Divider size="s" /> */}
               <Grid>{/* <GridItem span={6} start={7}></GridItem> */}</Grid>
-              <Divider size="xs" />
+              {/* <Divider size="xs" /> */}
               <Grid>
                 {" "}
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r ">
                     On a nearby screen, the sounds from the beacons are transmitted as visuals of the vibrational
                     frequencies.
@@ -260,7 +260,7 @@ export default function BeaconsPage() {
                   {" "}
                   <p className="fs-s h-text  p t-r bl">RESEARCH</p>
                 </GridItem>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-s b-h-text  p t-r bl"> The Deep Sea</p>
                   <p className="fs-sm h-text  p t-r ti bl ">
                     The deep sea constitutes Earth’s largest ecosystem, yet to date less than one percent of it has been
@@ -295,7 +295,7 @@ export default function BeaconsPage() {
               </Grid>
               <Divider size="l" />
               <Grid>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-s b-h-text  p t-r bl">Biodiversity</p>
                   <p className="fs-sm h-text  p t-r ti bl">
                     Although long considered inhospitable, recent research has revealed that the Clarion-Clipperton Zone
@@ -321,7 +321,7 @@ export default function BeaconsPage() {
               </Grid>
               <Divider size="s" />
               <Grid>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r ti bl">
                     To address these entanglements, Beacons: Signals From Below establishes an embodied connection to
                     the CCZ through sound and light. Over ten thousand years of seismic, hydroacoustic, and
@@ -331,7 +331,7 @@ export default function BeaconsPage() {
                     custom 3D-printed speakers.
                   </p>
                 </GridItem>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r ti bl">
                     {" "}
                     Rather than representing the deep sea, the installation transmits its conditions as

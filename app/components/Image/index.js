@@ -5,6 +5,7 @@ import { MediaContext } from "../MediaModal/MediaProvider";
 import { ImageTooltip } from "../ImageTooltip";
 import fileSizes from "../../../lib/file-sizes.json";
 import styles from "./Image.module.css";
+import tooltipStyles from "../ImageTooltip/ImageTooltip.module.css";
 
 // COMMENTED OUT: Original file source logic for local FOR_PRODUCTION folder
 // Simple utility to get the best available image format
@@ -304,7 +305,9 @@ export default function CustomImage({ src, alt, className, priority = false, roo
   return (
     <div
       ref={wrapperRef}
-      className={`${styles.wrapper} ${priority ? styles.priority : ""} ${className || ""}`}
+      className={`${styles.wrapper} ${hasMediaProvider ? tooltipStyles.tooltipContainer : ""} ${
+        priority ? tooltipStyles.priority : ""
+      } ${className || ""}`}
       style={{ paddingBottom: `${aspectRatio}%` }}
       data-custom-image="true"
       data-media-id={mediaId}

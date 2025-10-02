@@ -7,7 +7,14 @@ import DiagramElements from "./DiagramElements";
 import { calculateCircularLayout, calculateScatteredLayout, animateToPositions } from "./utils";
 
 // Dynamic image grid component
-export default function DynamicImageGrid({ registerMesh, unregisterMesh, onParallaxEnabled, onImageClick }) {
+export default function DynamicImageGrid({
+  registerMesh,
+  unregisterMesh,
+  onParallaxEnabled,
+  onImageClick,
+  selectedImageIndex,
+  isCameraPanning,
+}) {
   // State to track current animation phase
   const [animationPhase, setAnimationPhase] = useState(ANIMATION_PHASES.CIRCULAR);
 
@@ -108,6 +115,8 @@ export default function DynamicImageGrid({ registerMesh, unregisterMesh, onParal
           unregisterMesh={unregisterMesh}
           onMeshReady={(meshRef) => registerMeshForAnimation(meshRef, index)}
           onImageClick={onImageClick}
+          selectedImageIndex={selectedImageIndex}
+          isCameraPanning={isCameraPanning}
         />
       ))}
 

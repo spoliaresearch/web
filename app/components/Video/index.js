@@ -37,6 +37,9 @@ export default function Video({ src, ...props }) {
   const [hasStartedPlaying, setHasStartedPlaying] = useState(false);
   const [mediaId] = useState(() => `video-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`);
 
+  // Detect mobile devices to disable autoplay
+  const [isMobile, setIsMobile] = useState(false);
+
   // Conditionally use media modal context
   const mediaContext = useContext(MediaContext);
   const hasMediaProvider = !!mediaContext;
@@ -68,6 +71,27 @@ export default function Video({ src, ...props }) {
     return getCDNVideoPath(src);
   })();
 
+  // Detect mobile devices on mount
+  useEffect(() => {
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+      const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.innerWidth <= 768;
+
+      // Consider it mobile if it's a mobile device, has touch, or has a small screen
+      setIsMobile(isMobileDevice || (isTouchDevice && isSmallScreen));
+    };
+
+    checkMobile();
+
+    // Re-check on resize in case of orientation change
+    const handleResize = () => checkMobile();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Register this video with the modal system (only if MediaProvider is available)
   useEffect(() => {
     if (hasMediaProvider && registerMedia) {
@@ -91,7 +115,8 @@ export default function Video({ src, ...props }) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !hasStartedPlaying) {
+        // Only autoplay on non-mobile devices
+        if (entry.isIntersecting && !hasStartedPlaying && !isMobile) {
           // Start playing when video comes into view for the first time
           video
             .play()
@@ -116,7 +141,7 @@ export default function Video({ src, ...props }) {
     return () => {
       observer.unobserve(container);
     };
-  }, [hasStartedPlaying]);
+  }, [hasStartedPlaying, isMobile]);
 
   const togglePlayPause = () => {
     if (videoRef.current) {

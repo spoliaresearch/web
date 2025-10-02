@@ -10,3 +10,12 @@
   white-space: nowrap;
   mix-blend-mode: exclusion;
 }
+
+/* Cursor styles for when tooltip is present (indicating media provider is available) */
+.tooltipContainer {
+  cursor: pointer;
+}
+
+.tooltipContainer.priority {
+  cursor: default;
+}
