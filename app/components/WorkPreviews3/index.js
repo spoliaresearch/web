@@ -15,7 +15,7 @@ const workItems = [
       "A comprehensive digital system for tracking and documenting material lifecycles, enabling transparent supply chains and sustainable resource management through blockchain technology and IoT sensors.",
     year: "2025",
     image: "/three_images/05.jpg",
-    client: "MIT",
+    client: "MIT Digital Structures",
     category: "Product",
     categoryNumber: 1,
     citation: "1.1.1",
