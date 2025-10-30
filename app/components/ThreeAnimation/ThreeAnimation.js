@@ -364,6 +364,72 @@ export default function ThreeAnimation() {
         />
       </Canvas>
 
+      {/* Axis labels positioned at midpoints of each side */}
+      <div
+        style={{
+          position: "absolute",
+          left: "0%",
+          top: "50%",
+          transform: "translate(20px, -50%)",
+          fontSize: "12px",
+          color: "#fff",
+          pointerEvents: "none",
+          zIndex: 10,
+          opacity: isParallaxEnabled ? 1 : 0,
+          transition: "opacity 0.6s ease-out",
+        }}
+      >
+        DIGITAL
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: "0%",
+          transform: "translate(-50%, 20px)",
+          fontSize: "12px",
+          color: "#fff",
+          pointerEvents: "none",
+          zIndex: 10,
+          opacity: isParallaxEnabled ? 1 : 0,
+          transition: "opacity 0.6s ease-out",
+        }}
+      >
+        EXPERIENCE
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          right: "0%",
+          top: "50%",
+          transform: "translate(-20px, -50%)",
+          fontSize: "12px",
+          color: "#fff",
+          pointerEvents: "none",
+          zIndex: 10,
+          opacity: isParallaxEnabled ? 1 : 0,
+          transition: "opacity 0.6s ease-out",
+        }}
+      >
+        PHYSICAL
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          bottom: "0%",
+          transform: "translate(-50%, -20px)",
+          fontSize: "12px",
+          color: "#fff",
+          pointerEvents: "none",
+          zIndex: 10,
+          opacity: isParallaxEnabled ? 1 : 0,
+          transition: "opacity 0.6s ease-out",
+        }}
+      >
+        PRODUCT
+      </div>
+
       {/* Text overlay - shows when parallax is enabled (scattered animation complete) */}
       <TextOverlay isVisible={isParallaxEnabled} />
 

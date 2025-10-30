@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { IMAGE_PATHS, LAYOUT_CONFIG, ANIMATION_PHASES, PHASE_TIMING } from "./constants";
+import { IMAGE_PATHS, IMAGE_DATA, LAYOUT_CONFIG, ANIMATION_PHASES, PHASE_TIMING } from "./constants";
 import DynamicImage from "./DynamicImage";
 import DiagramElements from "./DiagramElements";
 import { calculateCircularLayout, calculateScatteredLayout, animateToPositions } from "./utils";
@@ -27,7 +27,7 @@ export default function DynamicImageGrid({
 
   // Generate positions for each phase
   const circularPositions = calculateCircularLayout(totalImages, radius, spacing);
-  const scatteredPositions = calculateScatteredLayout(totalImages);
+  const scatteredPositions = calculateScatteredLayout(totalImages, { x: [-7, 7], y: [-7, 7] }, IMAGE_DATA);
 
   // Pre-calculate final z-positions for opacity layering (use scattered positions)
   const finalZPositions = scatteredPositions.map((pos) => pos.z);
@@ -120,9 +120,10 @@ export default function DynamicImageGrid({
         />
       ))}
 
-      {/* Diagram elements - dotted lines between scattered images */}
+      {/* Diagram elements - axis lines only */}
       <DiagramElements
         positions={scatteredPositions}
+        imageData={IMAGE_DATA}
         isVisible={animationPhase === ANIMATION_PHASES.SCATTERED}
         animationPhase={animationPhase}
       />

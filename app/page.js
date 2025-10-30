@@ -17,6 +17,7 @@ import Divider from "./components/Divider";
 import WorkPreviews3 from "./components/WorkPreviews3";
 import Line from "./components/Line";
 import DissolveImage from "./components/DissolveImage";
+import TimezoneClock from "./components/TimezoneClock";
 // Dynamically import ThreeAnimation to prevent SSR issues
 const ThreeAnimation = dynamic(() => import("./components/ThreeAnimation"), {
   ssr: false,
@@ -91,9 +92,11 @@ export default function HomePage() {
       {showLoading && !hasVisited && <LoadingOverlay onComplete={handleLoadingComplete} />}
       <div className={styles.container}>
         <Header />
+      
         <main className={styles.main}>
-          <Hero />
+        <Divider size="xxs" />
 
+          <Hero />
           <GridContainer>
             <Grid style={{ marginBottom: "2rem" }}>
               <GridItem start={0} span={12}>
@@ -127,11 +130,11 @@ export default function HomePage() {
                       />
                     </span>
                   </GlossaryLink>{" "}
-                  is a design engineering studio. We build products and experiences, from concept to release.{" "}
+                  is a design and technology studio. We turn research into built products and experiences.{" "}
                 </h1>
               </GridItem>
               <GridItem start={0} span={2}>
-                <div>10:00 PM Friday CET</div>
+                <TimezoneClock />
               </GridItem>
               <GridItem start={11} span={2}>
                 <div style={{ textAlign: "right" }}>Design U Technology</div>

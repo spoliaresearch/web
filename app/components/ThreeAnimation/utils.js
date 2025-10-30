@@ -346,28 +346,68 @@ export const calculateCircularLayout = (totalImages, radius = 4, spacing = 2.5) 
 };
 
 // Calculate scattered layout positions for images (second animation phase)
-export const calculateScatteredLayout = (totalImages, bounds = { x: [-10, 10], y: [-10, 10] }) => {
-  return Array.from({ length: totalImages }, (_, index) => {
-    // Create a more organic, scattered pattern
-    // Use index to create some predictability while maintaining randomness
-    const seed = index * 113.456; // Simple seed for pseudo-random but consistent positioning
-
-    // Generate pseudo-random positions within bounds (2x more spaced apart)
-    const x = bounds.x[0] - 10 + (Math.sin(seed) * 0.5 + 0.5) * (bounds.x[1] - bounds.x[0] * 2);
-    const y = bounds.y[0] - 3 + (Math.cos(seed * 0.7) * 0.5 + 0.5) * (bounds.y[1] - bounds.y[0] * 2);
-
-    // Add Z-depth variation for parallax layering
-    // Create 3 depth layers: background (-2), middle (0), foreground (2)
-    const zSeed = index * 321.456;
-    const zRandom = Math.sin(zSeed) * 0.5 + 0.5; // 0 to 1
-    let z;
-    if (zRandom < 0.3) {
-      z = -2; // Background layer (30% of images)
-    } else if (zRandom < 0.7) {
-      z = 0; // Middle layer (40% of images)
-    } else {
-      z = 2; // Foreground layer (30% of images)
+// Now uses metadata-driven positioning based on image attributes
+export const calculateScatteredLayout = (totalImages, bounds = { x: [-10, 10], y: [-10, 10] }, imageData = null) => {
+  // Precompute year range if available
+  let minYear = Infinity;
+  let maxYear = -Infinity;
+  if (imageData && imageData.length) {
+    imageData.forEach((m) => {
+      if (m && typeof m.year === "number" && !Number.isNaN(m.year)) {
+        if (m.year < minYear) minYear = m.year;
+        if (m.year > maxYear) maxYear = m.year;
+      }
+    });
+    if (minYear === Infinity || maxYear === -Infinity) {
+      minYear = Infinity;
+      maxYear = -Infinity;
     }
+  }
+
+  return Array.from({ length: totalImages }, (_, index) => {
+    // If no metadata provided, fall back to center position
+    if (!imageData || !imageData[index]) {
+      return { x: 0, y: 0, z: 0 };
+    }
+
+    const metadata = imageData[index];
+    const { digitalness, physicalness, productness, experienceness } = metadata;
+
+    // Calculate normalized position (0 to 1)
+    // x: 0.5 - digitalness + physicalness
+    // y: 0.5 - experienceness + productness
+    const normalizedX = 0.5 - digitalness + physicalness;
+    const normalizedY = 0.5 - experienceness + productness;
+
+    // Map normalized position to bounds
+    // normalizedX: 0 = left edge, 1 = right edge
+    // normalizedY: 0 = top edge, 1 = bottom edge
+    const xRange = bounds.x[1] - bounds.x[0];
+    const yRange = bounds.y[1] - bounds.y[0];
+
+    const x = bounds.x[0] + normalizedX * xRange;
+    const y = bounds.y[1] - normalizedY * yRange; // Invert Y (bounds.y[1] is top in 3D space)
+
+    // Map year directly to depth so newer -> closer (front), older -> farther (back)
+    const hasYearRange = minYear !== Infinity && maxYear !== -Infinity && maxYear > minYear;
+    const year = imageData && imageData[index] ? imageData[index].year : undefined;
+
+    // Base depth range in world units
+    const minDepth = -2.5; // farthest
+    const maxDepth = 2.5;  // closest
+
+    let baseZ;
+    if (hasYearRange && typeof year === "number" && !Number.isNaN(year)) {
+      const t = (year - minYear) / (maxYear - minYear); // 0..1
+      baseZ = minDepth + t * (maxDepth - minDepth);
+    } else {
+      baseZ = 0; // default when no year
+    }
+
+    // Small deterministic jitter to avoid perfect coplanar overlap
+    const variationAmplitude = 0.25;
+    const variation = Math.sin(index * 1.37) * variationAmplitude; // [-0.25, 0.25]
+    const z = baseZ + variation;
 
     return { x, y, z };
   });

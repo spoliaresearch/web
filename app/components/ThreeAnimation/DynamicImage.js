@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import * as THREE from "three";
 import { useLazyImageLoader, useScaleAnimation } from "./utils";
 import { ANIMATION_CONFIG } from "./constants";
 
@@ -68,19 +69,34 @@ export default function DynamicImage({
     }
   }, [registerMesh, unregisterMesh, onMeshReady, index]); // Added index dependency
 
-  // Set material opacity based on final z-position (depth) for layering effect - applied immediately when texture loads
+  // Apply non-transparent tint to non-selected images when a selection is active
   useEffect(() => {
     if (meshRef.current && meshRef.current.material && currentTexture) {
       const material = meshRef.current.material;
 
-      // Set all images to 100% opacity
-      const opacity = 1.0; // All images fully opaque
+      const isFocusActive = selectedImageIndex !== null && selectedImageIndex !== undefined;
 
-      material.transparent = false;
-      material.opacity = opacity;
+      // Desired overlay color and blend amount (0..1)
+      const overlayColor = new THREE.Color("#817E72");
+      const white = new THREE.Color("#FFFFFF");
+      const fillAmount = 0.85; // ~45% towards overlay color
+
+      if (isFocusActive && !isSelected) {
+        // Multiply texture by a tinted color (no transparency bleed)
+        const tinted = white.clone().lerp(overlayColor, fillAmount);
+        material.color.copy(tinted);
+        material.transparent = false;
+        material.opacity = 1.0;
+      } else {
+        // Reset to neutral color when not dimmed
+        material.color.copy(white);
+        material.transparent = false;
+        material.opacity = 1.0;
+      }
+
       material.needsUpdate = true;
     }
-  }, [finalZPosition, currentTexture]); // Apply as soon as texture is available using final z-position
+  }, [finalZPosition, currentTexture, selectedImageIndex, isSelected]);
 
   // Handle hover scale changes - only when base scale is 3.0 (after animations complete)
   useEffect(() => {
@@ -122,7 +138,9 @@ export default function DynamicImage({
   useEffect(() => {
     if (!meshRef.current || baseScale < 3.0) return; // Don't interfere with initial animations
 
-    const targetZ = isAnimatingToFront || isSelected ? position.z + 5 : position.z;
+    // Bring selected image to a consistent focus depth regardless of original z
+    const FOCUS_Z = 8; // Close to camera (camera z is 20)
+    const targetZ = (isAnimatingToFront || isSelected) ? FOCUS_Z : position.z;
     const startZ = currentZ;
     const startTime = Date.now();
     const duration = 700; // 0.7 seconds
