@@ -58,7 +58,7 @@ export default function PixelframePage() {
 
                   <GridItem span={2} start={5}>
                     <span className="fs-xxs t-text lh-0 meta"> TYPE </span>
-                    <span className="fs-xs h-text meta">Digital Infrastructure</span>
+                    <span className="fs-xs h-text meta">Project</span>
                   </GridItem>
                   <GridItem span={2} start={8}>
                     <span className="fs-xxs t-text lh-0 meta"> NAME</span>
@@ -73,10 +73,7 @@ export default function PixelframePage() {
 
               <Grid>
                 <GridItem span={12}>
-                  {/* Placeholder for main image - Eric to provide */}
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">Main Pixelframe Image - To be provided</p>
-                  </div>
+                  <Video src="PF-Map" verticalCrop={0.06} />
                 </GridItem>
               </Grid>
 
@@ -128,26 +125,47 @@ export default function PixelframePage() {
               </Grid>
               <Divider size="l" />
 
+              {/* Process Photos Grid */}
+              <Grid>
+                <GridItem span={6} start={0}>
+                          {/* <Image src="IMG_4652" /> */}
+                         <Video hideUi src="PF-Globe" />
+                </GridItem>
+                <GridItem span={6} start={7}>
+                <Video  hideUi src="PF-Em-G" /> 
+               
+                </GridItem>
+              </Grid>
+              <Divider size="m" />
+              <Grid>
+              <GridItem span={5} start={8}>
+                  <p className="fs-sm h-text  p t-r bl">
+                    A digital material passport system for modular precast construction, enabling circular economies through intelligent material tracking and lifecycle management.
+                  </p>
+                  <p className="fs-sm h-text  p t-r bl">
+                    Developed as part of the Venice Architecture Biennale 2025 exhibition "From Liquid to Stone," this system demonstrates how digital infrastructure can surface new material intelligences.
+                  </p>
+                </GridItem>
+              </Grid>
+              <Divider size="m" />
               {/* Process Images Grid - Placeholders */}
               <Grid>
-                <GridItem start={0} span={4}>
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">RFID Tagging Process</p>
-                  </div>
+                {/* <GridItem start={0} span={4}>
+                  <Image src="IMG_5097" />
+                </GridItem> */}
+                <GridItem start={1} span={6}>
+    
+                  <Video verticalCrop={0.02} hideUi src="PF-Beam-full" />
                 </GridItem>
-                <GridItem start={4} span={4}>
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">Mobile Interface</p>
-                  </div>
-                </GridItem>
-                <GridItem start={8} span={4}>
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">Installation View</p>
-                  </div>
+                <GridItem start={7} span={6}>
+                  <Image src="IMG_4980" />
+                                {/* <Image src="IMG_4652" /> */}
+                                {/* <Image src="IMG_5097" /> */}
                 </GridItem>
               </Grid>
 
               <Divider size="s" />
+             
               <Line />
               <Divider size="xxs" />
 
@@ -157,84 +175,71 @@ export default function PixelframePage() {
                 </GridItem>
                 <GridItem span={5} start={8}>
                   <p className="fs-s b-h-text  p t-r bl">Digital Material Passports</p>
-                  <p className="fs-sm h-text  p t-r ti bl">
+                  <p className="fs-sm h-text  p t-r  bl">
                     Each Pixelframe component is embedded with RFID technology, creating a unique digital identity that travels with the physical material throughout its lifecycle. This system enables real-time tracking of material provenance, carbon emissions, and fabrication history.
                   </p>
                   <br />
                   <p className="fs-s b-h-text  p t-r bl">Mobile Scanning Platform</p>
-                  <p className="fs-sm h-text  p t-r ti bl">
+                  <p className="fs-sm h-text  p t-r  bl">
                     A custom mobile application allows users to scan any element within the installation, instantly accessing comprehensive material records including carbon footprint data, manufacturing details, and assembly history across multiple sites and configurations.
                   </p>
                 </GridItem>
               </Grid>
-              <Divider size="s" />
+              <Divider size="m" />
 
               {/* Technical Process Grid - Placeholders */}
               <Grid>
-                <GridItem span={3} start={1}>
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">RFID Chip Detail</p>
-                  </div>
+            
+                <GridItem start={0} span={4}>   <Image src="IMG_4652" /></GridItem>
+                <GridItem start={5} span={8}>
+                <Video verticalCrop={0.072} rotate={10} scale={1.09} hideUi  src="PF-Scan" />
                 </GridItem>
-                <GridItem span={4} start={4}>
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">Scanning Interface</p>
-                  </div>
+                {/* <GridItem start={5} span={4}>
+                  <Video src="PF-Beam" />
                 </GridItem>
-                <GridItem span={4} start={8}>
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">Data Visualization</p>
-                  </div>
-                </GridItem>
+                <GridItem start={9} span={4}>
+                  <Video src="PF-Globe" />
+                </GridItem> */}
               </Grid>
 
-              <Divider size="l" />
+              <Divider size="m" />
               <Grid>
                 <GridItem span={5} start={8}>
                   <p className="fs-s b-h-text  p t-r bl">Circular Material Intelligence</p>
-                  <p className="fs-sm h-text  p t-r ti bl">
+                  <p className="fs-sm h-text  p t-r  bl">
                     The system tracks material movement across sites and assemblies, creating a comprehensive database of component lifecycle data. This enables informed decision-making about material reuse, recycling, and end-of-life processing.
                   </p>
-                  <p className="fs-sm h-text  p t-r ti bl">
+                  <p className="fs-sm h-text  p t-r bl">
                     By making material histories visible and accessible, the platform supports the transition toward circular construction economies where building components maintain value across multiple use cycles.
                   </p>
-                </GridItem>
-              </Grid>
-              <Divider size="s" />
-
-              <Grid>
-                <GridItem span={5} start={8}>
-                  <p className="fs-sm h-text  p t-r ti bl">
+                  <p className="fs-sm h-text  p t-r  bl">
                     The Pixelframe digital passport system demonstrates how embedded sensing technologies and mobile interfaces can transform construction materials from static resources into intelligent, trackable assets within circular economic frameworks.
                   </p>
                 </GridItem>
               </Grid>
-
-              <Divider size="m" />
-              <Line />
-              <Divider size="xxs" />
+              <Divider size="s" />
 
               <Grid>
-                <GridItem span={1} start={0}>
-                  <p className="fs-s h-text  p t-r bl">TECHNICAL SPECIFICATIONS</p>
-                </GridItem>
                 <GridItem span={5} start={8}>
-                  <p className="fs-s b-h-text  p t-r bl">RFID Integration</p>
-                  <p className="fs-sm h-text  p t-r ti bl">
-                    [Technical details about RFID chip specifications, read range, and durability to be provided]
-                  </p>
-                  <br />
-                  <p className="fs-s b-h-text  p t-r bl">Mobile Platform Architecture</p>
-                  <p className="fs-sm h-text  p t-r ti bl">
-                    [Details about mobile app development, database architecture, and cloud infrastructure to be provided]
-                  </p>
-                  <br />
-                  <p className="fs-s b-h-text  p t-r bl">Data Standards</p>
-                  <p className="fs-sm h-text  p t-r ti bl">
-                    [Information about material passport data formats, interoperability standards, and API specifications to be provided]
-                  </p>
+                 
                 </GridItem>
               </Grid>
+              <Divider size="s" />
+              <Grid>
+                <GridItem span={6} start={1}>
+                          {/* <Image src="IMG_4652" /> */}
+                          <Video hideUi src="PF-A-Tower" />
+                </GridItem>
+                <GridItem span={6} start={7}>
+               
+                <Image src="IMG_5097" />
+                </GridItem>
+                {/* <GridItem span={3} start={10}>
+                <Video  src="PF-Globe" />
+                </GridItem> */}
+              </Grid>
+         
+             
 
               <Divider size="m" />
 
@@ -252,37 +257,21 @@ export default function PixelframePage() {
               <Grid height={"300px"}>
                 <GridItem span={2}></GridItem>
                 <GridItem span={2}>
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">Process Documentation</p>
-                  </div>
+                <Video src="PF-AR" appendix />
+             
                 </GridItem>
                 <GridItem span={2}>
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">Interface Screenshots</p>
-                  </div>
+              
+                <Video src="PF-Em-S" appendix />
                 </GridItem>
                 <GridItem span={2}>
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">Installation Views</p>
-                  </div>
+            
+                <Video src="RFID_Scan" appendix verticalCrop={0.25}/>
                 </GridItem>
                 <GridItem span={2}>
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">Technical Diagrams</p>
-                  </div>
+                <Video src="PF-Anim" appendix />
                 </GridItem>
-                <GridItem span={2}></GridItem>
-                <GridItem span={2}></GridItem>
-                <GridItem span={2}>
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">Material Samples</p>
-                  </div>
-                </GridItem>
-                <GridItem span={2}>
-                  <div className={styles.placeholderImage}>
-                    <p className="fs-xs t-text meta">Data Visualizations</p>
-                  </div>
-                </GridItem>
+              
               </Grid>
               <Divider size="m" />
             </GridContainer>
