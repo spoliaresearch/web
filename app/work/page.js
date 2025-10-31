@@ -16,7 +16,7 @@ export default function WorkPage() {
             <GridItem span={5}>
               <h1
                 style={{
-                  fontSize: "4rem",
+                  fontSize: "3rem",
                   fontWeight: "normal",
                   margin: "0",
                   lineHeight: "1.1",
