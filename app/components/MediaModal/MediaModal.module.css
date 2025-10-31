@@ -162,18 +162,33 @@
   right: 20px;
 }
 
-/* Media Alt Text */
-.mediaAltText {
+/* Media Caption Container */
+.mediaCaptionContainer {
   position: fixed;
   bottom: 10px;
-  margin-top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
   color: black;
-
   max-width: 80%;
-  margin-left: auto;
-  margin-right: auto;
   padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Media Number */
+.mediaNumber {
+  font-size: 14px;
+  line-height: 1.4;
+  color: black;
+}
+
+/* Media Alt Text */
+.mediaAltText {
+  font-size: 14px;
+  line-height: 1.4;
+  color: black;
 }
 
 /* Responsive Design */
@@ -214,12 +229,17 @@
     right: 10px;
   }
 
+  .mediaCaptionContainer {
+    max-width: 90%;
+    padding-bottom: 20px;
+    bottom: 10px;
+  }
+  
+  .mediaNumber {
+    font-size: 12px;
+  }
+  
   .mediaAltText {
     font-size: 12px;
-    margin-top: 15px;
-    padding-bottom: 20px;
-    max-width: 90%;
-    bottom: 10px;
-    position: absolute;
   }
 }

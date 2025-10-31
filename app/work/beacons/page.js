@@ -52,20 +52,20 @@ export default function BeaconsPage() {
                   <GridItem span={2} start={0} spanMobile={1}>
                     <Close />
                   </GridItem>
-                  <GridItem span={2} start={3} dropMobile={true}>
+                  <GridItem span={2} start={3} spanMobile={2}>
                     <span className="fs-xxs t-text lh-0 meta"> INDEX </span>
-                    <span className="fs-xs h-text meta">1.2.2</span>
+                    <span className="fs-xs h-text meta">2.2.1</span>
                   </GridItem>
 
                   <GridItem span={2} start={5} dropMobile={true}>
                     <span className="fs-xxs t-text lh-0 meta"> TYPE </span>
                     <span className="fs-xs h-text meta">Experience</span>
                   </GridItem>
-                  <GridItem span={2} start={8} startMobile={3} spanMobile={4}>
+                  <GridItem span={2} start={8} spanMobile={7}>
                     <span className="fs-xxs t-text lh-0 meta"> NAME</span>
                     <span className="fs-xs h-text meta"> BEACONS</span>
                   </GridItem>
-                  <GridItem span={2} start={10} startMobile={9} spanMobile={3}>
+                  <GridItem span={2} start={10} spanMobile={2}>
                     <span className="fs-xxs t-text lh-0 meta"> YEAR</span>
                     <span className="fs-xs h-text meta"> 2025</span>
                   </GridItem>

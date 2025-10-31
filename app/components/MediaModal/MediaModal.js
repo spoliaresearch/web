@@ -3,6 +3,7 @@
 import { useEffect, useCallback, useRef, useState } from "react";
 import { useMediaModal } from "./MediaProvider";
 import styles from "./MediaModal.module.css";
+import { extractFilename, getImageMetadata } from "../../../lib/image-index";
 
 export default function MediaModal() {
   const { isModalOpen, currentMedia, closeModal, nextMedia, prevMedia, mediaItems } = useMediaModal();
@@ -192,8 +193,22 @@ export default function MediaModal() {
           )}
         </div>
 
-        {/* Media Alt Text */}
-        {currentMedia.alt && <div className={`fs-smm ${styles.mediaAltText}`}>{currentMedia.alt}</div>}
+        {/* Media Caption (Number and Alt Text) */}
+        {(() => {
+          const filename = extractFilename(currentMedia.src);
+          const metadata = getImageMetadata(filename);
+          
+          return (
+            <div className={styles.mediaCaptionContainer}>
+              {metadata.number && (
+                <div className={styles.mediaNumber}>{metadata.number}</div>
+              )}
+              {metadata.alt && (
+                <div className={styles.mediaAltText}>{metadata.alt}</div>
+              )}
+            </div>
+          );
+        })()}
       </div>
     </div>
   );

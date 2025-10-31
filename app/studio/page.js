@@ -62,7 +62,7 @@ function StudioContent() {
                 </h1>
               </div>
             </GridItem>
-            <GridItem start={8} span={6}>
+            <GridItem start={8} span={6} spanMobile={12}>
               <div className={studioStyles.section}>
                 <h2 className={studioStyles.pageSubtitle}>
                   {" "}
@@ -91,10 +91,10 @@ function StudioContent() {
             <GridItem start={0} span={6}>
               <p className="fs-sm s-text">PHILOSOPHY</p>
             </GridItem>
-            <GridItem start={7} span={7}>
+            <GridItem start={7} span={7} spanMobile={12}>
               <div className={studioStyles.section}>
                 <p className={"fs-smm h-text t-r"}>
-                  Our mission is to apply emerging technology to address today’s urgent challenges of climate and
+                  Our mission is to apply emerging technology to address today's urgent challenges of climate and
                   culture. By bridging the physical and digital, we design practical applications that respond to
                   critical issues and connect people to technology and their surroundings in new ways. Through each
                   project, we work across mediums and scales to bring about more hopeful, creative, and sustainable
@@ -154,7 +154,7 @@ function StudioContent() {
             <GridItem start={0} span={6}>
               <p className="fs-sm s-text">SERVICES</p>
             </GridItem>
-            <GridItem start={7} span={7}>
+            <GridItem start={7} span={7} spanMobile={12}>
               <div className={studioStyles.section}>
                 <p className={"fs-smm h-text t-r"}>
                   SPOLIA partners with innovators in their field to imagine and bring to life products and experiences.
@@ -173,7 +173,7 @@ function StudioContent() {
                 Manufacturing <br /> Art <br /> Science <br /> Education
               </div>
             </GridItem> */}
-            <GridItem start={7} span={4}>
+            <GridItem start={7} span={4} spanMobile={12}>
               <table className={styles.table} style={{ marginTop: "2.5rem" }}>
                 <thead>
                   <tr>
@@ -221,7 +221,7 @@ function StudioContent() {
                 </tbody>
               </table>
             </GridItem>
-            <GridItem start={11} span={2}>
+            <GridItem start={11} span={2} spanMobile={12} startMobile={0}>
               <table className={styles.table} style={{ marginTop: "2.5rem" }}>
                 <thead>
                   <tr>
@@ -269,7 +269,7 @@ function StudioContent() {
                 }}
               />
             </GridItem>
-            <GridItem start={7} span={7}>
+            <GridItem start={7} span={7} spanMobile={12}>
               <div className={studioStyles.section}>
                 <p className={"fs-smm h-text t-r"}>
                   We can act as your dedicated R&D team, or extend the capabilities of your existing team. As a hybrid
@@ -288,7 +288,7 @@ function StudioContent() {
                 COLLABORATIONS
               </p>
             </GridItem>
-            <GridItem start={7} span={6}>
+            <GridItem start={7} span={6} spanMobile={12}>
               <div className={`fs-s b-h-text ${styles.tableHeader}`} style={{ paddingBottom: ".75rem" }}>
                 Selected Exhibitions
               </div>
@@ -300,7 +300,7 @@ function StudioContent() {
                 </div>
               </p>
             </GridItem>
-            <GridItem start={7} span={3}>
+            <GridItem start={7} span={3} spanMobile={12}>
               <div className={`fs-s b-h-text ${styles.tableHeader}`} style={{ paddingBottom: ".75rem" }}>
                 Community Network
               </div>
@@ -316,7 +316,7 @@ function StudioContent() {
                 </div>
               </p>
             </GridItem>
-            <GridItem start={7} span={5}>
+            <GridItem start={7} span={5} spanMobile={12}>
               <div className={`fs-s b-h-text ${styles.tableHeader}`} style={{ paddingBottom: ".75rem" }}>
                 Publications
               </div>
@@ -328,7 +328,7 @@ function StudioContent() {
                 </div>
               </p>
             </GridItem>
-            <GridItem start={7} span={5}>
+            <GridItem start={7} span={5} spanMobile={12}>
               <div className={`fs-s b-h-text ${styles.tableHeader}`} style={{ paddingBottom: ".75rem" }}>
                 Lectures & Workshops
               </div>
@@ -349,7 +349,7 @@ function StudioContent() {
             <GridItem start={0} span={6}>
               <p className="fs-sm s-text">CONTACT</p>
             </GridItem>
-            <GridItem start={7} span={2}>
+            <GridItem start={7} span={2} spanMobile={12}>
               <div className={`fs-s b-h-text ${styles.tableHeader}`} style={{ paddingBottom: ".75rem" }}>
                 Inquiries
               </div>
@@ -369,7 +369,7 @@ function StudioContent() {
                 <a href="mailto:hello@spolialab.com">press@spolialab.com</a>
               </div>
             </GridItem>
-            <GridItem start={9} span={2}>
+            <GridItem start={9} span={2} spanMobile={12}>
               <div className={`fs-s b-h-text ${styles.tableHeader}`} style={{ paddingBottom: ".75rem" }}>
                 Social
               </div>
@@ -379,7 +379,7 @@ function StudioContent() {
                 <a href="mailto:hello@spolialab.com">Newsletter</a>
               </div>
             </GridItem>
-            <GridItem start={7} span={6}>
+            <GridItem start={7} span={6} spanMobile={12}>
               <br />
             </GridItem>
           </Grid>

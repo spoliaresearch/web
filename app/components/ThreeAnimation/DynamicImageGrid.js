@@ -12,8 +12,8 @@ export default function DynamicImageGrid({
   unregisterMesh,
   onParallaxEnabled,
   onImageClick,
-  selectedImageIndex,
-  isCameraPanning,
+  isParallaxEnabled,
+  cursorPosition,
 }) {
   // State to track current animation phase
   const [animationPhase, setAnimationPhase] = useState(ANIMATION_PHASES.CIRCULAR);
@@ -115,8 +115,8 @@ export default function DynamicImageGrid({
           unregisterMesh={unregisterMesh}
           onMeshReady={(meshRef) => registerMeshForAnimation(meshRef, index)}
           onImageClick={onImageClick}
-          selectedImageIndex={selectedImageIndex}
-          isCameraPanning={isCameraPanning}
+          isParallaxEnabled={isParallaxEnabled}
+          cursorPosition={cursorPosition}
         />
       ))}
 

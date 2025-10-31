@@ -49,23 +49,23 @@ export default function SymlinkPage() {
               <Divider size="m" />
               <div className={`${styles.stickyGrid} ${isHeaderVisible ? styles.headerVisible : ""}`}>
                 <Grid>
-                  <GridItem span={1} start={0}>
+                  <GridItem span={1} start={0} spanMobile={1}>
                     <Close />
                   </GridItem>
-                  <GridItem span={1} start={3}>
+                  <GridItem span={1} start={3} spanMobile={2}>
                     <span className="fs-xxs t-text lh-0 meta"> INDEX </span>
-                    <span className="fs-xs h-text meta">1.2.3</span>
+                    <span className="fs-xs h-text meta">2.1.1</span>
                   </GridItem>
 
-                  <GridItem span={2} start={5}>
+                  <GridItem span={2} start={5} dropMobile={true}>
                     <span className="fs-xxs t-text lh-0 meta"> TYPE </span>
                     <span className="fs-xs h-text meta">Experience</span>
                   </GridItem>
-                  <GridItem span={1} start={8}>
+                  <GridItem span={1} start={8} spanMobile={7}>
                     <span className="fs-xxs t-text lh-0 meta"> NAME</span>
                     <span className="fs-xs h-text meta"> SYMLINK</span>
                   </GridItem>
-                  <GridItem span={1} start={10}>
+                  <GridItem span={1} start={10} spanMobile={2}>
                     <span className="fs-xxs t-text lh-0 meta"> YEAR</span>
                     <span className="fs-xs h-text meta"> 2023</span>
                   </GridItem>
@@ -113,7 +113,7 @@ export default function SymlinkPage() {
               {/* <Line /> */}
               <Divider size="xxs" />
               <Grid>
-                <GridItem span={2} start={1}>
+                <GridItem span={2} start={1} spanMobile={6}>
                   <p className="fs-xs b-h-text lh-0 meta ">Exhibitions</p>
                   <p className="fs-xs h-text meta">DESIGN IN THE AGE OF AI </p>
 
@@ -127,7 +127,7 @@ export default function SymlinkPage() {
 
                   <p className="fs-xs h-text meta">WORLD CONGRESS OF ARCHITECTS</p>
                 </GridItem>
-                <GridItem span={2} start={3}>
+                <GridItem span={2} start={3} startMobile={7} spanMobile={6}>
                   <p className="fs-xs b-h-text lh-0 meta ">Location</p>
                   <p className="fs-xs  h-text meta">
                     Sintra, Portugal <span className="fs-xxs  h-text meta up">Case Study</span>
@@ -137,7 +137,7 @@ export default function SymlinkPage() {
                     UNESCO World Heritage Site <span className="fs-xxs  h-text meta up">Context</span>
                   </p>
                 </GridItem>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r bl">
                     Symlink is a citizen science project that uses AI to make complex environmental information easy to
                     understand and act on, helping communities respond directly to local climate challenges.
@@ -157,17 +157,17 @@ export default function SymlinkPage() {
               <Divider size="l" />
               {/* Demo Images Grid */}
               <Grid>
-                <GridItem start={0} span={4}>
+                <GridItem start={0} span={4} spanMobile={12}>
                   <div className={styles.imageContainer}>
                     <Image width={1024} height={1024} src="/symlink_1" alt="Symlink project visualization 1" />
                   </div>
                 </GridItem>
-                <GridItem start={5} span={4}>
+                <GridItem start={5} span={4} spanMobile={12}>
                   <div className={styles.imageContainer}>
                     <Image width={1024} height={1024} src="/symlink_3" alt="Symlink project visualization 3" />
                   </div>
                 </GridItem>
-                <GridItem start={9} span={4}>
+                <GridItem start={9} span={4} spanMobile={12}>
                   <div className={styles.imageContainer}>
                     <Image width={1024} height={1024} src="/symlink_2" alt="Symlink project visualization 2" />
                   </div>
@@ -182,7 +182,7 @@ export default function SymlinkPage() {
                 <p className="fs-s h-text  p t-r bl">Overview</p>
               </GridItem> */}
 
-                <GridItem span={2} start={0}>
+                <GridItem span={2} start={0} spanMobile={12}>
                   <p className="fs-s h-text  p t-r bl">RESEARCH</p>
                   <p className="fs-xxs h-text cap bl ref ">
                     1. Big Data in Earth system science and progress towards a digital twin. Li X, Feng M, Ran Y, Su Y,
@@ -200,15 +200,15 @@ export default function SymlinkPage() {
                     and Zhou J (2023)
                   </p>
                 </GridItem>
-                <GridItem span={5} start={8}>
-                  <p className="fs-sm h-text  p t-r ">
+                <GridItem span={5} start={8} spanMobile={12}>
+                  <p className="fs-sm h-text  p t-r bl">
                     Operated by a large language model, the system encompasses ecosystem data collection, synthesis, and
                     recommendation, materializing through data sensors and installations that mimic the native flora and
                     architectural vernacular of the region. Building upon digital twin concepts<sup>1</sup>, cybernetic
                     systems theory<sup>2</sup>, and regenerative design principles<sup>3</sup>, the framework functions
                     as a sequential multi-agent generative system<sup>4</sup>.
                   </p>
-                  <p className="fs-sm h-text  p t-r ">
+                  <p className="fs-sm h-text  p t-r bl">
                     The pilot prototype used Sintra, Portugal as a case study, utilizing mock data of 45 environmental
                     variables specific to the region to demonstrate the system's potential for responsive community
                     design.
@@ -221,7 +221,7 @@ export default function SymlinkPage() {
               <Divider size="l" />
 
               <Grid>
-                <GridItem start={0} span={4}>
+                <GridItem start={0} span={4} spanMobile={12}>
                   <div className={styles.imageContainer}>
                     <Image
                       width={1024}
@@ -238,7 +238,7 @@ export default function SymlinkPage() {
                     Açucenas and Rua das Camélias during the same period.
                   </p>
                 </GridItem>
-                <GridItem start={5} span={4}>
+                <GridItem start={5} span={4} spanMobile={12}>
                   <div className={styles.imageContainer}>
                     <Image
                       width={1024}
@@ -255,7 +255,7 @@ export default function SymlinkPage() {
                     attention to their data sensor tiles displaying declining native species locations.
                   </p>
                 </GridItem>
-                <GridItem start={9} span={4}>
+                <GridItem start={9} span={4} spanMobile={12}>
                   <div className={styles.imageContainer}>
                     <Image
                       width={1024}
@@ -288,7 +288,7 @@ export default function SymlinkPage() {
               <Divider size="m" />
 
               <Grid>
-                <GridItem span={2} start={0}>
+                <GridItem span={2} start={0} spanMobile={12}>
                   {" "}
                   <p className="fs-xxs h-text cap-long bl ref">
                     5. Accountability and data-driven urban climate governance. Hughes S, Giest S and Tozer L (2020)
@@ -306,9 +306,9 @@ export default function SymlinkPage() {
                   </p>
                 </GridItem>
 
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-s b-h-text  p t-r bl">Climate Data Accessibility</p>
-                  <p className="fs-sm h-text  p t-r bl ">
+                  <p className="fs-sm h-text  p t-r  bl ">
                     Climate change demands intervention at local scales, yet citizens face barriers to participation due
                     to climate data fragmentation and analytical complexity<sup>5</sup>. Despite the accessibility of
                     environmental data collection hardware and grassroots interest in data-driven climate action
@@ -329,13 +329,13 @@ export default function SymlinkPage() {
               {/* 
               <Divider size="m" /> */}
               <Grid>
-                <GridItem span={2} start={0}>
+                <GridItem span={2} start={0} spanMobile={12}>
                   <p className="fs-xxs h-text cap-long bl ref">
                     9. Rural-Urban Governance Arrangements and Planning Instruments: Municipal Master Plan of Sintra.
                     Partidário M do R (2018)
                   </p>
                 </GridItem>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-s b-h-text  p t-r bl">Sintra as Living Laboratory</p>
                   <p className="fs-sm h-text  p t-r bl">
                     In Sintra, forest and buildings blend as castles and towns intersperse the vegetative landscape,
@@ -353,7 +353,7 @@ export default function SymlinkPage() {
               </Grid>
               <Divider size="s" />
               <Grid>
-                <GridItem start={0} span={5}>
+                <GridItem start={0} span={5} spanMobile={12}>
                   <div className={styles.imageContainer}>
                     <Image
                       width={2305}
@@ -363,7 +363,7 @@ export default function SymlinkPage() {
                     />
                   </div>
                 </GridItem>
-                <GridItem start={6} span={4}>
+                <GridItem start={6} span={4} spanMobile={12}>
                   <div className={styles.imageContainer}>
                     <Image
                       width={2305}
@@ -373,7 +373,7 @@ export default function SymlinkPage() {
                     />
                   </div>
                 </GridItem>
-                <GridItem start={10} span={3}>
+                <GridItem start={10} span={3} spanMobile={12}>
                   <div className={styles.imageContainer}>
                     <Image
                       width={2305}
@@ -383,11 +383,11 @@ export default function SymlinkPage() {
                     />
                   </div>
                 </GridItem>
-                <GridItem start={10} span={3}></GridItem>
+                <GridItem start={10} span={3} spanMobile={12}></GridItem>
               </Grid>
               <Divider size="s" />
               <Grid>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r bl">
                     Quantifying changes within complex ecosystems can be challenging. Utilizing data as a mediator
                     between human and non-human communities enables adaptations to occur automatically, such as
@@ -400,7 +400,7 @@ export default function SymlinkPage() {
               <Divider size="ml" />
               <div className="img-w">
                 <Grid>
-                  <GridItem span={5} start={5}>
+                  <GridItem span={5} start={5} spanMobile={12}>
                     <div className={styles.imageContainer}>
                       <Image
                         width={2004}
@@ -418,7 +418,7 @@ export default function SymlinkPage() {
               </div>
               <Divider size="s" />
               <Grid>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-s b-h-text  p t-r bl">Biomimetic Sensing & Visualization</p>
                   <p className="fs-sm h-text  p t-r bl">
                     Emphasizing non-human data points like plant-pollinator interactions and carbon sequestration, this
@@ -431,7 +431,7 @@ export default function SymlinkPage() {
               </Grid>
 
               <Grid>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r bl">
                     This vision enables individuals to improve their communities by concentrating on mediating the
                     effects of climate change in their environments, which also enhances human habitation. Rather than

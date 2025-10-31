@@ -286,7 +286,6 @@ export function GlossaryLink({ slug, children, className, style, onClick, ...pro
                       alt={term.content.images[0].alt}
                       className=""
                       priority={true}
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
                     />
                   </div>
                 </div>

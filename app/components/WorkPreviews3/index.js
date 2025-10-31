@@ -18,7 +18,7 @@ const workItems = [
     client: "MIT Digital Structures",
     category: "Product",
     categoryNumber: 1,
-    citation: "1.1.1",
+    citation: "2.1.2",
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ const workItems = [
     client: "New Museum",
     category: "Experience",
     categoryNumber: 2,
-    citation: "1.2.1",
+    citation: "2.2.1",
   },
   {
     id: 3,
@@ -47,7 +47,7 @@ const workItems = [
     client: "SPACE10",
     category: "Experience",
     categoryNumber: 2,
-    citation: "1.2.2",
+    citation: "2.1.1",
   },
 ];
 

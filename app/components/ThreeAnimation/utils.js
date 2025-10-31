@@ -184,7 +184,7 @@ export const useScaleAnimation = (meshRef, isLoaded, duration = 800) => {
 };
 
 // Reusable function for lazy loading images
-export const useLazyImageLoader = (imagePath, meshRef) => {
+export const useLazyImageLoader = (imagePath, meshRef, scaleFactor = 1) => {
   const [currentTexture, setCurrentTexture] = useState(null);
   const [isHighResLoaded, setIsHighResLoaded] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -222,8 +222,11 @@ export const useLazyImageLoader = (imagePath, meshRef) => {
         }
 
         if (meshRef.current) {
+          // Apply optional per-image scale factor to geometry dimensions
+          const scaledWidth = width * scaleFactor;
+          const scaledHeight = height * scaleFactor;
           meshRef.current.geometry.dispose();
-          meshRef.current.geometry = new THREE.PlaneGeometry(width, height);
+          meshRef.current.geometry = new THREE.PlaneGeometry(scaledWidth, scaledHeight);
           meshRef.current.material.map = loadedTexture;
           meshRef.current.material.needsUpdate = true;
         }
@@ -261,8 +264,11 @@ export const useLazyImageLoader = (imagePath, meshRef) => {
             }
 
             if (meshRef.current) {
+              // Apply optional per-image scale factor to geometry dimensions
+              const scaledHighResWidth = highResWidth * scaleFactor;
+              const scaledHighResHeight = highResHeight * scaleFactor;
               meshRef.current.geometry.dispose();
-              meshRef.current.geometry = new THREE.PlaneGeometry(highResWidth, highResHeight);
+              meshRef.current.geometry = new THREE.PlaneGeometry(scaledHighResWidth, scaledHighResHeight);
               meshRef.current.material.map = highResLoadedTexture;
               meshRef.current.material.needsUpdate = true;
             }

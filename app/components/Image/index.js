@@ -37,8 +37,15 @@ import tooltipStyles from "../ImageTooltip/ImageTooltip.module.css";
 
 // NEW: CDN storage solution
 function getCDNImagePath(baseName, size = "full") {
-  // Remove extension if provided and clean up the filename
-  const nameWithoutExt = baseName.replace(/\.(jpg|jpeg|png|webp|avif)$/i, "");
+  // Extract just the basename from paths (e.g., "/glossary_images/spolia" -> "spolia")
+  // First, remove extension if provided
+  let nameWithoutExt = baseName.replace(/\.(jpg|jpeg|png|webp|avif)$/i, "");
+  
+  // Extract the filename from any path (handles "/glossary_images/spolia" -> "spolia")
+  const basename = nameWithoutExt.split("/").pop();
+  
+  // Clean up: remove any leading/trailing slashes
+  const cleanName = basename.replace(/^\/+|\/+$/g, "");
 
   // If you have different sizes on your CDN, you could use:
   // const sizeMap = {
@@ -46,10 +53,10 @@ function getCDNImagePath(baseName, size = "full") {
   //   small: '_small',
   //   full: ''
   // };
-  // return `https://s-img.b-cdn.net/${nameWithoutExt}${sizeMap[size]}.webp`;
+  // return `https://s-img.b-cdn.net/${cleanName}${sizeMap[size]}.webp`;
 
   // For now, use the same image for all sizes
-  return `https://s-img.b-cdn.net/${nameWithoutExt}.webp`;
+  return `https://s-img.b-cdn.net/${cleanName}.webp`;
 }
 
 // Get file size for images from file-sizes.json

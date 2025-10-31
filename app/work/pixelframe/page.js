@@ -48,23 +48,23 @@ export default function PixelframePage() {
               <Divider size="m" />
               <div className={`${styles.stickyGrid} ${isHeaderVisible ? styles.headerVisible : ""}`}>
                 <Grid>
-                  <GridItem span={2} start={0}>
+                  <GridItem span={2} start={0} spanMobile={1}>
                     <Close />
                   </GridItem>
-                  <GridItem span={2} start={3}>
+                  <GridItem span={2} start={3} spanMobile={2}>
                     <span className="fs-xxs t-text lh-0 meta"> INDEX </span>
-                    <span className="fs-xs h-text meta">1.2.3</span>
+                    <span className="fs-xs h-text meta">2.1.2</span>
                   </GridItem>
 
-                  <GridItem span={2} start={5}>
+                  <GridItem span={2} start={5} dropMobile={true}>
                     <span className="fs-xxs t-text lh-0 meta"> TYPE </span>
                     <span className="fs-xs h-text meta">Project</span>
                   </GridItem>
-                  <GridItem span={2} start={8}>
+                  <GridItem span={2} start={8} spanMobile={7}>
                     <span className="fs-xxs t-text lh-0 meta"> NAME</span>
                     <span className="fs-xs h-text meta"> PIXELFRAME</span>
                   </GridItem>
-                  <GridItem span={2} start={10}>
+                  <GridItem span={2} start={10} spanMobile={2}>
                     <span className="fs-xxs t-text lh-0 meta"> YEAR</span>
                     <span className="fs-xs h-text meta"> 2025</span>
                   </GridItem>
@@ -86,7 +86,7 @@ export default function PixelframePage() {
               <Line />
               <Divider size="xxs" />
               <Grid>
-                <GridItem span={2} start={1}>
+                <GridItem span={2} start={1} spanMobile={6}>
                   <p className="fs-xs b-h-text lh-0 meta ">Exhibition</p>
                   <p className="fs-xs h-text meta">
                     <a href="https://www.labiennale.org/" target="_blank" rel="noopener noreferrer">
@@ -96,7 +96,7 @@ export default function PixelframePage() {
                   <p className="fs-xs h-text meta">From Liquid to Stone</p>
                   <p className="fs-xs h-text meta ">2025</p>
                 </GridItem>
-                <GridItem span={3} start={3}>
+                <GridItem span={3} start={3} startMobile={7} spanMobile={6}>
                   <p className="fs-xs b-h-text lh-0 meta ">Collaborators</p>
                   <p className="fs-xs  h-text meta">
                     <a href="https://www.instagram.com/future_assemblies/" target="_blank" rel="noopener noreferrer">
@@ -114,7 +114,7 @@ export default function PixelframePage() {
                     </a>
                   </p>
                 </GridItem>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r bl">
                     A digital material passport system for modular precast construction, enabling circular economies through intelligent material tracking and lifecycle management.
                   </p>
@@ -138,7 +138,7 @@ export default function PixelframePage() {
               </Grid>
               <Divider size="m" />
               <Grid>
-              <GridItem span={5} start={8}>
+              <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r bl">
                     A digital material passport system for modular precast construction, enabling circular economies through intelligent material tracking and lifecycle management.
                   </p>
@@ -173,7 +173,7 @@ export default function PixelframePage() {
                 <GridItem span={1} start={0}>
                   <p className="fs-s h-text  p t-r bl">PROCESS</p>
                 </GridItem>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-s b-h-text  p t-r bl">Digital Material Passports</p>
                   <p className="fs-sm h-text  p t-r  bl">
                     Each Pixelframe component is embedded with RFID technology, creating a unique digital identity that travels with the physical material throughout its lifecycle. This system enables real-time tracking of material provenance, carbon emissions, and fabrication history.
@@ -204,7 +204,7 @@ export default function PixelframePage() {
 
               <Divider size="m" />
               <Grid>
-                <GridItem span={5} start={8}>
+                <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-s b-h-text  p t-r bl">Circular Material Intelligence</p>
                   <p className="fs-sm h-text  p t-r  bl">
                     The system tracks material movement across sites and assemblies, creating a comprehensive database of component lifecycle data. This enables informed decision-making about material reuse, recycling, and end-of-life processing.

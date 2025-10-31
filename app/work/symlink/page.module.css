@@ -151,5 +151,12 @@
 
 .stickyGrid.headerVisible {
   border-top: 0.75px solid #000;
-  top: 52.5px; /* When header is visible */
+  top: 46px; /* When header is visible */
+}
+
+@media (max-width: 900px) {
+  /* Hide sticky header labels on mobile, keep values visible */
+  .stickyGrid :global(span.fs-xxs.t-text.lh-0.meta) {
+    display: none !important;
+  }
 }

@@ -210,7 +210,7 @@ export default function Footer() {
           <div className={styles.bottomSection}>
             <Grid>
               {/* Copyright */}
-              <GridItem start={1} span={2} style={{ alignSelf: "end" }}>
+              <GridItem start={1} span={2} style={{ alignSelf: "end" }} startMobile={1} spanMobile={12}>
                 <div className={`${styles.copyright} fs-s h-text`}>
                   <span>2025 SPOLIA LLC</span>
                   <br />
@@ -226,7 +226,7 @@ export default function Footer() {
                   </span>
                 </div>
               </GridItem>
-              <GridItem start={5} span={1} style={{ alignSelf: "end" }} startMobile={0} spanMobile={12}>
+              <GridItem start={5} span={1} style={{ alignSelf: "end" }}>
                 <div className={styles.systemInfo}>
                   <span>{time?.toLocaleTimeString()}</span>
                 </div>
@@ -237,7 +237,7 @@ export default function Footer() {
                 </div>
               </GridItem>
 
-              <GridItem start={10} span={1} startMobile={1} spanMobile={3}>
+              <GridItem start={10} span={1} startMobile={1} spanMobile={6}>
                 <div className={styles.navigation}>
                   <a
                     href="/work"
@@ -273,7 +273,7 @@ export default function Footer() {
                   </a>
                 </div>
               </GridItem>
-              <GridItem start={11} span={2} style={{ alignSelf: "end" }} startMobile={4} spanMobile={4}>
+              <GridItem start={11} span={2} style={{ alignSelf: "end" }} startMobile={7} spanMobile={6}>
                 <div className={styles.navigation}>
                   <a
                     className="fs-s h-text"

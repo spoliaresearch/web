@@ -390,6 +390,12 @@ img {
   text-align: justify;
 }
 
+@media (max-width: 900px) {
+  .bl {
+    text-align: left;
+  }
+}
+
 .r {
   text-align: right;
 }

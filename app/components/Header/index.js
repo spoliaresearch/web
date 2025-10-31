@@ -58,13 +58,13 @@ export default function Header() {
             </div>
           </GridItem>
 
-          <GridItem start={10} span={1} startMobile={6} spanMobile={1}>
+          <GridItem start={11} span={1} startMobile={7} spanMobile={3}>
             <Link href="/studio">
               <span className="fs-xs">STUDIO</span>
             </Link>
           </GridItem>
 
-          <GridItem start={11} span={1} startMobile={8} spanMobile={1}>
+          <GridItem start={12} span={1} startMobile={10} spanMobile={3}>
             <Link href="/work">
               <span className="fs-xs">WORK</span>
             </Link>{" "}
