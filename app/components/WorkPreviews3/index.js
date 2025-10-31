@@ -5,6 +5,35 @@ import { useRouter } from "next/navigation";
 import { Grid, GridItem } from "../Grid";
 import styles from "./WorkPreviews.module.css";
 import Divider from "../Divider";
+
+// CDN storage solution - same pattern as Image component
+function getCDNImagePath(baseName) {
+  // Extract just the basename from paths (e.g., "/FOR_PRODUCTION/photo/Spolia_Beam_DEMO2025_3.jpg" -> "Spolia_Beam_DEMO2025_3")
+  // First, remove extension if provided
+  let nameWithoutExt = baseName.replace(/\.(jpg|jpeg|png|webp|avif)$/i, "");
+  
+  // Extract the filename from any path (handles "/FOR_PRODUCTION/photo/Spolia_Beam_DEMO2025_3" -> "Spolia_Beam_DEMO2025_3")
+  const basename = nameWithoutExt.split("/").pop();
+  
+  // Clean up: remove any leading/trailing slashes
+  const cleanName = basename.replace(/^\/+|\/+$/g, "");
+
+  // Return CDN URL with .webp extension
+  return `https://s-img.b-cdn.net/${cleanName}.webp`;
+}
+
+// CDN storage solution for videos - same pattern as Video component
+function getCDNVideoPath(baseName) {
+  // Remove extension if provided and clean up the filename
+  const nameWithoutExt = baseName.replace(/\.(mov|mp4|webm|avi)$/i, "");
+  // Extract the filename from any path
+  const basename = nameWithoutExt.split("/").pop();
+  // Clean up: remove any leading/trailing slashes
+  const cleanName = basename.replace(/^\/+|\/+$/g, "");
+  // Use MP4 format for CDN
+  return `https://s-vid.b-cdn.net/${cleanName}.mp4`;
+}
+
 const workItems = [
   {
     id: 1,
@@ -14,7 +43,7 @@ const workItems = [
     longDescription:
       "A comprehensive digital system for tracking and documenting material lifecycles, enabling transparent supply chains and sustainable resource management through blockchain technology and IoT sensors.",
     year: "2025",
-    image: "/three_images/05.jpg",
+    video: getCDNVideoPath("PF-Beam-full"),
     client: "MIT Digital Structures",
     category: "Product",
     categoryNumber: 1,
@@ -28,8 +57,11 @@ const workItems = [
     longDescription:
       "An immersive installation of sculptural beacons that transform deep-sea environmental data into sound and light, creating an embodied connection to Earth's largest and most unexplored ecosystem.",
     year: "2025",
-    // Use two specific images for the Beacons preview - using optimized versions
-    images: ["/FOR_PRODUCTION/photo/Spolia_Beam_DEMO2025_3.jpg", "/FOR_PRODUCTION/photo/Spolia_Beam_DEMO2025_2.jpg"],
+    // Use two specific images for the Beacons preview - using CDN versions
+    images: [
+      getCDNImagePath("/FOR_PRODUCTION/photo/Spolia_Beam_DEMO2025_3.jpg"),
+      getCDNImagePath("/FOR_PRODUCTION/photo/Spolia_Beam_DEMO2025_2.jpg")
+    ],
     client: "New Museum",
     category: "Experience",
     categoryNumber: 2,
@@ -43,7 +75,10 @@ const workItems = [
     longDescription:
       "A platform that bridges digital and ecological systems, using machine learning to analyze environmental patterns and provide actionable insights for sustainable urban development and conservation efforts.",
     year: "2023",
-    images: ["/FOR_PRODUCTION/symlink_1.jpg", "/FOR_PRODUCTION/symlink_3.jpg"],
+    images: [
+      getCDNImagePath("/FOR_PRODUCTION/symlink_1.jpg"),
+      getCDNImagePath("/FOR_PRODUCTION/symlink_3.jpg")
+    ],
     client: "SPACE10",
     category: "Experience",
     categoryNumber: 2,
@@ -165,7 +200,21 @@ export default function WorkPreviews({ showAll = false }) {
                   )}
                 </GridItem>
                 <GridItem start={5} span={5}>
-                  {Array.isArray(item.images) ? (
+                  {item.video ? (
+                    <video
+                      src={item.video}
+                      className={styles.image}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      style={{
+                        height: "325px",
+                        width: "auto",
+                        objectFit: "contain",
+                      }}
+                    />
+                  ) : Array.isArray(item.images) ? (
                     <div
                       style={{ display: "flex", gap: "8px", alignItems: "flex-start", justifyContent: "flex-start" }}
                     >

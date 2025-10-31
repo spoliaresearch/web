@@ -44,9 +44,6 @@ export default function WorkPage() {
               Project
             </GridItem>
             <GridItem start={9} span={1} style={{ padding: "1rem 0", fontWeight: "bold" }}>
-              Venue
-            </GridItem>
-            <GridItem start={10} span={1} style={{ padding: "1rem 0", fontWeight: "bold" }}>
               Client
             </GridItem>
             <GridItem start={11} span={1} style={{ padding: "1rem 0", fontWeight: "bold" }}>
