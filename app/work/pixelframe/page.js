@@ -210,14 +210,14 @@ export default function PixelframePage() {
                   <p className="fs-sm h-text  p t-r bl">
                     Through the interface, users can:
                   </p>
-                  <ul className="fs-sm h-text  p t-r bl">
-                    <li>Tap their phone against an RFID tag on a component to open its full material record</li>
-                    <li>Identify which pixels are in use, where they are located, and in which assemblies</li>
-                    <li>Track how configurations evolve over time</li>
-                    <li>View total carbon emissions per pixel or structure</li>
-                    <li>See the geographic movement of assemblies across sites</li>
-                    <li>Access 3D scans to assess the condition of each module</li>
-                    <li>Use AR/VR tools to visualize assemblies at scale on a project site</li>
+                  <ul className="fs-s h-text t-r" style={{paddingLeft: '1.5rem', marginBottom: '0.75rem', lineHeight: '1.5'}}>
+                    <li style={{marginBottom: '0.35rem'}}>Tap their phone against an RFID tag on a component to open its full material record</li>
+                    <li style={{marginBottom: '0.35rem'}}>Identify which pixels are in use, where they are located, and in which assemblies</li>
+                    <li style={{marginBottom: '0.35rem'}}>Track how configurations evolve over time</li>
+                    <li style={{marginBottom: '0.35rem'}}>View total carbon emissions per pixel or structure</li>
+                    <li style={{marginBottom: '0.35rem'}}>See the geographic movement of assemblies across sites</li>
+                    <li style={{marginBottom: '0.35rem'}}>Access 3D scans to assess the condition of each module</li>
+                    <li style={{marginBottom: '0.35rem'}}>Use AR/VR tools to visualize assemblies at scale on a project site</li>
                   </ul>
                   <p className="fs-sm h-text  p t-r  bl">
                     Together, these capabilities make every element legible, traceable, and ready for reuse, linking physical material to its digital history and supporting circular construction at scale.
@@ -226,18 +226,6 @@ export default function PixelframePage() {
               </Grid>
               <Divider size="s" />
 
-              <Grid>
-                <GridItem span={5} start={8} spanMobile={12}>
-                  <p className="fs-s b-h-text  p t-r bl">Toward Circular Construction</p>
-                  <p className="fs-sm h-text  p t-r  bl">
-                    The Pixelframe passport turns data into a practical tool for reuse. By giving every concrete module a digital identity, it makes each one traceable, verifiable, and ready for another life. It removes the friction that typically prevents reuse: unknown provenance, unverified performance, and logistical complexity.
-                  </p>
-                  <p className="fs-sm h-text  p t-r  bl">
-                    It points toward a future of continuous construction in which concrete shifts from a disposable material to one with a recorded history that can be reused and adapted as buildings evolve.
-                  </p>
-                </GridItem>
-              </Grid>
-              <Divider size="s" />
               <Grid>
                 <GridItem span={6} start={1}>
                           {/* <Image src="IMG_4652" /> */}
@@ -250,6 +238,18 @@ export default function PixelframePage() {
                 {/* <GridItem span={3} start={10}>
                 <Video  src="PF-Globe" />
                 </GridItem> */}
+              </Grid>
+              <Divider size="s" />
+              <Grid>
+                <GridItem span={5} start={8} spanMobile={12}>
+                  <p className="fs-s b-h-text  p t-r bl">Toward Circular Construction</p>
+                  <p className="fs-sm h-text  p t-r  bl">
+                    The Pixelframe passport turns data into a practical tool for reuse. By giving every concrete module a digital identity, it makes each one traceable, verifiable, and ready for another life. It removes the friction that typically prevents reuse: unknown provenance, unverified performance, and logistical complexity.
+                  </p>
+                  <p className="fs-sm h-text  p t-r  bl">
+                    It points toward a future of continuous construction in which concrete shifts from a disposable material to one with a recorded history that can be reused and adapted as buildings evolve.
+                  </p>
+                </GridItem>
               </Grid>
          
              
