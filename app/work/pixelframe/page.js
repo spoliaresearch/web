@@ -116,10 +116,10 @@ export default function PixelframePage() {
                 </GridItem>
                 <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r bl">
-                    A digital material passport system for modular precast construction, enabling circular economies through intelligent material tracking and lifecycle management.
+                    As part of the Venice Architecture Biennale 2025 exhibition "From Liquid to Stone", we developed a digital material passport system for Pixelframe, a modular precast construction system developed by Future Assemblies and the Digital Structures lab at MIT.
                   </p>
                   <p className="fs-sm h-text  p t-r bl">
-                    Developed as part of the Venice Architecture Biennale 2025 exhibition "From Liquid to Stone," this system demonstrates how digital infrastructure can surface new material intelligences.
+                    The digital interface links each concrete element to its material story – revealing how design, data, and reuse can shape a more circular built environment.
                   </p>
                 </GridItem>
               </Grid>
@@ -140,10 +140,7 @@ export default function PixelframePage() {
               <Grid>
               <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r bl">
-                    A digital material passport system for modular precast construction, enabling circular economies through intelligent material tracking and lifecycle management.
-                  </p>
-                  <p className="fs-sm h-text  p t-r bl">
-                    Developed as part of the Venice Architecture Biennale 2025 exhibition "From Liquid to Stone," this system demonstrates how digital infrastructure can surface new material intelligences.
+                    Visitors can scan any element in the installation via RFID tags to access its full material record, revealing its carbon emissions, fabrication history, and movement across sites and assemblies.
                   </p>
                 </GridItem>
               </Grid>
@@ -174,14 +171,15 @@ export default function PixelframePage() {
                   <p className="fs-s h-text  p t-r bl">PROCESS</p>
                 </GridItem>
                 <GridItem span={5} start={8} spanMobile={12}>
-                  <p className="fs-s b-h-text  p t-r bl">Digital Material Passports</p>
+                  <p className="fs-s b-h-text  p t-r bl">Concrete Without Waste</p>
                   <p className="fs-sm h-text  p t-r  bl">
-                    Each Pixelframe component is embedded with RFID technology, creating a unique digital identity that travels with the physical material throughout its lifecycle. This system enables real-time tracking of material provenance, carbon emissions, and fabrication history.
+                    Concrete is one of the most widely used materials in building construction, contributing nearly 10% of global CO₂ emissions each year. Because concrete is not designed for reuse, structures are demolished at the end of their life, sending over 360 million metric tons of concrete to landfills annually in the United States.
                   </p>
-                  <br />
-                  <p className="fs-s b-h-text  p t-r bl">Mobile Scanning Platform</p>
                   <p className="fs-sm h-text  p t-r  bl">
-                    A custom mobile application allows users to scan any element within the installation, instantly accessing comprehensive material records including carbon footprint data, manufacturing details, and assembly history across multiple sites and configurations.
+                    To promote circularity in concrete construction, the Future Assemblies group and MIT's Digital Structures Lab developed a "pixel" technology, modular precast concrete components that can be assembled into larger structural configurations, such as beams and columns. To make this system truly reusable, each component needs a digital record of what it's made of, how it's been used, and how it's performing over time. This record, called a <em>material passport</em>, allows components to be identified, verified, and safely reused instead of discarded.
+                  </p>
+                  <p className="fs-sm h-text  p t-r  bl">
+                    Our work focused on designing and building the digital layer, a material system connecting each physical component to its data.
                   </p>
                 </GridItem>
               </Grid>
@@ -205,26 +203,29 @@ export default function PixelframePage() {
               <Divider size="m" />
               <Grid>
                 <GridItem span={5} start={8} spanMobile={12}>
-                  <p className="fs-s b-h-text  p t-r bl">Circular Material Intelligence</p>
+                  <p className="fs-s b-h-text  p t-r bl">Material Passports & Digital Twins</p>
                   <p className="fs-sm h-text  p t-r  bl">
-                    The system tracks material movement across sites and assemblies, creating a comprehensive database of component lifecycle data. This enables informed decision-making about material reuse, recycling, and end-of-life processing.
+                    The material passport functions as the digital twin for every Pixelframe element, forming a living material bank that tracks each pixel's lifecycle from fabrication through multiple deployments.
                   </p>
                   <p className="fs-sm h-text  p t-r bl">
-                    By making material histories visible and accessible, the platform supports the transition toward circular construction economies where building components maintain value across multiple use cycles.
+                    Through the interface, users can:
                   </p>
+                  <ul className="fs-s h-text t-r" style={{paddingLeft: '1.5rem', marginBottom: '0.75rem', lineHeight: '1.5'}}>
+                    <li style={{marginBottom: '0.35rem'}}>Tap their phone against an RFID tag on a component to open its full material record</li>
+                    <li style={{marginBottom: '0.35rem'}}>Identify which pixels are in use, where they are located, and in which assemblies</li>
+                    <li style={{marginBottom: '0.35rem'}}>Track how configurations evolve over time</li>
+                    <li style={{marginBottom: '0.35rem'}}>View total carbon emissions per pixel or structure</li>
+                    <li style={{marginBottom: '0.35rem'}}>See the geographic movement of assemblies across sites</li>
+                    <li style={{marginBottom: '0.35rem'}}>Access 3D scans to assess the condition of each module</li>
+                    <li style={{marginBottom: '0.35rem'}}>Use AR/VR tools to visualize assemblies at scale on a project site</li>
+                  </ul>
                   <p className="fs-sm h-text  p t-r  bl">
-                    The Pixelframe digital passport system demonstrates how embedded sensing technologies and mobile interfaces can transform construction materials from static resources into intelligent, trackable assets within circular economic frameworks.
+                    Together, these capabilities make every element legible, traceable, and ready for reuse, linking physical material to its digital history and supporting circular construction at scale.
                   </p>
                 </GridItem>
               </Grid>
               <Divider size="s" />
 
-              <Grid>
-                <GridItem span={5} start={8}>
-                 
-                </GridItem>
-              </Grid>
-              <Divider size="s" />
               <Grid>
                 <GridItem span={6} start={1}>
                           {/* <Image src="IMG_4652" /> */}
@@ -237,6 +238,18 @@ export default function PixelframePage() {
                 {/* <GridItem span={3} start={10}>
                 <Video  src="PF-Globe" />
                 </GridItem> */}
+              </Grid>
+              <Divider size="s" />
+              <Grid>
+                <GridItem span={5} start={8} spanMobile={12}>
+                  <p className="fs-s b-h-text  p t-r bl">Toward Circular Construction</p>
+                  <p className="fs-sm h-text  p t-r  bl">
+                    The Pixelframe passport turns data into a practical tool for reuse. By giving every concrete module a digital identity, it makes each one traceable, verifiable, and ready for another life. It removes the friction that typically prevents reuse: unknown provenance, unverified performance, and logistical complexity.
+                  </p>
+                  <p className="fs-sm h-text  p t-r  bl">
+                    It points toward a future of continuous construction in which concrete shifts from a disposable material to one with a recorded history that can be reused and adapted as buildings evolve.
+                  </p>
+                </GridItem>
               </Grid>
          
              
