@@ -10,6 +10,7 @@ import Line from "../../components/Line";
 import Divider from "../../components/Divider";
 import { GlossaryText, GlossaryLink } from "../../components/GlossaryProvider";
 import Footer from "../../components/Footer";
+import glossaryMentions from "../../../lib/glossary-mentions.json";
 
 // Utility function to get all glossary terms for static generation
 export function generateStaticParams() {
@@ -135,6 +136,34 @@ function RelatedTerms({ relatedTerms, excludeTerms = [] }) {
   );
 }
 
+// Referenced On Component
+function ReferencedOn({ slug }) {
+  const pages = glossaryMentions[slug];
+  
+  if (!pages || pages.length === 0) return null;
+
+  // Map page paths to readable names
+  const pageNames = {
+    "/": "Home",
+    "/work/pixelframe": "Pixelframe",
+    "/research/material-intelligence": "Material Intelligence",
+  };
+
+  return (
+    <p className="b-text fs-s" style={{ marginTop: "0.5rem" }}>
+      Referenced on{" "}
+      {pages.map((pagePath, index) => (
+        <span key={pagePath}>
+          <Link href={pagePath} className="b-text fs-s">
+            {pageNames[pagePath] || pagePath}
+          </Link>
+          {index < pages.length - 1 && ", "}
+        </span>
+      ))}
+    </p>
+  );
+}
+
 export default function GlossaryTermPage({ params }) {
   const termData = generateTermContent(params.slug);
   const readingTime = getReadingTime(params.slug);
@@ -165,6 +194,7 @@ export default function GlossaryTermPage({ params }) {
           <GridItem start={6} span={5}>
             {" "}
             <Breadcrumbs breadcrumbs={termData.breadcrumbs} />
+            <ReferencedOn slug={params.slug} />
           </GridItem>
           <GridItem start={9} span={3}></GridItem>
           <GridItem start={0} span={12}>

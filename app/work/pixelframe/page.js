@@ -12,6 +12,7 @@ import { GridContainer, Grid, GridItem } from "../../components/Grid";
 import PageThemeProvider from "../../components/contexts/PageThemeProvider";
 import DissolveImage from "../../components/DissolveImage";
 import { MediaProvider, MediaModal } from "../../components/MediaModal";
+import { GlossaryLink } from "../../components/GlossaryProvider";
 import { useEffect, useState } from "react";
 
 export default function PixelframePage() {
@@ -116,7 +117,7 @@ export default function PixelframePage() {
                 </GridItem>
                 <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-sm h-text  p t-r bl">
-                    As part of the Venice Architecture Biennale 2025 exhibition "From Liquid to Stone", we developed a digital material passport system for Pixelframe, a modular precast construction system developed by Future Assemblies and the Digital Structures lab at MIT.
+                    As part of the Venice Architecture Biennale 2025 exhibition "From Liquid to Stone", we developed a digital <GlossaryLink slug="material-passport"><span style={{ position: "relative" }}>material passport<div style={{ position: "absolute", bottom: "0px", left: "0", width: "100%", height: "0", borderBottom: "1.25px dotted #85827e" }} /></span></GlossaryLink> system for Pixelframe, a modular precast construction system developed by Future Assemblies and the Digital Structures lab at MIT.
                   </p>
                   <p className="fs-sm h-text  p t-r bl">
                     The digital interface links each concrete element to its material story – revealing how design, data, and reuse can shape a more circular built environment.
@@ -176,7 +177,7 @@ export default function PixelframePage() {
                     Concrete is one of the most widely used materials in building construction, contributing nearly 10% of global CO₂ emissions each year. Because concrete is not designed for reuse, structures are demolished at the end of their life, sending over 360 million metric tons of concrete to landfills annually in the United States.
                   </p>
                   <p className="fs-sm h-text  p t-r  bl">
-                    To promote circularity in concrete construction, the Future Assemblies group and MIT's Digital Structures Lab developed a "pixel" technology, modular precast concrete components that can be assembled into larger structural configurations, such as beams and columns. To make this system truly reusable, each component needs a digital record of what it's made of, how it's been used, and how it's performing over time. This record, called a <em>material passport</em>, allows components to be identified, verified, and safely reused instead of discarded.
+                    To promote circularity in concrete construction, the Future Assemblies group and MIT's Digital Structures Lab developed a "pixel" technology, modular precast concrete components that can be assembled into larger structural configurations, such as beams and columns. To make this system truly reusable, each component needs a digital record of what it's made of, how it's been used, and how it's performing over time. This record, called a <GlossaryLink slug="material-passport"><span style={{ position: "relative" }}>material passport<div style={{ position: "absolute", bottom: "0px", left: "0", width: "100%", height: "0", borderBottom: "1.25px dotted #85827e" }} /></span></GlossaryLink>, allows components to be identified, verified, and safely reused instead of discarded.
                   </p>
                   <p className="fs-sm h-text  p t-r  bl">
                     Our work focused on designing and building the digital layer, a material system connecting each physical component to its data.
@@ -205,19 +206,19 @@ export default function PixelframePage() {
                 <GridItem span={5} start={8} spanMobile={12}>
                   <p className="fs-s b-h-text  p t-r bl">Material Passports & Digital Twins</p>
                   <p className="fs-sm h-text  p t-r  bl">
-                    The material passport functions as the digital twin for every Pixelframe element, forming a living material bank that tracks each pixel's lifecycle from fabrication through multiple deployments.
+                    The <GlossaryLink slug="material-passport"><span style={{ position: "relative" }}>material passport<div style={{ position: "absolute", bottom: "0px", left: "0", width: "100%", height: "0", borderBottom: "1.25px dotted #85827e" }} /></span></GlossaryLink> functions as the <GlossaryLink slug="digital-twin"><span style={{ position: "relative" }}>digital twin<div style={{ position: "absolute", bottom: "0px", left: "0", width: "100%", height: "0", borderBottom: "1.25px dotted #85827e" }} /></span></GlossaryLink> for every Pixelframe element, forming a living material bank that tracks each pixel's lifecycle from fabrication through multiple deployments.
                   </p>
                   <p className="fs-sm h-text  p t-r bl">
                     Through the interface, users can:
                   </p>
-                  <ul className="fs-s h-text t-r" style={{paddingLeft: '1.5rem', marginBottom: '0.75rem', lineHeight: '1.5'}}>
-                    <li style={{marginBottom: '0.35rem'}}>Tap their phone against an RFID tag on a component to open its full material record</li>
-                    <li style={{marginBottom: '0.35rem'}}>Identify which pixels are in use, where they are located, and in which assemblies</li>
-                    <li style={{marginBottom: '0.35rem'}}>Track how configurations evolve over time</li>
-                    <li style={{marginBottom: '0.35rem'}}>View total carbon emissions per pixel or structure</li>
-                    <li style={{marginBottom: '0.35rem'}}>See the geographic movement of assemblies across sites</li>
-                    <li style={{marginBottom: '0.35rem'}}>Access 3D scans to assess the condition of each module</li>
-                    <li style={{marginBottom: '0.35rem'}}>Use AR/VR tools to visualize assemblies at scale on a project site</li>
+                  <ul className={`${styles.listBlock} fs-sm h-text p t-r`} style={{ marginBottom: '0.75rem', marginLeft: '0rem', lineHeight: '1.33'}}>
+                    <li style={{marginBottom: '0.3rem'}}>Tap their phone against an RFID tag on a component to open its full material record</li>
+                    <li style={{marginBottom: '0.3rem'}}>Identify which pixels are in use, where they are located, and in which assemblies</li>
+                    <li style={{marginBottom: '0.3rem'}}>Track how configurations evolve over time</li>
+                    <li style={{marginBottom: '0.3rem'}}>View total carbon emissions per pixel or structure</li>
+                    <li style={{marginBottom: '0.3rem'}}>See the geographic movement of assemblies across sites</li>
+                    <li style={{marginBottom: '0.3rem'}}>Access 3D scans to assess the condition of each module</li>
+                    <li style={{marginBottom: '0.3rem'}}>Use AR/VR tools to visualize assemblies at scale on a project site</li>
                   </ul>
                   <p className="fs-sm h-text  p t-r  bl">
                     Together, these capabilities make every element legible, traceable, and ready for reuse, linking physical material to its digital history and supporting circular construction at scale.

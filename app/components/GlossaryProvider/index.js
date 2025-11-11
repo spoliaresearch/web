@@ -200,53 +200,57 @@ export function GlossaryLink({ slug, children, className, style, onClick, ...pro
         {children}
       </span>
 
-      {showPopover && (
-        <div
-          ref={previewRef}
-          style={{
-            position: "fixed",
-            left: previewPosition.x,
-            top: previewPosition.y,
-            zIndex: 1000,
-            background: "white",
-            border: ".5px solid rgb(211, 210, 208)",
-            borderRadius: "4px",
-            padding: "0rem",
-            width: "400px",
-            height: "120px",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.06)",
-            fontSize: "14px",
-            letterSpacing: "0",
-            lineHeight: "1.4",
-            opacity: isHovered ? 1 : 0,
-            transform: isHovered ? "translateY(0px)" : "translateY(10px)",
-            transition: "opacity 0.3s ease, transform 0.3s ease",
-          }}
-          role="tooltip"
-        >
-          {(() => {
-            // Check if term has images (placeholder logic for now)
-            const hasImage = term.content?.images && term.content.images.length > 0;
+      {showPopover && (() => {
+        // Check if term has images (placeholder logic for now)
+        const hasImage = term.content?.images && term.content.images.length > 0;
 
-            // Process description to bold term name if present
+        return (
+          <div
+            ref={previewRef}
+            style={{
+              position: "fixed",
+              left: previewPosition.x,
+              top: previewPosition.y,
+              zIndex: 1000,
+              background: "white",
+              border: ".5px solid rgb(211, 210, 208)",
+              borderRadius: "4px",
+              padding: "6px 0rem",
+              width: hasImage ? "400px" : "250px",
+              height: "120px",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.06)",
+              fontSize: "14px",
+              letterSpacing: "0",
+              lineHeight: "1.4",
+              opacity: isHovered ? 1 : 0,
+              transform: isHovered ? "translateY(0px)" : "translateY(10px)",
+              transition: "opacity 0.3s ease, transform 0.3s ease",
+              display: "flex",
+              alignItems: "center",
+            }}
+            role="tooltip"
+          >
+            {(() => {
+
+            // Process description to bold term name where it appears in the text
             const processDescription = (description) => {
               if (!description) return description;
 
-              // Create case-insensitive regex to find the term name
-              const termRegex = new RegExp(`\\b(${term.term})\\b`, "gi");
+              // Split by term name and bold all instances
+              const termRegex = new RegExp(`(${term.term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
               const parts = description.split(termRegex);
 
               return parts.map((part, index) => {
-                console.log(part);
                 // Check if this part matches the term name (case-insensitive)
-                if (part.toLowerCase() === term.term.toLowerCase()) {
+                if (part && term.term && part.toLowerCase() === term.term.toLowerCase()) {
                   return (
                     <span style={{ fontVariationSettings: '"wght" 700, "ital" 0, "SRFF" 0.25' }} key={index}>
                       {part}
                     </span>
                   );
                 }
-                return part;
+                // Return the part as-is (including empty strings to preserve spacing)
+                return <span key={index}>{part}</span>;
               });
             };
 
@@ -255,19 +259,18 @@ export function GlossaryLink({ slug, children, className, style, onClick, ...pro
               return (
                 <div style={{ display: "flex", gap: "0", alignItems: "stretch", height: "100%" }}>
                   <div style={{ flex: 1, padding: "0rem .75rem", width: "50%", display: "flex", alignItems: "center" }}>
-                    <p
+                    <span
                       style={{
-                        margin: "0",
                         fontVariationSettings: '"wght" 400, "ital" 0, "SRFF" 0.15',
                         letterSpacing: "-0.01em",
                         color: "#111",
                         fontSize: "14px",
-                        letterSpacing: "0",
                         lineHeight: "1.2",
+                        textAlign: "left",
                       }}
                     >
                       {processDescription(term.shortDefinition)}
-                    </p>
+                    </span>
                   </div>
                   <div
                     style={{
@@ -293,16 +296,25 @@ export function GlossaryLink({ slug, children, className, style, onClick, ...pro
             } else {
               // Single column layout without image
               return (
-                <div style={{ height: "100%", display: "flex", alignItems: "center" }}>
-                  <p style={{ margin: "0", color: "#666", letterSpacing: "0", lineHeight: "1.2", padding: "1rem" }}>
-                    {processDescription(term.shortDefinition)}
-                  </p>
-                </div>
+                <span
+                  style={{
+                    fontVariationSettings: '"wght" 400, "ital" 0, "SRFF" 0.15',
+                    letterSpacing: "-0.01em",
+                    color: "#111",
+                    fontSize: "14px",
+                    lineHeight: "1.2",
+                    padding: "0rem .75rem",
+                    textAlign: "left",
+                  }}
+                >
+                  {processDescription(term.shortDefinition)}
+                </span>
               );
             }
-          })()}
-        </div>
-      )}
+            })()}
+          </div>
+        );
+      })()}
     </>
   );
 }

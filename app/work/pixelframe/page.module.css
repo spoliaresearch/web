@@ -178,3 +178,20 @@
   text-align: center;
   margin: 0;
 }
+
+/* List styles with proper text alignment */
+.listBlock {
+  list-style: none;
+  padding-left: 0;
+}
+
+.listBlock li {
+  display: flex;
+  align-items: flex-start;
+}
+
+.listBlock li::before {
+  content: "— ";
+  margin-right: calc(0.5rem + 5px);
+  flex-shrink: 0;
+}
