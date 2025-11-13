@@ -46,7 +46,7 @@ export default function PixelframePage() {
         <div className={styles.content}>
           <div className={styles.canvasContainer}>
             <GridContainer>
-              <Divider size="m" />
+              <Divider size="m" mobileSize="l" />
               <div className={`${styles.stickyGrid} ${isHeaderVisible ? styles.headerVisible : ""}`}>
                 <Grid>
                   <GridItem span={2} start={0} spanMobile={1}>

@@ -1,4 +1,4 @@
-export default function Divider({ size = "m" }) {
+export default function Divider({ size = "m", mobileSize }) {
   const sizeMap = {
     xxs: "16px",
     xs: "32px",
@@ -19,12 +19,14 @@ export default function Divider({ size = "m" }) {
     xl: "384px",
   };
 
+  const effectiveMobileSize = mobileSize || size;
+
   return (
     <div
       style={{
         height: sizeMap[size] || sizeMap.m,
         width: "100%",
-        "--mobile-height": mobileSizeMap[size] || mobileSizeMap.m,
+        "--mobile-height": mobileSizeMap[effectiveMobileSize] || mobileSizeMap.m,
       }}
       className="divider-component"
     />

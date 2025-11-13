@@ -21,7 +21,7 @@ export default function WorkPage() {
     <div className={styles.container}>
       <Header />
       <main className={styles.main}>
-        <Divider size="s" />
+        <Divider size="s" mobileSize="l" />
         <GridContainer>
           {/* Header Section */}
           <Grid style={{ paddingBottom: "8rem" }}>

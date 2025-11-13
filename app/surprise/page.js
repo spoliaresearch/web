@@ -19,7 +19,7 @@ export default function Surprise() {
   return (
     <div>
       <Header />
-      <Divider size="s" />
+      <Divider size="s" mobileSize="l" />
       <GridContainer>
         <Divider size="s" />
         <div className={styles.projectMeta}>

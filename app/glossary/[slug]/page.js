@@ -180,7 +180,7 @@ export default function GlossaryTermPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(termData.structuredData) }}
       />
       <Header />
-      <Divider size="s" />
+      <Divider size="s" mobileSize="l" />
       <GridContainer>
         <Grid>
           <GridItem start={0} span={5}>

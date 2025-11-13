@@ -18,7 +18,7 @@ export default function NotFound() {
   return (
     <div>
       <Header />
-      <Divider size="s" />
+      <Divider size="s" mobileSize="l" />
       <GridContainer>
         <Grid>
           <GridItem span={3}>

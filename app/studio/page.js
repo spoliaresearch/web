@@ -15,7 +15,7 @@ function StudioContent() {
     <div className={styles.container}>
       <Header />
       <main className={styles.main}>
-        <Divider size="s" />
+        <Divider size="s" mobileSize="l" />
         <GridContainer>
           {/* Video Section */}
           <Grid>

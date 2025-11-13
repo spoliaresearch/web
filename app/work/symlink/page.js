@@ -46,7 +46,7 @@ export default function SymlinkPage() {
             {/* <Divider size="xxs" /> */}
 
             <GridContainer>
-              <Divider size="m" />
+              <Divider size="m" mobileSize="l" />
               <div className={`${styles.stickyGrid} ${isHeaderVisible ? styles.headerVisible : ""}`}>
                 <Grid>
                   <GridItem span={1} start={0} spanMobile={1}>

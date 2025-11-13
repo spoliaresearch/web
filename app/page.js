@@ -90,7 +90,7 @@ export default function HomePage() {
         <Header />
       
         <main className={styles.main}>
-        <Divider size="xxs" />
+        <Divider size="xxs" mobileSize="l" />
 
           <Hero />
           <GridContainer>
