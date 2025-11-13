@@ -1,4 +1,4 @@
-# Spolia Web
+Run this with node 18 now
 
 A Next.js website for Spolia, a design research studio that builds products and experiences blending the digital and physical.
 
