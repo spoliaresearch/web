@@ -290,6 +290,8 @@ export default function Video({ src, verticalCrop = 0, rotate = 0, scale = 1, hi
         poster={props.poster}
         muted
         loop
+        playsInline
+        webkit-playsinline="true"
         crossOrigin="anonymous"
         preload="metadata"
         {...props}
