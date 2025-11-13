@@ -204,25 +204,22 @@ export default function CustomImage({ src, alt, className, priority = false, roo
 
   // Handle full image load - only animate if in view
   const handleFullImageLoad = () => {
-    const startTime = Date.now();
-
     // Get file size from pre-generated lookup using the selected format
     const fileSize = getImageFileSize(src);
     setImageFileSize(fileSize);
 
-    // Check load time to determine if cached
-    requestAnimationFrame(() => {
-      const loadTime = Date.now() - startTime;
+    // Check if image was already cached (loaded synchronously)
+    const img = fullImageRef.current;
+    const wasCached = img && img.complete && img.naturalWidth > 0;
 
-      if (loadTime < 5) {
-        // Likely cached, skip animation
-        setShowFullImage(true);
-      } else if (isInView) {
-        // Only animate if in view
-        startAnimation();
-      }
-      // If not in view, wait for intersection observer to trigger
-    });
+    if (wasCached) {
+      // Image was cached, skip animation entirely
+      setShowFullImage(true);
+    } else if (isInView) {
+      // Image wasn't cached and is in view, animate
+      startAnimation();
+    }
+    // If not in view, wait for intersection observer to trigger
   };
 
   // Trigger animation when image becomes visible (if loaded)
@@ -235,9 +232,20 @@ export default function CustomImage({ src, alt, className, priority = false, roo
       !showFullImage &&
       !isAnimating
     ) {
-      startAnimation();
+      // Check if it's cached - if so, skip animation
+      const img = fullImageRef.current;
+      const wasCached = img.complete && img.naturalWidth > 0;
+      
+      if (wasCached) {
+        // Get file size before showing
+        const fileSize = getImageFileSize(src);
+        setImageFileSize(fileSize);
+        setShowFullImage(true);
+      } else {
+        startAnimation();
+      }
     }
-  }, [isInView, shouldLoadFullImage, showFullImage, isAnimating]);
+  }, [isInView, shouldLoadFullImage, showFullImage, isAnimating, src]);
 
   const startAnimation = () => {
     setIsAnimating(true);
