@@ -304,8 +304,10 @@ export default function Footer() {
                     LinkedIn
                   </a>
                   <a
-                    href="/newsletter"
+                    href="https://spolia.beehiiv.com/subscribe"
                     className="fs-s h-text"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onMouseEnter={() => setIsBlurred(true)}
                     onMouseLeave={() => setIsBlurred(false)}
                   >

@@ -362,13 +362,13 @@ function StudioContent() {
                 Careers
               </div>
               <div style={{ marginTop: "0rem" }} className="fs-sm h-text">
-                <a href="mailto:hello@spolialab.com">apply@spolialab.com</a>
+                <a href="mailto:apply@spolialab.com">apply@spolialab.com</a>
               </div>
               <div className={`fs-s b-h-text ${styles.tableHeader}`} style={{ paddingBottom: ".75rem" }}>
                 Media
               </div>
               <div style={{ marginTop: "0rem" }} className="fs-sm h-text">
-                <a href="mailto:hello@spolialab.com">press@spolialab.com</a>
+                <a href="mailto:press@spolialab.com">press@spolialab.com</a>
               </div>
             </GridItem>
             <GridItem start={9} span={2} spanMobile={12}>
@@ -378,7 +378,7 @@ function StudioContent() {
               <div style={{ marginTop: "0rem" }} className="fs-sm h-text">
                 <a href="instagram.com/spolialab">Instagram</a> <br />
                 <a href="linkedin.com/company/spolialab">LinkedIn</a> <br />
-                <a href="mailto:hello@spolialab.com">Newsletter</a>
+                <a href="https://spolia.beehiiv.com/subscribe">Newsletter</a>
               </div>
             </GridItem>
             <GridItem start={7} span={6} spanMobile={12}>

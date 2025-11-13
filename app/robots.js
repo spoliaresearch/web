@@ -1,5 +1,5 @@
 export default function robots() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://spolia.org";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://spolialab.com";
 
   return {
     rules: {

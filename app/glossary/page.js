@@ -9,12 +9,12 @@ export async function generateMetadata() {
   const terms = getAllGlossaryTerms();
 
   return {
-    title: "Glossary | Spolia - Design, Technology & Sustainability Terms",
+    title: "Spolia - Glossary",
     description: `Comprehensive glossary of ${terms.length} key terms in design, technology, and sustainability. Explore definitions, examples, and connections between concepts.`,
     keywords:
       "glossary, design terms, technology definitions, sustainability concepts, spolia, architectural terminology",
     openGraph: {
-      title: "Glossary | Spolia - Design, Technology & Sustainability Terms",
+      title: "Spolia - Glossary",
       description: `Comprehensive glossary of ${terms.length} key terms in design, technology, and sustainability.`,
       type: "website",
     },

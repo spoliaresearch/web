@@ -1,7 +1,7 @@
 import { getAllGlossaryTerms } from "../lib/glossary-data";
 
 export default function sitemap() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://spolia.org";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://spolialab.com";
 
   // Get all glossary terms
   const terms = getAllGlossaryTerms();

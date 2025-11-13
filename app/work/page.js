@@ -5,6 +5,17 @@ import Footer from "../components/Footer";
 import { GridContainer, Grid, GridItem } from "../components/Grid";
 import WorkPreviews from "../components/WorkPreviews3";
 import Divider from "../components/Divider";
+
+export const metadata = {
+  title: "Spolia - Work",
+  description: "Working between disciplines, Spolia turns research into physical, spatial, and digital outcomes.",
+  openGraph: {
+    title: "Spolia - Work",
+    description: "Working between disciplines, Spolia turns research into physical, spatial, and digital outcomes.",
+    type: "website",
+  },
+};
+
 export default function WorkPage() {
   return (
     <div className={styles.container}>
