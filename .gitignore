@@ -1,4 +1,16 @@
-node_modules/
-.cache/
-public
+node_modules
+
+# Ignore media folders
+OLD_LOCAL/
+FOR_PRODUCTION/
+
+# Ignore reference folder
+reference/
+
+# Ignore Next.js build output
+.next/
+
+# Ignore environment variables
 .env
+.env.local
+.env*.local

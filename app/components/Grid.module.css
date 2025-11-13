@@ -1,0 +1,40 @@
+.container {
+  margin: 0;
+  padding: 0 20px;
+}
+
+.containerInner {
+  margin: 0;
+  padding: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 13.2px;
+}
+
+.gridItem {
+  /* Desktop: use the desktop grid column value */
+  grid-column: var(--grid-column-desktop);
+  /* Ensure items don't overflow the grid */
+  min-width: 0;
+}
+
+/* Tablet breakpoint */
+@media (max-width: 1024px) {
+  .gridItem {
+    grid-column: var(--grid-column-tablet);
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 768px) {
+  .gridItem {
+    grid-column: var(--grid-column-mobile);
+  }
+
+  .dropMobile {
+    display: none;
+  }
+}

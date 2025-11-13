@@ -1,0 +1,21 @@
+.miniTitle {
+  position: sticky;
+  top: 0;
+
+  padding: 8px 0;
+  z-index: 14999; /* Just below header */
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.miniTitle.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.miniTitleText {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+}

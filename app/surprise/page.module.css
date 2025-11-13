@@ -1,0 +1,7 @@
+@media (max-width: 900px) {
+  /* Hide project metadata labels on mobile, keep values visible */
+  .projectMeta :global(span.fs-xxs.t-text.lh-0.meta) {
+    display: none !important;
+  }
+}
+

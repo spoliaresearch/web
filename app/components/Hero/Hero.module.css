@@ -1,0 +1,19 @@
+.hero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.hero {
+  line-height: 1.1;
+  font-variation-settings: "wght" 315, "ital" 0, "SRFF" 0.45;
+}

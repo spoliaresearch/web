@@ -1,0 +1,125 @@
+/* Table of Contents */
+.tableOfContents {
+  position: sticky;
+  top: 40px;
+  float: left;
+  width: 300px;
+  margin-left: 0px;
+  height: fit-content;
+  max-height: calc(100vh - 80px); /* Account for top offset and some bottom margin */
+  overflow-y: auto;
+  margin-top: 25px;
+}
+
+.tableOfContents ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tableOfContents li {
+  margin-bottom: 8px;
+}
+
+.tableOfContents a {
+  text-decoration: none;
+  display: block;
+}
+
+.tableOfContents a:hover {
+  text-decoration: none;
+}
+
+.toc-level-2 {
+  font-weight: 500;
+}
+
+/* Main section row with caret */
+.mainSectionRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mainSectionRow a {
+  flex: 0 1 auto;
+}
+
+/* Caret button */
+.caretButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  font-size: 10px;
+  color: var(--text-secondary, #666);
+  transition: transform 0.2s ease, color 0.2s ease;
+  border-radius: 2px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.caretButton:hover {
+  color: var(--text-primary, #333);
+  background: var(--background-secondary, #f5f5f5);
+}
+
+.caretButton.expanded {
+  transform: rotate(90deg);
+}
+
+.toc-level-3 {
+  margin-left: 20px;
+  animation: slideInFade 0.3s ease-out forwards;
+  transform-origin: top;
+}
+
+/* Smooth animation for subsection appearance */
+@keyframes slideInFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 100px; /* Adjust based on your typical subsection height */
+  }
+}
+
+/* Subsection container for smooth transitions */
+.subsectionContainer {
+  overflow: hidden;
+  transition: all 0.3s ease-out;
+}
+
+.subsectionContainer.entering {
+  animation: slideInFade 0.3s ease-out forwards;
+}
+
+.subsectionContainer.exiting {
+  animation: slideOutFade 0.3s ease-out forwards;
+}
+
+@keyframes slideOutFade {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 100px;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .tableOfContents {
+    float: none;
+    width: 100%;
+    margin: 30px 0;
+  }
+}

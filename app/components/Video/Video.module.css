@@ -1,0 +1,53 @@
+.videoContainer {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 5px;
+  object-fit: contain; /* Preserve aspect ratio, no cropping */
+}
+
+.playPauseButton {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(128, 128, 128, 0.8);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.playPauseButton:hover {
+  background-color: rgba(128, 128, 128, 0.9);
+  transform: scale(1.05);
+}
+
+.playPauseButton:active {
+  transform: scale(0.95);
+}
+
+.icon {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playPauseButton:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}

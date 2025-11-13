@@ -1,0 +1,91 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import styles from "./LoadingOverlay.module.css";
+
+export default function LoadingOverlay({ onComplete, isSceneLoaded }) {
+  const [stage, setStage] = useState("gray"); // gray -> square -> fade -> complete
+
+  useEffect(() => {
+    // Start with the gray stage
+    const timer1 = setTimeout(() => {
+      setStage("square");
+    }, 0); // Show gray briefly, then square
+
+    return () => {
+      clearTimeout(timer1);
+    };
+  }, []);
+
+  // Wait for scene to load before fading out
+  useEffect(() => {
+    if (!isSceneLoaded) return;
+
+    console.log("🎬 Scene loaded, starting fade out animation");
+    
+    // Add a small delay to ensure smooth transition
+    const timer1 = setTimeout(() => {
+      setStage("fade");
+    }, 500); // Wait 500ms after scene loads
+
+    const timer2 = setTimeout(() => {
+      setStage("complete");
+      onComplete && onComplete();
+    }, 1000); // Complete 500ms after fade starts
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, [isSceneLoaded, onComplete]);
+
+  if (stage === "complete") {
+    return null;
+  }
+
+  return (
+    <div className={`${styles.overlay} ${styles[stage]}`}>
+      {stage === "square" && (
+        <svg
+          className={styles.svgAnimation}
+          width="418"
+          height="209"
+          viewBox="0 0 418 209"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="313.051" cy="104.051" r="102.797" stroke="black" strokeWidth="2.50724" />
+          <path
+            d="M275.442 1.25392C293.214 1.25412 309.482 12.5371 321.367 31.1504C333.244 49.7495 340.63 75.5205 340.63 104.051C340.63 132.581 333.244 158.351 321.367 176.95C309.482 195.564 293.214 206.847 275.442 206.848C257.67 206.848 241.402 195.564 229.517 176.95C217.64 158.351 210.254 132.581 210.254 104.051C210.254 75.5205 217.64 49.7495 229.517 31.1504C241.402 12.5369 257.67 1.25392 275.442 1.25392Z"
+            stroke="black"
+            strokeWidth="2.50724"
+          />
+          <path
+            d="M240.341 1.25392C244.062 1.25406 247.858 3.76334 251.519 8.90431C255.157 14.0136 258.485 21.488 261.301 30.8369C266.928 49.5196 270.428 75.4053 270.428 104.051C270.428 132.696 266.928 158.581 261.301 177.264C258.485 186.613 255.157 194.088 251.519 199.197C247.858 204.338 244.062 206.848 240.341 206.848C236.619 206.848 232.823 204.338 229.162 199.197C225.524 194.088 222.196 186.613 219.38 177.264C213.753 158.581 210.254 132.696 210.254 104.051C210.254 75.4053 213.753 49.5196 219.38 30.8369C222.196 21.4881 225.524 14.0136 229.162 8.90431C232.823 3.7632 236.619 1.25392 240.341 1.25392Z"
+            stroke="black"
+            strokeWidth="2.50724"
+          />
+          <circle
+            cx="104.051"
+            cy="104.051"
+            r="102.797"
+            transform="matrix(-1 0 0 1 209 1.52588e-05)"
+            stroke="black"
+            strokeWidth="2.50724"
+          />
+          <path
+            d="M142.558 1.25392C124.786 1.25412 108.518 12.5371 96.6328 31.1504C84.7563 49.7495 77.3701 75.5205 77.3701 104.051C77.3702 132.581 84.7565 158.351 96.6328 176.95C108.518 195.564 124.786 206.847 142.558 206.848C160.33 206.848 176.598 195.564 188.483 176.95C200.36 158.351 207.746 132.581 207.746 104.051C207.746 75.5205 200.36 49.7495 188.483 31.1504C176.598 12.5369 160.33 1.25392 142.558 1.25392Z"
+            stroke="black"
+            strokeWidth="2.50724"
+          />
+          <path
+            d="M177.659 1.25392C173.938 1.25406 170.142 3.76334 166.481 8.90431C162.843 14.0136 159.515 21.488 156.699 30.8369C151.072 49.5196 147.572 75.4053 147.572 104.051C147.572 132.696 151.072 158.581 156.699 177.264C159.515 186.613 162.843 194.088 166.481 199.197C170.142 204.338 173.938 206.848 177.659 206.848C181.381 206.848 185.177 204.338 188.838 199.197C192.476 194.088 195.804 186.613 198.62 177.264C204.247 158.581 207.746 132.696 207.746 104.051C207.746 75.4053 204.247 49.5196 198.62 30.8369C195.804 21.4881 192.476 14.0136 188.838 8.90431C185.177 3.7632 181.381 1.25392 177.659 1.25392Z"
+            stroke="black"
+            strokeWidth="2.50724"
+          />
+          <ellipse cx="209" cy="104.416" rx="2.19054" ry="104.416" stroke="black" strokeWidth="2.5" fill="black" />
+        </svg>
+      )}
+    </div>
+  );
+}

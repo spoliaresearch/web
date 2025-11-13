@@ -1,0 +1,249 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Grid, GridItem } from "../Grid";
+import styles from "./WorkPreviews.module.css";
+import Divider from "../Divider";
+
+// CDN storage solution - same pattern as Image component
+function getCDNImagePath(baseName) {
+  // Extract just the basename from paths (e.g., "/FOR_PRODUCTION/photo/Spolia_Beam_DEMO2025_3.jpg" -> "Spolia_Beam_DEMO2025_3")
+  // First, remove extension if provided
+  let nameWithoutExt = baseName.replace(/\.(jpg|jpeg|png|webp|avif)$/i, "");
+  
+  // Extract the filename from any path (handles "/FOR_PRODUCTION/photo/Spolia_Beam_DEMO2025_3" -> "Spolia_Beam_DEMO2025_3")
+  const basename = nameWithoutExt.split("/").pop();
+  
+  // Clean up: remove any leading/trailing slashes
+  const cleanName = basename.replace(/^\/+|\/+$/g, "");
+
+  // Return CDN URL with .webp extension
+  return `https://s-img.b-cdn.net/${cleanName}.webp`;
+}
+
+// CDN storage solution for videos - same pattern as Video component
+function getCDNVideoPath(baseName) {
+  // Remove extension if provided and clean up the filename
+  const nameWithoutExt = baseName.replace(/\.(mov|mp4|webm|avi)$/i, "");
+  // Extract the filename from any path
+  const basename = nameWithoutExt.split("/").pop();
+  // Clean up: remove any leading/trailing slashes
+  const cleanName = basename.replace(/^\/+|\/+$/g, "");
+  // Use MP4 format for CDN
+  return `https://s-vid.b-cdn.net/${cleanName}.mp4`;
+}
+
+const workItems = [
+  {
+    id: 1,
+    title: "PIXELFRAME",
+    slug: "pixelframe",
+    description: "Digital Material Passports ",
+    longDescription:
+      "Developed for the 2025 Venice Architecture Biennale, the digital interface of Pixelframe links each concrete element to its material story, revealing how design, data, and reuse can shape a more circular built environment.",
+    year: "2025",
+    video: getCDNVideoPath("PF-Beam-full"),
+    client: "MIT Digital Structures",
+    category: "Product",
+    categoryNumber: 1,
+    citation: "2.1.2",
+  },
+  {
+    id: 2,
+    title: "BEACONS",
+    slug: "beacons",
+    description: "Signals from the Deep Sea",
+    longDescription:
+      "An immersive installation of sculptural beacons that transform deep-sea environmental data into sound and light, creating an embodied connection to Earth's largest and most unexplored ecosystem.",
+    year: "2025",
+    // Use two specific images for the Beacons preview - using CDN versions
+    images: [
+      getCDNImagePath("/FOR_PRODUCTION/photo/Spolia_Beam_DEMO2025_3.jpg"),
+      getCDNImagePath("/FOR_PRODUCTION/photo/Spolia_Beam_DEMO2025_2.jpg")
+    ],
+    client: "New Museum",
+    category: "Experience",
+    categoryNumber: 2,
+    citation: "2.2.1",
+  },
+  {
+    id: 3,
+    title: "SYMLINK",
+    slug: "symlink",
+    description: "Ecological Intelligence Systems",
+    longDescription:
+      "Symlink explores how generative AI can help people design in collaboration with natural systems, using environmental data to support citizen-led regenerative practices.",
+    year: "2023",
+    images: [
+      getCDNImagePath("/FOR_PRODUCTION/symlink_1.jpg"),
+      getCDNImagePath("/FOR_PRODUCTION/symlink_3.jpg")
+    ],
+    client: "SPACE10",
+    category: "Experience",
+    categoryNumber: 2,
+    citation: "2.1.1",
+  },
+];
+
+export default function WorkPreviews({ showAll = false }) {
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const router = useRouter();
+
+  const handleItemClick = (index, slug) => {
+    // If showAll is true, navigate to the work page
+    if (showAll) {
+      router.push(`/work/${slug}`);
+      return;
+    }
+
+    // Prevent clicks during transition
+    if (isTransitioning) return;
+
+    if (activeIndex === index) {
+      // Close current item
+      setActiveIndex(null);
+    } else if (activeIndex !== null) {
+      // Close current item first, then open new one
+      setIsTransitioning(true);
+      setActiveIndex(null);
+
+      // Wait for close animation to complete, then open new item
+      setTimeout(() => {
+        setActiveIndex(index);
+        setIsTransitioning(false);
+      }, 800); // Half of the CSS transition duration (1s)
+    } else {
+      // No item is open, just open the clicked one
+      setActiveIndex(index);
+    }
+  };
+
+  const handleExpandedItemClick = (slug) => {
+    router.push(`/work/${slug}`);
+  };
+
+  const handleExploreClick = (e, slug) => {
+    e.stopPropagation();
+    router.push(`/work/${slug}`);
+  };
+
+  return (
+    <div className={`${styles.container} ${showAll ? styles.containerShowAll : ""}`}>
+      {workItems.map((item, index) => (
+        <div key={item.id} className={styles.projectContainer}>
+          <div className={`${styles.accordionItem} ${index === activeIndex || showAll ? styles.active : ""}`}>
+            {/* TOP ROW - Accordion Control */}
+            <div className={styles.topRow}>
+              {/* Desktop/Tablet accordion behavior */}
+              <div className={styles.desktopClick} onClick={() => handleItemClick(index, item.slug)}>
+                <Grid>
+                  <GridItem start={0} span={1} dropMobile={true}>
+                    <span className="fs-sm">{item.citation}</span>
+                  </GridItem>
+                  <GridItem start={2} span={3} autoMobile={false} spanMobile={3} startMobile={0}>
+                    <h3 className={styles.title}>
+                      <span className="fs-sm">{item.title}</span>
+                    </h3>
+                  </GridItem>
+                  <GridItem start={5} span={4} dropMobile={true}>
+                    <p className={styles.title}>
+                      <span className="fs-sm">{item.description}</span>
+                    </p>
+                  </GridItem>
+                  <GridItem start={9} span={2} dropMobile={true}>
+                    <span className="fs-sm">{item.client}</span>
+                  </GridItem>
+                  <GridItem start={11} span={1} dropMobile={true}>
+                    <span className="fs-sm"> {item.category}</span>
+                  </GridItem>
+                  <GridItem start={12} span={1} autoMobile={false} spanMobile={2} startMobile={11}>
+                    <span style={{ textAlign: "right" }} className="fs-sm">
+                      {item.year}
+                    </span>
+                  </GridItem>
+                </Grid>
+              </div>
+
+              {/* Mobile direct navigation */}
+              <div className={styles.mobileClick} onClick={() => router.push(`/work/${item.slug}`)}>
+                <Grid>
+                  <GridItem start={0} span={12}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <h3 className={styles.title}>
+                        <span className="fs-sm">{item.title}</span>
+                      </h3>
+                      <span className="fs-sm">{item.year}</span>
+                    </div>
+                  </GridItem>
+                </Grid>
+              </div>
+            </div>
+
+            {/* BOTTOM ROW - Revealed Content */}
+            <div
+              className={`${styles.bottomRow} ${index === activeIndex || showAll ? styles.active : ""}`}
+              onClick={() => handleExpandedItemClick(item.slug)}
+            >
+              <Grid>
+                <GridItem start={2} span={3}>
+                  <p className={` fs-sm t-r ${styles.longDescription}`}>{item.longDescription}</p>
+                  <br />
+                  {!showAll && (
+                    <button
+                      className={`${styles.exploreButton} fs-sm`}
+                      onClick={(e) => handleExploreClick(e, item.slug)}
+                    >
+                      Explore
+                    </button>
+                  )}
+                </GridItem>
+                <GridItem start={5} span={5}>
+                  {item.video ? (
+                    <video
+                      src={item.video}
+                      className={styles.image}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      style={{
+                        height: "325px",
+                        width: "auto",
+                        objectFit: "contain",
+                      }}
+                    />
+                  ) : Array.isArray(item.images) ? (
+                    <div
+                      style={{ display: "flex", gap: "8px", alignItems: "flex-start", justifyContent: "flex-start" }}
+                    >
+                      {item.images.map((src, i) => (
+                        <img
+                          key={i}
+                          src={src}
+                          alt={`${item.title} ${i + 1}`}
+                          className={styles.image}
+                          style={{
+                            height: "325px",
+                            width: "auto",
+                            objectFit: "contain",
+                            flex: "0 0 auto",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <img src={item.image} alt={item.title} className={styles.image} />
+                  )}
+                </GridItem>
+              </Grid>
+              <Divider size="xs" />
+            </div>
+          </div>
+          <div className={styles.divider} />
+        </div>
+      ))}
+    </div>
+  );
+}
