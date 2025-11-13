@@ -7,6 +7,7 @@ import { FontSettingsProvider } from "./components/contexts/FontSettingsContext"
 import { InteractiveProvider } from "./components/contexts/DisableInteractive";
 import { PageTitleProvider } from "./components/contexts/PageTitleContext";
 import { GlossaryProvider } from "./components/GlossaryProvider";
+import Analytics from "./components/Analytics";
 import { useEffect, useState } from "react";
 
 export default function RootLayout({ children }) {
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
         <body suppressHydrationWarning>
+          <Analytics />
           <ThemeProvider>
             <FontSettingsProvider>
               <InteractiveProvider>

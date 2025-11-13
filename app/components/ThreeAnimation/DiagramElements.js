@@ -158,9 +158,9 @@ export default function DiagramElements({ positions, imageData, isVisible, anima
       return;
     }
 
-    // Fade in animation
+    // Fade in animation - start immediately when scatter begins
     let startTime = Date.now();
-    const duration = 1000; // 1 second fade in
+    const duration = 800; // Slightly faster fade in
     const startOpacity = 0;
     const endOpacity = 1;
 
@@ -179,10 +179,8 @@ export default function DiagramElements({ positions, imageData, isVisible, anima
       }
     };
 
-    // Delay the start slightly to let images settle
-    setTimeout(() => {
-      animate();
-    }, 500);
+    // Start immediately when scatter occurs
+    animate();
   }, [isVisible]);
 
   // Update material opacity when opacity state changes (for axis lines)

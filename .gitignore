@@ -9,3 +9,8 @@ reference/
 
 # Ignore Next.js build output
 .next/
+
+# Ignore environment variables
+.env
+.env.local
+.env*.local

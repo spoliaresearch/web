@@ -23,7 +23,7 @@ export default function NotFound() {
         <Grid>
           <GridItem span={3}>
             <div>
-              <h1 style={{ fontSize: "70px", lineHeight: "1" }}>404</h1>
+              <h1 style={{ fontSize: "70px", lineHeight: "1" }}>Oops!</h1>
             </div>
           </GridItem>
 

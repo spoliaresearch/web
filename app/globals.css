@@ -302,7 +302,7 @@ img {
 .fs-l {
   font-size: calc(var(--font-size) * 3);
   letter-spacing: calc(var(--letter-spacing) * 3.75);
-  line-height: calc(var(--line-height) * 3);
+  line-height: calc(var(--line-height) * 3.3);
 }
 
 .fs-xl {

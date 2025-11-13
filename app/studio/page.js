@@ -174,7 +174,8 @@ function StudioContent() {
               </div>
             </GridItem> */}
             <GridItem start={7} span={4} spanMobile={12}>
-              <table className={styles.table} style={{ marginTop: "2.5rem" }}>
+              <div className={styles.offeringsSection}>
+                <table className={styles.table} style={{ marginTop: "2.5rem" }}>
                 <thead>
                   <tr>
                     <th className={`fs-s b-h-text ${styles.tableHeader}`} style={{ paddingBottom: ".5rem" }}></th>
@@ -220,8 +221,9 @@ function StudioContent() {
                   </tr>
                 </tbody>
               </table>
+              </div>
             </GridItem>
-            <GridItem start={11} span={2} spanMobile={12} startMobile={0}>
+            <GridItem start={11} span={2} spanMobile={12}>
               <table className={styles.table} style={{ marginTop: "2.5rem" }}>
                 <thead>
                   <tr>

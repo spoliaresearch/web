@@ -16,6 +16,7 @@ export default function DynamicImage({
   unregisterMesh,
   onMeshReady,
   onImageClick,
+  onImageLoaded,
   isParallaxEnabled,
   cursorPosition,
 }) {
@@ -35,6 +36,13 @@ export default function DynamicImage({
   const metadata = IMAGE_DATA && IMAGE_DATA[index] ? IMAGE_DATA[index] : null;
   const scaleFactor = metadata?.scale ?? metadata?.size ?? 1;
   const { currentTexture, isHighResLoaded, isTransitioning, isFullyLoaded } = useLazyImageLoader(imagePath, meshRef, scaleFactor);
+
+  // Notify parent when image is fully loaded
+  useEffect(() => {
+    if (isFullyLoaded && onImageLoaded) {
+      onImageLoaded(index);
+    }
+  }, [isFullyLoaded, index, onImageLoaded]);
 
   // Determine hide-by-default behavior from metadata
   const shouldHideByDefault = !!(metadata && metadata.hide);

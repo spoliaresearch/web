@@ -196,4 +196,17 @@
   .hideOnMobile {
     display: none;
   }
+
+  .table {
+    margin-left: 0;
+  }
+
+  .offeringsSection {
+    margin-left: -20px;
+    padding-left: 20px;
+  }
+
+  .tableCell:first-child {
+    width: auto;
+  }
 }

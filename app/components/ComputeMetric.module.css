@@ -1,0 +1,14 @@
+.popover {
+  background: white;
+  border: 0.5px solid rgb(211, 210, 208);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  display: inline-block;
+  max-width: 320px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+

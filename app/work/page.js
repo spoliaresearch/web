@@ -1,4 +1,5 @@
 import styles from "../page.module.css";
+import studioStyles from "../studio/page.module.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { GridContainer, Grid, GridItem } from "../components/Grid";
@@ -14,23 +15,18 @@ export default function WorkPage() {
           {/* Header Section */}
           <Grid style={{ paddingBottom: "8rem" }}>
             <GridItem span={5}>
-              <h1
-                style={{
-                  fontSize: "3rem",
-                  fontWeight: "normal",
-                  margin: "0",
-                  lineHeight: "1.1",
-                }}
-              >
-                Work
-              </h1>
+              <div className={studioStyles.section}>
+                <h1 className={studioStyles.pageTitle}>
+                  {" "}
+                  Projects
+                </h1>
+              </div>
             </GridItem>
             <GridItem start={8} span={6}>
-              <div>
-                <h2 className={"fs-m t-text t-r"}>
+              <div className={studioStyles.section}>
+                <h2 className={studioStyles.pageSubtitle}>
                   {" "}
-                  <span>SPOLIA embraces a broad spectrum of typologies and methods </span>, from product development
-                  through spatial design.
+                  <span>Working between disciplines,  </span> we turn research into physical, spatial, and digital outcomes.
                 </h2>
               </div>
             </GridItem>

@@ -176,9 +176,11 @@ function TextOverlay({ isVisible }) {
 }
 
 // Main component with cursor offset functionality
-export default function ThreeAnimation() {
+export default function ThreeAnimation({ onSceneLoaded }) {
   // State to control when parallax is enabled
   const [isParallaxEnabled, setIsParallaxEnabled] = useState(false);
+  // State to track when scatter animation has started (for showing text labels immediately)
+  const [isScattering, setIsScattering] = useState(false);
   // State for bottom-right card
   const [modalData, setModalData] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -211,6 +213,14 @@ export default function ThreeAnimation() {
     setModalData(null);
   };
 
+  // Handle when all images are loaded
+  const handleAllImagesLoaded = () => {
+    console.log("✅ ThreeAnimation: All images loaded, notifying parent");
+    if (onSceneLoaded) {
+      onSceneLoaded();
+    }
+  };
+
   // No need for the global window approach anymore
 
   // Debug: Log parallax state changes
@@ -237,6 +247,8 @@ export default function ThreeAnimation() {
           onImageClick={handleImageClick}
           isParallaxEnabled={isParallaxEnabled}
           cursorPosition={cursorPosition}
+          onScatterStarted={setIsScattering}
+          onAllImagesLoaded={handleAllImagesLoaded}
         />
       </Canvas>
 
@@ -251,7 +263,7 @@ export default function ThreeAnimation() {
           color: "#fff",
           pointerEvents: "none",
           zIndex: 10,
-          opacity: isParallaxEnabled ? 1 : 0,
+          opacity: isScattering || isParallaxEnabled ? 1 : 0,
           transition: "opacity 0.6s ease-out",
         }}
       >
@@ -267,7 +279,7 @@ export default function ThreeAnimation() {
           color: "#fff",
           pointerEvents: "none",
           zIndex: 10,
-          opacity: isParallaxEnabled ? 1 : 0,
+          opacity: isScattering || isParallaxEnabled ? 1 : 0,
           transition: "opacity 0.6s ease-out",
         }}
       >
@@ -283,7 +295,7 @@ export default function ThreeAnimation() {
           color: "#fff",
           pointerEvents: "none",
           zIndex: 10,
-          opacity: isParallaxEnabled ? 1 : 0,
+          opacity: isScattering || isParallaxEnabled ? 1 : 0,
           transition: "opacity 0.6s ease-out",
         }}
       >
@@ -299,7 +311,7 @@ export default function ThreeAnimation() {
           color: "#fff",
           pointerEvents: "none",
           zIndex: 10,
-          opacity: isParallaxEnabled ? 1 : 0,
+          opacity: isScattering || isParallaxEnabled ? 1 : 0,
           transition: "opacity 0.6s ease-out",
         }}
       >

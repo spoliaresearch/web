@@ -11,6 +11,7 @@ import { DisableInteractive } from "./components/contexts/DisableInteractive";
 import LoadingOverlay from "./components/LoadingOverlay";
 import { GlossaryLink } from "./components/GlossaryProvider";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Grid, GridContainer, GridItem } from "./components/Grid";
 import Divider from "./components/Divider";
@@ -18,6 +19,7 @@ import WorkPreviews3 from "./components/WorkPreviews3";
 import Line from "./components/Line";
 import DissolveImage from "./components/DissolveImage";
 import TimezoneClock from "./components/TimezoneClock";
+import ComputeMetric from "./components/ComputeMetric";
 // Dynamically import ThreeAnimation to prevent SSR issues
 const ThreeAnimation = dynamic(() => import("./components/ThreeAnimation"), {
   ssr: false,
@@ -43,7 +45,7 @@ export default function HomePage() {
   const [time, setTime] = useState("");
   const [timeZone, setTimeZone] = useState("");
   const [showLoading, setShowLoading] = useState(true);
-  const [hasVisited, setHasVisited] = useState(false);
+  const [isSceneLoaded, setIsSceneLoaded] = useState(false);
 
   useEffect(() => {
     // Log actual computed CSS property values, not the variable strings
@@ -72,24 +74,18 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    // Check if user has visited before
-    const visited = sessionStorage.getItem("hasVisitedHome");
-    if (visited) {
-      setShowLoading(false);
-      setHasVisited(true);
-    }
-  }, []);
-
   const handleLoadingComplete = () => {
     setShowLoading(false);
-    setHasVisited(true);
-    sessionStorage.setItem("hasVisitedHome", "true");
+  };
+
+  const handleSceneLoaded = () => {
+    console.log("✅ HomePage: Scene loaded!");
+    setIsSceneLoaded(true);
   };
 
   return (
     <>
-      {showLoading && !hasVisited && <LoadingOverlay onComplete={handleLoadingComplete} />}
+      {showLoading && <LoadingOverlay onComplete={handleLoadingComplete} isSceneLoaded={isSceneLoaded} />}
       <div className={styles.container}>
         <Header />
       
@@ -130,25 +126,28 @@ export default function HomePage() {
                       />
                     </span>
                   </GlossaryLink>{" "}
-                  is a design and technology studio. We turn research into built products and experiences.{" "}
+                  is a design research studio. We build products and experiences that blend the digital and physical.
                 </h1>
               </GridItem>
               <GridItem start={0} span={2}>
                 <TimezoneClock />
               </GridItem>
               <GridItem start={11} span={2}>
-                <div style={{ textAlign: "right" }}>Design U Technology</div>
+                <ComputeMetric />
               </GridItem>
               <GridItem start={0} span={12}>
-                <ThreeAnimation />
+                <ThreeAnimation onSceneLoaded={handleSceneLoaded} />
               </GridItem>
             </Grid>
             <Divider size="xs" />
-            <div>PRACTICE</div>
+            <Line />
+            <Divider size="xxs" />
+        
 
             <Grid>
               <GridItem start={0} span={3}>
-                <div
+              <p className="fs-sm s-text">Practice</p>
+                {/* <div
                   style={{
                     width: "300px",
                     height: "300px",
@@ -161,17 +160,17 @@ export default function HomePage() {
                     marginTop: "10px",
                     transform: "rotate(90deg) translate(0px, 0px)",
                   }}
-                ></div>
+                ></div> */}
                 <Divider size="m" />
               </GridItem>
               {/* <DissolveImage name="arrow-left" fill="#006400" width="23" height="13" /> */}
               <GridItem start={7} span={6}>
-                <div className="fs-m t-text">
+                <div className="fs-m h-text">
                   As a hybrid between a studio and research lab, we explore how design and technology can benefit people
                   and the planet in a time of rapid change. We explore the practical and theoretical possibilities of
                   emerging technology through an R&D process.
                 </div>
-                <br /> Learn More →
+       <Link href="/studio">Learn More →</Link>
               </GridItem>
             </Grid>
             {/* <Line /> */}
@@ -204,8 +203,8 @@ export default function HomePage() {
             <Divider size="m" />
 
             <Grid style={{ marginBottom: "2rem" }}>
-              <GridItem start={0} span={12}>
-                <div className="fs-s">Work</div>
+              <GridItem start={0} span={6}>
+                <p className="fs-sm s-text">Work</p>
               </GridItem>
             </Grid>
 

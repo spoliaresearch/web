@@ -41,7 +41,7 @@ const workItems = [
     slug: "pixelframe",
     description: "Digital Material Passports ",
     longDescription:
-      "A comprehensive digital system for tracking and documenting material lifecycles, enabling transparent supply chains and sustainable resource management through blockchain technology and IoT sensors.",
+      "Developed for the 2025 Venice Architecture Biennale, the digital interface of Pixelframe links each concrete element to its material story, revealing how design, data, and reuse can shape a more circular built environment.",
     year: "2025",
     video: getCDNVideoPath("PF-Beam-full"),
     client: "MIT Digital Structures",
@@ -73,7 +73,7 @@ const workItems = [
     slug: "symlink",
     description: "Ecological Intelligence Systems",
     longDescription:
-      "A platform that bridges digital and ecological systems, using machine learning to analyze environmental patterns and provide actionable insights for sustainable urban development and conservation efforts.",
+      "Symlink explores how generative AI can help people design in collaboration with natural systems, using environmental data to support citizen-led regenerative practices.",
     year: "2023",
     images: [
       getCDNImagePath("/FOR_PRODUCTION/symlink_1.jpg"),

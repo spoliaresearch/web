@@ -14,9 +14,15 @@ export default function DynamicImageGrid({
   onImageClick,
   isParallaxEnabled,
   cursorPosition,
+  onScatterStarted,
+  onAllImagesLoaded,
 }) {
   // State to track current animation phase
   const [animationPhase, setAnimationPhase] = useState(ANIMATION_PHASES.CIRCULAR);
+  // State to track when scatter animation has started (for showing lines/text immediately)
+  const [isScattering, setIsScattering] = useState(false);
+  // State to track which images have loaded
+  const [loadedImages, setLoadedImages] = useState(new Set());
 
   // Ref to track all mesh references for animation
   const meshRefs = useRef([]);
@@ -40,9 +46,36 @@ export default function DynamicImageGrid({
     meshRefs.current[index] = meshRef;
   };
 
+  // Function to handle when an image is fully loaded
+  const handleImageLoaded = (index) => {
+    setLoadedImages((prev) => {
+      const newSet = new Set(prev);
+      newSet.add(index);
+      return newSet;
+    });
+  };
+
+  // Check if all images are loaded and notify parent
+  useEffect(() => {
+    if (loadedImages.size === totalImages && loadedImages.size > 0) {
+      console.log('🎉 All images fully loaded!');
+      if (onAllImagesLoaded) {
+        onAllImagesLoaded();
+      }
+    }
+  }, [loadedImages, totalImages, onAllImagesLoaded]);
+
   // Function to trigger the second animation phase with smooth movement
   const triggerScatteredAnimation = () => {
     console.log("🎬 Triggering scattered animation phase with smooth movement");
+    
+    // Mark that scatter animation has started - this will show lines/text immediately
+    setIsScattering(true);
+    
+    // Notify parent that scatter has started
+    if (onScatterStarted) {
+      onScatterStarted(true);
+    }
 
     // Filter out any undefined mesh refs
     const validMeshRefs = meshRefs.current.filter((ref) => ref && ref.current);
@@ -115,6 +148,7 @@ export default function DynamicImageGrid({
           unregisterMesh={unregisterMesh}
           onMeshReady={(meshRef) => registerMeshForAnimation(meshRef, index)}
           onImageClick={onImageClick}
+          onImageLoaded={handleImageLoaded}
           isParallaxEnabled={isParallaxEnabled}
           cursorPosition={cursorPosition}
         />
@@ -124,7 +158,7 @@ export default function DynamicImageGrid({
       <DiagramElements
         positions={scatteredPositions}
         imageData={IMAGE_DATA}
-        isVisible={animationPhase === ANIMATION_PHASES.SCATTERED}
+        isVisible={isScattering || animationPhase === ANIMATION_PHASES.SCATTERED}
         animationPhase={animationPhase}
       />
     </>

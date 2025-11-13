@@ -170,7 +170,7 @@ export default function Footer() {
                   <div style={{ marginTop: "0rem" }}>
                     <a
                       className={`fs-s h-text ${styles.contactLink}`}
-                      href="mailto:hello@spolialab.com"
+                      href="mailto:apply@spolialab.com"
                       onMouseEnter={() => setIsBlurred(true)}
                       onMouseLeave={() => setIsBlurred(false)}
                     >
@@ -184,7 +184,7 @@ export default function Footer() {
                   <div style={{ marginTop: "0rem" }} className={`fs-s h-text ${styles.contactLink}`}>
                     <a
                       className={`fs-s h-text ${styles.contactLink}`}
-                      href="mailto:hello@spolialab.com"
+                      href="mailto:press@spolialab.com"
                       onMouseEnter={() => setIsBlurred(true)}
                       onMouseLeave={() => setIsBlurred(false)}
                     >
@@ -247,14 +247,14 @@ export default function Footer() {
                   >
                     Work
                   </a>
-                  <a
+                  {/* <a
                     href="/research"
                     className="fs-s h-text"
                     onMouseEnter={() => setIsBlurred(true)}
                     onMouseLeave={() => setIsBlurred(false)}
                   >
                     Research
-                  </a>
+                  </a> */}
                   <a
                     href="/studio"
                     className="fs-s h-text"
@@ -270,6 +270,14 @@ export default function Footer() {
                     onMouseLeave={() => setIsBlurred(false)}
                   >
                     Glossary
+                  </a>
+                  <a
+                    href="/surprise"
+                    className="fs-s h-text"
+                    onMouseEnter={() => setIsBlurred(true)}
+                    onMouseLeave={() => setIsBlurred(false)}
+                  >
+                    Surprise Me
                   </a>
                 </div>
               </GridItem>

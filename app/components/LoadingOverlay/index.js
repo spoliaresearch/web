@@ -3,29 +3,41 @@
 import { useState, useEffect } from "react";
 import styles from "./LoadingOverlay.module.css";
 
-export default function LoadingOverlay({ onComplete }) {
+export default function LoadingOverlay({ onComplete, isSceneLoaded }) {
   const [stage, setStage] = useState("gray"); // gray -> square -> fade -> complete
 
   useEffect(() => {
+    // Start with the gray stage
     const timer1 = setTimeout(() => {
       setStage("square");
-    }, 0); // Show gray for 500ms
+    }, 0); // Show gray briefly, then square
+
+    return () => {
+      clearTimeout(timer1);
+    };
+  }, []);
+
+  // Wait for scene to load before fading out
+  useEffect(() => {
+    if (!isSceneLoaded) return;
+
+    console.log("🎬 Scene loaded, starting fade out animation");
+    
+    // Add a small delay to ensure smooth transition
+    const timer1 = setTimeout(() => {
+      setStage("fade");
+    }, 500); // Wait 500ms after scene loads
 
     const timer2 = setTimeout(() => {
-      setStage("fade");
-    }, 1000); // Show square for 2000ms (2.5s total)
-
-    const timer3 = setTimeout(() => {
       setStage("complete");
       onComplete && onComplete();
-    }, 1500); // Complete after exactly 4 seconds
+    }, 1000); // Complete 500ms after fade starts
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
-      clearTimeout(timer3);
     };
-  }, [onComplete]);
+  }, [isSceneLoaded, onComplete]);
 
   if (stage === "complete") {
     return null;
