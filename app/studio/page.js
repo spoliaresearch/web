@@ -1,54 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import Image from "next/image";
 import CustomImage from "../components/Image";
 import styles from "./page.module.css";
 import studioStyles from "./page.module.css";
 import Header from "../components/Header";
-import MiniTitle from "../components/MiniTitle";
 import Footer from "../components/Footer";
 import Line from "../components/Line";
 import { GridContainer, Grid, GridItem } from "../components/Grid";
 import { Divider, Table } from "../components";
-import { PageTitleProvider, usePageTitle } from "../components/contexts/PageTitleContext";
 import Video from "../components/Video";
 
 function StudioContent() {
-  const titleRef = useRef(null);
-  const { setMiniTitle, setMiniVisible } = usePageTitle();
-
-  useEffect(() => {
-    setMiniTitle("Practice");
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // When title is NOT visible (passed the header), show mini title
-        setMiniVisible(!entry.isIntersecting);
-      },
-      {
-        // Watch for when title crosses the header bottom (accounting for header height)
-        rootMargin: "-80px 0px 0px 0px", // Adjust based on header height
-        threshold: 0,
-      }
-    );
-
-    if (titleRef.current) {
-      observer.observe(titleRef.current);
-    }
-
-    return () => {
-      if (titleRef.current) {
-        observer.unobserve(titleRef.current);
-      }
-      setMiniVisible(false);
-    };
-  }, [setMiniTitle, setMiniVisible]);
-
   return (
     <div className={styles.container}>
       <Header />
-      <MiniTitle />
       <main className={styles.main}>
         <Divider size="s" />
         <GridContainer>
@@ -56,7 +21,7 @@ function StudioContent() {
           <Grid>
             <GridItem span={3}>
               <div className={studioStyles.section}>
-                <h1 ref={titleRef} className={studioStyles.pageTitle}>
+                <h1 className={studioStyles.pageTitle}>
                   {" "}
                   Practice
                 </h1>
@@ -394,9 +359,5 @@ function StudioContent() {
 }
 
 export default function StudioPage() {
-  return (
-    <PageTitleProvider>
-      <StudioContent />
-    </PageTitleProvider>
-  );
+  return <StudioContent />;
 }

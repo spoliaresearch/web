@@ -10,13 +10,13 @@ export default function Divider({ size = "m" }) {
   };
 
   const mobileSizeMap = {
-    xxs: "8px",
-    xs: "16px",
-    s: "32px",
-    m: "48px",
-    ml: "78px",
-    l: "128px",
-    xl: "256px",
+    xxs: "12px",
+    xs: "24px",
+    s: "48px",
+    m: "72px",
+    ml: "117px",
+    l: "192px",
+    xl: "384px",
   };
 
   return (
