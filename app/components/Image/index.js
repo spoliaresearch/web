@@ -208,15 +208,8 @@ export default function CustomImage({ src, alt, className, priority = false, roo
     const fileSize = getImageFileSize(src);
     setImageFileSize(fileSize);
 
-    // Check if image was already cached (loaded synchronously)
-    const img = fullImageRef.current;
-    const wasCached = img && img.complete && img.naturalWidth > 0;
-
-    if (wasCached) {
-      // Image was cached, skip animation entirely
-      setShowFullImage(true);
-    } else if (isInView) {
-      // Image wasn't cached and is in view, animate
+    // Always animate if in view (works with cached images too)
+    if (isInView) {
       startAnimation();
     }
     // If not in view, wait for intersection observer to trigger
@@ -232,20 +225,10 @@ export default function CustomImage({ src, alt, className, priority = false, roo
       !showFullImage &&
       !isAnimating
     ) {
-      // Check if it's cached - if so, skip animation
-      const img = fullImageRef.current;
-      const wasCached = img.complete && img.naturalWidth > 0;
-      
-      if (wasCached) {
-        // Get file size before showing
-        const fileSize = getImageFileSize(src);
-        setImageFileSize(fileSize);
-        setShowFullImage(true);
-      } else {
-        startAnimation();
-      }
+      // Always animate, whether cached or not
+      startAnimation();
     }
-  }, [isInView, shouldLoadFullImage, showFullImage, isAnimating, src]);
+  }, [isInView, shouldLoadFullImage, showFullImage, isAnimating]);
 
   const startAnimation = () => {
     setIsAnimating(true);
