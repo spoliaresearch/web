@@ -1,6 +1,7 @@
 "use client";
 
 import CustomImage from "../components/Image";
+import { ImageSyncProvider } from "../components/contexts/ImageSyncContext";
 import styles from "./page.module.css";
 import studioStyles from "./page.module.css";
 import Header from "../components/Header";
@@ -359,5 +360,9 @@ function StudioContent() {
 }
 
 export default function StudioPage() {
-  return <StudioContent />;
+  return (
+    <ImageSyncProvider>
+      <StudioContent />
+    </ImageSyncProvider>
+  );
 }

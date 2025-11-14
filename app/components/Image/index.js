@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useContext } from "react";
 import { MediaContext } from "../MediaModal/MediaProvider";
 import { ImageTooltip } from "../ImageTooltip";
+import { useImageSync } from "../contexts/ImageSyncContext";
 import fileSizes from "../../../lib/file-sizes.json";
 import styles from "./Image.module.css";
 import tooltipStyles from "../ImageTooltip/ImageTooltip.module.css";
@@ -85,6 +86,9 @@ function getImageFileSize(baseName) {
   return "Unknown";
 }
 
+// Shared pixel sizes for animation - used in both timing and canvas rendering
+const PIXEL_SIZES = [24, 16, 8, 4, 2];
+
 export default function CustomImage({ src, alt, className, priority = false, rootMargin = "50px" }) {
   const wrapperRef = useRef(null);
   const observerRef = useRef(null);
@@ -108,6 +112,9 @@ export default function CustomImage({ src, alt, className, priority = false, roo
   const mediaContext = useContext(MediaContext);
   const hasMediaProvider = !!mediaContext;
   const { registerMedia, unregisterMedia, openModal } = hasMediaProvider ? mediaContext : {};
+
+  // Get shared animation sync context (optional - if not provided, each image animates independently)
+  const sharedStartTimeRef = useImageSync();
 
   // COMMENTED OUT: Original local file logic
   // Get the best format for this image
@@ -164,6 +171,15 @@ export default function CustomImage({ src, alt, className, priority = false, roo
     setShowTooltip(false);
   };
 
+  // Set shared start time when image enters view (for synchronized animation)
+  useEffect(() => {
+    if (isInView && sharedStartTimeRef && !sharedStartTimeRef.current) {
+      // First image to enter view - set the shared start time
+      // This ensures all images that are in view animate together
+      sharedStartTimeRef.current = Date.now();
+    }
+  }, [isInView, sharedStartTimeRef]);
+
   // Single intersection observer - KISS approach
   useEffect(() => {
     if (priority) {
@@ -202,13 +218,14 @@ export default function CustomImage({ src, alt, className, priority = false, roo
     return () => observer.disconnect();
   }, [priority, shouldLoadFullImage, isInView]);
 
-  // Handle full image load - only animate if in view
+  // Handle full image load - always animate if in view (stylistic effect)
   const handleFullImageLoad = () => {
     // Get file size from pre-generated lookup using the selected format
     const fileSize = getImageFileSize(src);
     setImageFileSize(fileSize);
 
-    // Always animate if in view (works with cached images too)
+    // Always animate if in view - whether cached or not, it's just a stylistic effect
+    // If cached, no extra network request is made, it just animates the cached image
     if (isInView) {
       startAnimation();
     }
@@ -225,33 +242,63 @@ export default function CustomImage({ src, alt, className, priority = false, roo
       !showFullImage &&
       !isAnimating
     ) {
-      // Always animate, whether cached or not
+      // Always animate - it's a stylistic effect
+      // If cached, this uses the cached image (no extra network request)
+      const fileSize = getImageFileSize(src);
+      setImageFileSize(fileSize);
       startAnimation();
     }
-  }, [isInView, shouldLoadFullImage, showFullImage, isAnimating]);
+  }, [isInView, shouldLoadFullImage, showFullImage, isAnimating, src]);
 
   const startAnimation = () => {
     setIsAnimating(true);
     setAnimationProgress(0);
 
-    const duration = 800; // 0.8 seconds
-    const startTime = Date.now();
+    const totalSteps = PIXEL_SIZES.length;
+    const baseDuration = 100; // Starting duration for first step
+    const durationDecrease = 5; // Each step is 10ms less
+    
+    // Calculate cumulative durations for each step
+    const stepDurations = [];
+    let cumulativeTime = 0;
+    for (let i = 0; i < totalSteps; i++) {
+      const stepDuration = baseDuration - (i * durationDecrease);
+      cumulativeTime += stepDuration;
+      stepDurations.push(cumulativeTime);
+    }
+    const totalDuration = stepDurations[totalSteps - 1];
+    
+    // Use shared start time if available (set when image entered view), otherwise use individual start time
+    const startTime = sharedStartTimeRef?.current || Date.now();
 
     const animate = () => {
       const elapsed = Date.now() - startTime;
-      const linearProgress = Math.min(elapsed / duration, 1);
-
-      // Apply ease-in function (quadratic) - spends more time in first half
-      const easedProgress = linearProgress * linearProgress;
-
-      setAnimationProgress(easedProgress);
-
-      if (linearProgress < 1) {
-        animationRef.current = requestAnimationFrame(animate);
-      } else {
+      
+      if (elapsed >= totalDuration) {
+        // Animation complete
         setIsAnimating(false);
         setShowFullImage(true);
+        return;
       }
+      
+      // Find which step we're currently in based on cumulative durations
+      let currentStep = 0;
+      for (let i = 0; i < stepDurations.length; i++) {
+        if (elapsed < stepDurations[i]) {
+          currentStep = i;
+          break;
+        }
+      }
+      // If we've passed all steps, use the last step
+      if (elapsed >= stepDurations[totalSteps - 1]) {
+        currentStep = totalSteps - 1;
+      }
+      
+      // Calculate progress based on current step (0 to 1)
+      const progress = currentStep / (totalSteps - 1);
+      setAnimationProgress(progress);
+
+      animationRef.current = requestAnimationFrame(animate);
     };
 
     animate();
@@ -272,14 +319,16 @@ export default function CustomImage({ src, alt, className, priority = false, roo
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Pixelation effect
-      const pixelSize = Math.max(1, Math.floor((1 - animationProgress) * 15));
+      // Pixelation effect - use shared pixel sizes array
+      const currentStep = Math.floor(animationProgress * (PIXEL_SIZES.length - 1));
+      const pixelSize = PIXEL_SIZES[Math.min(currentStep, PIXEL_SIZES.length - 1)];
 
       ctx.imageSmoothingEnabled = false;
 
-      // Draw at small size then scale up for pixelation
-      const smallWidth = Math.max(pixelSize, canvas.width * animationProgress);
-      const smallHeight = Math.max(pixelSize, canvas.height * animationProgress);
+      // Draw at small size based on pixelSize, then scale up for pixelation effect
+      // Calculate the small dimensions that will create the desired pixelation when scaled up
+      const smallWidth = Math.floor(canvas.width / pixelSize);
+      const smallHeight = Math.floor(canvas.height / pixelSize);
 
       ctx.drawImage(img, 0, 0, smallWidth, smallHeight);
       ctx.drawImage(canvas, 0, 0, smallWidth, smallHeight, 0, 0, canvas.width, canvas.height);
