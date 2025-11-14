@@ -196,7 +196,41 @@
   }
 
   /* Hide the bottom row on mobile since we go directly to pages */
+  /* BUT show it when showAll is true (on work page) */
   .bottomRow {
     display: none;
+  }
+
+  /* When showAll is true, show and expand bottom row on mobile */
+  .containerShowAll .bottomRow {
+    display: block;
+    max-height: none;
+    opacity: 1;
+    overflow: visible;
+    transition: none; /* Disable transition on mobile when showAll */
+  }
+
+  /* Adjust image sizing for mobile when expanded */
+  .containerShowAll .image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 16px;
+  }
+
+  /* Make images stack vertically on mobile when multiple */
+  .containerShowAll .bottomRow img,
+  .containerShowAll .bottomRow video {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100%;
+    margin-bottom: 12px;
+    object-fit: contain;
+  }
+
+  /* Ensure flex container wraps images on mobile */
+  .containerShowAll .bottomRow [style*="display: flex"] {
+    flex-direction: column !important;
+    gap: 12px !important;
   }
 }

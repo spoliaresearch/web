@@ -50,7 +50,7 @@ export default function PixelframePage() {
               <div className={`${styles.stickyGrid} ${isHeaderVisible ? styles.headerVisible : ""}`}>
                 <Grid>
                   <GridItem span={2} start={0} spanMobile={1}>
-                    <Close />
+                    <Close to="/work" />
                   </GridItem>
                   <GridItem span={2} start={3} spanMobile={2}>
                     <span className="fs-xxs t-text lh-0 meta"> INDEX </span>
@@ -74,7 +74,7 @@ export default function PixelframePage() {
 
               <Grid>
                 <GridItem span={12}>
-                  <Video src="PF-Map" verticalCrop={0.06} />
+                  <Video src="PF-Map" verticalCrop={0.06} priority />
                 </GridItem>
               </Grid>
 

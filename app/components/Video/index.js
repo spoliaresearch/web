@@ -32,6 +32,17 @@ function getCDNVideoPath(baseName) {
   return `https://s-vid.b-cdn.net/${nameWithoutExt}.mp4`;
 }
 
+// Generate poster image from CDN (BunnyCDN supports thumbnail generation via URL parameters)
+function getCDNPosterPath(baseName) {
+  // Remove extension if provided and clean up the filename
+  const nameWithoutExt = baseName.replace(/\.(mov|mp4|webm|avi)$/i, "");
+  // BunnyCDN thumbnail format: add ?thumbnail=1 or use a dedicated thumbnail service
+  // If you have thumbnail images in your CDN, use pattern like: https://s-img.b-cdn.net/${nameWithoutExt}-thumb.jpg
+  // For now, we'll use a URL parameter approach (if BunnyCDN supports it) or return null
+  // You can also manually create thumbnails and store them as: ${nameWithoutExt}-poster.jpg
+  return `https://s-img.b-cdn.net/${nameWithoutExt}-poster.jpg`;
+}
+
 // Get file size for videos from file-sizes.json
 function getVideoFileSize(baseName) {
   // Remove extension if provided and clean up the filename
@@ -49,7 +60,7 @@ function getVideoFileSize(baseName) {
   return "Unknown";
 }
 
-export default function Video({ src, verticalCrop = 0, rotate = 0, scale = 1, hideUi = false, appendix = false, ...props }) {
+export default function Video({ src, verticalCrop = 0, rotate = 0, scale = 1, hideUi = false, appendix = false, priority = false, ...props }) {
   const videoRef = useRef(null);
   const containerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -58,6 +69,8 @@ export default function Video({ src, verticalCrop = 0, rotate = 0, scale = 1, hi
   const [showTooltip, setShowTooltip] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [videoFileSize, setVideoFileSize] = useState(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(!appendix); // Appendix videos don't load until clicked
+  const [shouldLoadPoster, setShouldLoadPoster] = useState(!appendix); // Appendix posters lazy-load when scrolled into view
 
   // Detect mobile devices to disable autoplay
   const [isMobile, setIsMobile] = useState(false);
@@ -92,6 +105,10 @@ export default function Video({ src, verticalCrop = 0, rotate = 0, scale = 1, hi
     // Use CDN path for videos
     return getCDNVideoPath(src);
   })();
+
+  // Generate poster path for all videos (or use provided poster)
+  // All videos can benefit from posters showing while video loads
+  const posterSrc = props.poster || getCDNPosterPath(src);
 
   // Detect mobile devices on mount
   useEffect(() => {
@@ -146,20 +163,55 @@ export default function Video({ src, verticalCrop = 0, rotate = 0, scale = 1, hi
     }
   }, [appendix]);
 
+  // Lazy-load posters for appendix videos (only when scrolled into view)
+  useEffect(() => {
+    if (!appendix) return; // Regular videos load posters immediately
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !shouldLoadPoster) {
+          // Load poster when appendix video scrolls into view
+          setShouldLoadPoster(true);
+        }
+      },
+      {
+        threshold: 0.1, // Load poster when 10% visible (early loading)
+        rootMargin: "100px", // Start loading 100px before entering viewport
+      }
+    );
+
+    observer.observe(container);
+
+    return () => {
+      observer.unobserve(container);
+    };
+  }, [appendix, shouldLoadPoster]);
+
+  // IntersectionObserver for autoplay AND auto-pause
   useEffect(() => {
     const video = videoRef.current;
     const container = containerRef.current;
 
     if (!video || !container) return;
 
-    // If appendix mode, don't autoplay
-    if (appendix) return;
-
+    // If appendix mode, don't autoplay (but still observe for pause)
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Autoplay in view; allow on mobile if UI is hidden
-        if (entry.isIntersecting && !hasStartedPlaying && (!isMobile || hideUi)) {
-          // Start playing when video comes into view for the first time
+        if (appendix) {
+          // Appendix videos: just ensure they stay paused
+          if (!entry.isIntersecting && isPlaying) {
+            video.pause();
+            setIsPlaying(false);
+          }
+          return;
+        }
+
+        // Regular videos: autoplay when in view, pause when out of view
+        if (entry.isIntersecting && !isPlaying && (!isMobile || hideUi)) {
+          // Start/resume playing when video comes into view
           video
             .play()
             .then(() => {
@@ -170,10 +222,14 @@ export default function Video({ src, verticalCrop = 0, rotate = 0, scale = 1, hi
               // Autoplay might be blocked by browser policy
               console.log("Autoplay was prevented:", error);
             });
+        } else if (!entry.isIntersecting && isPlaying) {
+          // Auto-pause when video exits viewport
+          video.pause();
+          setIsPlaying(false);
         }
       },
       {
-        threshold: 0.5, // Trigger when 50% of the video is visible
+        threshold: 0.3, // Trigger when 30% of the video is visible
         rootMargin: "0px",
       }
     );
@@ -183,7 +239,7 @@ export default function Video({ src, verticalCrop = 0, rotate = 0, scale = 1, hi
     return () => {
       observer.unobserve(container);
     };
-  }, [hasStartedPlaying, isMobile, appendix, hideUi]);
+  }, [hasStartedPlaying, isMobile, appendix, hideUi, isPlaying]);
 
   const togglePlayPause = () => {
     if (videoRef.current) {
@@ -199,6 +255,10 @@ export default function Video({ src, verticalCrop = 0, rotate = 0, scale = 1, hi
 
   // Handle click to open modal for appendix videos
   const handleAppendixClick = () => {
+    // Load video src when appendix video is clicked (lazy load)
+    if (!shouldLoadVideo) {
+      setShouldLoadVideo(true);
+    }
     if (hasMediaProvider && openModal) {
       openModal(mediaId);
     }
@@ -287,16 +347,21 @@ export default function Video({ src, verticalCrop = 0, rotate = 0, scale = 1, hi
         } : undefined}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
-        poster={props.poster}
+        onError={(e) => {
+          // Log CDN errors for debugging
+          console.error(`Video load error for ${videoSrc}:`, e.target.error);
+        }}
+        poster={shouldLoadPoster ? posterSrc : undefined}
         muted
         loop
         playsInline
         webkit-playsinline="true"
         crossOrigin="anonymous"
-        preload="metadata"
+        preload={priority ? "auto" : "none"}
         {...props}
       >
-        <source src={videoSrc} type="video/mp4" />
+        {/* Only load video src when needed (not appendix, or appendix that was clicked) */}
+        {shouldLoadVideo && <source src={videoSrc} type="video/mp4" />}
         Your browser does not support the video tag.
       </video>
 

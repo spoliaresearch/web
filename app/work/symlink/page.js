@@ -50,7 +50,7 @@ export default function SymlinkPage() {
               <div className={`${styles.stickyGrid} ${isHeaderVisible ? styles.headerVisible : ""}`}>
                 <Grid>
                   <GridItem span={1} start={0} spanMobile={1}>
-                    <Close />
+                    <Close to="/work" />
                   </GridItem>
                   <GridItem span={1} start={3} spanMobile={2}>
                     <span className="fs-xxs t-text lh-0 meta"> INDEX </span>
