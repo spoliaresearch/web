@@ -304,6 +304,7 @@ export default function DynamicImage({
         index,
         title: meta?.name || meta?.project || `Image ${index + 1}`,
         description: meta?.description || "",
+        project: meta?.project || null,
         position: {
           x: position.x,
           y: position.y,

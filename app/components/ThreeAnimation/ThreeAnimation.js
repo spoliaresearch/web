@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import Link from "next/link";
 import { useCursorOffset, CAMERA_CONFIG, SCENE_CONFIG, ANIMATION_CONFIG } from "./index";
 import DynamicImageGrid from "./DynamicImageGrid";
 
@@ -10,6 +11,7 @@ import DynamicImageGrid from "./DynamicImageGrid";
 function ImageModal({ isVisible, imageData, onClose, isFadingIn }) {
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
   const [shouldShow, setShouldShow] = useState(false);
+  const [isLinkHovered, setIsLinkHovered] = useState(false);
 
   // Handle fade-in animation
   useEffect(() => {
@@ -104,7 +106,7 @@ function ImageModal({ isVisible, imageData, onClose, isFadingIn }) {
         </h3>
         <p
           style={{
-            margin: "0",
+            margin: "0 0 12px 0",
             fontSize: "14px",
             lineHeight: "1.4",
             color: "inherit",
@@ -112,6 +114,21 @@ function ImageModal({ isVisible, imageData, onClose, isFadingIn }) {
         >
           {imageData.description}
         </p>
+        {imageData.project && (
+          <Link
+            href={`/work/${imageData.project.toLowerCase()}`}
+            onMouseEnter={() => setIsLinkHovered(true)}
+            onMouseLeave={() => setIsLinkHovered(false)}
+            style={{
+              fontSize: "14px",
+              color: "inherit",
+              textDecoration: isLinkHovered ? "underline" : "none",
+              cursor: "pointer",
+            }}
+          >
+            Go to project →
+          </Link>
+        )}
       </div>
     </div>
   );
